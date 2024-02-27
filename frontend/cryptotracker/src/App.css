@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Light mode styles (default) */
+body {
+    background-color: white;
+    color: black;
+  }
+  
+  /* Dark mode styles */
+  body.dark {
+    background-color: black;
+    color: white;
+  }
+
+
+  .search-input {
+    border: 1px solid #ccc; /* Default border */
+   
+    border-radius: 5px; /* Rounded corners */
+  }
+  
+  .search-input:focus {
+    outline: none; /* Removes the default outline */
+    border: 1px solid #007BFF; /* Changes border color on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Adds a glow effect */
+  }
+  
+  
+  
+  
+  
+ul {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0;
+}
+
+
+table {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0;
+} 
+
+  
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap')
