@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import CryptoMarketCoins from "../CryptoMarketCoins.json";
 import { MdOutlineStarBorder, MdOutlineStar } from "react-icons/md";
 import { RxMagnifyingGlass } from "react-icons/rx";
+import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 
 import { db } from "../firebase"; // Ensure this points to your Firebase config file
 import {
@@ -193,7 +194,9 @@ function Home() {
         theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
       }`}
     >
-      <div className="w-full h-auto py-20 bg-gradient-to-r from-gray-800  to-gray-900 text-white pb-5">
+      <div className={`w-full h-auto py-20   ${
+        theme === "dark" ? "bg-gradient-to-r from-gray-800  to-gray-900 text-white" : "bg-white text-gray-900"
+      }`}>
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl font-bold mb-6 text-center">
             Cryptocurrencies By Highest MarketCap
@@ -372,17 +375,22 @@ function Home() {
                 </td>
                 {/* 24H % */}
                 <td class="px-5 py-3   text-left text-xs font-semibold uppercase tracking-wider bodyBgTheme">
-                  <span
-                    className={
-                      crypto.price_change_percentage_24h > 0
-                        ? "text-green-500"
-                        : crypto.price_change_percentage_24h < 0
-                        ? "text-red-500"
-                        : "text-black"
-                    }
-                  >
-                    {crypto.price_change_percentage_24h.toFixed(2)}%
-                  </span>
+                <span
+  className={
+    crypto.price_change_percentage_24h > 0
+      ? "text-green-500 flex items-center"
+      : crypto.price_change_percentage_24h < 0
+      ? "text-red-500 flex items-center"
+      : "text-black flex items-center"
+  }
+>
+  {crypto.price_change_percentage_24h > 0 ? (
+    <FaCaretUp className="mr-1" />
+  ) : crypto.price_change_percentage_24h < 0 ? (
+    <FaCaretDown className="mr-1" />
+  ) : null}
+  {crypto.price_change_percentage_24h.toFixed(2)}%
+</span>
                 </td>
                 {/* MARKET CAP */}
                 <td class="px-5 py-3  bg- text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme">

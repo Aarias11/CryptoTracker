@@ -57,7 +57,7 @@ function App() {
         <Route path='/heatmap' element={<HeatMap />} />
         <Route path='/watchlist' element={<WatchList />} />
         <Route path='/portfolio' element={<Portfolio />} />
-        <Route path='/cryptopage/:symbol' element={<CryptoPage />} />
+        <Route path='/cryptopage/:symbol' element={<CryptoPage user={user} />} />
         <Route path='/exchanges' element={<Exchanges />} />
         <Route path='/community' element={<CommunityPage user={user} />} />
         <Route path='/community/profile/:id' element={<CommunityProfile user={user} />} />

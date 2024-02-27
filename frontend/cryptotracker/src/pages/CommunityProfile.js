@@ -34,6 +34,7 @@ function CommunityProfile({ user }) {
         id: doc.id,
       }));
       setPosts(postsData);
+      // console.log(postsData)
     }
   };
 
@@ -91,7 +92,7 @@ function CommunityProfile({ user }) {
     return post.text.toLowerCase().includes(searchInput.toLowerCase());
   });
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <div
