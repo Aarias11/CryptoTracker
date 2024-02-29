@@ -3,16 +3,7 @@
 @tailwind utilities;
 
 /* Light mode styles (default) */
-body {
-    background-color: white;
-    color: black;
-  }
-  
-  /* Dark mode styles */
-  body.dark {
-    background-color: black;
-    color: white;
-  }
+
 
 
   .search-input {

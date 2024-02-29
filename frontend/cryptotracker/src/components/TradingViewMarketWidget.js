@@ -16,8 +16,7 @@ const TradingViewMarketWidget = () => {
     script.async = true;
     script.type = 'text/javascript';
     script.innerHTML = JSON.stringify({
-      "feedMode": "market",
-      "market": "crypto",
+      "feedMode": "all_symbols",
       "isTransparent": theme === "dark" ? true : false,
       "displayMode": "compact",
       "width": "100%",

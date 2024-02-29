@@ -80,8 +80,6 @@ function Navbar() {
     setSearchQuery(e.target.value);
   };
 
-
-  
   return (
     <div
       className={`h-[70px] flex gap-10 p-3 border-b border-zinc-600 items-center relative text-sm ${
@@ -104,7 +102,7 @@ function Navbar() {
           <Link to="/heatmap">HeatMap</Link>
         </li>
         <li className="text-xs md:text-sm">
-          <Link to="/community" >Community</Link>
+          <Link to="/community">Community</Link>
         </li>
         <li className="text-xs md:text-sm">Learn</li>
       </ul>
@@ -127,7 +125,11 @@ function Navbar() {
       {/* SearchBar */}
       <div className="w-[2000px] md:w-[330px] flex ">
         <button
-          className={`w-full md:w-full h-[40px] rounded-xl px-3 bg-slate-300 focus:outline-none relative hover:cursor-pointer ${theme === "dark" ? "bg-slate-700 text-zinc-200" : "bg-zinc-200 text-gray-600"}`}
+          className={`w-full md:w-full h-[40px] rounded-xl px-3 bg-slate-300 focus:outline-none relative hover:cursor-pointer ${
+            theme === "dark"
+              ? "bg-slate-700 text-zinc-200"
+              : "bg-zinc-200 text-gray-600"
+          }`}
           onClick={() => setSearchExpanded(true)}
         >
           <div className="p-2 pt-2 font-semibold text-zinc-500">Search</div>
@@ -169,10 +171,16 @@ function Navbar() {
 
             {/* Conditionally Render Search Results or Default Content */}
             {searchQuery.trim().length > 0 ? (
-              <div className={`search-results overflow-auto max-h-[340px] shadow-lg rounded-lg  ${theme === "dark" ? "bg-gray-700 text-zinc-200" : "bg-gray-100 text-gray-600"}`}>
+              <div
+                className={`search-results overflow-auto max-h-[340px] shadow-lg rounded-lg  ${
+                  theme === "dark"
+                    ? "bg-gray-700 text-zinc-200"
+                    : "bg-gray-100 text-gray-600"
+                }`}
+              >
                 {searchResults.slice(0, 5).map((coin, index) => (
                   <Link
-                    to={`/cryptopage/${coin.symbol}`}
+                    to={`/cryptopage/${coin.symbol.toLowerCase()}`}
                     key={index}
                     className="block hover:bg-gray-50 dark:hover:bg-gray-800 transition duration-300 ease-in-out rounded-md"
                   >
@@ -239,7 +247,11 @@ function Navbar() {
                   {crypto.coins &&
                     crypto.coins.map((coin, id) => (
                       <div key={id} className="flex gap-3">
-                        <div className={`w-auto h-auto flex border border-teal-500 rounded-full gap-2 items-center px-2 p-1 ${theme === "dark" ? "text-zinc-300 " : ""}`}>
+                        <div
+                          className={`w-auto h-auto flex border border-teal-500 rounded-full gap-2 items-center px-2 p-1 ${
+                            theme === "dark" ? "text-zinc-300 " : ""
+                          }`}
+                        >
                           <img
                             className="w-5 h-5 rounded-full"
                             src={coin.item.small}
@@ -264,12 +276,21 @@ function Navbar() {
                   </h2>
                   {/* Mapping Through Exchanges */}
                   <div className="w-full h-full flex flex-wrap gap-4">
-                      {exchanges.slice(0, 25).map ((exchange, id) => (
-                        <div className={`flex gap-2 ${theme === "dark" ? "text-zinc-300" : "bg-white text-gray-800"}`}>
-                          <img className="w-5 h-5 rounded-full " src={exchange.image} />
-                          <h2 className=" font-semibold">{exchange.name}</h2>
-                        </div>
-                      )) }
+                    {exchanges.slice(0, 25).map((exchange, id) => (
+                      <div
+                        className={`flex gap-2 ${
+                          theme === "dark"
+                            ? "text-zinc-300"
+                            : "bg-white text-gray-800"
+                        }`}
+                      >
+                        <img
+                          className="w-5 h-5 rounded-full "
+                          src={exchange.image}
+                        />
+                        <h2 className=" font-semibold">{exchange.name}</h2>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>

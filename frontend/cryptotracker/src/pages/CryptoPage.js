@@ -27,6 +27,10 @@ import {
 } from "firebase/firestore";
 import firebase from "firebase/compat/app";
 import { getAuth } from "firebase/auth";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../firebase";
+import useScrollToTop from "../components/useScrollToTop";
+// import GiphySearch from './GiphySearch';
 
 function CryptoPage({ user, currentCrypto }) {
   const [crypto, setCrypto] = useState(CryptoApi);
@@ -36,6 +40,14 @@ function CryptoPage({ user, currentCrypto }) {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
+  const [selectedGif, setSelectedGif] = useState(null);
+  const [gifs, setGifs] = useState([]);
+  const [search, setSearch] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
+
 
   const auth = getAuth();
 
@@ -70,103 +82,171 @@ function CryptoPage({ user, currentCrypto }) {
   //     });
   // }, [symbol]); // This effect depends on the `symbol`
 
-  // UseEffect for fetching User Comments
+  // Function to fetch comments and user data
   useEffect(() => {
     const fetchCommentsAndUsers = async () => {
-        setLoading(true);
-        try {
-            const commentsRef = collection(db, "comments");
-            const q = query(commentsRef, where("crypto", "==", symbol)); // Filtering by crypto symbol
-            const querySnapshot = await getDocs(q);
-
-            const commentsWithUserData = await Promise.all(
-                querySnapshot.docs.map(async (documentSnapshot) => {
-                    const commentData = documentSnapshot.data();
-                    const userRef = doc(db, "users", commentData.uid); // Correct reference to the user's document
-                    const userSnapshot = await getDoc(userRef);
-                    const userData = userSnapshot.data();
-
-                    return {
-                        id: documentSnapshot.id,
-                        ...commentData,
-                        userName: userData ? userData.displayName : "Anonymous", // Fallback to 'Anonymous' if no displayName
-                        userPhotoURL: userData && userData.photoURL ? userData.photoURL : "", // No avatar if no photoURL
-                        createdAt: commentData.createdAt?.toDate(), // Keep as Date object for sorting
-                    };
-                })
-            );
-
-            // Sort comments by createdAt date in descending order
-            commentsWithUserData.sort((a, b) => b.createdAt - a.createdAt);
-
-            setComments(commentsWithUserData);
-        } catch (error) {
-            console.error("Error fetching comments and user data:", error);
-        } finally {
-            setLoading(false);
-        }
+      if (!symbol) return;
+      setLoading(true);
+      try {
+        const commentsRef = collection(db, "comments");
+        const q = query(commentsRef, where("crypto", "==", symbol));
+        const querySnapshot = await getDocs(q);
+        const commentsWithUserData = await Promise.all(
+          querySnapshot.docs.map(async (documentSnapshot) => {
+            const commentData = documentSnapshot.data();
+            const userRef = doc(db, "users", commentData.uid);
+            const userSnapshot = await getDoc(userRef);
+            const userData = userSnapshot.data();
+            return {
+              id: documentSnapshot.id,
+              ...commentData,
+              userName: userData ? userData.displayName : "Anonymous",
+              userPhotoURL:
+                userData && userData.photoURL ? userData.photoURL : "",
+              createdAt: commentData.createdAt?.toDate(),
+            };
+          })
+        );
+        commentsWithUserData.sort((a, b) => b.createdAt - a.createdAt);
+        setComments(commentsWithUserData);
+      } catch (error) {
+        console.error("Error fetching comments and user data:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    if (symbol) {
-        fetchCommentsAndUsers();
-    }
-}, [symbol, db]); // Include db in the dependency array if it's a stateful value that might change
+    fetchCommentsAndUsers();
+  }, [symbol]);
 
+ // Handling submission of comments
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!comment.trim() && !image && !selectedGif) return;
 
-  // console.log(user);
-  if (!crypto) return <div>Loading...</div>; // or handle loading/error state appropriately
+  let imageUrl = "";
+  if (image) {
+    const imageRef = ref(storage, `comments/${image.name}_${new Date().getTime()}`);
+    const uploadTaskSnapshot = await uploadBytes(imageRef, image);
+    imageUrl = await getDownloadURL(uploadTaskSnapshot.ref);
+  }
 
-  // Toggle function
-  const toggleDescriptionView = () => {
-    setIsFullDescriptionShown(!isFullDescriptionShown);
+  const newComment = {
+    content: comment,
+    crypto: symbol,
+    createdAt: serverTimestamp(), // This will be finalized by the Firestore database
+    uid: user.uid,
+    imageUrl: imageUrl,
+    gifUrl: selectedGif ? selectedGif.images.fixed_height.url : null,
   };
 
-  // Your useEffect hook for fetching crypto data
+  try {
+    const docRef = await addDoc(collection(db, "comments"), newComment);
+    // Construct a new comment object for immediate UI update, including temporary or assumed values for any fields not yet finalized by the database
+    const addedComment = {
+      ...newComment,
+      id: docRef.id,
+      // Note: createdAt will be a placeholder until the actual server timestamp is fetched or updated
+      createdAt: new Date() // Placeholder for immediate feedback, adjust as needed
+    };
 
-  if (!crypto) return <div>Loading...</div>;
+    // Update comments state to include the new comment
+    setComments(prevComments => [addedComment, ...prevComments]);
+
+    // Reset form fields
+    setComment("");
+    setImage(null);
+    setImagePreview("");
+    setSelectedGif(null);
+  } catch (error) {
+    console.error("Error adding comment: ", error);
+  }
+};
+
+
+  // Handling image change
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Fetching GIFs with optional search functionality
+  const fetchGifs = async (searchQuery = "") => {
+    setLoading(true);
+    const apiKey = "RQ5SXHNSOiJygpRRGjP1JTEP5qAGCaDc";
+    let url = `https://api.giphy.com/v1/gifs/${
+      searchQuery.trim() ? "search" : "trending"
+    }?api_key=${apiKey}&limit=10`;
+
+    if (searchQuery.trim()) {
+      url += `&q=${encodeURIComponent(searchQuery)}`;
+    }
+
+    try {
+      const response = await axios.get(url);
+      setGifs(response.data.data);
+    } catch (error) {
+      console.error("Error fetching GIFs:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Handling GIF selection
+  const handleGifSelect = (gif) => {
+    setSelectedGif(gif);
+    // Close GIF picker UI here if applicable
+  };
 
   // Toggle function
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite); // Toggle the state
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    if (!comment.trim()) return;
+  function useDebounce(value, delay) {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+  
+    useEffect(() => {
+      const handler = setTimeout(() => setDebouncedValue(value), delay);
+  
+      return () => clearTimeout(handler);
+    }, [value, delay]);
+  
+    return debouncedValue;
+  }
 
-    // Assuming 'user' is in scope and has a 'uid' property
-    if (!user || !user.uid) {
-      console.error("User is not authenticated.");
-      return;
+  const debouncedSearchQuery = useDebounce(searchQuery, 500); // 500ms delay
+
+  useEffect(() => {
+    // Check if the debounced search query is not empty
+    if (debouncedSearchQuery.trim()) {
+      fetchGifs(debouncedSearchQuery);
+    } else {
+      // Optionally fetch trending GIFs or clear the search results when the query is empty
+      // fetchGifs(); // Uncomment this if you want to fetch trending GIFs when the search bar is cleared
+      setGifs([]); // Clear the search results if you don't want to display anything when the search bar is empty
     }
+  }, [debouncedSearchQuery]);
+  
+// Scroll to Top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-    const newComment = {
-      content: comment,
-      crypto: symbol, // Assuming 'symbol' is correctly sourced from useParams or similar
-      createdAt: new Date(), // Temporarily use the current date until the server timestamp is fetched
-      uid: user.uid, // Include the user's UID to link the comment to the user
-      // You might not have the id of the document yet since it's generated by Firestore
-    };
+  // If loading or no crypto data, show loading or appropriate message
+  if (!crypto) return <div>Loading...</div>;
 
-    try {
-      const docRef = await addDoc(collection(db, "comments"), {
-        ...newComment,
-        createdAt: serverTimestamp(), // This will be replaced with the server timestamp in Firestore
-      });
+  console.log(crypto.sentiment_votes_up_percentage);
 
-      // Update local comments state to include the new comment
-      // Assuming you have a state variable named 'comments' and a setter named 'setComments'
-      setComments((prevComments) => [
-        ...prevComments,
-        { ...newComment, id: docRef.id },
-      ]);
-
-      setComment(""); // Clear the comment input field
-    } catch (error) {
-      console.error("Error adding comment: ", error);
-    }
-  };
+  console.log(user?.displayName);
 
   console.log(crypto.sentiment_votes_up_percentage);
 
@@ -391,23 +471,98 @@ function CryptoPage({ user, currentCrypto }) {
         </div>
         {/* Right Side Component - Posts */}
         <div className="w-[500px] h-full  overflow-y-auto">
-          <div className="p-4">
-            <h2 className="text-lg font-semibold">Share your thoughts</h2>
-            <form onSubmit={handleSubmit}>
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+            <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
+              Share your thoughts
+            </h2>
+            <form onSubmit={handleSubmit} className="space-y-4 mt-4">
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
-                className="w-full p-2 border rounded-md text-black"
-                placeholder={`What do you think about ${currentCrypto}?`}
-              />
+                className="w-full p-2 border border-gray-300 rounded-md text-black dark:text-gray-300 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
+                placeholder={`What do you think about ${symbol}?`}
+                rows="4"
+              ></textarea>
+              <div className="flex items-center justify-between">
+                <label className="flex items-center cursor-pointer text-blue-500 hover:text-blue-600">
+                  <span className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-50 text-blue-500 hover:bg-blue-100 mr-2">
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M15.172 7l-6.586 6.586a2 2 0 001.414 3.414H16a2 2 0 002-2V8.414a2 2 0 00-2.828-1.414z"
+                      ></path>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 13V5a2 2 0 00-2-2H6a2 2 0 00-2 2v14l4-4h7a2 2 0 002-2z"
+                      ></path>
+                    </svg>
+                  </span>
+                  <input
+                    type="file"
+                    className="hidden"
+                    onChange={handleImageChange}
+                  />
+                  Attach a photo
+                </label>
+                {imagePreview && (
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="w-24 h-24 rounded-md object-cover"
+                  />
+                )}
+              </div>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="text"
+                  placeholder="Search GIFs"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="p-2 border border-gray-300 text-zinc-700 rounded-md"
+                />
+                
+              </div>
+              {/* Display selected GIF */}
+              {selectedGif && (
+                <div>
+                  <img
+                    src={selectedGif.images.fixed_height.url}
+                    alt="Selected GIF"
+                    className="w-full max-w-xs mt-2"
+                  />
+                </div>
+              )}
+              {/* Display search results */}
+              <div className="grid grid-cols-3 gap-4">
+                {gifs.map((gif) => (
+                  <img
+                    key={gif.id}
+                    src={gif.images.fixed_height_small.url}
+                    alt="gif"
+                    onClick={() => handleGifSelect(gif)}
+                    className="cursor-pointer"
+                  />
+                ))}
+              </div>
               <button
                 type="submit"
-                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"
+                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
               >
-                Post
+                Post Comment
               </button>
             </form>
           </div>
+
           <hr />
           <div className="p-2">
             <h2 className="text-lg font-semibold">Community Posts</h2>
@@ -420,24 +575,48 @@ function CryptoPage({ user, currentCrypto }) {
                 <div
                   key={comment.id}
                   className={`rounded-lg overflow-hidden mb-4 ${
-                    theme === "dark" ? "bg-gray-800 shadow-sm  shadow-slate-700 text-white" : "bg-white shadow-md text-gray-900"
+                    theme === "dark"
+                      ? "bg-gray-800 shadow-sm  shadow-slate-700 text-white"
+                      : "bg-white shadow-md text-gray-900"
                   }`}
                 >
                   <div className="p-4">
-                    <div className="flex gap-4 items-center mb-4">
-                      <img
-                        className="w-10 h-10 rounded-full object-cover"
-                        src={comment.userPhotoURL}
-                        alt="User Avatar"
-                      />
-                      <div>
-                        <div className="font-semibold">{comment.userName}</div>
-                        <div className="text-xs text-gray-500">
-                        {comment.createdAt.toLocaleString()}
+                    <div className="flex flex-col-reverse gap-4 items-center mb-4">
+                      {/* Render user avatar */}
+
+                      {/* Conditional rendering for image or GIF */}
+                      {comment.imageUrl ? (
+                        // Render posted image if imageUrl exists
+                        <img
+                          className="max-w-full h-auto rounded"
+                          src={comment.imageUrl}
+                          alt="Posted Image"
+                        />
+                      ) : comment.gifUrl ? (
+                        // Render posted GIF if gifUrl exists
+                        <img
+                          className="max-w-full h-auto rounded"
+                          src={comment.gifUrl}
+                          alt="Posted GIF"
+                        />
+                      ) : null}
+
+                      <div className="w-full flex gap-4">
+                        <img
+                          className="w-10 h-10 rounded-full object-cover"
+                          src={comment.userPhotoURL}
+                          alt="User Avatar"
+                        />
+                        <div className="flex flex-col">
+                        <span className="font-semibold">{comment.userName}</span>
+                        <span className="text-xs text-gray-500">
+                          {comment.createdAt.toLocaleString()}
+                        </span>
                         </div>
                       </div>
                     </div>
                     <p className="text-sm">{comment.content}</p>
+                    
                   </div>
                 </div>
               ))

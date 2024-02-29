@@ -18,12 +18,14 @@ import CommunityPage from './pages/CommunityPage';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import CommunityProfile from './pages/CommunityProfile';
 import Account from './pages/Account';
+import useScrollToTop from '../src/components/useScrollToTop';
 
 function App() {
   const [user, setUser] = useState(null);
   const { theme } = useTheme();
   const auth = getAuth();
 
+  
   useEffect(() => {
     // Listen for auth state changes
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -36,6 +38,8 @@ function App() {
       }
     });
 
+    
+
     return () => unsubscribe(); // Clean up subscription
   }, []);
 
@@ -44,6 +48,7 @@ function App() {
 
 
   return (
+    // Below div is the light/dark mode primary 
     <div className={`App ${
       theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
     }`} >
