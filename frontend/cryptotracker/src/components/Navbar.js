@@ -11,6 +11,7 @@ import ThemeContext from "../components/ThemeContext";
 import TrendingCoins from "../TrendingCoins.json";
 import CryptoMarketCoins from "../CryptoMarketCoins.json";
 import CryptoExchanges from "../CryptoExchanges.json";
+import Wallet from "../components/Wallet";
 
 function Navbar() {
   const [crypto, setCrypto] = useState(TrendingCoins);
@@ -23,6 +24,9 @@ function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [combinedResults, setCombinedResults] = useState([]);
+  const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
+
+  const toggleWalletModal = () => setIsWalletModalOpen(!isWalletModalOpen);
 
   // Close the search component when clicking on the close icon
   const handleClose = () => {
@@ -104,8 +108,11 @@ function Navbar() {
         <li className="text-xs md:text-sm">
           <Link to="/community">Community</Link>
         </li>
-        <li className="text-xs md:text-sm">Learn</li>
+        <li className="text-xs md:text-sm cursor-pointer" onClick={toggleWalletModal}>Wallet</li>
+
       </ul>
+      {isWalletModalOpen && <Wallet onClose={() => setIsWalletModalOpen(false)} />}
+
       <ul
         className={`flex justify-end gap-4 w-[470px] items-center font-light ${
           theme === "dark" ? " text-red-400" : " text-teal-600"
