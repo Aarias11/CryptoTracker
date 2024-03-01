@@ -82,7 +82,7 @@ function Navbar() {
 
   return (
     <div
-      className={`h-[70px] flex gap-10 p-3 border-b border-zinc-600 items-center relative text-sm ${
+      className={`h-[70px] flex gap-10 px-7 border-b border-zinc-600 items-center relative text-sm ${
         theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"
       }`}
     >

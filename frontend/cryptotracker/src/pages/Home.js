@@ -192,13 +192,13 @@ function Home() {
 
 
   // Scroll to Top
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   return (
     <div
-      className={`w-full h-auto bg-[#FAFAFA] ${
+      className={`w-full h-auto bg-[#FAFAFA]  ${
         theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
       }`}
     >
@@ -240,12 +240,12 @@ function Home() {
         </div>
       </div>
 
-      <div className="w-full h-[400px] ">
+      <div className="w-full h-[400px] px-5">
         <TradingViewMarketWidget />
       </div>
       {/* Searchbar */}
       {/* ----------------------- */}
-      <div className="p-3">
+      <div className="p-3 px-7">
         <div className=" w-full h-[50px] relative">
           <input
             className={`w-[300px] h-full rounded-xl font-semibold text-sm p-3 px-10 relative ${
@@ -271,7 +271,7 @@ function Home() {
       {/* ----------------------- */}
 
       <div
-        className={`w-full h-full flex flex-col justify-center overflow-x-scroll ${
+        className={`w-full h-full flex flex-col justify-center overflow-x-scroll px-7 ${
           theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
         }`}
       >
