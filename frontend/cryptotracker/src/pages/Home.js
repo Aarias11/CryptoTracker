@@ -176,11 +176,11 @@ function Home() {
   // Conditional styles based on theme
   const tableTheme =
     theme === "dark"
-      ? "divide-gray-700 bg-gray-800 text-white"
+      ? "divide-gray-700 bg-[#16171a] text-white"
       : "divide-gray-200 bg-white text-gray-900";
   const headerBgTheme =
     theme === "dark"
-      ? "bg-gray-700 text-zinc-200"
+      ? "bg-zinc-800 text-zinc-200"
       : "bg-gray-100 text-gray-600";
   const bodyBgTheme =
     theme === "dark" ? "bg-gray-800 text-zinc-200" : "bg-white";
@@ -198,14 +198,14 @@ function Home() {
 
   return (
     <div
-      className={`w-full h-auto bg-[#FAFAFA]  ${
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+      className={`w-full h-auto   ${
+        theme === "dark" ? " text-white" : "bg-white text-gray-900"
       }`}
     >
       <div
         className={`w-full h-auto py-20   ${
           theme === "dark"
-            ? "bg-gradient-to-r from-gray-800  to-gray-900 text-white"
+            ? "bg-gradient-to-r from-zinc-800  to-[#16171a] text-white"
             : "bg-white text-gray-900"
         }`}
       >
@@ -272,7 +272,7 @@ function Home() {
 
       <div
         className={`w-full h-full flex flex-col justify-center overflow-x-scroll px-7 ${
-          theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+          theme === "dark" ? " text-white" : " text-gray-900"
         }`}
       >
         {/* CRYPTO TABLE */}

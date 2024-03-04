@@ -46,8 +46,7 @@ function CryptoPage({ user, currentCrypto }) {
   const [gifs, setGifs] = useState([]);
   const [search, setSearch] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchQuery, setSearchQuery] = useState('');
-
+  const [searchQuery, setSearchQuery] = useState("");
 
   const auth = getAuth();
 
@@ -119,50 +118,52 @@ function CryptoPage({ user, currentCrypto }) {
     fetchCommentsAndUsers();
   }, [symbol]);
 
- // Handling submission of comments
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (!comment.trim() && !image && !selectedGif) return;
+  // Handling submission of comments
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!comment.trim() && !image && !selectedGif) return;
 
-  let imageUrl = "";
-  if (image) {
-    const imageRef = ref(storage, `comments/${image.name}_${new Date().getTime()}`);
-    const uploadTaskSnapshot = await uploadBytes(imageRef, image);
-    imageUrl = await getDownloadURL(uploadTaskSnapshot.ref);
-  }
+    let imageUrl = "";
+    if (image) {
+      const imageRef = ref(
+        storage,
+        `comments/${image.name}_${new Date().getTime()}`
+      );
+      const uploadTaskSnapshot = await uploadBytes(imageRef, image);
+      imageUrl = await getDownloadURL(uploadTaskSnapshot.ref);
+    }
 
-  const newComment = {
-    content: comment,
-    crypto: symbol,
-    createdAt: serverTimestamp(), // This will be finalized by the Firestore database
-    uid: user.uid,
-    imageUrl: imageUrl,
-    gifUrl: selectedGif ? selectedGif.images.fixed_height.url : null,
-  };
-
-  try {
-    const docRef = await addDoc(collection(db, "comments"), newComment);
-    // Construct a new comment object for immediate UI update, including temporary or assumed values for any fields not yet finalized by the database
-    const addedComment = {
-      ...newComment,
-      id: docRef.id,
-      // Note: createdAt will be a placeholder until the actual server timestamp is fetched or updated
-      createdAt: new Date() // Placeholder for immediate feedback, adjust as needed
+    const newComment = {
+      content: comment,
+      crypto: symbol,
+      createdAt: serverTimestamp(), // This will be finalized by the Firestore database
+      uid: user.uid,
+      imageUrl: imageUrl,
+      gifUrl: selectedGif ? selectedGif.images.fixed_height.url : null,
     };
 
-    // Update comments state to include the new comment
-    setComments(prevComments => [addedComment, ...prevComments]);
+    try {
+      const docRef = await addDoc(collection(db, "comments"), newComment);
+      // Construct a new comment object for immediate UI update, including temporary or assumed values for any fields not yet finalized by the database
+      const addedComment = {
+        ...newComment,
+        id: docRef.id,
+        // Note: createdAt will be a placeholder until the actual server timestamp is fetched or updated
+        createdAt: new Date(), // Placeholder for immediate feedback, adjust as needed
+      };
 
-    // Reset form fields
-    setComment("");
-    setImage(null);
-    setImagePreview("");
-    setSelectedGif(null);
-  } catch (error) {
-    console.error("Error adding comment: ", error);
-  }
-};
+      // Update comments state to include the new comment
+      setComments((prevComments) => [addedComment, ...prevComments]);
 
+      // Reset form fields
+      setComment("");
+      setImage(null);
+      setImagePreview("");
+      setSelectedGif(null);
+    } catch (error) {
+      console.error("Error adding comment: ", error);
+    }
+  };
 
   // Handling image change
   const handleImageChange = (e) => {
@@ -210,16 +211,15 @@ const handleSubmit = async (e) => {
     setIsFavorite(!isFavorite); // Toggle the state
   };
 
-
   function useDebounce(value, delay) {
     const [debouncedValue, setDebouncedValue] = useState(value);
-  
+
     useEffect(() => {
       const handler = setTimeout(() => setDebouncedValue(value), delay);
-  
+
       return () => clearTimeout(handler);
     }, [value, delay]);
-  
+
     return debouncedValue;
   }
 
@@ -235,11 +235,11 @@ const handleSubmit = async (e) => {
       setGifs([]); // Clear the search results if you don't want to display anything when the search bar is empty
     }
   }, [debouncedSearchQuery]);
-  
-// Scroll to Top
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
+  // Scroll to Top
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   // If loading or no crypto data, show loading or appropriate message
   if (!crypto) return <div>Loading...</div>;
@@ -253,19 +253,33 @@ const handleSubmit = async (e) => {
   console.log(user?.displayName);
   return (
     <div
-      className={`w-full h-screen bg-[#FAFAFA]  ${
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+      className={`w-full h-screen   ${
+        theme === "dark"
+          ? " text-white"
+          : "bg-[#FAFAFA] text-gray-900"
       }`}
     >
       {/* Container */}
-      <div className="w-full h-screen grid grid-row-3 md:flex">
+      <div
+        className={`w-full h-screen grid grid-row-1 lg:flex ${
+          theme === "dark" ? " text-white" : " text-gray-900"
+        }`}
+      >
         {/* Left Side */}
         {/* Enhanced Left Side Component */}
         <div
-          className={`flex flex-col w-full md:w-[500px] h-screen overflow-y-scroll sticky top-0 bg-white dark:bg-gray-900 transition-colors duration-300 shadow-lg`}
+          className={`flex flex-col w-full h-[100px] lg:w-[500px] lg:h-screen overflow-y-scroll sticky top-0  transition-colors duration-300 shadow-lg ${
+            theme === "dark"
+              ? " text-white"
+              : " text-gray-900"
+          }`}
         >
           {/* Header with Dynamic Crypto Data and Favorite Toggle */}
-          <div className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-800  to-gray-900 dark:from-gray-800 dark:to-teal-900 text-white ">
+          <div
+            className={`flex items-center justify-between p-4 bg-gradient-to-r from-gray-800  to-gray-900  dark:to-teal-900 text-white w-full ${
+              theme === "dark" ? "" : ""
+            }`}
+          >
             <div className="flex items-center space-x-4">
               <img
                 src={crypto.image?.large}
@@ -278,6 +292,14 @@ const handleSubmit = async (e) => {
                   {crypto.symbol?.toUpperCase()}
                 </p>
               </div>
+            </div>
+            <div className="flex flex-col lg:hidden">
+              {/* <p className="text-base text-gray-500 dark:text-gray-400">
+                  Current Price
+                </p> */}
+              <p className="text-3xl font-semibold">
+                ${crypto.market_data?.current_price?.usd.toLocaleString()}
+              </p>
             </div>
             <button
               onClick={toggleFavorite}
@@ -296,7 +318,13 @@ const handleSubmit = async (e) => {
           </div>
 
           {/* Crypto Stats: Price, Market Cap, and Volume */}
-          <div className="p-4 h-[300px] bg-white dark:bg-gray-800 mt-4 rounded-lg shadow">
+          <div
+            className={`hidden lg:flex lg:flex-col lg:p-4 lg:h-[300px]  lg:mt-4 lg:rounded-lg lg:shadow ${
+              theme === "dark"
+                ? " text-white"
+                : " text-gray-900"
+            }`}
+          >
             <h2 className="text-xl font-bold">Stats</h2>
             <div className="flex flex-wrap gap-4 text-center">
               <div>
@@ -327,18 +355,30 @@ const handleSubmit = async (e) => {
           </div>
 
           {/* Interactive Price Chart Placeholder */}
-          <div className="p-4 mt-4  bg-white dark:bg-gray-800 rounded-lg shadow">
+          <div
+            className={`hidden lg:flex lg:flex-wrap lg:p-4 lg:mt-4  lg:rounded-lg lg:shadow lg-w-full ${
+              theme === "dark"
+                ? " text-white"
+                : " text-gray-900"
+            }`}
+          >
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Price Chart
             </h3>
             {/* Placeholder for a dynamic price chart component */}
-            <div className="h-[500px] bg-gray-200 dark:bg-gray-700 rounded-md mt-2 flex items-center justify-center">
+            <div className="h-[500px]  rounded-md mt-2 flex items-center justify-center">
               <TradingViewTechnicalAnalysis />
             </div>
           </div>
 
           {/* Quick Insights */}
-          <div className="p-4 mt-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+          <div
+            className={`hidden md:flex md:flex-col md:p-4 md:mt-4  md:rounded-lg md:shadow ${
+              theme === "dark"
+                ? " text-white"
+                : " text-zinc-600"
+            }`}
+          >
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Quick Insights
             </h3>
@@ -357,10 +397,14 @@ const handleSubmit = async (e) => {
           </div>
 
           {/* Social Media and Official Links */}
-          <div className="p-4 mt-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Connect
-            </h3>
+          <div
+            className={`hidden md:flex md:flex-col md:p-4 md:mt-4 md:rounded-lg md:shadow ${
+              theme === "dark"
+                ? " text-white"
+                : " text-gray-900"
+            }`}
+          >
+            <h3 className="text-lg font-semibold ">Connect</h3>
             <div className="flex flex-wrap gap-4 mt-2 justify-center">
               {/* Conditional rendering for available social media links */}
               <a
@@ -387,10 +431,22 @@ const handleSubmit = async (e) => {
           <div className="w-full h-[500px] ">
             <TradingViewChart cryptoId={symbol} />
             {/* Bottom */}
-            <div className="w-full py-4 bg-gradient-to-r from-gray-800  to-gray-900 dark:from-gray-800 dark:to-teal-900 text-white shadow-lg rounded-lg overflow-hidden">
+            <div
+              className={`w-full py-4  text-white shadow-lg rounded-lg overflow-hidden ${
+                theme === "dark"
+                  ? "bg-gradient-to-r from-gray-800  to-gray-900 dark:from-gray-800 dark:to-teal-900 text-white"
+                  : "bg-white text-gray-900"
+              }`}
+            >
               <div className="px-4 md:px-6 lg:px-8">
                 {/* Market Overview */}
-                <div className="mb-8">
+                <div
+                  className={`mb-8 ${
+                    theme === "dark"
+                      ? " text-white"
+                      : " text-gray-900 "
+                  }`}
+                >
                   <h2 className="text-3xl font-bold mb-2">Market Overview</h2>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
@@ -444,7 +500,7 @@ const handleSubmit = async (e) => {
                 </div>
 
                 {/* Footer with additional links for navigation */}
-                <div className="mt-8 pt-4 border-t border-zinc-700 ">
+                {/* <div className="mt-8 pt-4 border-t border-zinc-700 ">
                   <div className="flex justify-between items-center">
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       © 2024 CryptoDashboard
@@ -464,15 +520,25 @@ const handleSubmit = async (e) => {
                       </a>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
         </div>
         {/* Right Side Component - Posts */}
-        <div className="w-[500px] h-full  overflow-y-auto">
-          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-            <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
+        <div
+          className={`flex flex-col w-full h-[500px] lg:flex lg:flex-col lg:w-[500px] lg:h-full  overflow-y-auto ${
+            theme === "dark"
+              ? "bg-[#16171a] text-white"
+              : " text-gray-900"
+          }`}
+        >
+          <div className={`p-4  rounded-lg shadow ${
+            theme === "dark"
+              ? "bg-[#16171a] text-white"
+              : "bg-[#FAFAFA] text-gray-900"
+          }`}>
+            <h2 className="text-lg font-semibold ">
               Share your thoughts
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4 mt-4">
@@ -483,7 +549,10 @@ const handleSubmit = async (e) => {
                 placeholder={`What do you think about ${symbol}?`}
                 rows="4"
               ></textarea>
-              <div className="flex items-center justify-between">
+              {/* #16171a */}
+              <div className={`flex items-center justify-between ${theme === "dark"
+              ? " text-white"
+              : " text-gray-900"}`}>
                 <label className="flex items-center cursor-pointer text-blue-500 hover:text-blue-600">
                   <span className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-50 text-blue-500 hover:bg-blue-100 mr-2">
                     <svg
@@ -530,7 +599,6 @@ const handleSubmit = async (e) => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="p-2 border border-gray-300 text-zinc-700 rounded-md"
                 />
-                
               </div>
               {/* Display selected GIF */}
               {selectedGif && (
@@ -608,15 +676,16 @@ const handleSubmit = async (e) => {
                           alt="User Avatar"
                         />
                         <div className="flex flex-col">
-                        <span className="font-semibold">{comment.userName}</span>
-                        <span className="text-xs text-gray-500">
-                          {comment.createdAt.toLocaleString()}
-                        </span>
+                          <span className="font-semibold">
+                            {comment.userName}
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            {comment.createdAt.toLocaleString()}
+                          </span>
                         </div>
                       </div>
                     </div>
                     <p className="text-sm">{comment.content}</p>
-                    
                   </div>
                 </div>
               ))

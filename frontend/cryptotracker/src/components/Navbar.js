@@ -87,7 +87,7 @@ function Navbar() {
   return (
     <div
       className={`h-[70px] flex gap-10 px-7 border-b border-zinc-600 items-center relative text-sm ${
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+        theme === "dark" ? " text-white bg-[#16171a]" : "bg-white text-gray-800"
       }`}
     >
       <img className="w-[55px] h-[55px] rounded-full" src={ledgerlook} />
@@ -114,7 +114,7 @@ function Navbar() {
       {isWalletModalOpen && <Wallet onClose={() => setIsWalletModalOpen(false)} />}
 
       <ul
-        className={`flex justify-end gap-4 w-[470px] items-center font-light ${
+        className={`flex justify-end gap-4 w-[470px] items-center  text-[12px] ${
           theme === "dark" ? " text-red-400" : " text-teal-600"
         }`}
       >
@@ -154,8 +154,8 @@ function Navbar() {
               theme === "dark"
                 ? "bg-gray-800 text-white"
                 : "bg-white text-gray-800"
-            } border ${
-              theme === "dark" ? "border-gray-700" : "border-gray-200"
+            }  ${
+              theme === "dark" ? "bg-[#16171a]" : ""
             }`}
           >
             <input
@@ -181,7 +181,7 @@ function Navbar() {
               <div
                 className={`search-results overflow-auto max-h-[340px] shadow-lg rounded-lg  ${
                   theme === "dark"
-                    ? "bg-gray-700 text-zinc-200"
+                    ? "bg-[#16171a] text-zinc-200"
                     : "bg-gray-100 text-gray-600"
                 }`}
               >

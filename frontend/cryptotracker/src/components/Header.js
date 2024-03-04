@@ -166,7 +166,7 @@ useEffect(() => {
   return (
     <div
       className={`flex px-5 justify-between items-center border-b border-zinc-600 ${
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+        theme === "dark" ? "#16171a text-white" : "bg-white text-gray-900"
       }`}
     >
       {/* Hamburger Menu Icon */}
@@ -312,7 +312,7 @@ useEffect(() => {
         {/* Menu Header */}
         <div
           className={`flex justify-between items-center p-2 border-b border-zinc-600 ${
-            theme === "dark" ? "bg-gray-800 " : "bg-white text-gray-900"
+            theme === "dark" ? "bg-gradient-to-r from-zinc-800  to-[#16171a] " : "bg-white text-gray-900"
           }`}
         >
           <h2 className="text-xl font-semibold ">Menu</h2>
@@ -329,7 +329,7 @@ useEffect(() => {
           <div
             className={`p-2 border-b border-zinc-600 ${
               theme === "dark"
-                ? "bg-gray-800 text-white"
+                ? "bg-gradient-to-r from-zinc-800  to-[#16171a] text-white"
                 : "bg-white text-gray-900"
             }`}
           >
@@ -352,7 +352,7 @@ useEffect(() => {
         <div
           className={`overflow-y-auto ${
             theme === "dark"
-              ? "bg-gray-800 text-white"
+              ? "bg-gradient-to-r from-zinc-800  to-[#16171a] text-white"
               : "bg-white text-gray-900"
           }`}
         >
@@ -419,8 +419,8 @@ useEffect(() => {
         <div
           className={`  w-full h-[200px] flex flex-col justify-end p-4 border-t border-zinc-600 ${
             theme === "dark"
-              ? "bg-gray-800 text-white"
-              : "bg-white text-gray-900"
+              ? "bg-gradient-to-r from-zinc-800  to-[#16171a] text-white"
+              : "bg-[#FAFAFA] text-gray-900"
           }`}
         >
           <button

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
@@ -12,45 +12,55 @@ import Portfolio from './pages/Portfolio';
 import CryptoPage from './pages/CryptoPage';
 import Exchanges from './pages/Exchanges';
 import TradingViewTicker from './components/TradingViewTicker';
-import { useTheme } from '../src/components/ThemeContext'
+import { useTheme } from './components/ThemeContext';
 import Footer from './components/Footer';
 import CommunityPage from './pages/CommunityPage';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import CommunityProfile from './pages/CommunityProfile';
 import Account from './pages/Account';
-import useScrollToTop from '../src/components/useScrollToTop';
+import useScrollToTop from './components/useScrollToTop';
+import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
+import Web3 from 'web3';
+
+// Coinbase Wallet SDK initialization
+const APP_NAME = 'My Awesome App';
+const APP_LOGO_URL = 'https://example.com/logo.png';
+const APP_SUPPORTED_CHAIN_IDS = [1, 137]
+
+const coinbaseWallet = new CoinbaseWalletSDK({
+  appName: APP_NAME,
+  appLogoUrl: APP_LOGO_URL,
+  supportedChainIds: APP_SUPPORTED_CHAIN_IDS,
+});
+
+const ethereum = coinbaseWallet.makeWeb3Provider();
+export const web3 = new Web3(ethereum);
 
 function App() {
   const [user, setUser] = useState(null);
   const { theme } = useTheme();
   const auth = getAuth();
 
-  
   useEffect(() => {
-    // Listen for auth state changes
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        // User is signed in
-        setUser(user);
-      } else {
-        // User is signed out
-        setUser(null);
-      }
+      setUser(user ? user : null);
     });
+    return () => unsubscribe();
+  }, [auth]);
 
-    
-
-    return () => unsubscribe(); // Clean up subscription
-  }, []);
-
-
+ // Function to disconnect from Coinbase Wallet
+  const disconnectCoinbaseWallet = () => {
+    coinbaseWallet.disconnect();
+    console.log('Disconnected from Coinbase Wallet');
+    // Perform any additional cleanup or state updates as needed
+  };
 
 
 
   return (
     // Below div is the light/dark mode primary 
     <div className={`App ${
-      theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+      theme === "dark" ? "bg-[#16171a] text-white" : "bg-white text-gray-900"
     }`} >
       <Header setUser={setUser} user={user} />
      <TradingViewTicker key={theme} />

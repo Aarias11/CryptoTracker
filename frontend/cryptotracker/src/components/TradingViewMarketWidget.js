@@ -36,7 +36,7 @@ const TradingViewMarketWidget = () => {
   }, [theme]); // Include theme in the dependency array to re-initialize the widget on theme change
 
   return (
-    <div ref={widgetRef} className={`tradingview-widget-container ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}>
+    <div ref={widgetRef} className={`tradingview-widget-container ${theme === "dark" ? "" : ""}`}>
       {/* The widget will be injected here by the TradingView script */}
     </div>
   );

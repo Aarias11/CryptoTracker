@@ -26,11 +26,12 @@ const TradingViewChart = () => {
       "style": "1",
       "locale": "en",
       "hide_side_toolbar": false,
-      "toolbar_bg": theme === "dark" ? "#313440" : "#f1f3f6", // Adjust toolbar background based on theme
+      "toolbar_bg": theme === "dark" ? "#16171a" : "#f1f3f6", // Adjust toolbar background based on theme
       "enable_publishing": false,
       "allow_symbol_change": true,
       "container_id": "tradingview_3e3a5"
     });
+    
 
     containerRef.current.appendChild(script);
 

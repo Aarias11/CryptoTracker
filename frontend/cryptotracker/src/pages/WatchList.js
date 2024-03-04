@@ -43,9 +43,9 @@ const Watchlist = () => {
   };
 
   // Conditional styles based on theme
-  const tableTheme = theme === "dark" ? "divide-gray-700 bg-gray-800 text-white" : "divide-gray-200 bg-white text-gray-900";
-  const headerBgTheme = theme === "dark" ? "bg-gray-700 text-zinc-200" : "bg-gray-100 text-gray-600";
-  const bodyBgTheme = theme === "dark" ? "bg-gray-800 text-zinc-200" : "bg-white";
+  const tableTheme = theme === "dark" ? "divide-gray-700 bg-[#16171a]text-white" : "divide-gray-200 bg-white text-gray-900";
+  const headerBgTheme = theme === "dark" ? "bg-gradient-to-r from-zinc-800  to-[#16171a] text-zinc-200" : "bg-gray-100 text-gray-600";
+  const bodyBgTheme = theme === "dark" ? "bg-gradient-to-r from-zinc-800  to-[#16171a] text-zinc-200" : "bg-white";
 
 
   return (
