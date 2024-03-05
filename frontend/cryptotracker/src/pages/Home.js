@@ -21,7 +21,6 @@ import ThemeContext from "../components/ThemeContext";
 import TradingViewTicker from "../components/TradingViewTicker";
 import useScrollToTop from "../components/useScrollToTop";
 
-
 function Home() {
   const [cryptos, setCryptos] = useState(CryptoMarketCoins); //use [] when dealing with API
   const [coins, setCoins] = useState("");
@@ -35,14 +34,14 @@ function Home() {
   const auth = getAuth();
 
   // // Coin Gecko API
-    // useEffect(() => {
-    //     axios
-    //     .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=200&page=1&sparkline=true&locale=en')
-    //     .then((res) => {
-    //         setCryptos(res.data)
+  // useEffect(() => {
+  //     axios
+  //     .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=200&page=1&sparkline=true&locale=en')
+  //     .then((res) => {
+  //         setCryptos(res.data)
 
-    //     })
-    // }, [])
+  //     })
+  // }, [])
 
   // COINMARKETCAP API
   // const fetchCryptoData = async () => {
@@ -180,7 +179,7 @@ function Home() {
       : "divide-gray-200 bg-white text-gray-900";
   const headerBgTheme =
     theme === "dark"
-      ? "bg-zinc-800 text-zinc-200"
+      ? "bg-zinc-700 text-zinc-200"
       : "bg-gray-100 text-gray-600";
   const bodyBgTheme =
     theme === "dark" ? "bg-gray-800 text-zinc-200" : "bg-white";
@@ -189,7 +188,6 @@ function Home() {
   const openModal = () => {
     SetIsModalOpen(true);
   };
-
 
   // Scroll to Top
   useEffect(() => {
@@ -240,12 +238,12 @@ function Home() {
         </div>
       </div>
 
-      <div className="w-full h-[400px] px-5">
+      <div className="w-full h-[400px] lg:px-5">
         <TradingViewMarketWidget />
       </div>
       {/* Searchbar */}
       {/* ----------------------- */}
-      <div className="p-3 px-7">
+      <div className="p-3 lg:px-7">
         <div className=" w-full h-[50px] relative">
           <input
             className={`w-[300px] h-full rounded-xl font-semibold text-sm p-3 px-10 relative ${
@@ -271,7 +269,7 @@ function Home() {
       {/* ----------------------- */}
 
       <div
-        className={`w-full h-full flex flex-col justify-center overflow-x-scroll px-7 ${
+        className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:px-7 ${
           theme === "dark" ? " text-white" : " text-gray-900"
         }`}
       >
@@ -284,14 +282,13 @@ function Home() {
           <thead className={`${headerBgTheme}`}>
             <tr className="">
               {/* RANK */}
-              <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40 headerBgTheme">
-  # Rank
-</th>
-{/* NAME */}
-<th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[103px] z-40 headerBgTheme">
-  Name
-</th>
-
+              <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40 bg-zinc-800 ${theme === "dark" ? " bg-zinc-800" : " bg-zinc-300"}`}>
+                # Rank
+              </th>
+              {/* NAME */}
+              <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[103px] z-40 bg-zinc-800 ${theme === "dark" ? " bg-zinc-800" : " bg-zinc-300"}`}>
+                Name
+              </th>
 
               {/* Price */}
               <th class="px-5 py-3 bg- text-left text-xs font-semibold  uppercase tracking-wider headerBgTheme">
@@ -334,7 +331,7 @@ function Home() {
             {currentItems.map((crypto, index) => (
               <tr key={crypto.id}>
                 {/* RANK */}
-                <td class="px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky left-0   bodyBgTheme">
+                <td class={`px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky left-0  ${theme === "dark" ? " bg-[#1a1a1a]" : " bg-white"}`}>
                   <button className="  ">
                     {favorites[crypto.id] ? (
                       <MdOutlineStar
@@ -353,7 +350,7 @@ function Home() {
                   <span className="text-xl">{crypto.market_cap_rank}</span>
                 </td>
                 {/* IMAGE, NAME, SYMBOL */}
-                <td class="px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[103px]  ">
+                <td class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[104px]  ${theme === "dark" ? " bg-[#1a1a1a]" : " bg-white"}`}>
                   <Link to={`/cryptopage/${crypto.symbol}`}>
                     <div className="flex items-center gap-3">
                       <img
