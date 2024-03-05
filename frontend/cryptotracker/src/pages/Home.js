@@ -23,7 +23,7 @@ import useScrollToTop from "../components/useScrollToTop";
 
 
 function Home() {
-  const [cryptos, setCryptos] = useState([]); //use [] when dealing with API
+  const [cryptos, setCryptos] = useState(CryptoMarketCoins); //use [] when dealing with API
   const [coins, setCoins] = useState("");
   const [favorites, setFavorites] = useState({}); // Tracks favorites by ID
   const [searchQuery, setSearchQuery] = useState("");
@@ -35,14 +35,14 @@ function Home() {
   const auth = getAuth();
 
   // // Coin Gecko API
-    useEffect(() => {
-        axios
-        .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=200&page=1&sparkline=true&locale=en')
-        .then((res) => {
-            setCryptos(res.data)
+    // useEffect(() => {
+    //     axios
+    //     .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=200&page=1&sparkline=true&locale=en')
+    //     .then((res) => {
+    //         setCryptos(res.data)
 
-        })
-    }, [])
+    //     })
+    // }, [])
 
   // COINMARKETCAP API
   // const fetchCryptoData = async () => {
@@ -284,13 +284,14 @@ function Home() {
           <thead className={`${headerBgTheme}`}>
             <tr className="">
               {/* RANK */}
-              <th class="px-5 py-3  text-left text-xs font-semibold  uppercase tracking-wider sticky left-0   headerBgTheme">
-                # Rank
-              </th>
-              {/* NAME */}
-              <th class="px-5 py-3 text-left text-xs font-semibold  uppercase tracking-wider sticky left-[103px]   headerBgTheme">
-                Name
-              </th>
+              <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40 headerBgTheme">
+  # Rank
+</th>
+{/* NAME */}
+<th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[103px] z-40 headerBgTheme">
+  Name
+</th>
+
 
               {/* Price */}
               <th class="px-5 py-3 bg- text-left text-xs font-semibold  uppercase tracking-wider headerBgTheme">

@@ -57,7 +57,7 @@ function CryptoPage({ user, currentCrypto }) {
 
 
 
-  
+
   useEffect(() => {
     // First, get the full list of coins to find the ID that matches the symbol
     axios
@@ -308,7 +308,7 @@ function CryptoPage({ user, currentCrypto }) {
               <img
                 src={crypto.image?.large}
                 alt={crypto.name}
-                className="w-16 h-16 rounded-full border border-white"
+                className="w-16 h-16 rounded-full "
               />
               <div>
                 <h1 className="text-xl font-bold">{crypto.name}</h1>
