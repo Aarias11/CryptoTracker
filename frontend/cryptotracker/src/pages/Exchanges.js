@@ -1,7 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useContext } from 'react';
 import CryptoExchanges from '../CryptoExchanges.json';
 import Carousel from '../components/Carousel';
 import Modal from '../components/Modal';
+import ThemeContext from "../components/ThemeContext";
+
 
 function ExchangesPage() {
   const [showDetails, setShowDetails] = useState(false);
@@ -9,6 +11,7 @@ function ExchangesPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortKey, setSortKey] = useState('trust_score_rank');
   const [sortOrder, setSortOrder] = useState('asc');
+  const { theme } = useContext(ThemeContext); // useContext call corrected for use inside the component
 
   const openModal = (exchange) => {
     setSelectedExchange(exchange);
@@ -34,16 +37,20 @@ function ExchangesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] p-8">
+    <div className={`min-h-screen  p-8 ${
+      theme === "dark" ? "bg-[#16171a] text-white" : "bg-white text-gray-900"
+    }`}>
       <div className="container mx-auto">
-        <h1 className="text-2xl font-bold text-zinc-600  mb-6">
+        <h1 className="text-2xl font-bold text-zinc-300  mb-6">
           Cryptocurrency Exchanges
         </h1>
-        <p className="text-md text-zinc-600 mb-4">
+        <p className="text-md text-zinc-200 mb-4">
           Cryptocurrency exchanges are pivotal platforms where traders and investors can buy, sell, or exchange cryptocurrencies. These platforms vary greatly in terms of features, security, and ease of use, directly impacting the trading experience and outcomes.
         </p>
         <Carousel exchanges={CryptoExchanges.filter(exchange => exchange.trust_score_rank <= 5)} />
-        <div className="overflow-x-auto">
+        <div className={`overflow-x-auto  ${
+      theme === "dark" ? "bg-[#1d1e22]  text-white" : "bg-white text-gray-900"
+    }`}>
         <table className="min-w-full divide-y divide-gray-200 ">
 
             <thead>

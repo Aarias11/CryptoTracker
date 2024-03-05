@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from 'react-router-dom';
 import ThemeContext from "../components/ThemeContext";
 import Avatar from "@mui/material/Avatar";
 import { BiHappyBeaming } from "react-icons/bi";
@@ -22,19 +22,17 @@ function CommunityProfile({ user }) {
   const { theme } = useContext(ThemeContext);
 
   // UseEffect for fetching User Posts
-  useEffect(() => {
+ useEffect(() => {
   const fetchPosts = async () => {
     if (user && user.uid) {
-      // Adjust the query to filter posts by the user's UID
       const postsRef = collection(db, "posts");
-      const q = query(postsRef, where("uid", "==", user.uid)); // Assuming the field storing the user's UID in the posts collection is named "uid"
+      const q = query(postsRef, where("uid", "==", user.uid));
       const querySnapshot = await getDocs(q);
       const postsData = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
-      }));
+      })).sort((a, b) => b.createdAt - a.createdAt); // Sorting posts in descending order
       setPosts(postsData);
-      // console.log(postsData)
     }
   };
 
@@ -97,7 +95,7 @@ function CommunityProfile({ user }) {
   return (
     <div
       className={`w-full h-[600px] ${
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+        theme === "dark" ? " text-white" : "bg-white text-gray-800"
       }`}
     >
       {/* Container */}
@@ -105,7 +103,9 @@ function CommunityProfile({ user }) {
         {/* Left Side */}
         {/* --------------- */}
         {/* Left Side Container */}
-        <div className="hidden w-[280px] h-full border-r border-zinc-700 bg-slate-700 lg:flex lg:justify-center">
+        <div className={`hidden w-[280px] h-full border-r border-zinc-700 lg:flex lg:justify-center ${
+        theme === "dark" ? " text-white" : "bg-white text-gray-800"
+      }`}>
           {/* Left Side Content Container */}
           <div className="p-4 ">
             <h2 className="text-2xl font-semibold">Community</h2>
@@ -203,7 +203,7 @@ function CommunityProfile({ user }) {
       <div className="w-full h-[70px]">
         <div className="w-full flex justify-center pt-4">
           <input
-            className="w-[91%] h-[48px] bg-slate-600 p-2 text-sm rounded-lg"
+            className="w-[91%] h-[48px] bg-zinc-700 p-2 text-sm rounded-lg"
             placeholder="Search Posts..."
             value={searchInput}
             onChange={handleSearchInputChange}

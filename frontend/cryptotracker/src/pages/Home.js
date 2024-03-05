@@ -23,7 +23,7 @@ import useScrollToTop from "../components/useScrollToTop";
 
 
 function Home() {
-  const [cryptos, setCryptos] = useState(CryptoMarketCoins); //use [] when dealing with API
+  const [cryptos, setCryptos] = useState([]); //use [] when dealing with API
   const [coins, setCoins] = useState("");
   const [favorites, setFavorites] = useState({}); // Tracks favorites by ID
   const [searchQuery, setSearchQuery] = useState("");
@@ -35,16 +35,16 @@ function Home() {
   const auth = getAuth();
 
   // // Coin Gecko API
-  //   useEffect(() => {
-  //       axios
-  //       .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=true&locale=en')
-  //       .then((res) => {
-  //           setCryptos(res.data)
+    useEffect(() => {
+        axios
+        .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=200&page=1&sparkline=true&locale=en')
+        .then((res) => {
+            setCryptos(res.data)
 
-  //       })
-  //   }, [])
+        })
+    }, [])
 
-  // // COINMARKETCAP API
+  // COINMARKETCAP API
   // const fetchCryptoData = async () => {
   //   const url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
   //   const parameters = {
@@ -192,9 +192,9 @@ function Home() {
 
 
   // Scroll to Top
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div
@@ -250,7 +250,7 @@ function Home() {
           <input
             className={`w-[300px] h-full rounded-xl font-semibold text-sm p-3 px-10 relative ${
               theme === "dark"
-                ? "bg-slate-700 text-zinc-500"
+                ? "bg-zinc-700 text-zinc-500"
                 : "bg-zinc-200 text-gray-600"
             }`}
             type="search"
@@ -415,9 +415,9 @@ function Home() {
                 {/* CIRCULATING SUPPLY */}
                 <td class="px-5 py-3  text-left text-xs font-semibold  uppercase tracking-wider pt-7 bodyBgTheme">
                   <div className=" items-center space-x-2">
-                    <div className="w-full bg-gray-200 rounded-full shadow-md shadow-slate-200 h-2 ">
+                    <div className="w-full bg-gray-200 rounded-full  h-2 ">
                       <div
-                        className="bg-blue-600 h-2 rounded-full "
+                        className="bg-blue-600 p-1 h-2 rounded-full "
                         style={{
                           width: `${
                             (crypto.circulating_supply / crypto.total_supply) *

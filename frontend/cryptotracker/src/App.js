@@ -21,6 +21,7 @@ import Account from './pages/Account';
 import useScrollToTop from './components/useScrollToTop';
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 import Web3 from 'web3';
+import CommunityUserProfile from './pages/CommunityUserProfile';
 
 // Coinbase Wallet SDK initialization
 const APP_NAME = 'My Awesome App';
@@ -56,7 +57,7 @@ function App() {
   };
 
 
-
+console.log(user)
   return (
     // Below div is the light/dark mode primary 
     <div className={`App ${
@@ -75,8 +76,11 @@ function App() {
         <Route path='/cryptopage/:symbol' element={<CryptoPage user={user} />} />
         <Route path='/exchanges' element={<Exchanges />} />
         <Route path='/community' element={<CommunityPage user={user} />} />
-        <Route path='/community/profile/:id' element={<CommunityProfile user={user} />} />
+        <Route path='/community/profile/:displayname' element={<CommunityProfile user={user} />} />
         <Route path='/account' element={<Account user={user} />} />
+        <Route path="/community/usersprofile/:displayName" element={<CommunityUserProfile />} />
+
+
 
 
       </Routes>

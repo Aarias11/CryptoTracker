@@ -86,7 +86,7 @@ function Navbar() {
 
   return (
     <div
-      className={`h-[70px] flex gap-10 px-7 border-b border-zinc-600 items-center relative text-sm ${
+      className={`h-[70px] flex gap-10 px-7  items-center relative text-sm ${
         theme === "dark" ? " text-white bg-[#16171a]" : "bg-white text-gray-800"
       }`}
     >
@@ -132,9 +132,9 @@ function Navbar() {
       {/* SearchBar */}
       <div className="w-[2000px] md:w-[330px] flex ">
         <button
-          className={`w-full md:w-full h-[40px] rounded-xl px-3 bg-slate-300 focus:outline-none relative hover:cursor-pointer ${
+          className={`w-full md:w-full h-[40px] rounded-xl px-3 focus:outline-none relative hover:cursor-pointer ${
             theme === "dark"
-              ? "bg-slate-700 text-zinc-200"
+              ? "bg-zinc-700 text-zinc-200"
               : "bg-zinc-200 text-gray-600"
           }`}
           onClick={() => setSearchExpanded(true)}

@@ -31,7 +31,6 @@ const TradingViewChart = () => {
       "allow_symbol_change": true,
       "container_id": "tradingview_3e3a5"
     });
-    
 
     containerRef.current.appendChild(script);
 

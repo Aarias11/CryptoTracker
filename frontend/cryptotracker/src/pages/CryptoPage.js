@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Link } from 'react-router-dom'
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { MdOutlineStarBorder, MdOutlineStar } from "react-icons/md";
@@ -33,7 +34,7 @@ import useScrollToTop from "../components/useScrollToTop";
 // import GiphySearch from './GiphySearch';
 
 function CryptoPage({ user, currentCrypto }) {
-  const [crypto, setCrypto] = useState(CryptoApi);
+  const [crypto, setCrypto] = useState([]);
   const { symbol } = useParams(); // Get the symbol from the URL
   const [isFavorite, setIsFavorite] = useState(false);
   const [isFullDescriptionShown, setIsFullDescriptionShown] = useState(false);
@@ -47,39 +48,45 @@ function CryptoPage({ user, currentCrypto }) {
   const [search, setSearch] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const { userId } = useParams(); // Extract userId from URL
+  const [userProfile, setUserProfile] = useState(null);
 
   const auth = getAuth();
 
   const { theme, toggleTheme } = useContext(ThemeContext); // Using ThemeContext
-  // useEffect(() => {
-  //   // First, get the full list of coins to find the ID that matches the symbol
-  //   axios
-  //     .get(`https://api.coingecko.com/api/v3/coins/list`)
-  //     .then((res) => {
-  //       const coin = res.data.find(
-  //         (coin) => coin.symbol.toLowerCase() === symbol.toLowerCase()
-  //       );
-  //       if (!coin) {
-  //         throw new Error(`Coin with symbol ${symbol} not found.`);
-  //       }
-  //       return coin.id;
-  //     })
-  //     // Then, use the ID to fetch the detailed information
-  //     .then((coinId) => {
-  //       return axios.get(
-  //         `https://api.coingecko.com/api/v3/coins/${coinId}?tickers=true&market_data=true&community_data=true&sparkline=true`
-  //       );
-  //       // );
-  //     })
-  //     .then((res) => {
-  //       setCrypto(res.data);
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err.message);
-  //       setCrypto(null); // Handle error (e.g., symbol not found)
-  //     });
-  // }, [symbol]); // This effect depends on the `symbol`
+
+
+
+  
+  useEffect(() => {
+    // First, get the full list of coins to find the ID that matches the symbol
+    axios
+      .get(`https://api.coingecko.com/api/v3/coins/list`)
+      .then((res) => {
+        const coin = res.data.find(
+          (coin) => coin.symbol.toLowerCase() === symbol.toLowerCase()
+        );
+        if (!coin) {
+          throw new Error(`Coin with symbol ${symbol} not found.`);
+        }
+        return coin.id;
+      })
+      // Then, use the ID to fetch the detailed information
+      .then((coinId) => {
+        return axios.get(
+          `https://api.coingecko.com/api/v3/coins/${coinId}?tickers=true&market_data=true&community_data=true&sparkline=true`
+        );
+        // );
+      })
+      .then((res) => {
+        setCrypto(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.error(err.message);
+        setCrypto(null); // Handle error (e.g., symbol not found)
+      });
+  }, [symbol]); // This effect depends on the `symbol`
 
   // Function to fetch comments and user data
   useEffect(() => {
@@ -117,6 +124,23 @@ function CryptoPage({ user, currentCrypto }) {
 
     fetchCommentsAndUsers();
   }, [symbol]);
+
+// Fetch USer Profile
+// useEffect(() => {
+//   const fetchUserProfile = async () => {
+//     const userRef = doc(db, "users", userId);
+//     const userSnap = await getDoc(userRef);
+    
+//     if (userSnap.exists()) {
+//       setUserProfile({ id: userSnap.id, ...userSnap.data() });
+//     } else {
+//       console.log("No such user!");
+//       // Handle user not found scenario
+//     }
+//   };
+
+//   fetchUserProfile();
+// }, [userId]); // Dependency on userId to refetch when it changes
 
   // Handling submission of comments
   const handleSubmit = async (e) => {
@@ -449,25 +473,25 @@ function CryptoPage({ user, currentCrypto }) {
                 >
                   <h2 className="text-3xl font-bold mb-2">Market Overview</h2>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+                    <div className= {`rounded-lg shadow p-4 ${theme === "dark" ? "bg-[#1d1e22]" : ""}`}>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
                         Total Market Cap
                       </p>
                       <p className="text-xl font-semibold">$1.5T</p>
                     </div>
-                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+                    <div className= {`rounded-lg shadow p-4 ${theme === "dark" ? "bg-[#1d1e22]" : ""}`}>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
                         24h Trading Volume
                       </p>
                       <p className="text-xl font-semibold">$200B</p>
                     </div>
-                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+                    <div className= {`rounded-lg shadow p-4 ${theme === "dark" ? "bg-[#1d1e22]" : ""}`}>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
                         Bitcoin Dominance
                       </p>
                       <p className="text-xl font-semibold">45%</p>
                     </div>
-                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+                    <div className= {`rounded-lg shadow p-4 ${theme === "dark" ? "bg-[#1d1e22]" : ""}`}>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
                         Ethereum Dominance
                       </p>
@@ -478,7 +502,7 @@ function CryptoPage({ user, currentCrypto }) {
 
                 {/* Latest News Section as previously designed */}
                 <h2 className="text-2xl font-bold mb-4">Latest News</h2>
-                <div className="w-full h-[400px] overflow-y-auto bg-white dark:bg-gray-800 rounded-lg shadow-inner p-4">
+                <div className={`w-full h-[400px] overflow-y-auto rounded-lg shadow-inner p-4 ${theme === "dark" ? "bg-[#1d1e22]" : ""}`}>
                   <TradingViewNews />
                 </div>
 
@@ -487,13 +511,13 @@ function CryptoPage({ user, currentCrypto }) {
                   <h2 className="text-3xl font-bold mb-2">Trending Coins</h2>
                   <div className="flex overflow-x-auto gap-4 p-2">
                     {/* Placeholder for trending coins. Each coin could be a component */}
-                    <div className="min-w-[160px] bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+                    <div className={`min-w-[160px]  rounded-lg shadow p-4 ${theme === "dark" ? "bg-[#1d1e22] text-zinc-200" : "bg-[#FAFAFA] text-zinc-800"}`}>
                       <p className="text-sm font-semibold">Bitcoin</p>
-                      <p className="text-lg">$60,000</p>
+                      <p className="text-lg">$60,000 USD</p>
                     </div>
-                    <div className="min-w-[160px] bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+                    <div className={`min-w-[160px]  rounded-lg shadow p-4 ${theme === "dark" ? "bg-[#1d1e22] text-zinc-200" : "bg-[#FAFAFA] text-zinc-800"}`}>
                       <p className="text-sm font-semibold">Ethereum</p>
-                      <p className="text-lg">$4,000</p>
+                      <p className="text-lg">$4,000 USD</p>
                     </div>
                     {/* More coins */}
                   </div>
@@ -644,7 +668,7 @@ function CryptoPage({ user, currentCrypto }) {
                   key={comment.id}
                   className={`rounded-lg overflow-hidden mb-4 ${
                     theme === "dark"
-                      ? "bg-gray-800 shadow-sm  shadow-slate-700 text-white"
+                      ? "bg-[#1d1e22] shadow-sm  shadow-slate-800 text-white"
                       : "bg-white shadow-md text-gray-900"
                   }`}
                 >
@@ -670,11 +694,13 @@ function CryptoPage({ user, currentCrypto }) {
                       ) : null}
 
                       <div className="w-full flex gap-4">
+                        <Link to={`/community/profile/${comment.userName}`}>
                         <img
                           className="w-10 h-10 rounded-full object-cover"
                           src={comment.userPhotoURL}
                           alt="User Avatar"
                         />
+                        </Link>
                         <div className="flex flex-col">
                           <span className="font-semibold">
                             {comment.userName}
