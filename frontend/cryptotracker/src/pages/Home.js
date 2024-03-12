@@ -36,7 +36,7 @@ function Home() {
 
 
 
-  // API
+  // Fetchig Crypto API Data
   // // Coin Gecko API
 
   // useEffect(() => {
@@ -49,35 +49,35 @@ function Home() {
   // }, [])
 
   
-  // // -----------------
 
-  // // Fetching favorites
-  // useEffect(() => {
-  //   const fetchFavorites = async () => {
-  //     const user = auth.currentUser;
-  //     if (user) {
-  //       const querySnapshot = await getDocs(
-  //         collection(db, "users", user.uid, "favorites")
-  //       );
-  //       const newFavorites = {};
-  //       querySnapshot.forEach((doc) => {
-  //         newFavorites[doc.id] = true; // Use doc.id to mark as favorited
-  //       });
-  //       setFavorites(newFavorites);
-  //     }
-  //   };
 
-  //   // Fetch favorites on mount and auth state change
-  //   fetchFavorites();
+  // Fetching User's Favorited Cryptos
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        const querySnapshot = await getDocs(
+          collection(db, "users", user.uid, "favorites")
+        );
+        const newFavorites = {};
+        querySnapshot.forEach((doc) => {
+          newFavorites[doc.id] = true; // Use doc.id to mark as favorited
+        });
+        setFavorites(newFavorites);
+      }
+    };
 
-  //   const unsubscribe = auth.onAuthStateChanged(fetchFavorites);
-  //   return unsubscribe; // Cleanup subscription
-  // }, [auth]);
+    // Fetch favorites on mount and auth state change
+    fetchFavorites();
+
+    const unsubscribe = auth.onAuthStateChanged(fetchFavorites);
+    return unsubscribe; // Cleanup subscription
+  }, [auth]);
 
   
   // -----------------
 
-  // Toggle favorite state for a crypto
+  // Toggle favorite State for a Crypto
   const toggleFavorite = async (crypto) => {
     const user = auth.currentUser;
     if (!user || !crypto.id) return; // Ensure there is a logged-in user and crypto.id is defined
@@ -123,7 +123,7 @@ function Home() {
   };
   // -----------------
 
-  // Function to handle search query changes
+  // Function to Handle Search Query Changes
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
@@ -136,10 +136,10 @@ function Home() {
       crypto.symbol.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Calculate the total number of pages
+  // Calculate the Total Number of Pages
   const totalPages = Math.ceil(filteredCryptos.length / itemsPerPage);
 
-  // Calculate the current items to display on the page
+  // Calculate the Current Items to Display on the Page
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredCryptos.slice(indexOfFirstItem, indexOfLastItem);
@@ -197,7 +197,7 @@ function Home() {
       <div
         className={`w-full h-auto py-20   ${
           theme === "dark"
-            ? "bg-gradient-to-r from-zinc-800  to-[#16171a] text-white"
+            ? "bg-gradient-to-r from-zinc-900  to-[#031729] text-white"
             : "bg-white text-gray-900"
         }`}
       >
@@ -280,7 +280,7 @@ function Home() {
                 # Rank
               </th>
               {/* NAME */}
-              <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[103px] z-40 bg-zinc-800 ${theme === "dark" ? " bg-zinc-800" : " bg-zinc-300"}`}>
+              <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[99px] z-40 bg-zinc-800 ${theme === "dark" ? " bg-zinc-800" : " bg-zinc-300"}`}>
                 Name
               </th>
 
@@ -344,7 +344,7 @@ function Home() {
                   <span className="text-xl">{crypto.market_cap_rank}</span>
                 </td>
                 {/* IMAGE, NAME, SYMBOL */}
-                <td class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[100px]  ${theme === "dark" ? " bg-[#1a1a1a]" : " bg-white"}`}>
+                <td class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[99px]  ${theme === "dark" ? " bg-[#1a1a1a]" : " bg-white"}`}>
                   <Link to={`/cryptopage/${crypto.symbol}`}>
                     <div className="flex items-center gap-3">
                       <img

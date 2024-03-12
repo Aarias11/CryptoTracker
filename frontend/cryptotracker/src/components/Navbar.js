@@ -87,7 +87,7 @@ function Navbar() {
   return (
     <div
       className={`h-[70px] flex gap-10 px-7  items-center relative text-sm ${
-        theme === "dark" ? " text-white bg-[#16171a]" : "bg-white text-gray-800"
+        theme === "dark" ? " text-white " : "bg-white text-gray-800"
       }`}
     >
       <img className="w-[55px] h-[55px] rounded-full" src={ledgerlook} />

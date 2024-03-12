@@ -238,7 +238,7 @@ function CommunityProfile({ user }) {
                 <img
                   src={post.imageUrl}
                   alt="Post"
-                  className="max-w-full h-auto object-cover rounded-lg"
+                  className="max-w-full h-[200px] object-cover rounded-lg"
                 />
               </div>
             )}

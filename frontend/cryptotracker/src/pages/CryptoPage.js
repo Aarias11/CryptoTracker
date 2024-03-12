@@ -34,7 +34,7 @@ import useScrollToTop from "../components/useScrollToTop";
 // import GiphySearch from './GiphySearch';
 
 function CryptoPage({ user, currentCrypto }) {
-  const [crypto, setCrypto] = useState([]);
+  const [crypto, setCrypto] = useState(CryptoApi);
   const { symbol } = useParams(); // Get the symbol from the URL
   const [isFavorite, setIsFavorite] = useState(false);
   const [isFullDescriptionShown, setIsFullDescriptionShown] = useState(false);
@@ -58,35 +58,35 @@ function CryptoPage({ user, currentCrypto }) {
 
 
 
-  useEffect(() => {
-    // First, get the full list of coins to find the ID that matches the symbol
-    axios
-      .get(`https://api.coingecko.com/api/v3/coins/list`)
-      .then((res) => {
-        const coin = res.data.find(
-          (coin) => coin.symbol.toLowerCase() === symbol.toLowerCase()
-        );
-        if (!coin) {
-          throw new Error(`Coin with symbol ${symbol} not found.`);
-        }
-        return coin.id;
-      })
-      // Then, use the ID to fetch the detailed information
-      .then((coinId) => {
-        return axios.get(
-          `https://api.coingecko.com/api/v3/coins/${coinId}?tickers=true&market_data=true&community_data=true&sparkline=true`
-        );
-        // );
-      })
-      .then((res) => {
-        setCrypto(res.data);
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.error(err.message);
-        setCrypto(null); // Handle error (e.g., symbol not found)
-      });
-  }, [symbol]); // This effect depends on the `symbol`
+  // useEffect(() => {
+  //   // First, get the full list of coins to find the ID that matches the symbol
+  //   axios
+  //     .get(`https://api.coingecko.com/api/v3/coins/list`)
+  //     .then((res) => {
+  //       const coin = res.data.find(
+  //         (coin) => coin.symbol.toLowerCase() === symbol.toLowerCase()
+  //       );
+  //       if (!coin) {
+  //         throw new Error(`Coin with symbol ${symbol} not found.`);
+  //       }
+  //       return coin.id;
+  //     })
+  //     // Then, use the ID to fetch the detailed information
+  //     .then((coinId) => {
+  //       return axios.get(
+  //         `https://api.coingecko.com/api/v3/coins/${coinId}?tickers=true&market_data=true&community_data=true&sparkline=true`
+  //       );
+  //       // );
+  //     })
+  //     .then((res) => {
+  //       setCrypto(res.data);
+  //       console.log(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err.message);
+  //       setCrypto(null); // Handle error (e.g., symbol not found)
+  //     });
+  // }, [symbol]); // This effect depends on the `symbol`
 
   // Function to fetch comments and user data
   useEffect(() => {
@@ -390,14 +390,14 @@ function CryptoPage({ user, currentCrypto }) {
               Price Chart
             </h3>
             {/* Placeholder for a dynamic price chart component */}
-            <div className="h-[500px]  rounded-md mt-2 flex items-center justify-center">
+            <div className="h-[400px]  rounded-md mt-2 flex items-center justify-center">
               <TradingViewTechnicalAnalysis />
             </div>
           </div>
 
           {/* Quick Insights */}
           <div
-            className={`hidden md:flex md:flex-col md:p-4 md:mt-4  md:rounded-lg md:shadow ${
+            className={`hidden lg:flex lg:flex-col lg:p-4 lg:mt-4  lg:rounded-lg lg:shadow ${
               theme === "dark"
                 ? " text-white"
                 : " text-zinc-600"
@@ -422,7 +422,7 @@ function CryptoPage({ user, currentCrypto }) {
 
           {/* Social Media and Official Links */}
           <div
-            className={`hidden md:flex md:flex-col md:p-4 md:mt-4 md:rounded-lg md:shadow ${
+            className={`hidden lg:flex lg:flex-col lg:p-4 lg:mt-4 lg:rounded-lg lg:shadow ${
               theme === "dark"
                 ? " text-white"
                 : " text-gray-900"
@@ -458,7 +458,7 @@ function CryptoPage({ user, currentCrypto }) {
             <div
               className={`w-full py-4  text-white shadow-lg rounded-lg overflow-hidden ${
                 theme === "dark"
-                  ? "bg-gradient-to-r from-gray-800  to-gray-900 dark:from-gray-800 dark:to-teal-900 text-white"
+                  ? "bg-gradient-to-r from-gray-900  to-[#031729] dark:from-gray-900 dark:to-[#031729] text-white"
                   : "bg-white text-gray-900"
               }`}
             >
@@ -553,13 +553,13 @@ function CryptoPage({ user, currentCrypto }) {
         <div
           className={`flex flex-col w-full h-[500px] lg:flex lg:flex-col lg:w-[500px] lg:h-full  overflow-y-auto ${
             theme === "dark"
-              ? "bg-[#16171a] text-white"
+              ? " text-white"
               : " text-gray-900"
           }`}
         >
           <div className={`p-4  rounded-lg shadow ${
             theme === "dark"
-              ? "bg-[#16171a] text-white"
+              ? " text-white"
               : "bg-[#FAFAFA] text-gray-900"
           }`}>
             <h2 className="text-lg font-semibold ">
@@ -668,7 +668,7 @@ function CryptoPage({ user, currentCrypto }) {
                   key={comment.id}
                   className={`rounded-lg overflow-hidden mb-4 ${
                     theme === "dark"
-                      ? "bg-[#1d1e22] shadow-sm  shadow-slate-800 text-white"
+                      ? "bg-[#151828] shadow-sm  shadow-slate-800 text-white"
                       : "bg-white shadow-md text-gray-900"
                   }`}
                 >

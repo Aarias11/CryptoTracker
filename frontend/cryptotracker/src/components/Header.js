@@ -166,7 +166,7 @@ useEffect(() => {
   return (
     <div
       className={`flex px-5 justify-between items-center border-b border-zinc-800 ${
-        theme === "dark" ? "bg-[#16171a] text-white" : "bg-white text-gray-900"
+        theme === "dark" ? " text-white" : "bg-white text-gray-900"
       }`}
     >
       {/* Hamburger Menu Icon */}
