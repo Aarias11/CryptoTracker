@@ -334,7 +334,12 @@ useEffect(() => {
             }`}
           >
             <div className="flex items-center space-x-3">
-              <Avatar className="bg-blue-500">{user.email[0]}</Avatar>
+            <img
+      className="w-10 h-10 rounded-full cursor-pointer"
+      src={user.photoURL}
+      alt="User Avatar"
+      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+    />
               <div>
                 <p className="text-sm font-semibold ">{user.email}</p>
                 <button

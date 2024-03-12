@@ -344,7 +344,7 @@ function Home() {
                   <span className="text-xl">{crypto.market_cap_rank}</span>
                 </td>
                 {/* IMAGE, NAME, SYMBOL */}
-                <td class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[104px]  ${theme === "dark" ? " bg-[#1a1a1a]" : " bg-white"}`}>
+                <td class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[100px]  ${theme === "dark" ? " bg-[#1a1a1a]" : " bg-white"}`}>
                   <Link to={`/cryptopage/${crypto.symbol}`}>
                     <div className="flex items-center gap-3">
                       <img
