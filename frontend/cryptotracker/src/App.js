@@ -60,7 +60,7 @@ function App() {
   return (
     // Below div is the light/dark mode primary 
     <div className={`App ${
-      theme === "dark" ? "bg-[#142030] text-white" : "bg-white text-gray-900"
+      theme === "dark" ? "bg-[#313538] text-[#ECEDEF]" : "bg-[#ECEDEF] text-[#313538]"
     }`} >
       <Header setUser={setUser} user={user} />
      <TradingViewTicker key={theme} />

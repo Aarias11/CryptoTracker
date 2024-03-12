@@ -83,7 +83,7 @@ const handlePostSubmit = async () => {
   return (
     <div
       className={`w-full h-[600px] ${
-        theme === "dark" ? "bg-[#1d1e22] text-white" : "bg-[#FAFAFA] text-gray-800"
+        theme === "dark" ? "" : ""
       }`}
     >
       {/* Container */}
@@ -91,11 +91,11 @@ const handlePostSubmit = async () => {
         {/* Left Side */}
         {/* Left Side Container */}
         <div className={`hidden w-[280px] h-full border-r border-zinc-700 lg:flex lg:justify-center ${
-        theme === "dark" ? "bg-[#16171a] text-white" : "bg-white text-gray-900"
+        theme === "dark" ? "" : ""
       }`}>
           {/* Left Side Content Container */}
           <div className={`p-4 ${
-        theme === "dark" ? "bg-[#16171a] text-white" : "bg-white text-gray-900"
+        theme === "dark" ? "" : ""
       }`}>
             <h2 className="text-2xl font-semibold">Community</h2>
             {/* Community Content */}

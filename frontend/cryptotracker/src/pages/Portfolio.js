@@ -1,147 +1,73 @@
-import React, { useState } from "react";
-import { MdAdd, MdRemove, MdInfoOutline } from "react-icons/md";
-import { Tooltip } from "@mui/material";
+import React from 'react';
+import { Line, Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Title, Tooltip as ChartTooltip, Legend, } from 'chart.js';
 
-const mockHoldings = [
-  {
-    id: "bitcoin",
-    symbol: "BTC",
-    name: "Bitcoin",
-    quantity: 0.5,
-    currentPrice: 43000,
-    averageBuyPrice: 40000,
-    priceChange24h: 5,
-    totalValue: 21500,
-  },
-  {
-    id: "ethereum",
-    symbol: "ETH",
-    name: "Ethereum",
-    quantity: 2,
-    currentPrice: 3000,
-    averageBuyPrice: 2500,
-    priceChange24h: -3,
-    totalValue: 6000,
-  },
-];
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Title,
+  ChartTooltip,
+  Legend
+);
 
-const PortfolioPage = () => {
-  const [holdings, setHoldings] = useState(mockHoldings);
-  const totalPortfolioValue = holdings.reduce(
-    (acc, holding) => acc + holding.totalValue,
-    0
-  );
-
-  const calculateProfitLoss = (holding) => {
-    const profitLoss = (holding.currentPrice - holding.averageBuyPrice) * holding.quantity;
-    return profitLoss.toFixed(2); // Adjust to your preferred decimal places
+const Portfolio = () => {
+  const lineChartData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    datasets: [{
+      label: 'Portfolio Value',
+      data: [12000, 19000, 3000, 5000, 2000, 3000],
+      fill: false,
+      backgroundColor: 'rgb(75, 192, 192)',
+      borderColor: 'rgba(75, 192, 192, 0.2)',
+    }],
   };
-  
+
+  const pieChartData = {
+    labels: ['Bitcoin', 'Ethereum', 'Ripple', 'Litecoin'],
+    datasets: [{
+      label: 'Asset Distribution',
+      data: [300, 50, 100, 50],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+      ],
+      borderWidth: 1,
+    }],
+  };
+
   return (
-    <div className="max-w-4xl mx-auto p-5">
-      <div className="text-center mb-8">
-        <h1 className="text-2xl font-bold text-gray-700">My Portfolio</h1>
-        <p className="text-gray-600">
-          Total Portfolio Value: ${totalPortfolioValue.toLocaleString()}
-        </p>
+    <div className="dashboard-page p-4">
+      <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
+      {/* Other components like TotalPortfolioValue, HoldingsSummary, etc. */}
+
+      {/* Line Chart Card */}
+      <div className="card bg-white p-4 shadow-lg rounded-lg mb-6">
+        <h2 className="text-lg font-semibold mb-4">Portfolio Value Over Time</h2>
+        <div className="chart-container">
+          <Line data={lineChartData} options={{ maintainAspectRatio: false }} />
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-        {holdings.map((holding) => (
-          <div
-            key={holding.id}
-            className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow duration-200"
-          >
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold">
-                {holding.name} ({holding.symbol})
-              </h2>
-              <Tooltip title="Remove holding" placement="top">
-                <MdRemove
-                  className="cursor-pointer text-red-500 hover:text-red-700"
-                  size={24}
-                />
-              </Tooltip>
-            </div>
-            <div className="mt-4">
-              <div className="flex justify-between text-gray-600">
-                <span>Current Price:</span>
-                <span>${holding.currentPrice.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between text-gray-600 mt-2">
-                <span>Average Buy Price:</span>
-                <span>${holding.averageBuyPrice.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between text-gray-600 mt-2">
-                <span>Profit/Loss:</span>
-                <span
-                  className={
-                    calculateProfitLoss(holding) >= 0
-                      ? "text-green-500"
-                      : "text-red-500"
-                  }
-                >
-                  ${calculateProfitLoss(holding)}
-                </span>
-              </div>
-              <div className="flex justify-between text-gray-600 mt-2">
-                <span>24h Change:</span>
-                <span
-                  className={
-                    holding.priceChange24h >= 0
-                      ? "text-green-500"
-                      : "text-red-500"
-                  }
-                >
-                  {holding.priceChange24h}%
-                </span>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="flex justify-center">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
-          <MdAdd className="mr-2" /> Add Holding
-        </button>
-      </div>
-      {/* Holdings Table */}
-      <div className="overflow-x-auto pt-3">
-       <table className="min-w-full divide-y divide-gray-200 ">
-          <thead className="bg-gray-100">
-            <tr>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Price</th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">1h%</th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">24h%</th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">7d%</th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Holdings</th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Avg. Buy Price</th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Profit/Loss</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-  {holdings.map((holding) => (
-    <tr key={holding.id}>
-      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{holding.name}</td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${holding.currentPrice.toLocaleString()}</td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{holding.priceChange1h}%</td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{holding.priceChange24h}%</td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{holding.priceChange7d}%</td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{holding.quantity}</td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${holding.averageBuyPrice.toLocaleString()}</td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-        ${calculateProfitLoss(holding)}
-      </td>
-    </tr>
-  ))}
-</tbody>
-
-        </table>
+      {/* Pie Chart Card */}
+      <div className="card bg-white p-4 shadow-lg rounded-lg mb-6 w-50">
+        <h2 className="text-lg font-semibold mb-4">Asset Distribution</h2>
+        <div className="chart-container">
+          <Pie data={pieChartData} options={{ maintainAspectRatio: false }} />
+        </div>
       </div>
     </div>
   );
 };
 
-export default PortfolioPage;
+export default Portfolio;

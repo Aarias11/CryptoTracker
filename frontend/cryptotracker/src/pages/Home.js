@@ -156,14 +156,14 @@ function Home() {
   // Conditional styles based on theme
   const tableTheme =
     theme === "dark"
-      ? "divide-gray-700 bg-[#16171a] text-white"
-      : "divide-gray-200 bg-white text-gray-900";
+      ? ""
+      : "";
   const headerBgTheme =
     theme === "dark"
-      ? "bg-zinc-700 text-zinc-200"
-      : "bg-gray-100 text-gray-600";
+      ? ""
+      : "";
   const bodyBgTheme =
-    theme === "dark" ? "bg-gray-800 text-zinc-200" : "bg-white";
+    theme === "dark" ? "" : "";
 
   // OPEN MODAL
   const openModal = () => {
@@ -191,14 +191,14 @@ function Home() {
   return (
     <div
       className={`w-full h-auto   ${
-        theme === "dark" ? " text-white" : "bg-white text-gray-900"
+        theme === "dark" ? " " : " "
       }`}
     >
       <div
         className={`w-full h-auto py-20   ${
           theme === "dark"
-            ? "bg-gradient-to-r from-zinc-900  to-[#031729] text-white"
-            : "bg-white text-gray-900"
+            ? "bg-gradient-to-r from-zinc-800  to-[#313538] text-white"
+            : ""
         }`}
       >
         <div className="max-w-6xl mx-auto">
@@ -232,7 +232,9 @@ function Home() {
         </div>
       </div>
 
-      <div className="w-full h-[400px] lg:px-5">
+      <div className={`App ${
+      theme === "dark" ? "bg-[#313538] text-[#ECEDEF]" : "bg-[#ECEDEF] text-[#313538]"
+    }`} >
         <TradingViewMarketWidget />
       </div>
       {/* Searchbar */}
