@@ -30,10 +30,15 @@ function Home() {
   const { theme } = useContext(ThemeContext); // Using ThemeContext
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(50);
-
+  const [shouldBlink, setShouldBlink] = useState(false);
   const auth = getAuth();
 
+
+
+
+  // API
   // // Coin Gecko API
+
   // useEffect(() => {
   //     axios
   //     .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=200&page=1&sparkline=true&locale=en')
@@ -43,57 +48,33 @@ function Home() {
   //     })
   // }, [])
 
-  // COINMARKETCAP API
-  // const fetchCryptoData = async () => {
-  //   const url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
-  //   const parameters = {
-  //     start: '1',
-  //     limit: '10',
-  //     convert: 'USD'
+  
+  // // -----------------
+
+  // // Fetching favorites
+  // useEffect(() => {
+  //   const fetchFavorites = async () => {
+  //     const user = auth.currentUser;
+  //     if (user) {
+  //       const querySnapshot = await getDocs(
+  //         collection(db, "users", user.uid, "favorites")
+  //       );
+  //       const newFavorites = {};
+  //       querySnapshot.forEach((doc) => {
+  //         newFavorites[doc.id] = true; // Use doc.id to mark as favorited
+  //       });
+  //       setFavorites(newFavorites);
+  //     }
   //   };
-  //   const headers = {
-  //     'X-CMC_PRO_API_KEY': '7f897da9-3e52-4fa9-9923-c8d6c7c16060',
-  //     'Accept': 'application/json'
-  //   };
 
-  //   try {
-  //     const response = await fetch(`${url}?${new URLSearchParams(parameters)}`, {
-  //       method: "GET",
-  //       headers: headers
-  //     });
-  //     if (!response.ok) throw new Error("Network response was not ok");
-  //     const data = await response.json();
-  //     // console.log(data);
-  //   } catch (error) {
-  //     console.error("Error fetching data: ", error);
-  //   }
-  // };
+  //   // Fetch favorites on mount and auth state change
+  //   fetchFavorites();
 
-  // fetchCryptoData();
-  // -----------------
+  //   const unsubscribe = auth.onAuthStateChanged(fetchFavorites);
+  //   return unsubscribe; // Cleanup subscription
+  // }, [auth]);
 
-  // Fetching favorites
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      const user = auth.currentUser;
-      if (user) {
-        const querySnapshot = await getDocs(
-          collection(db, "users", user.uid, "favorites")
-        );
-        const newFavorites = {};
-        querySnapshot.forEach((doc) => {
-          newFavorites[doc.id] = true; // Use doc.id to mark as favorited
-        });
-        setFavorites(newFavorites);
-      }
-    };
-
-    // Fetch favorites on mount and auth state change
-    fetchFavorites();
-
-    const unsubscribe = auth.onAuthStateChanged(fetchFavorites);
-    return unsubscribe; // Cleanup subscription
-  }, [auth]);
+  
   // -----------------
 
   // Toggle favorite state for a crypto
@@ -193,6 +174,19 @@ function Home() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShouldBlink(true); // Start the blink
+      setTimeout(() => setShouldBlink(false), 500); // Stop the blink after 0.5s to ensure it blinks once
+    }, 15000); // 15 seconds
+
+    return () => clearInterval(interval); // Cleanup on component unmount
+  }, []);
+
+  // Apply the blink class conditionally
+  const blinkClass = shouldBlink ? 'blink' : '';
 
   return (
     <div
@@ -366,7 +360,7 @@ function Home() {
                   </Link>
                 </td>
                 {/* CURRENT PRICE */}
-                <td class="px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme">
+                <td class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme ${blinkClass}`}>
                   $
                   {Number(crypto.current_price) >= 1
                     ? Number(crypto.current_price)
@@ -384,7 +378,7 @@ function Home() {
                   ${Number(crypto.high_24h).toLocaleString()}
                 </td>
                 {/* 24H % */}
-                <td class="px-5 py-3   text-left text-xs font-semibold uppercase tracking-wider bodyBgTheme">
+                <td class={`px-5 py-3   text-left text-xs font-semibold uppercase tracking-wider bodyBgTheme ${blinkClass}`}>
                   <span
                     className={
                       crypto.price_change_percentage_24h > 0

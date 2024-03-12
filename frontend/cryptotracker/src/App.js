@@ -57,7 +57,6 @@ function App() {
   };
 
 
-console.log(user)
   return (
     // Below div is the light/dark mode primary 
     <div className={`App ${
@@ -78,7 +77,7 @@ console.log(user)
         <Route path='/community' element={<CommunityPage user={user} />} />
         <Route path='/community/profile/:displayname' element={<CommunityProfile user={user} />} />
         <Route path='/account' element={<Account user={user} />} />
-        <Route path="/community/usersprofile/:displayName" element={<CommunityUserProfile />} />
+        <Route path="/community/profile/:username" element={<CommunityUserProfile />} />
 
 
 
