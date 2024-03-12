@@ -87,7 +87,7 @@ const TradingViewTicker = () => {
   }, [theme]); // Re-run the effect when the theme changes
 
   return (
-    <div ref={widgetRef} className="tradingview-widget-container border-b border-zinc-800">
+    <div ref={widgetRef} className="tradingview-widget-container border-b border-zinc-500">
       <div className="tradingview-widget-container__widget"></div>
     </div>
   );

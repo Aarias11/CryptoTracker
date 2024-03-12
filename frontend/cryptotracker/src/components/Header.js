@@ -165,7 +165,7 @@ useEffect(() => {
   
   return (
     <div
-      className={`flex px-5 justify-between items-center border-b border-zinc-800 ${
+      className={`flex px-5 justify-between items-center border-b border-zinc-500 ${
         theme === "dark" ? " text-white" : "bg-white text-gray-900"
       }`}
     >

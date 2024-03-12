@@ -9,6 +9,8 @@ import ThemeContext from "../components/ThemeContext"; // Import ThemeContext
 
 const Watchlist = () => {
   const [favorites, setFavorites] = useState([]);
+  const [filteredFavorites, setFilteredFavorites] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const auth = getAuth();
   const { theme } = useContext(ThemeContext); // Use ThemeContext
 
@@ -17,18 +19,22 @@ const Watchlist = () => {
       const user = auth.currentUser;
       if (!user) return;
 
-      const querySnapshot = await getDocs(
-        collection(db, "users", user.uid, "favorites")
-      );
+      const querySnapshot = await getDocs(collection(db, "users", user.uid, "favorites"));
       const fetchedFavorites = [];
       querySnapshot.forEach((doc) => {
         fetchedFavorites.push({ id: doc.id, ...doc.data() });
       });
       setFavorites(fetchedFavorites);
+      setFilteredFavorites(fetchedFavorites);
     };
 
     fetchFavorites();
   }, []);
+
+  useEffect(() => {
+    const filtered = favorites.filter(crypto => crypto.name.toLowerCase().includes(searchTerm.toLowerCase()) || crypto.symbol.toLowerCase().includes(searchTerm.toLowerCase()));
+    setFilteredFavorites(filtered);
+  }, [searchTerm, favorites]);
 
   const toggleFavorite = async (cryptoId) => {
     const user = auth.currentUser;
@@ -49,13 +55,32 @@ const Watchlist = () => {
 
 
   return (
-    <div className={`w-full h-screen mx-auto overflow-x-auto ${bodyBgTheme}`}>
-      <h2 className="text-4xl font-semibold p-6">YOUR WATCHLIST</h2>
-      <table className={`min-w-full divide-y divide-zinc-700 ${tableTheme}`}>
+    <div className={`w-full h-screen mx-auto overflow-x-auto pt-10 ${bodyBgTheme}`}>
+      <h2 className="text-5xl font-semibold p-6">YOUR WATCHLIST</h2>
+      <div className="px-6 ">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className={`w-[300px] h-full rounded-xl font-semibold text-sm p-3 px-10 relative ${
+            theme === "dark"
+              ? "bg-zinc-700 text-zinc-500"
+              : "bg-zinc-200 text-gray-600"
+          }`}
+        />
+      </div>
+
+      <div
+        className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:px-7 ${
+          theme === "dark" ? " text-white" : " text-gray-900"
+        }`}
+      >
+      <table className={`min-w-full divide-y divide-zinc-700 `}>
         <thead className={`${headerBgTheme}`}>
           <tr>
             {/* RANK */}
-            <th class="px-3 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+            <th class="px-3  border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
               # Rank
             </th>
             {/* NAME */}
@@ -97,7 +122,7 @@ const Watchlist = () => {
           </tr>
         </thead>
         <tbody className={`divide-y divide-zinc-600 bodyBgTheme`}>
-          {favorites.map((crypto) => (
+          {filteredFavorites.map((crypto) => (
             <tr key={crypto.id}>
               {/* Favorite Star and Crypto Rank */}
               <td class="px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky left-0  z-50 bodyBgTheme">
@@ -188,6 +213,8 @@ const Watchlist = () => {
           ))}
         </tbody>
       </table>
+
+      </div>
     </div>
   );
 };
