@@ -22,6 +22,8 @@ import useScrollToTop from './components/useScrollToTop';
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 import Web3 from 'web3';
 import CommunityUserProfile from './pages/CommunityUserProfile';
+import '@typehaus/metropolis'
+
 
 // Coinbase Wallet SDK initialization
 const APP_NAME = 'My Awesome App';
@@ -62,9 +64,9 @@ function App() {
     <div className={`App ${
       theme === "dark" ? "bg-[#313538] text-[#ECEDEF]" : "bg-[#ECEDEF] text-[#313538]"
     }`} >
-      <Header setUser={setUser} user={user} />
      <TradingViewTicker key={theme} />
       <Navbar />
+      <Header setUser={setUser} user={user} />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />

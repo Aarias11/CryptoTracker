@@ -7,7 +7,6 @@ import CryptoMarketCoins from "../CryptoMarketCoins.json";
 import { MdOutlineStarBorder, MdOutlineStar } from "react-icons/md";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { FaCaretUp, FaCaretDown } from "react-icons/fa";
-
 import { db } from "../firebase"; // Ensure this points to your Firebase config file
 import {
   doc,
@@ -20,6 +19,7 @@ import { getAuth } from "firebase/auth";
 import ThemeContext from "../components/ThemeContext";
 import TradingViewTicker from "../components/TradingViewTicker";
 import useScrollToTop from "../components/useScrollToTop";
+
 
 function Home() {
   const [cryptos, setCryptos] = useState(CryptoMarketCoins); //use [] when dealing with API
@@ -156,14 +156,14 @@ function Home() {
   // Conditional styles based on theme
   const tableTheme =
     theme === "dark"
-      ? ""
-      : "";
+      ? "label-12"
+      : "label-12";
   const headerBgTheme =
     theme === "dark"
-      ? ""
-      : "";
+      ? "label-12"
+      : "label-12";
   const bodyBgTheme =
-    theme === "dark" ? "" : "";
+    theme === "dark" ? "label-12" : "label-12";
 
   // OPEN MODAL
   const openModal = () => {
@@ -202,21 +202,21 @@ function Home() {
         }`}
       >
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-5xl font-bold mb-6 text-center">
+          <h2 className="headline-semibold-48 p-5 text-center">
             Cryptocurrencies By Highest MarketCap
           </h2>
-          <p className="text-lg leading-relaxed mx-auto text-center mb-4 max-w-4xl">
+          <p className="body-14 leading-relaxed mx-auto text-center mb-4 max-w-4xl">
             The current Market Cap for all currencies stands at
             <span className="text-teal-400 ml-2">949T</span>, marking a pivotal
             moment in the financial landscape.
           </p>
-          <p className="text-lg leading-relaxed mx-auto text-center mb-4 max-w-4xl">
+          <p className="body-14 leading-relaxed mx-auto text-center mb-4 max-w-4xl">
             It reflects not just investor interest, but the innovation and
             utility brought by platforms and tokens to the digital economy. The
             sector's evolution, from Bitcoin and Ethereum to DeFi and NFTs, is
             rapid and vibrant.
           </p>
-          <p className="text-lg leading-relaxed mx-auto text-center mb-8 max-w-4xl">
+          <p className="body-14 leading-relaxed mx-auto text-center mb-8 max-w-4xl">
             Engage with market trends, delve into the analytics, and explore the
             digital economy on our platform. Your journey into investment and
             participation starts here.
@@ -265,13 +265,13 @@ function Home() {
       {/* ----------------------- */}
 
       <div
-        className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:px-7 ${
+        className={`w-full h-full flex flex-col justify-center overflow-x-scroll  lg:px-7 ${
           theme === "dark" ? " text-white" : " text-gray-900"
         }`}
       >
         {/* CRYPTO TABLE */}
         {/* ----------------------- */}
-        <table className={`min-w-full divide-y ${tableTheme} `}>
+        <table className={`min-w-full divide-y  ${tableTheme} `}>
           {/* TABLE HEAD */}
           {/* ----------------------- */}
 

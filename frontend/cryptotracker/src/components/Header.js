@@ -11,7 +11,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { GoStarFill } from "react-icons/go";
 import { GiPieChart } from "react-icons/gi";
 import { PiMapTrifoldFill } from "react-icons/pi";
-
+import { IconAward } from '@tabler/icons-react';
 import {
   RiCloseLine,
   RiSunLine,
@@ -176,7 +176,7 @@ useEffect(() => {
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         />
       </div>
-      <ul className="hidden lg:flex text-xs gap-10 p-2  font-light text-zinc-500 items-center">
+      <ul className="hidden lg:flex text-xs gap-10 p-2 label-12  font-light text-zinc-500 items-center">
         <li>
           Coins:{" "}
           <span className="font-bold text-teal-600">
@@ -232,7 +232,7 @@ useEffect(() => {
       </ul>
 
       <ul
-        className={`w-full flex justify-end text-sm p-2 lg:w-[370px] gap-5 items-center ${
+        className={`w-full flex justify-end text-sm  lg:w-[370px] label-12 gap-5 items-center ${
           theme === "dark" ? " text-zinc-200" : " text-zinc-700"
         }`}
       >

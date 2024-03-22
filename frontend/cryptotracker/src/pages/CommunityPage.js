@@ -130,10 +130,10 @@ const handlePostSubmit = async () => {
             <div className="w-[120px] h-full flex justify-center px-2 pt-6">
                 {/* CHange user.email to user.uid */}
               <Link to={`/community/profile/${user?.displayName}`}> 
-              <img className="w-[80px] h-[80px] rounded-full" src={user?.photoURL} /></Link>
+              <img className="w-[80px] h-[80px] rounded-full object-cover" src={user?.photoURL} /></Link>
             </div>
             {/* TEXT AREA AND POST */}
-            <div className="w-full h-full pt-7 flex flex-col gap-2">
+            <div className="w-full h-full pt-7 flex flex-col gap-2 leading-3 tracking-tighter">
               {/* User Email */}
               <h2>{user?.displayName}</h2>
               <h2>@{user?.displayName}</h2>
