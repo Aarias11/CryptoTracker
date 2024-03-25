@@ -95,7 +95,7 @@ function CommunityProfile({ user }) {
   return (
     <div
       className={`w-full h-[600px] ${
-        theme === "dark" ? " text-white" : "bg-white text-gray-800"
+        theme === "dark" ? "body-14 " : "body-14"
       }`}
     >
       {/* Container */}
@@ -104,7 +104,7 @@ function CommunityProfile({ user }) {
         {/* --------------- */}
         {/* Left Side Container */}
         <div className={`hidden w-[280px] h-full border-r border-zinc-700 lg:flex lg:justify-center ${
-        theme === "dark" ? " text-white" : "bg-white text-gray-800"
+        theme === "dark" ? "label-semibold-16" : "label-semibold-16"
       }`}>
           {/* Left Side Content Container */}
           <div className="p-4 ">
@@ -185,7 +185,7 @@ function CommunityProfile({ user }) {
                 </div>
               </div>
             </div>
-            <div className="px-5 pt-4 ">
+            <div className="px-5 pt-4">
               <span className="flex items-center gap-4 text-gray-400"><CiCalendarDate size={20} /> Joined {user?.metadata.creationTime.slice(7, 16)}</span>
             </div>
             <Link to="/account">

@@ -11,7 +11,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { GoStarFill } from "react-icons/go";
 import { GiPieChart } from "react-icons/gi";
 import { PiMapTrifoldFill } from "react-icons/pi";
-import { IconAward } from '@tabler/icons-react';
+import { IconAward } from "@tabler/icons-react";
 import {
   RiCloseLine,
   RiSunLine,
@@ -35,7 +35,6 @@ function Header() {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
- 
 
   const nav = useNavigate();
   const { theme, toggleTheme } = useContext(ThemeContext); // Using ThemeContext
@@ -126,43 +125,38 @@ function Header() {
   // OPEN LOGIN MODAL
   const openModal = () => {
     setIsLoginModalOpen(true);
-    
   };
   // Open SignUp Modal
   const openSignUpModal = () => {
-    setIsSignUpModalOpen(true)
-
-  }
+    setIsSignUpModalOpen(true);
+  };
 
   // Close Login Modal
   const closeModal = () => {
     setIsLoginModalOpen(false);
-     // Correctly use setIsLoginModalOpen to manage the modal state
-
+    // Correctly use setIsLoginModalOpen to manage the modal state
   };
-  
 
   const closeSignUpModal = () => {
-    setIsSignUpModalOpen(false)
-  }
-
+    setIsSignUpModalOpen(false);
+  };
 
   // Function to handle clicking outside to close the dropdown
-const handleClickOutside = (event) => {
-  if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-    setIsDropdownOpen(false);
-  }
-};
-
-useEffect(() => {
-  // Bind the event listener for clicks outside
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => {
-    // Unbind the event listener on clean up
-    document.removeEventListener("mousedown", handleClickOutside);
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
   };
-}, []);
-  
+
+  useEffect(() => {
+    // Bind the event listener for clicks outside
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div
       className={`flex px-5 justify-between items-center border-b border-zinc-500 ${
@@ -249,36 +243,57 @@ useEffect(() => {
         {user ? (
           <>
             <li className="font-semibold ">{user.email}</li>
-            
+
             {/* User avatar and dropdown menu toggle */}
             <li className="relative" ref={dropdownRef}>
-    <img
-      className="w-10 h-10 rounded-full cursor-pointer"
-      src={user.photoURL}
-      alt="User Avatar"
-      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-    />
-    {isDropdownOpen && (
-      <div className={`absolute right-0 mt-2 w-48 bg-white shadow-md rounded-md  ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"} transition duration-150 ease-in-out z-50`}>
-        <ul>
-          <Link to='/account'>
-          <li 
-            className={`px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"}`}
-            onClick={() => { /* Handle account click here */ setIsDropdownOpen(false); }}
-          >
-            Account
-          </li>
-          </Link>
-          <li 
-            className={`px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"}`}
-            onClick={() => { handleSignOut(); setIsDropdownOpen(false); }}
-          >
-            Sign Out
-          </li>
-        </ul>
-      </div>
-    )}
-  </li>
+              <img
+                className="w-10 h-10 rounded-full cursor-pointer"
+                src={user.photoURL}
+                alt="User Avatar"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              />
+              {isDropdownOpen && (
+                <div
+                  className={`absolute right-0 mt-2 w-48 bg-white shadow-md rounded-md  ${
+                    theme === "dark"
+                      ? "bg-gray-800 text-white"
+                      : "bg-white text-gray-900"
+                  } transition duration-150 ease-in-out z-50`}
+                >
+                  <ul>
+                    <Link to="/account">
+                      <li
+                        className={`px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer ${
+                          theme === "dark"
+                            ? "bg-gray-800 text-white"
+                            : "bg-white text-gray-900"
+                        }`}
+                        onClick={() => {
+                          /* Handle account click here */ setIsDropdownOpen(
+                            false
+                          );
+                        }}
+                      >
+                        Account
+                      </li>
+                    </Link>
+                    <li
+                      className={`px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer ${
+                        theme === "dark"
+                          ? "bg-gray-800 text-white"
+                          : "bg-white text-gray-900"
+                      }`}
+                      onClick={() => {
+                        handleSignOut();
+                        setIsDropdownOpen(false);
+                      }}
+                    >
+                      Sign Out
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </li>
           </>
         ) : (
           <>
@@ -290,16 +305,18 @@ useEffect(() => {
             >
               Login
             </li>
-            <li className="font-semibold cursor-pointer"
-            onClick={openSignUpModal}>
+            <li
+              className="font-semibold cursor-pointer"
+              onClick={openSignUpModal}
+            >
               Sign Up
             </li>
           </>
         )}
       </ul>
-            {/* Conditionally render the Login modal */}
-            {isLoginModalOpen && <Login closeModal={closeModal} />}
-            {isSignUpModalOpen && <SignUp closeSignUpModal={closeSignUpModal} />}
+      {/* Conditionally render the Login modal */}
+      {isLoginModalOpen && <Login closeModal={closeModal} />}
+      {isSignUpModalOpen && <SignUp closeSignUpModal={closeSignUpModal} />}
 
       {/* Mobile Menu Side Drawer */}
       {/* ------------------------ */}
@@ -312,7 +329,9 @@ useEffect(() => {
         {/* Menu Header */}
         <div
           className={`flex justify-between items-center p-2 border-b border-zinc-600 ${
-            theme === "dark" ? "bg-gradient-to-r from-zinc-800  to-[#16171a] " : "bg-white text-gray-900"
+            theme === "dark"
+              ? "bg-gradient-to-r from-zinc-800  to-[#16171a] "
+              : "bg-white text-gray-900"
           }`}
         >
           <h2 className="text-xl font-semibold ">Menu</h2>
@@ -327,24 +346,24 @@ useEffect(() => {
         {/* Profile Information */}
         {user && (
           <div
-            className={`p-2 border-b border-zinc-600 ${
+            className={`p-2 border-b border-zinc-600  ${
               theme === "dark"
                 ? "bg-gradient-to-r from-zinc-800  to-[#16171a] text-white"
                 : "bg-white text-gray-900"
             }`}
           >
             <div className="flex items-center space-x-3">
-            <img
-      className="w-10 h-10 rounded-full cursor-pointer"
-      src={user.photoURL}
-      alt="User Avatar"
-      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-    />
+              <img
+                className="w-10 h-10 rounded-full cursor-pointer"
+                src={user.photoURL}
+                alt="User Avatar"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              />
               <div>
-                <p className="text-sm font-semibold ">{user.email}</p>
+                <p className="text-sm font-semibold label-semibold-14 ">{user.email}</p>
                 <button
                   onClick={handleSignOut}
-                  className="text-xs font-medium text-red-500 mt-1"
+                  className="text-xs font-medium text-red-500 mt-1 label-semibold-14"
                 >
                   Sign Out
                 </button>
@@ -355,7 +374,7 @@ useEffect(() => {
 
         {/* Menu Items */}
         <div
-          className={`overflow-y-auto ${
+          className={`overflow-y-auto  ${
             theme === "dark"
               ? "bg-gradient-to-r from-zinc-800  to-[#16171a] text-white"
               : "bg-white text-gray-900"

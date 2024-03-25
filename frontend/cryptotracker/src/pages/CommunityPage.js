@@ -83,7 +83,7 @@ const handlePostSubmit = async () => {
   return (
     <div
       className={`w-full h-[600px] ${
-        theme === "dark" ? "" : ""
+        theme === "dark" ? "body-14" : "body-14"
       }`}
     >
       {/* Container */}
@@ -95,7 +95,7 @@ const handlePostSubmit = async () => {
       }`}>
           {/* Left Side Content Container */}
           <div className={`p-4 ${
-        theme === "dark" ? "" : ""
+        theme === "dark" ? "label-semibold-16" : "label-semibold-16"
       }`}>
             <h2 className="text-2xl font-semibold">Community</h2>
             {/* Community Content */}
@@ -125,7 +125,7 @@ const handlePostSubmit = async () => {
         {/* Center Container*/}
         <div className="w-[800px] h-full overflow-y-scroll border-r border-zinc-700 ">
           {/* Center Content Container */}
-          <div className="w-full h-[400px] p-3 flex">
+          <div className="w-full h-[275px] p-3 flex">
             {/* Left Avatar Side */}
             <div className="w-[120px] h-full flex justify-center px-2 pt-6">
                 {/* CHange user.email to user.uid */}
@@ -133,10 +133,10 @@ const handlePostSubmit = async () => {
               <img className="w-[80px] h-[80px] rounded-full object-cover" src={user?.photoURL} /></Link>
             </div>
             {/* TEXT AREA AND POST */}
-            <div className="w-full h-full pt-7 flex flex-col gap-2 leading-3 tracking-tighter">
+            <div className="w-full h-full pt-7 flex flex-col gap-2 leading-3 tracking-tighter ">
               {/* User Email */}
-              <h2>{user?.displayName}</h2>
-              <h2>@{user?.displayName}</h2>
+              <h2 className="title-bold-20">{user?.displayName}</h2>
+              <h2 className="title-semibold-20">@{user?.displayName}</h2>
 
               {/* Text Area */}
               <textarea
@@ -147,7 +147,7 @@ const handlePostSubmit = async () => {
               />
               <div className="w-[95%] flex justify-between">
                 <BiHappyBeaming className="text-slate-400" size={25} />
-                <input type="file" accept="image/*" onChange={(e) => setSelectedFile(e.target.files[0])} />
+                <input className="p-2" type="file" accept="image/*" onChange={(e) => setSelectedFile(e.target.files[0])} />
 
                 <button className="w-[100px] h-[40px] border rounded-lg"
                 onClick={handlePostSubmit}>
@@ -197,14 +197,14 @@ const handlePostSubmit = async () => {
                 <div className="w-full h-full pt-7 flex flex-col gap-4">
                   {/* Poster Content */}
                   {/* Poster */}
-                  <div className="flex gap-4">
-                    <h2>Poster Email</h2>
-                    <span>@PosterUsername</span>
-                    <span>14h ago</span>
+                  <div className="flex gap-4 items-center">
+                    <h2 className="title-bold-20">Poster Email</h2>
+                    <span className="title-16">@PosterUsername</span>
+                    <span className="translate-x-[340px] title-16">14h ago</span>
                   </div>
                   {/* Poster Comment */}
                   <div className="">
-                    <p className="h-auto font-light">
+                    <p className="h-auto font-light body-14">
                       Mogul talk. They will try to close the door on you, just
                       open it. The key to more success is to have a lot of
                       pillows. Special cloth alert. They key is to have every

@@ -65,7 +65,7 @@ function App() {
       theme === "dark" ? "bg-[#313538] text-[#ECEDEF]" : "bg-[#ECEDEF] text-[#313538]"
     }`} >
      <TradingViewTicker key={theme} />
-      <Navbar />
+      <Navbar setUser={setUser} user={user} />
       <Header setUser={setUser} user={user} />
       <Routes>
         <Route path='/' element={<Home />} />
