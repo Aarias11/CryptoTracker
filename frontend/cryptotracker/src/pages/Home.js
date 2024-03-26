@@ -195,12 +195,13 @@ function Home() {
       }`}
     >
       <div
-        className={`w-full h-auto py-20   ${
+        className={`w-full h-[565px] py-35 flex justify-center items-center   ${
           theme === "dark"
-            ? "bg-gradient-to-r from-zinc-800  to-[#313538] text-white"
-            : ""
+          ? "bg-gradient-to-r from-zinc-800  to-[#313538] text-white"
+          : ""
         }`}
       >
+        
         <div className="max-w-6xl mx-auto">
           <h2 className="headline-semibold-48 p-5 text-center">
             Cryptocurrencies By Highest MarketCap
@@ -235,27 +236,35 @@ function Home() {
       <div className={`App ${
       theme === "dark" ? "bg-[#313538] text-[#ECEDEF]" : "bg-[#ECEDEF] text-[#313538]"
     }`} >
+      <div>
+       
+      < TradingViewTicker key={theme} />
+
+      
+      </div>
+        <div className="h-[400px] px-[65px]">
         <TradingViewMarketWidget />
+        </div>
       </div>
       {/* Searchbar */}
       {/* ----------------------- */}
-      <div className="p-3 lg:px-7">
+      <div className="p-3 lg:px-[65px]">
         <div className=" w-full h-[50px] relative">
           <input
-            className={`w-[300px] h-full rounded-xl font-semibold text-sm p-3 px-10 relative ${
+            className={`w-[300px] h-full rounded-xl font-semibold text-sm p-3 relative px-[40px] ${
               theme === "dark"
                 ? "bg-zinc-700 text-zinc-500"
                 : "bg-zinc-200 text-gray-600"
             }`}
             type="search"
-            placeholder="Search Crypto..."
+            placeholder="Search Crypto"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
 
           <RxMagnifyingGlass
             size={20}
-            className={`absolute top-3.5  text-slate-200 left-2 ${
+            className={`absolute top-4  text-slate-200 left-2 ${
               theme === "dark" ? "text-zinc-200" : " text-slate-800"
             }`}
           />
@@ -265,13 +274,13 @@ function Home() {
       {/* ----------------------- */}
 
       <div
-        className={`w-full h-full flex flex-col justify-center overflow-x-scroll  lg:px-7 ${
+        className={`w-[95%] h-full flex flex-col justify-center overflow-x-scroll  lg:px-[65px] ${
           theme === "dark" ? " text-white" : " text-gray-900"
         }`}
       >
         {/* CRYPTO TABLE */}
         {/* ----------------------- */}
-        <table className={`min-w-full divide-y  ${tableTheme} `}>
+        <table className={`min-w-full divide-y  px-[65px] ${tableTheme} `}>
           {/* TABLE HEAD */}
           {/* ----------------------- */}
 

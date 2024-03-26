@@ -279,8 +279,8 @@ function CryptoPage({ user, currentCrypto }) {
     <div
       className={`w-full h-screen   ${
         theme === "dark"
-          ? " text-white"
-          : "bg-[#FAFAFA] text-gray-900"
+          ? " body-14"
+          : "body-14"
       }`}
     >
       {/* Container */}

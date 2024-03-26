@@ -64,9 +64,9 @@ function App() {
     <div className={`App ${
       theme === "dark" ? "bg-[#313538] text-[#ECEDEF]" : "bg-[#ECEDEF] text-[#313538]"
     }`} >
-     <TradingViewTicker key={theme} />
-      <Navbar setUser={setUser} user={user} />
       <Header setUser={setUser} user={user} />
+      <Navbar setUser={setUser} user={user} />
+     {/* <TradingViewTicker key={theme} /> */}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
