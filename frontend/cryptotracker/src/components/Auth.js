@@ -200,8 +200,8 @@ function Auth() {
           theme === "dark" ? " text-red-400" : " text-teal-600"
         }`}
       >
-        <li className="hidden xl:flex "><PiCurrencyBtcFill className="text-yellow-500" size={40} />
- Halving: 60 Days</li>
+        <li className="hidden xl:flex items-center gap-2 "><PiCurrencyBtcFill className="text-yellow-500" size={20} />
+ <span className="w-[100px]">Halving: 60 Days</span></li>
         <li className="hidden xl:flex  gap-2 items-center">
           <GoStarFill className="text-yellow-400" size={20} />
           <Link to="/watchlist"><span className="text-primary-400">Watchlist</span></Link>
@@ -475,13 +475,13 @@ function Auth() {
       
 
       <div
-        className={`fixed inset-y-0 right-0 w-[500px] max-w-full bg-[#F8F9FA] shadow-xl transform border-l border-zinc-600  ${
+        className={`fixed inset-y-0 right-0 w-[50%] h-screen  bg-[#F8F9FA] shadow-xl transform border-l border-zinc-600  ${
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         } transition-transform duration-300 ease-in-out lg:hidden z-50`}
       >
         {/* Menu Header */}
         <div
-          className={`flex justify-between items-center p-2 border-b border-zinc-600 ${
+          className={`flex justify-between items-center h- p-2 border-b border-zinc-600 ${
             theme === "dark"
               ? "bg-gradient-to-r from-zinc-800  to-[#16171a] "
               : "bg-white text-gray-900"
@@ -521,14 +521,31 @@ function Auth() {
                   Sign Out
                 </button>
               </div>
+              {/* Footer - Theme Switcher */}
+        
+          <div className="w-full flex justify-end translate-x-1.5">
+          <button
+            onClick={toggleTheme}
+            className="flex items-center justify-center w-auto p-2 rounded-md text-gray-800"
+          >
+            {theme === "dark" ? (
+              <RiSunLine size={25} className="text-orange-500 text-xl mr-2" />
+            ) : (
+              <RiMoonLine size={25} className="text-xl mr-2" />
+            )}
+            
+          </button>
             </div>
+       
+            </div>
+            
           </div>
         )}
         
 
         {/* Menu Items */}
         <div
-          className={`overflow-y-auto  ${
+          className={`overflow-y-auto  h-screen ${
             theme === "dark"
               ? "bg-gradient-to-r from-zinc-800  to-[#16171a] text-white"
               : "bg-white text-gray-900"
@@ -593,26 +610,7 @@ function Auth() {
           </ul>
         </div>
 
-        {/* Footer - Theme Switcher */}
-        <div
-          className={`  w-full h-[200px] flex flex-col justify-end p-4 border-t border-zinc-600 ${
-            theme === "dark"
-              ? "bg-gradient-to-r from-zinc-800  to-[#16171a] text-white"
-              : "bg-[#FAFAFA] text-gray-900"
-          }`}
-        >
-          <button
-            onClick={toggleTheme}
-            className="flex items-center justify-center w-full p-2 rounded-md text-gray-800 bg-gray-100 hover:bg-gray-200"
-          >
-            {theme === "dark" ? (
-              <RiSunLine className="text-xl mr-2" />
-            ) : (
-              <RiMoonLine className="text-xl mr-2" />
-            )}
-            Switch Theme
-          </button>
-        </div>
+        
       </div>
     </div>
   )

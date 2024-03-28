@@ -227,7 +227,7 @@ function Home() {
               href="/explore"
               className="bg-teal-500 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-teal-400 transition duration-300 ease-in-out"
             >
-              Explore Cryptocurrencies
+              Start Exploring
             </a>
           </div>
         </div>
