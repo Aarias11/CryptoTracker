@@ -878,3 +878,364 @@ letter-spacing: 0.05px;
 
   
 
+/* BUTTONS DARKMODE */
+
+/* Buttons Default */
+.button-primary-extra-small-dark {
+  display: inline-flex;
+  padding: 6px var(--spacing-lg, 12px);
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md, 8px);
+  border-radius: 8px;
+background: var(--Primary-600, #115CC5);
+box-shadow: 0px 2px 0px 0px rgba(6, 31, 66, 0.20) inset;
+}
+
+.button-primary-small-dark {
+  display: inline-flex;
+padding: var(--spacing-md, 8px) var(--spacing-xl, 16px);
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: 8px;
+background: var(--Primary-600, #115CC5);
+}
+
+
+.button-primary-medium-dark {
+  display: inline-flex;
+padding: 10px var(--spacing-2xl, 20px);
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: 12px;
+background: var(--Primary-600, #115CC5);
+}
+
+
+.button-primary-large-dark {
+  display: inline-flex;
+  padding: var(--spacing-lg, 12px) var(--spacing-3xl, 24px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 16px;
+background: var(--Primary-600, #115CC5);
+}
+
+
+/* Buttons Hover */
+.button-primary-extra-small-hover-dark {
+  display: inline-flex;
+  padding: 6px var(--spacing-lg, 12px);
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md, 8px);
+  border-radius: 8px;
+background: var(--Primary-600, #115CC5);
+}
+
+.button-primary-small-hover-dark {
+  display: inline-flex;
+padding: var(--spacing-md, 8px) var(--spacing-xl, 16px);
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: 8px;
+background: var(--Primary-600, #115CC5);
+}
+
+.button-primary-medium-hover-dark {
+  display: inline-flex;
+  padding: 10px var(--spacing-2xl, 20px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+background: var(--Primary-600, #115CC5);
+}
+
+.button-primary-large-hover-dark {
+  display: inline-flex;
+  padding: var(--spacing-lg, 12px) var(--spacing-3xl, 24px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 16px;
+background: var(--Primary-600, #115CC5);
+}
+
+
+/* Buttons Pressed */
+.button-primary-extra-small-pressed-dark {
+  display: inline-flex;
+  padding: 6px var(--spacing-lg, 12px);
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md, 8px);
+  border-radius: 8px;
+background: var(--Primary-600, #115CC5);
+}
+
+.button-primary-small-pressed-dark {
+  display: inline-flex;
+  padding: var(--spacing-md, 8px) var(--spacing-xl, 16px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+background: var(--Primary-600, #115CC5);
+}
+
+.button-primary-medium-pressed-dark {
+  display: inline-flex;
+  padding: 10px var(--spacing-2xl, 20px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+background: var(--Primary-600, #115CC5);
+}
+
+.button-primary-large-pressed-dark {
+  display: inline-flex;
+  padding: var(--spacing-lg, 12px) var(--spacing-3xl, 24px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 16px;
+background: var(--Primary-600, #115CC5);
+}
+
+
+/* Button Inactive */
+.button-primary-extra-small-inactive-dark {
+  display: inline-flex;
+padding: 6px var(--spacing-lg, 12px);
+justify-content: center;
+align-items: center;
+gap: var(--spacing-md, 8px);
+border-radius: 8px;
+opacity: 0.72;
+background: var(--Primary-600, #115CC5);
+}
+
+.button-primary-small-inactive-dark {
+  display: inline-flex;
+  padding: var(--spacing-md, 8px) var(--spacing-xl, 16px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+opacity: 0.72;
+background: var(--Primary-600, #115CC5);
+}
+
+.button-primary-medium-inactive-dark {
+  display: inline-flex;
+  padding: 10px var(--spacing-2xl, 20px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+opacity: 0.72;
+background: var(--Primary-600, #115CC5);
+}
+
+.button-primary-large-inactive-dark {
+  display: inline-flex;
+  padding: var(--spacing-lg, 12px) var(--spacing-3xl, 24px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 16px;
+opacity: 0.72;
+background: var(--Primary-600, #115CC5);
+}
+
+
+
+/* BUTTONS LIGHT BUTTON */
+
+/* Buttons Default */
+.button-primary-extra-small-light {
+  display: inline-flex;
+  padding: 6px var(--spacing-lg, 12px);
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md, 8px);
+border-radius: 8px;
+background: var(--Primary-800, #0A336E);
+}
+
+.button-primary-small-light {
+  display: inline-flex;
+padding: var(--spacing-md, 8px) var(--spacing-xl, 16px);
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: 8px;
+background: var(--Primary-800, #0A336E);
+}
+
+.button-primary-medium-light {
+  display: inline-flex;
+  padding: 10px var(--spacing-2xl, 20px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+background: var(--Primary-800, #0A336E);
+}
+
+
+.button-primary-large-light {
+  display: inline-flex;
+  padding: var(--spacing-lg, 12px) var(--spacing-3xl, 24px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 16px;
+background: var(--Primary-800, #0A336E);
+}
+
+
+/* Buttons Hover */
+.button-primary-extra-small-hover-light {
+  display: inline-flex;
+padding: 6px var(--spacing-lg, 12px);
+justify-content: center;
+align-items: center;
+gap: var(--spacing-md, 8px);
+border-radius: 8px;
+background: var(--Primary-800, #0A336E);
+}
+
+.button-primary-small-hover-light {
+  display: inline-flex;
+  padding: var(--spacing-md, 8px) var(--spacing-xl, 16px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+background: var(--Primary-800, #0A336E);
+}
+
+.button-primary-medium-hover-light {
+  display: inline-flex;
+  padding: 10px var(--spacing-2xl, 20px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+background: var(--Primary-800, #0A336E);
+}
+
+.button-primary-medium-hover-light {
+  display: inline-flex;
+  padding: var(--spacing-lg, 12px) var(--spacing-3xl, 24px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 16px;
+background: var(--Primary-800, #0A336E);
+}
+
+.button-primary-large-hover-light {
+  display: inline-flex;
+  padding: var(--spacing-lg, 12px) var(--spacing-3xl, 24px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 16px;
+background: var(--Primary-800, #0A336E);
+}
+
+
+/* Buttons Pressed Light */
+.button-primary-extra-small-pressed-light {
+  display: inline-flex;
+  padding: 6px var(--spacing-lg, 12px);
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md, 8px);
+  border-radius: 8px;
+background: var(--Primary-800, #0A336E);
+}
+
+.button-primary-small-pressed-light {
+  display: inline-flex;
+padding: var(--spacing-md, 8px) var(--spacing-xl, 16px);
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: 8px;
+background: var(--Primary-800, #0A336E);
+}
+
+.button-primary-medium-pressed-light {
+  display: inline-flex;
+  padding: 10px var(--spacing-2xl, 20px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+background: var(--Primary-800, #0A336E);
+}
+
+.button-primary-large-pressed-light {
+  display: inline-flex;
+  padding: var(--spacing-lg, 12px) var(--spacing-3xl, 24px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 16px;
+background: var(--Primary-800, #0A336E);
+}
+
+
+/* Button Inactive */
+.button-primary-extra-small-inactive-light {
+  display: inline-flex;
+  padding: 6px var(--spacing-lg, 12px);
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md, 8px);
+  border-radius: 8px;
+opacity: 0.72;
+background: var(--Primary-800, #0A336E);
+}
+
+.button-primary-small-inactive-light {
+  display: inline-flex;
+  padding: var(--spacing-md, 8px) var(--spacing-xl, 16px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+opacity: 0.72;
+background: var(--Primary-800, #0A336E);
+}
+
+.button-primary-medium-inactive-light {
+  display: inline-flex;
+  padding: 10px var(--spacing-2xl, 20px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+opacity: 0.72;
+background: var(--Primary-800, #0A336E);
+}
+
+.button-primary-large-inactive-light {
+  display: inline-flex;
+  padding: var(--spacing-lg, 12px) var(--spacing-3xl, 24px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 16px;
+opacity: 0.72;
+background: var(--Primary-800, #0A336E);
+}

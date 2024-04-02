@@ -62,7 +62,7 @@ function App() {
   return (
     // Below div is the light/dark mode primary 
     <div className={`App ${
-      theme === "dark" ? "bg-[#313538] text-[#ECEDEF]" : "bg-[#ECEDEF] text-[#313538]"
+      theme === "dark" ? "bg-[#031021] text-primary-100" : "bg-[#F5F9FE] text-primary-800"
     }`} >
       <Header setUser={setUser} user={user} />
       <Navbar setUser={setUser} user={user} />

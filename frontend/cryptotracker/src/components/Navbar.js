@@ -89,7 +89,7 @@ function Navbar() {
 
   return (
     <div
-      className={`h-[70px] flex items-center  justify-between border-b border-zinc-500 text-sm px-4 lg:px-[65px] ${
+      className={`h-[70px] flex items-center  justify-between border-b border-zinc-800 text-sm px-4 lg:px-[65px] ${
         theme === "dark" ? "  " : ""
       }`}
     >
@@ -113,7 +113,7 @@ function Navbar() {
 </Link>
       <ul
         className={`hidden xl:flex sm:gap-4 h-auto md:w-auto md:gap-8 font-semibold  label-14 ${
-          theme === "dark" ? " text-zinc-200" : " text-zinc-700"
+          theme === "dark" ? " " : " "
         }`}
       >
         <li className="text-xs md:text-sm">

@@ -197,7 +197,7 @@ function Home() {
       <div
         className={`w-full h-[565px] py-35 flex justify-center items-center   ${
           theme === "dark"
-          ? "bg-gradient-to-r from-zinc-800  to-[#313538] text-white"
+          ? "bg-gradient-to-r from-zinc-900  to-[#031021] "
           : ""
         }`}
       >
@@ -234,7 +234,7 @@ function Home() {
       </div>
 
       <div className={`App ${
-      theme === "dark" ? "bg-[#313538] text-[#ECEDEF]" : "bg-[#ECEDEF] text-[#313538]"
+      theme === "dark" ? "" : ""
     }`} >
       <div>
        
@@ -251,10 +251,10 @@ function Home() {
       <div className="p-3 lg:px-[65px]">
         <div className=" w-full h-[50px] relative">
           <input
-            className={`w-[300px] h-full rounded-xl font-semibold text-sm p-3 relative px-[40px] ${
+            className={`w-[300px] h-full border border-primary-200 rounded-xl font-semibold text-sm p-3 relative px-[40px] ${
               theme === "dark"
-                ? "bg-zinc-700 text-zinc-500"
-                : "bg-zinc-200 text-gray-600"
+                ? "bg-[#031021] text-primary-200"
+                : ""
             }`}
             type="search"
             placeholder="Search Crypto"
