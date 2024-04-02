@@ -200,7 +200,7 @@ function Auth() {
           theme === "dark" ? " text-red-400" : " text-teal-600"
         }`}
       >
-        <li className="hidden xl:flex items-center gap-2 "><PiCurrencyBtcFill className="text-yellow-500" size={20} />
+        <li className="hidden xl:flex items-center gap-2 "><PiCurrencyBtcFill className="text-yellow-500" size={23} />
  <span className="w-[100px]">Halving: 60 Days</span></li>
         <li className="hidden xl:flex  gap-2 items-center">
           <GoStarFill className="text-yellow-400" size={20} />

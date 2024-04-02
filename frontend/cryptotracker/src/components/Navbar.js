@@ -89,7 +89,7 @@ function Navbar() {
 
   return (
     <div
-      className={`h-[70px] flex items-center  justify-between border-b border-zinc-800 text-sm px-4 lg:px-[65px] ${
+      className={`h-[70px] flex items-center  justify-between border-b border-zinc-800 text-sm px-4 md:px-[32px] lg:px-[64px] ${
         theme === "dark" ? "  " : ""
       }`}
     >
@@ -112,7 +112,7 @@ function Navbar() {
 </svg>
 </Link>
       <ul
-        className={`hidden xl:flex sm:gap-4 h-auto md:w-auto md:gap-8 font-semibold  label-14 ${
+        className={`hidden lg:flex sm:gap-4 h-auto md:w-auto md:gap-8 font-semibold  label-14 ${
           theme === "dark" ? " " : " "
         }`}
       >

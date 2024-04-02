@@ -44,7 +44,7 @@ const TradingViewNews = () => {
   }, [symbol, theme]); // Dependency array includes theme to reload widget on theme change
 
   return (
-    <div ref={widgetRef} className={`tradingview-widget-container ${theme === "dark" ? "bg-[#1d1e22]" : "bg-[#FAFAFA]"}`}>
+    <div ref={widgetRef} className={`tradingview-widget-container rounded-xl ${theme === "dark" ? "bg-primary-900" : "light"}`}>
       <div className="tradingview-widget-container__widget"></div>
     </div>
   );
