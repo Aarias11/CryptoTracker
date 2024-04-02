@@ -22,11 +22,11 @@ const TradingViewChart = () => {
       "symbol": `BYBIT:${symbol}USDT`, // Adjust the symbol as needed
       "interval": "D",
       "timezone": "Etc/UTC",
-      "theme": theme === "dark" ? "dark" : "light", // Dynamically set theme
+      "theme": theme === "dark" ? "#EAF2FD" : "light", // Dynamically set theme
       "style": "1",
       "locale": "en",
       "hide_side_toolbar": false,
-      "toolbar_bg": theme === "dark" ? "#16171a" : "#f1f3f6", // Adjust toolbar background based on theme
+      "toolbar_bg": theme === "dark" ? "#EAF2FD" : "#f1f3f6", // Adjust toolbar background based on theme
       "enable_publishing": false,
       "allow_symbol_change": true,
       "container_id": "tradingview_3e3a5"

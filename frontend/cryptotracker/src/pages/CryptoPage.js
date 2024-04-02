@@ -294,13 +294,13 @@ function CryptoPage({ user, currentCrypto }) {
         <div
           className={`flex flex-col w-full h-[100px] lg:w-[500px] lg:h-screen overflow-y-scroll sticky top-0  transition-colors duration-300 shadow-lg ${
             theme === "dark"
-              ? " text-white"
-              : " text-gray-900"
+              ? " "
+              : " "
           }`}
         >
           {/* Header with Dynamic Crypto Data and Favorite Toggle */}
           <div
-            className={`flex items-center justify-between p-4 bg-gradient-to-r from-gray-800  to-gray-900  dark:to-teal-900 text-white w-full ${
+            className={`flex items-center justify-between p-4 bg-gradient-to-r from-gray-800  to-gray-900  dark:bg-[#031021] w-full ${
               theme === "dark" ? "" : ""
             }`}
           >
@@ -345,14 +345,14 @@ function CryptoPage({ user, currentCrypto }) {
           <div
             className={`hidden lg:flex lg:flex-col lg:p-4 lg:h-[300px]  lg:mt-4 lg:rounded-lg lg:shadow ${
               theme === "dark"
-                ? " text-white"
-                : " text-gray-900"
+                ? " "
+                : " "
             }`}
           >
             <h2 className="text-xl font-bold">Stats</h2>
             <div className="flex flex-wrap gap-4 text-center">
               <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs  dark:text-gray-400">
                   Current Price
                 </p>
                 <p className="text-lg font-semibold">
@@ -360,7 +360,7 @@ function CryptoPage({ user, currentCrypto }) {
                 </p>
               </div>
               <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs  dark:text-gray-400">
                   Market Cap
                 </p>
                 <p className="text-lg font-semibold">
@@ -368,7 +368,7 @@ function CryptoPage({ user, currentCrypto }) {
                 </p>
               </div>
               <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs  dark:text-gray-400">
                   24h Volume
                 </p>
                 <p className="text-lg font-semibold">
@@ -382,11 +382,11 @@ function CryptoPage({ user, currentCrypto }) {
           <div
             className={`hidden lg:flex lg:flex-wrap lg:p-4 lg:mt-4  lg:rounded-lg lg:shadow lg-w-full ${
               theme === "dark"
-                ? " text-white"
-                : " text-gray-900"
+                ? " "
+                : " "
             }`}
           >
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-lg font-semibold">
               Price Chart
             </h3>
             {/* Placeholder for a dynamic price chart component */}
@@ -399,22 +399,22 @@ function CryptoPage({ user, currentCrypto }) {
           <div
             className={`hidden lg:flex lg:flex-col lg:p-4 lg:mt-4  lg:rounded-lg lg:shadow ${
               theme === "dark"
-                ? " text-white"
-                : " text-zinc-600"
+                ? " "
+                : ""
             }`}
           >
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-lg font-semibold ">
               Quick Insights
             </h3>
             <ul className="mt-2 space-y-2">
               {/* Dynamic list of insights about the cryptocurrency */}
-              <li className="text-sm text-gray-600 dark:text-gray-300">
+              <li className="text-sm ">
                 Insight #1
               </li>
-              <li className="text-sm text-gray-600 dark:text-gray-300">
+              <li className="text-sm ">
                 Insight #2
               </li>
-              <li className="text-sm text-gray-600 dark:text-gray-300">
+              <li className="text-sm ">
                 More insights...
               </li>
             </ul>
@@ -424,8 +424,8 @@ function CryptoPage({ user, currentCrypto }) {
           <div
             className={`hidden lg:flex lg:flex-col lg:p-4 lg:mt-4 lg:rounded-lg lg:shadow ${
               theme === "dark"
-                ? " text-white"
-                : " text-gray-900"
+                ? " "
+                : " "
             }`}
           >
             <h3 className="text-lg font-semibold ">Connect</h3>
@@ -456,10 +456,10 @@ function CryptoPage({ user, currentCrypto }) {
             <TradingViewChart cryptoId={symbol} />
             {/* Bottom */}
             <div
-              className={`w-full py-4  text-white shadow-lg rounded-lg overflow-hidden ${
+              className={`w-full py-4   shadow-lg rounded-lg overflow-hidden ${
                 theme === "dark"
-                  ? "bg-gradient-to-r from-gray-900  to-[#031729] dark:from-gray-900 dark:to-[#031729] text-white"
-                  : "bg-white text-gray-900"
+                  ? " "
+                  : ""
               }`}
             >
               <div className="px-4 md:px-6 lg:px-8">
@@ -467,32 +467,32 @@ function CryptoPage({ user, currentCrypto }) {
                 <div
                   className={`mb-8 ${
                     theme === "dark"
-                      ? " text-white"
-                      : " text-gray-900 "
+                      ? " "
+                      : "  "
                   }`}
                 >
                   <h2 className="text-3xl font-bold mb-2">Market Overview</h2>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className= {`rounded-lg shadow p-4 ${theme === "dark" ? "bg-[#1d1e22]" : ""}`}>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <div className= {`rounded-lg shadow p-4 label-semibold-14 flex flex-col gap-1 text-primary-200 ${theme === "dark" ? "bg-primary-900" : "bg-primary-200"}`}>
+                      <p className="text-sm  ">
                         Total Market Cap
                       </p>
-                      <p className="text-xl font-semibold">$1.5T</p>
+                      <p className="text-xl text-primary-50 headline-24 ">$1.5T</p>
                     </div>
-                    <div className= {`rounded-lg shadow p-4 ${theme === "dark" ? "bg-[#1d1e22]" : ""}`}>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <div className= {`rounded-lg shadow p-4 ${theme === "dark" ? "bg-primary-900" : "bg-primary-200"}`}>
+                      <p className="text-sm ">
                         24h Trading Volume
                       </p>
                       <p className="text-xl font-semibold">$200B</p>
                     </div>
-                    <div className= {`rounded-lg shadow p-4 ${theme === "dark" ? "bg-[#1d1e22]" : ""}`}>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <div className= {`rounded-lg shadow p-4 ${theme === "dark" ? "bg-primary-900" : "bg-primary-200"}`}>
+                      <p className="text-sm ">
                         Bitcoin Dominance
                       </p>
                       <p className="text-xl font-semibold">45%</p>
                     </div>
-                    <div className= {`rounded-lg shadow p-4 ${theme === "dark" ? "bg-[#1d1e22]" : ""}`}>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <div className= {`rounded-lg shadow p-4 ${theme === "dark" ? "bg-primary-900" : "bg-primary-200"}`}>
+                      <p className="text-sm ">
                         Ethereum Dominance
                       </p>
                       <p className="text-xl font-semibold">18%</p>
@@ -502,7 +502,7 @@ function CryptoPage({ user, currentCrypto }) {
 
                 {/* Latest News Section as previously designed */}
                 <h2 className="text-2xl font-bold mb-4">Latest News</h2>
-                <div className={`w-full h-[400px] overflow-y-auto rounded-lg shadow-inner p-4 ${theme === "dark" ? "bg-[#1d1e22]" : ""}`}>
+                <div className={`w-full h-[400px] overflow-y-auto rounded-lg shadow-inner p-4 ${theme === "dark" ? "bg-primary-900" : ""}`}>
                   <TradingViewNews />
                 </div>
 
@@ -511,11 +511,11 @@ function CryptoPage({ user, currentCrypto }) {
                   <h2 className="text-3xl font-bold mb-2">Trending Coins</h2>
                   <div className="flex overflow-x-auto gap-4 p-2">
                     {/* Placeholder for trending coins. Each coin could be a component */}
-                    <div className={`min-w-[160px]  rounded-lg shadow p-4 ${theme === "dark" ? "bg-[#1d1e22] text-zinc-200" : "bg-[#FAFAFA] text-zinc-800"}`}>
+                    <div className={`min-w-[160px]  rounded-lg shadow p-4 ${theme === "dark" ? "bg-primary-900" : "bg-primary-200"}`}>
                       <p className="text-sm font-semibold">Bitcoin</p>
                       <p className="text-lg">$60,000 USD</p>
                     </div>
-                    <div className={`min-w-[160px]  rounded-lg shadow p-4 ${theme === "dark" ? "bg-[#1d1e22] text-zinc-200" : "bg-[#FAFAFA] text-zinc-800"}`}>
+                    <div className={`min-w-[160px]  rounded-lg shadow p-4 ${theme === "dark" ? "bg-primary-900" : "bg-primary-200"}`}>
                       <p className="text-sm font-semibold">Ethereum</p>
                       <p className="text-lg">$4,000 USD</p>
                     </div>
@@ -553,14 +553,13 @@ function CryptoPage({ user, currentCrypto }) {
         <div
           className={`flex flex-col w-full h-[500px] lg:flex lg:flex-col lg:w-[500px] lg:h-full  overflow-y-auto ${
             theme === "dark"
-              ? " text-white"
-              : " text-gray-900"
+              ? "" : "bg-primary-50"
           }`}
         >
           <div className={`p-4  rounded-lg shadow ${
             theme === "dark"
-              ? " text-white"
-              : "bg-[#FAFAFA] text-gray-900"
+              ? " "
+              : ""
           }`}>
             <h2 className="text-lg font-semibold ">
               Share your thoughts
@@ -569,14 +568,14 @@ function CryptoPage({ user, currentCrypto }) {
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md text-black dark:text-gray-300 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full p-2 border border-gray-300 rounded-md bg-[#031021] text-primary-200"
                 placeholder={`What do you think about ${symbol}?`}
                 rows="4"
               ></textarea>
               {/* #16171a */}
               <div className={`flex items-center justify-between ${theme === "dark"
-              ? " text-white"
-              : " text-gray-900"}`}>
+              ? " "
+              : " "}`}>
                 <label className="flex items-center cursor-pointer text-blue-500 hover:text-blue-600">
                   <span className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-50 text-blue-500 hover:bg-blue-100 mr-2">
                     <svg
@@ -621,7 +620,7 @@ function CryptoPage({ user, currentCrypto }) {
                   placeholder="Search GIFs"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="p-2 border border-gray-300 text-zinc-700 rounded-md"
+                  className="p-2 border bg-[#031021] text-primary-200 rounded-md"
                 />
               </div>
               {/* Display selected GIF */}
@@ -668,8 +667,7 @@ function CryptoPage({ user, currentCrypto }) {
                   key={comment.id}
                   className={`rounded-lg overflow-hidden mb-4 ${
                     theme === "dark"
-                      ? "bg-[#151828] shadow-sm  shadow-slate-800 text-white"
-                      : "bg-white shadow-md text-gray-900"
+                      ? "bg-primary-900" : "bg-primary-100 "
                   }`}
                 >
                   <div className="p-4">
@@ -705,7 +703,7 @@ function CryptoPage({ user, currentCrypto }) {
                           <span className="font-semibold">
                             {comment.userName}
                           </span>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs ">
                             {comment.createdAt.toLocaleString()}
                           </span>
                         </div>

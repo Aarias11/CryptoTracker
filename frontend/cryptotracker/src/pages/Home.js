@@ -238,8 +238,9 @@ function Home() {
     }`} >
       <div>
        
-      < TradingViewTicker key={theme} />
+      <TradingViewTicker key={theme} />
 
+      
       
       </div>
         <div className="h-[400px] px-[65px]">
