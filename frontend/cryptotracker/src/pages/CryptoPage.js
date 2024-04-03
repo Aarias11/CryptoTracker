@@ -277,7 +277,7 @@ function CryptoPage({ user, currentCrypto }) {
   console.log(user?.displayName);
   return (
     <div
-      className={`w-full h-auto px-5 md:px-[32px] lg:px-[55px]  ${
+      className={`w-full h-auto px-5 md:px-[32px] lg:px-[55px] xl:flex ${
         theme === "dark"
           ? " body-14"
           : "body-14"
@@ -289,20 +289,14 @@ function CryptoPage({ user, currentCrypto }) {
           theme === "dark" ? " text-white" : " text-gray-900"
         }`}
       >
-        {/* Left Side */}
-        {/* Enhanced Left Side Component */}
-        <div
-          className={`flex flex-col w-full h-[100px] lg:w-[550px] lg:h-screen overflow-y-scroll sticky top-0  transition-colors duration-300 shadow-lg mr-5 ${
-            theme === "dark"
-              ? " "
-              : " "
-          }`}
-        >
+      
+      
+
+        {/* Left Side - Chart */}
+        <div className="w-full h-screen overflow-y-scroll flex-grow mr-10 ">
           {/* Header with Dynamic Crypto Data and Favorite Toggle */}
           <div
-            className={`flex items-center justify-between w-full py-6 px-3  rounded-xl ${
-              theme === "dark" ? "border border-primary-500" : ""
-            }`}
+            className={`flex items-center justify-between w-full py-6 px-3 mt-5 rounded-xl ${theme === "dark" ? "bg-primary-900 " : "bg-primary-200"}`}
           >
             <div className="flex items-center space-x-4">
               <img
@@ -325,6 +319,33 @@ function CryptoPage({ user, currentCrypto }) {
                 ${crypto.market_data?.current_price?.usd.toLocaleString()}
               </p>
             </div>
+            {/* Stats */}
+
+            <div className="hidden md:flex md:flex-col">
+                <p className="text-xs  dark:text-primary-50 label-semibold-12">
+                  Current Price
+                </p>
+                <p className="text-lg font-semibold">
+                  ${crypto.market_data?.current_price?.usd.toLocaleString()}
+                </p>
+              </div>
+              <div className="hidden md:flex md:flex-col">
+                <p className="text-xs  dark:text-primary-50 label-semibold-12">
+                  Market Cap
+                </p>
+                <p className="text-lg font-semibold">
+                  ${crypto.market_data?.market_cap?.usd.toLocaleString()}
+                </p>
+              </div>
+              <div className="hidden md:flex md:flex-col">
+                <p className="text-xs  dark:text-gray-400">
+                  24h Volume
+                </p>
+                <p className="text-lg font-semibold">
+                  ${crypto.market_data?.total_volume?.usd.toLocaleString()}
+                </p>
+              </div>
+              {/* Favorite */}
             <button
               onClick={toggleFavorite}
               className={`transition duration-300 ease-in-out p-2 rounded-full ${
@@ -339,123 +360,10 @@ function CryptoPage({ user, currentCrypto }) {
                 <MdOutlineStarBorder size={28} />
               )}
             </button>
+            
           </div>
 
-          {/* Crypto Stats: Price, Market Cap, and Volume */}
-          <div
-            className={`hidden w-full lg:flex lg:flex-col lg:h-[300px]  lg:mt-4 lg:rounded-lg lg:shadow mr-4 ${
-              theme === "dark"
-                ? " "
-                : " "
-            }`}
-          >
-            <h2 className="headline-semibold-28 ">Stats</h2>
-            <div className={`w-full flex flex-col gap-4 py-5 p-4 rounded-xl ${theme === "dark" ? "border border-primary-500" : ""}`}>
-              <div>
-                <p className="text-xs  dark:text-primary-50 label-semibold-12">
-                  Current Price
-                </p>
-                <p className="text-lg font-semibold">
-                  ${crypto.market_data?.current_price?.usd.toLocaleString()}
-                </p>
-              </div>
-              <div>
-                <p className="text-xs  dark:text-gray-400">
-                  Market Cap
-                </p>
-                <p className="text-lg font-semibold">
-                  ${crypto.market_data?.market_cap?.usd.toLocaleString()}
-                </p>
-              </div>
-              <div>
-                <p className="text-xs  dark:text-gray-400">
-                  24h Volume
-                </p>
-                <p className="text-lg font-semibold">
-                  ${crypto.market_data?.total_volume?.usd.toLocaleString()}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Interactive Price Chart Placeholder */}
-          <div
-            className={`hidden lg:flex lg:flex-wrap  lg:mt-4  lg:rounded-lg py-5 lg:shadow lg-w-full ${
-              theme === "dark"
-                ? " "
-                : " "
-            }`}
-          >
-            <h3 className="headline-semibold-28 ">
-              Price Chart
-            </h3>
-            {/* Placeholder for a dynamic price chart component */}
-            <div className={`w-full h-[400px]  rounded-xl mt-2 flex items-center justify-center  ${theme === "dark" ? "border border-primary-500" : ""}`}>
-              <TradingViewTechnicalAnalysis className='p-10' />
-            </div>
-          </div>
-
-          {/* Quick Insights */}
-          <div
-            className={`hidden w-full lg:flex lg:flex-col lg:h-[300px]  lg:mt-4 lg:rounded-lg lg:shadow mr-4 ${
-              theme === "dark"
-                ? " "
-                : " "
-            }`}
-          >
-            <h3 className="headline-semibold-28 ">
-              Quick Insights
-            </h3>
-            <div className={`w-full flex gap-4 py-5 p-4 rounded-xl ${theme === "dark" ? "border border-primary-500" : ""}`}>
-
-            <ul className="mt-2 space-y-2">
-              {/* Dynamic list of insights about the cryptocurrency */}
-              <li className="text-sm ">
-                Insight #1
-              </li>
-              <li className="text-sm ">
-                Insight #2
-              </li>
-              <li className="text-sm ">
-                More insights...
-              </li>
-            </ul>
-            </div>
-          </div>
-
-          {/* Social Media and Official Links */}
-          <div
-            className={`hidden w-full lg:flex lg:flex-col lg:h-[300px]  lg:mt-4 lg:rounded-lg lg:shadow mr-4 ${
-              theme === "dark"
-                ? " "
-                : " "
-            }`}
-          >
-            <h3 className="headline-semibold-28 ">Connect</h3>
-            <div className={`w-full flex  gap-4 py-5 p-4 rounded-xl ${theme === "dark" ? "border border-primary-500" : ""}`}>
-              {/* Conditional rendering for available social media links */}
-              <a
-                href={crypto.links?.twitter}
-                className="text-blue-500 hover:underline"
-              >
-                Twitter
-              </a>
-              <a
-                href={crypto.links?.reddit}
-                className="text-orange-500 hover:underline"
-              >
-                Reddit
-              </a>
-              {/* Add more social media and official links */}
-            </div>
-          </div>
-
-          {/* More sections can be added here */}
-        </div>
-
-        {/* Middle - Chart */}
-        <div className="w-full h-screen overflow-y-scroll flex-grow px-3  ">
-          <div className="w-full h-[500px] ">
+          <div className="w-full h-[500px] mt-5 ">
             <TradingViewChart cryptoId={symbol} />
             {/* Bottom */}
             <div
@@ -552,14 +460,15 @@ function CryptoPage({ user, currentCrypto }) {
             </div>
           </div>
         </div>
+      </div>
         {/* Right Side Component - Posts */}
         <div
-          className={`flex flex-col w-full h-[500px] lg:flex lg:flex-col lg:w-[500px] lg:h-full ml-5  py-5 overflow-y-auto ${
+          className={`flex flex-col w-full h-screen xl:flex xl:flex-col xl:w-[500px]  py-5 overflow-y-auto ${
             theme === "dark"
               ? "" : ""
           }`}
         >
-          <div className={`p rounded-lg shadow ${
+          <div className={` rounded-lg shadow ${
             theme === "dark"
               ? " "
               : ""
@@ -567,7 +476,7 @@ function CryptoPage({ user, currentCrypto }) {
             <h2 className="headline-semibold-28 ">
               Share your thoughts
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-2 mt-2">
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
@@ -728,7 +637,6 @@ function CryptoPage({ user, currentCrypto }) {
             )}
           </div>
         </div>
-      </div>
     </div>
   );
 }

@@ -159,7 +159,7 @@ function Header() {
 
   return (
     <div
-      className={`flex justify-around items-center border-b border-zinc-500 px-4 md:px-[32px] lg:px-[45px] p-1 w-full ${
+      className={`flex justify-between items-center border-b border-zinc-800 px-4 md:px-[32px] lg:px-[50px] p-1 w-full ${
         theme === "dark" ? " " : " "
       }`}
     >
@@ -220,7 +220,7 @@ function Header() {
       </ul>
 
       <ul
-        className={`w-full flex justify-end text-sm  lg:w-[370px] label-12 gap-5 items-center ${
+        className={`w-full flex justify-end text-sm  lg:w-[370px] label-12 gap-5 items-center pr-2 ${
           theme === "dark" ? " text-zinc-200" : " text-zinc-700"
         }`}
       >

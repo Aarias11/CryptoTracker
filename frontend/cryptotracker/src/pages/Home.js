@@ -197,7 +197,7 @@ function Home() {
       <div
         className={`w-full h-[565px] py-35 flex justify-center items-center   ${
           theme === "dark"
-          ? "bg-gradient-to-r from-zinc-900  to-[#031021] "
+          ? "bg-gradient-to-r from-[#07172b]  to-[#031021] "
           : ""
         }`}
       >
@@ -206,18 +206,18 @@ function Home() {
           <h2 className="headline-semibold-48 p-5 text-center">
             Cryptocurrencies By Highest MarketCap
           </h2>
-          <p className="body-14 leading-relaxed mx-auto text-center mb-4 max-w-4xl">
+          <p className="body-14 leading-relaxed mx-auto text-center mb-4 max-w-4xl px-3">
             The current Market Cap for all currencies stands at
-            <span className="text-teal-400 ml-2">949T</span>, marking a pivotal
+            <span className="text-teal-400 ml-2 px-3">949T</span>, marking a pivotal
             moment in the financial landscape.
           </p>
-          <p className="body-14 leading-relaxed mx-auto text-center mb-4 max-w-4xl">
+          <p className="body-14 leading-relaxed mx-auto text-center mb-4 max-w-4xl px-3">
             It reflects not just investor interest, but the innovation and
             utility brought by platforms and tokens to the digital economy. The
             sector's evolution, from Bitcoin and Ethereum to DeFi and NFTs, is
             rapid and vibrant.
           </p>
-          <p className="body-14 leading-relaxed mx-auto text-center mb-8 max-w-4xl">
+          <p className="body-14 leading-relaxed mx-auto text-center mb-8 max-w-4xl px-3">
             Engage with market trends, delve into the analytics, and explore the
             digital economy on our platform. Your journey into investment and
             participation starts here.
@@ -243,13 +243,13 @@ function Home() {
       
       
       </div>
-        <div className="h-[400px] px-[65px]">
+        <div className="h-[400px] lg:px-[45px]">
         <TradingViewMarketWidget />
         </div>
       </div>
       {/* Searchbar */}
       {/* ----------------------- */}
-      <div className="p-3 lg:px-[65px]">
+      <div className="p-3 lg:px-[50px]">
         <div className=" w-full h-[50px] relative">
           <input
             className={`w-[300px] h-full border border-primary-200 rounded-xl font-semibold text-sm p-3 relative px-[40px] ${
@@ -275,8 +275,8 @@ function Home() {
       {/* ----------------------- */}
 
       <div
-        className={`w-[95%] h-full flex flex-col justify-center overflow-x-scroll  lg:px-[65px] ${
-          theme === "dark" ? " text-white" : " text-gray-900"
+        className={`w-[95%] h-full flex flex-col justify-center overflow-x-scroll  lg:px-[50px] ${
+          theme === "dark" ? " " : " "
         }`}
       >
         {/* CRYPTO TABLE */}
@@ -288,11 +288,11 @@ function Home() {
           <thead className={`${headerBgTheme}`}>
             <tr className="">
               {/* RANK */}
-              <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40 bg-zinc-800 ${theme === "dark" ? " bg-zinc-800" : " bg-zinc-300"}`}>
+              <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40 bg-zinc-800 ${theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"}`}>
                 # Rank
               </th>
               {/* NAME */}
-              <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[99px] z-40 bg-zinc-800 ${theme === "dark" ? " bg-zinc-800" : " bg-zinc-300"}`}>
+              <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[99px] z-40  ${theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"}`}>
                 Name
               </th>
 
@@ -337,7 +337,7 @@ function Home() {
             {currentItems.map((crypto, index) => (
               <tr key={crypto.id}>
                 {/* RANK */}
-                <td class={`px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky left-0  ${theme === "dark" ? " bg-[#1a1a1a]" : " bg-white"}`}>
+                <td class={`px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky left-0  ${theme === "dark" ? " bg-[#07172b]" : " bg-white"}`}>
                   <button className="  ">
                     {favorites[crypto.id] ? (
                       <MdOutlineStar
@@ -356,7 +356,7 @@ function Home() {
                   <span className="text-xl">{crypto.market_cap_rank}</span>
                 </td>
                 {/* IMAGE, NAME, SYMBOL */}
-                <td class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[99px]  ${theme === "dark" ? " bg-[#1a1a1a]" : " bg-white"}`}>
+                <td class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[99px]  ${theme === "dark" ? " bg-[#07172b]" : " bg-white"}`}>
                   <Link to={`/cryptopage/${crypto.symbol}`}>
                     <div className="flex items-center gap-3">
                       <img
