@@ -215,7 +215,7 @@ function CommunityProfile({ user }) {
       {filteredPosts.map((post) => (
         <div
           key={post.id}
-          className={`w-[96%] p-3 flex justify-center px-10 pt-5 m-4 mb-4 shadow-inner shadow-primary-900 rounded-xl ${
+          className={`w-[96%] p-3 flex justify-center px-10 pt-5 m-4 mb-4 shadow-lg shadow-black rounded-xl ${
             theme === "dark" ? "bg-gradient-to-r from-[#07172b]/90" : "bg-primary-200"
           }`}
         >
