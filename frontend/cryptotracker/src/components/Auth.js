@@ -23,6 +23,8 @@ import {
   RiGalleryLine,
   RiStarLine,
   RiBriefcaseLine,
+  RiLoginBoxLine,
+  RiUserAddLine,
 } from "react-icons/ri";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
@@ -59,6 +61,7 @@ function Auth() {
 
   const auth = getAuth();
 
+  const isLoggedIn = !!user; 
 
   useEffect(() => {
     // Listen for auth state changes
@@ -501,7 +504,7 @@ function Auth() {
           <div
             className={`p-2 border-b border-zinc-700  ${
               theme === "dark"
-                ? "bg-gradient-to-r from-[#07172b]  to-primary-900 text-white"
+                ? "bg-gradient-to-r from-[#07172b]  to-primary-900 "
                 : "bg-white text-gray-900"
             }`}
           >
@@ -553,7 +556,54 @@ function Auth() {
         >
           <ul className="p-4 space-y-4">
             {/* Adding Icons to the Links for better UX */}
+            {!isLoggedIn ? (
+              <>
+              <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
+                <RiLoginBoxLine className="text-lg text-zinc-200 mr-2" />
+                <button onClick={() => { setIsLoginModalOpen(true); setIsMobileMenuOpen(false); }} className="text-sm">
+            Login
+          </button>
+                
+              </li>
+              <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
+                <RiUserAddLine className="text-lg text-zinc-200 mr-2" />
+                <button onClick={() => { setIsSignUpModalOpen(true); setIsMobileMenuOpen(false); }} className="text-sm">
+            Signup
+          </button>
+              </li>
+              <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
+              <RiDashboardLine className="text-lg text-zinc-200 group-hover:text-gray-200 mr-2" />
+              <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
+                Cryptocurrencies
+              </Link>
+            </li>
             <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
+              <RiExchangeDollarLine className="text-lg text-zinc-200   mr-2 " />
+              <Link to="/exchanges" onClick={() => setIsMobileMenuOpen(false)}>
+                Exchanges
+              </Link>
+            </li>
+            <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
+              <PiMapTrifoldFill className="text-lg text-zinc-200  mr-2" />
+              <Link to="/heatmap" onClick={() => setIsMobileMenuOpen(false)}>
+                HeatMap
+              </Link>
+            </li>
+            <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
+              <RiGalleryLine className="text-lg text-zinc-200  mr-2" />
+              NFT
+            </li>
+            <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
+              <RiBookLine className="text-lg text-zinc-200  mr-2" />
+              Learn
+            </li>
+            
+
+            
+              </>
+            ) : (
+              <>
+              <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
               <RiDashboardLine className="text-lg text-zinc-200 group-hover:text-gray-200 mr-2" />
               <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
                 Cryptocurrencies
@@ -607,6 +657,11 @@ function Auth() {
                 />
               </div>
             </li>
+              </>
+            )}
+
+
+            
           </ul>
         </div>
 
