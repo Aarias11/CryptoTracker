@@ -89,7 +89,7 @@ function Navbar() {
 
   return (
     <div
-      className={`h-[70px] flex items-center  justify-between border-b border-zinc-800 text-sm px-4 md:px-[32px] lg:px-[55px] ${
+      className={`h-[70px] flex items-center justify-between border-b border-zinc-800 px-4 md:px-8 lg:px-12 ${
         theme === "dark" ? "  " : ""
       }`}
     >
