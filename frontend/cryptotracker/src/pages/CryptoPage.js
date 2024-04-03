@@ -277,7 +277,7 @@ function CryptoPage({ user, currentCrypto }) {
   console.log(user?.displayName);
   return (
     <div
-      className={`w-full h-screen px-5 md:px-[32px] lg:px-[64px]  ${
+      className={`w-full h-auto px-5 md:px-[32px] lg:px-[55px]  ${
         theme === "dark"
           ? " body-14"
           : "body-14"
@@ -292,7 +292,7 @@ function CryptoPage({ user, currentCrypto }) {
         {/* Left Side */}
         {/* Enhanced Left Side Component */}
         <div
-          className={`flex flex-col w-full h-[100px] lg:w-[500px] lg:h-screen overflow-y-scroll sticky top-0  transition-colors duration-300 shadow-lg ${
+          className={`flex flex-col w-full h-[100px] lg:w-[550px] lg:h-screen overflow-y-scroll sticky top-0  transition-colors duration-300 shadow-lg mr-5 ${
             theme === "dark"
               ? " "
               : " "
@@ -300,8 +300,8 @@ function CryptoPage({ user, currentCrypto }) {
         >
           {/* Header with Dynamic Crypto Data and Favorite Toggle */}
           <div
-            className={`flex items-center justify-between py-6 w-full ${
-              theme === "dark" ? "" : ""
+            className={`flex items-center justify-between w-full py-6 px-3  rounded-xl ${
+              theme === "dark" ? "border border-primary-500" : ""
             }`}
           >
             <div className="flex items-center space-x-4">
@@ -343,16 +343,16 @@ function CryptoPage({ user, currentCrypto }) {
 
           {/* Crypto Stats: Price, Market Cap, and Volume */}
           <div
-            className={`hidden lg:flex lg:flex-col lg:h-[300px]  lg:mt-4 lg:rounded-lg lg:shadow ${
+            className={`hidden w-full lg:flex lg:flex-col lg:h-[300px]  lg:mt-4 lg:rounded-lg lg:shadow mr-4 ${
               theme === "dark"
                 ? " "
                 : " "
             }`}
           >
-            <h2 className="headline-semibold-28">Stats</h2>
-            <div className="flex flex-col gap-4 ">
+            <h2 className="headline-semibold-28 ">Stats</h2>
+            <div className={`w-full flex flex-col gap-4 py-5 p-4 rounded-xl ${theme === "dark" ? "border border-primary-500" : ""}`}>
               <div>
-                <p className="text-xs  dark:text-gray-400">
+                <p className="text-xs  dark:text-primary-50 label-semibold-12">
                   Current Price
                 </p>
                 <p className="text-lg font-semibold">
@@ -380,7 +380,7 @@ function CryptoPage({ user, currentCrypto }) {
 
           {/* Interactive Price Chart Placeholder */}
           <div
-            className={`hidden lg:flex lg:flex-wrap  lg:mt-4  lg:rounded-lg lg:shadow lg-w-full ${
+            className={`hidden lg:flex lg:flex-wrap  lg:mt-4  lg:rounded-lg py-5 lg:shadow lg-w-full ${
               theme === "dark"
                 ? " "
                 : " "
@@ -390,22 +390,24 @@ function CryptoPage({ user, currentCrypto }) {
               Price Chart
             </h3>
             {/* Placeholder for a dynamic price chart component */}
-            <div className="w-full h-[400px]  rounded-md mt-2 flex items-center justify-center">
-              <TradingViewTechnicalAnalysis />
+            <div className={`w-full h-[400px]  rounded-xl mt-2 flex items-center justify-center  ${theme === "dark" ? "border border-primary-500" : ""}`}>
+              <TradingViewTechnicalAnalysis className='p-10' />
             </div>
           </div>
 
           {/* Quick Insights */}
           <div
-            className={`hidden lg:flex lg:flex-col lg:p-4 lg:mt-4  lg:rounded-lg lg:shadow ${
+            className={`hidden w-full lg:flex lg:flex-col lg:h-[300px]  lg:mt-4 lg:rounded-lg lg:shadow mr-4 ${
               theme === "dark"
                 ? " "
-                : ""
+                : " "
             }`}
           >
-            <h3 className="text-lg font-semibold ">
+            <h3 className="headline-semibold-28 ">
               Quick Insights
             </h3>
+            <div className={`w-full flex gap-4 py-5 p-4 rounded-xl ${theme === "dark" ? "border border-primary-500" : ""}`}>
+
             <ul className="mt-2 space-y-2">
               {/* Dynamic list of insights about the cryptocurrency */}
               <li className="text-sm ">
@@ -418,18 +420,19 @@ function CryptoPage({ user, currentCrypto }) {
                 More insights...
               </li>
             </ul>
+            </div>
           </div>
 
           {/* Social Media and Official Links */}
           <div
-            className={`hidden lg:flex lg:flex-col lg:p-4 lg:mt-4 lg:rounded-lg lg:shadow ${
+            className={`hidden w-full lg:flex lg:flex-col lg:h-[300px]  lg:mt-4 lg:rounded-lg lg:shadow mr-4 ${
               theme === "dark"
                 ? " "
                 : " "
             }`}
           >
-            <h3 className="text-lg font-semibold ">Connect</h3>
-            <div className="flex flex-wrap gap-4 mt-2 justify-center">
+            <h3 className="headline-semibold-28 ">Connect</h3>
+            <div className={`w-full flex  gap-4 py-5 p-4 rounded-xl ${theme === "dark" ? "border border-primary-500" : ""}`}>
               {/* Conditional rendering for available social media links */}
               <a
                 href={crypto.links?.twitter}
@@ -451,7 +454,7 @@ function CryptoPage({ user, currentCrypto }) {
         </div>
 
         {/* Middle - Chart */}
-        <div className="w-full h-screen overflow-y-scroll flex-grow px-3 border-l border-r border-zinc-800">
+        <div className="w-full h-screen overflow-y-scroll flex-grow px-3  ">
           <div className="w-full h-[500px] ">
             <TradingViewChart cryptoId={symbol} />
             {/* Bottom */}
@@ -551,17 +554,17 @@ function CryptoPage({ user, currentCrypto }) {
         </div>
         {/* Right Side Component - Posts */}
         <div
-          className={`flex flex-col w-full h-[500px] lg:flex lg:flex-col lg:w-[500px] lg:h-full  overflow-y-auto ${
+          className={`flex flex-col w-full h-[500px] lg:flex lg:flex-col lg:w-[500px] lg:h-full ml-5  py-5 overflow-y-auto ${
             theme === "dark"
-              ? "" : "bg-primary-50"
+              ? "" : ""
           }`}
         >
-          <div className={`p-4  rounded-lg shadow ${
+          <div className={`p rounded-lg shadow ${
             theme === "dark"
               ? " "
               : ""
           }`}>
-            <h2 className="text-lg font-semibold ">
+            <h2 className="headline-semibold-28 ">
               Share your thoughts
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4 mt-4">
@@ -573,6 +576,40 @@ function CryptoPage({ user, currentCrypto }) {
                 rows="4"
               ></textarea>
               {/* #16171a */}
+              
+              <div className="flex items-center space-x-2">
+                <input
+                  type="text"
+                  placeholder="Search GIFs"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="p-2 border bg-[#031021] text-primary-200 rounded-md"
+                />
+              </div>
+              {/* Display selected GIF */}
+              {selectedGif && (
+                <div>
+                  <img
+                    src={selectedGif.images.fixed_height.url}
+                    alt="Selected GIF"
+                    className="w-full max-w-xs mt-2"
+                  />
+                </div>
+              )}
+              {/* Display search results */}
+              <div className="grid grid-cols-3 gap-4">
+                {gifs.map((gif) => (
+                  <img
+                    key={gif.id}
+                    src={gif.images.fixed_height_small.url}
+                    alt="gif"
+                    onClick={() => handleGifSelect(gif)}
+                    className="cursor-pointer"
+                  />
+                ))}
+              </div>
+              
+              <div className="flex justify-between gap-4 pb-7">
               <div className={`flex items-center justify-between ${theme === "dark"
               ? " "
               : " "}`}>
@@ -614,49 +651,20 @@ function CryptoPage({ user, currentCrypto }) {
                   />
                 )}
               </div>
-              <div className="flex items-center space-x-2">
-                <input
-                  type="text"
-                  placeholder="Search GIFs"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="p-2 border bg-[#031021] text-primary-200 rounded-md"
-                />
-              </div>
-              {/* Display selected GIF */}
-              {selectedGif && (
-                <div>
-                  <img
-                    src={selectedGif.images.fixed_height.url}
-                    alt="Selected GIF"
-                    className="w-full max-w-xs mt-2"
-                  />
-                </div>
-              )}
-              {/* Display search results */}
-              <div className="grid grid-cols-3 gap-4">
-                {gifs.map((gif) => (
-                  <img
-                    key={gif.id}
-                    src={gif.images.fixed_height_small.url}
-                    alt="gif"
-                    onClick={() => handleGifSelect(gif)}
-                    className="cursor-pointer"
-                  />
-                ))}
-              </div>
+
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
               >
                 Post Comment
               </button>
+              </div>
             </form>
           </div>
 
-          <hr />
-          <div className="p-4">
-            <h2 className="text-lg font-semibold">Community Posts</h2>
+          <div className="border-b  border-zinc-800"></div>
+          <div className="pt-5">
+            <h2 className="headline-semibold-28 mb-5">Community Posts</h2>
             {loading ? (
               <div className="flex justify-center items-center h-screen">
                 <div>Loading comments...</div>

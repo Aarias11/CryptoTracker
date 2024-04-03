@@ -33,7 +33,7 @@ const TradingViewTechnicalAnalysis = () => {
   }, [symbol, theme]); // Re-render when symbol or theme changes
 
   return (
-    <div className="tradingview-widget-container" ref={widgetRef}></div>
+    <div className="tradingview-widget-container w-full" ref={widgetRef}></div>
   );
 };
 

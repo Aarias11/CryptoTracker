@@ -159,7 +159,7 @@ function Header() {
 
   return (
     <div
-      className={`flex justify-around items-center border-b border-zinc-500 px-[15px] sm:px-[50px] p-1 w-full ${
+      className={`flex justify-around items-center border-b border-zinc-500 px-4 md:px-[32px] lg:px-[45px] p-1 w-full ${
         theme === "dark" ? " " : " "
       }`}
     >
