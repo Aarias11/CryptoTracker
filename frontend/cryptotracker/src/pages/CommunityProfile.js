@@ -171,7 +171,7 @@ function CommunityProfile({ user }) {
               <div className="w-[200px] h-full flex justify-center translate-x-[30px] translate-y-[-100px]">
                 {/* Change user.email to user.uid */}
                 <img
-                  className="w-[200px] h-[200px] object-cover rounded-full"
+                  className="w-[200px] h-[200px] object-cover rounded-full "
                   src={user?.photoURL}
                 />
               </div>
@@ -215,7 +215,9 @@ function CommunityProfile({ user }) {
       {filteredPosts.map((post) => (
         <div
           key={post.id}
-          className="w-[96%] p-3 flex justify-center px-10 pt-5 border-b border-zinc-700 m-4 mb-4"
+          className={`w-[96%] p-3 flex justify-center px-10 pt-5 m-4 mb-4 shadow-inner shadow-primary-900 rounded-xl ${
+            theme === "dark" ? "bg-gradient-to-r from-[#07172b]/90" : "bg-primary-200"
+          }`}
         >
           <div className="w-[60px] mr-4">
             <Avatar
