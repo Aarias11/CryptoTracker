@@ -37,7 +37,7 @@ function CryptoPage({ user, currentCrypto }) {
   const [crypto, setCrypto] = useState(CryptoApi);
   const { symbol } = useParams(); // Get the symbol from the URL
   const [isFavorite, setIsFavorite] = useState(false);
-  const [isFullDescriptionShown, setIsFullDescriptionShown] = useState(false);
+  const [showFullDescription, setShowFullDescription] = useState(false);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -54,6 +54,11 @@ function CryptoPage({ user, currentCrypto }) {
   const auth = getAuth();
 
   const { theme, toggleTheme } = useContext(ThemeContext); // Using ThemeContext
+
+  // Show More Description Toggle
+  const toggleDescription = () => setShowFullDescription(!showFullDescription);
+
+  const description = crypto.description.en;
 
   // useEffect(() => {
   //   // First, get the full list of coins to find the ID that matches the symbol
@@ -289,7 +294,9 @@ function CryptoPage({ user, currentCrypto }) {
           {/* Header with Dynamic Crypto Data and Favorite Toggle */}
           <div
             className={`flex items-center justify-between w-full py-6 px-3 mt-5 rounded-xl ${
-              theme === "dark" ? "bg-gradient-to-r from-[#07172b]  to-primary-800 " : "bg-primary-200"
+              theme === "dark"
+                ? "bg-gradient-to-r from-[#07172b]  to-primary-800 "
+                : "bg-primary-200"
             }`}
           >
             <div className="flex items-center space-x-4">
@@ -452,23 +459,36 @@ function CryptoPage({ user, currentCrypto }) {
                   </div>
                 </div>
 
-
-                {/* Crypto Description */}
-                <div className="mb-2">
-                <h2 className="headline-semibold-28  mb-4">Profile</h2>
-                  <p className={`body-14 rounded-lg shadow p-4 gap-1 ${
-                        theme === "dark" ? "bg-primary-900" : "bg-primary-200"
-                      }`}>{crypto.description.en}</p>
+                {/* Crypto Profile Description */}
+                <div className="mb-6">
+                  <h2 className="headline-semibold-28 mb-2">Profile</h2>
+                  <p
+                    className={`body-14 rounded-lg shadow p-4 flex flex-col gap-3 ${
+                      theme === "dark" ? "bg-primary-900" : "bg-primary-200"
+                    }`}
+                  >
+                    {showFullDescription
+                      ? description
+                      : `${description.substring(0, 700)}...`}
+                    <button
+                      className="text-blue-500 hover:text-blue-600 transition duration-300 ease-in-out"
+                      onClick={toggleDescription}
+                    >
+                      {showFullDescription ? "See Less" : "See More"}
+                    </button>
+                  </p>
                 </div>
 
                 {/* Latest News Section as previously designed */}
-                <h2 className="headline-semibold-28 mb-4">Latest News</h2>
+                <div className="mb-4">
+                <h2 className="headline-semibold-28 mb-2">Latest News</h2>
                 <div
                   className={`w-full h-[400px] overflow-y-auto shadow-inner ${
                     theme === "dark" ? "" : ""
                   }`}
                 >
                   <TradingViewNews />
+                </div>
                 </div>
 
                 {/* Interactive Price Chart Placeholder */}
@@ -481,40 +501,41 @@ function CryptoPage({ user, currentCrypto }) {
                   {/* Placeholder for a dynamic price chart component */}
                   <div
                     className={`w-full h-[400px]  rounded-xl mt-2 flex items-center justify-center  ${
-                      theme === "dark" ? "border border-primary-800" : ""
+                      theme === "dark" ? " bg-primary-900" : ""
                     }`}
                   >
                     <TradingViewTechnicalAnalysis className="p-10" />
                   </div>
                 </div>
 
-
                 {/* Social Media and Official Links */}
-          <div
-            className={`w-full lg:flex lg:flex-col lg:h-auto  lg:mt-4 lg:rounded-lg lg:shadow mr-4 ${
-              theme === "dark"
-                ? " "
-                : " "
-            }`}
-          >
-            <h3 className="headline-semibold-28 ">Connect</h3>
-            <div className={`w-full flex  gap-4 py-5 p-4 rounded-xl ${theme === "dark" ? "border border-primary-800" : ""}`}>
-              {/* Conditional rendering for available social media links */}
-              <a
-                href={crypto.links?.twitter}
-                className="text-blue-500 hover:underline"
-              >
-                Twitter
-              </a>
-              <a
-                href={crypto.links?.reddit}
-                className="text-orange-500 hover:underline"
-              >
-                Reddit
-              </a>
-              {/* Add more social media and official links */}
-            </div>
-          </div>
+                <div
+                  className={`w-full lg:flex lg:flex-col lg:h-auto  lg:mt-4  mr-4 ${
+                    theme === "dark" ? "" : " "
+                  }`}
+                >
+                  <h3 className="headline-semibold-28 ">Connect</h3>
+                  <div
+                    className={`w-full flex  gap-4 py-5 p-4 rounded-xl ${
+                      theme === "dark" ? "bg-primary-900" : ""
+                    }`}
+                  >
+                    {/* Conditional rendering for available social media links */}
+                    <a
+                      href={crypto.links?.twitter}
+                      className="text-blue-500 hover:underline"
+                    >
+                      Twitter
+                    </a>
+                    <a
+                      href={crypto.links?.reddit}
+                      className="text-orange-500 hover:underline"
+                    >
+                      Reddit
+                    </a>
+                    {/* Add more social media and official links */}
+                  </div>
+                </div>
 
                 {/* Additional Functionalities */}
                 <div className="mt-8">
