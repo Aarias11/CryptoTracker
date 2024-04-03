@@ -258,9 +258,9 @@ function CryptoPage({ user, currentCrypto }) {
   }, [debouncedSearchQuery]);
 
   // Scroll to Top
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // If loading or no crypto data, show loading or appropriate message
   if (!crypto) return <div>Loading...</div>;
