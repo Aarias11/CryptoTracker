@@ -23,14 +23,14 @@ function SignUp({ closeSignUpModal }) {
   return (
     <div
       className={`fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 ${
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+        theme === "dark" ? "bg-gray-800 text-primary-700" : " "
       }`}
     >
       <div
         className={`p-8 rounded-lg shadow-xl lg:w-1/3 md:w-1/2 w-full relative ${
           theme === "dark"
-            ? "bg-[#1a1a1a]/90 text-white"
-            : "bg-white text-gray-900"
+            ? "bg-primary-900 "
+            : ""
         }`}
       >
         <h2 className="text-3xl font-semibold text-center ">Sign Up</h2>
