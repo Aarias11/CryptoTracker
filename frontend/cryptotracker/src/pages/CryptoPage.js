@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { MdOutlineStarBorder, MdOutlineStar } from "react-icons/md";
@@ -54,9 +54,6 @@ function CryptoPage({ user, currentCrypto }) {
   const auth = getAuth();
 
   const { theme, toggleTheme } = useContext(ThemeContext); // Using ThemeContext
-
-
-
 
   // useEffect(() => {
   //   // First, get the full list of coins to find the ID that matches the symbol
@@ -125,22 +122,22 @@ function CryptoPage({ user, currentCrypto }) {
     fetchCommentsAndUsers();
   }, [symbol]);
 
-// Fetch USer Profile
-// useEffect(() => {
-//   const fetchUserProfile = async () => {
-//     const userRef = doc(db, "users", userId);
-//     const userSnap = await getDoc(userRef);
-    
-//     if (userSnap.exists()) {
-//       setUserProfile({ id: userSnap.id, ...userSnap.data() });
-//     } else {
-//       console.log("No such user!");
-//       // Handle user not found scenario
-//     }
-//   };
+  // Fetch USer Profile
+  // useEffect(() => {
+  //   const fetchUserProfile = async () => {
+  //     const userRef = doc(db, "users", userId);
+  //     const userSnap = await getDoc(userRef);
 
-//   fetchUserProfile();
-// }, [userId]); // Dependency on userId to refetch when it changes
+  //     if (userSnap.exists()) {
+  //       setUserProfile({ id: userSnap.id, ...userSnap.data() });
+  //     } else {
+  //       console.log("No such user!");
+  //       // Handle user not found scenario
+  //     }
+  //   };
+
+  //   fetchUserProfile();
+  // }, [userId]); // Dependency on userId to refetch when it changes
 
   // Handling submission of comments
   const handleSubmit = async (e) => {
@@ -278,25 +275,22 @@ function CryptoPage({ user, currentCrypto }) {
   return (
     <div
       className={`w-full h-auto px-5 md:px-[32px] lg:px-[55px] xl:flex ${
-        theme === "dark"
-          ? " body-14"
-          : "body-14"
+        theme === "dark" ? " body-14" : "body-14"
       }`}
     >
       {/* Container */}
       <div
         className={`w-full h-screen grid grid-row-1 lg:flex ${
-          theme === "dark" ? " text-white" : " text-gray-900"
+          theme === "dark" ? " " : " "
         }`}
       >
-      
-      
-
         {/* Left Side - Chart */}
         <div className="w-full h-screen overflow-y-scroll flex-grow mr-10 ">
           {/* Header with Dynamic Crypto Data and Favorite Toggle */}
           <div
-            className={`flex items-center justify-between w-full py-6 px-3 mt-5 rounded-xl ${theme === "dark" ? "bg-primary-900 " : "bg-primary-200"}`}
+            className={`flex items-center justify-between w-full py-6 px-3 mt-5 rounded-xl ${
+              theme === "dark" ? "bg-gradient-to-r from-[#07172b]  to-primary-800 " : "bg-primary-200"
+            }`}
           >
             <div className="flex items-center space-x-4">
               <img
@@ -322,30 +316,28 @@ function CryptoPage({ user, currentCrypto }) {
             {/* Stats */}
 
             <div className="hidden md:flex md:flex-col">
-                <p className="text-xs  dark:text-primary-50 label-semibold-12">
-                  Current Price
-                </p>
-                <p className="text-lg font-semibold">
-                  ${crypto.market_data?.current_price?.usd.toLocaleString()}
-                </p>
-              </div>
-              <div className="hidden md:flex md:flex-col">
-                <p className="text-xs  dark:text-primary-50 label-semibold-12">
-                  Market Cap
-                </p>
-                <p className="text-lg font-semibold">
-                  ${crypto.market_data?.market_cap?.usd.toLocaleString()}
-                </p>
-              </div>
-              <div className="hidden md:flex md:flex-col">
-                <p className="text-xs  dark:text-gray-400">
-                  24h Volume
-                </p>
-                <p className="text-lg font-semibold">
-                  ${crypto.market_data?.total_volume?.usd.toLocaleString()}
-                </p>
-              </div>
-              {/* Favorite */}
+              <p className="text-xs  dark:text-primary-50 label-semibold-12">
+                Current Price
+              </p>
+              <p className="text-lg font-semibold">
+                ${crypto.market_data?.current_price?.usd.toLocaleString()}
+              </p>
+            </div>
+            <div className="hidden md:flex md:flex-col">
+              <p className="text-xs  dark:text-primary-50 label-semibold-12">
+                Market Cap
+              </p>
+              <p className="text-lg font-semibold">
+                ${crypto.market_data?.market_cap?.usd.toLocaleString()}
+              </p>
+            </div>
+            <div className="hidden md:flex md:flex-col">
+              <p className="text-xs  dark:text-gray-400">24h Volume</p>
+              <p className="text-lg font-semibold">
+                ${crypto.market_data?.total_volume?.usd.toLocaleString()}
+              </p>
+            </div>
+            {/* Favorite */}
             <button
               onClick={toggleFavorite}
               className={`transition duration-300 ease-in-out p-2 rounded-full ${
@@ -360,7 +352,6 @@ function CryptoPage({ user, currentCrypto }) {
                 <MdOutlineStarBorder size={28} />
               )}
             </button>
-            
           </div>
 
           <div className="w-full h-[500px] mt-5 ">
@@ -368,65 +359,172 @@ function CryptoPage({ user, currentCrypto }) {
             {/* Bottom */}
             <div
               className={`w-full py-4 shadow-lg rounded-lg overflow-hidden ${
-                theme === "dark"
-                  ? " "
-                  : ""
+                theme === "dark" ? " " : ""
               }`}
             >
               <div className="">
                 {/* Market Overview */}
-                <div
-                  className={`mb-8 ${
-                    theme === "dark"
-                      ? " "
-                      : "  "
-                  }`}
-                >
-                  <h2 className="headline-semibold-28  mb-2">Market Overview</h2>
+                <div className={`mb-8 ${theme === "dark" ? " " : "  "}`}>
+                  <h2 className="headline-semibold-28  mb-2">
+                    Market Overview
+                  </h2>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className= {`rounded-lg shadow p-4  flex flex-col gap-1  ${theme === "dark" ? "bg-primary-900 " : "bg-primary-200"}`}>
-                      <p className={`label-semibold-14 ${theme === "dark" ? "text-primary-200 " : " "}`} >
+                    <div
+                      className={`rounded-lg shadow p-4  flex flex-col gap-1  ${
+                        theme === "dark" ? "bg-primary-900 " : "bg-primary-200"
+                      }`}
+                    >
+                      <p
+                        className={`label-semibold-14 ${
+                          theme === "dark" ? "text-primary-200 " : " "
+                        }`}
+                      >
                         Total Market Cap
                       </p>
-                      <p className= {`headline-24 ${theme === "dark" ? "text-primary-50" : ""}`} >$1.5T</p>
+                      <p
+                        className={`headline-24 ${
+                          theme === "dark" ? "text-primary-50" : ""
+                        }`}
+                      >
+                        $1.5T
+                      </p>
                     </div>
-                    <div className= {`rounded-lg shadow p-4 flex flex-col gap-1 ${theme === "dark" ? "bg-primary-900" : "bg-primary-200"}`}>
-                    <p className={`label-semibold-14 ${theme === "dark" ? "text-primary-200 " : " "}`} >
+                    <div
+                      className={`rounded-lg shadow p-4 flex flex-col gap-1 ${
+                        theme === "dark" ? "bg-primary-900" : "bg-primary-200"
+                      }`}
+                    >
+                      <p
+                        className={`label-semibold-14 ${
+                          theme === "dark" ? "text-primary-200 " : " "
+                        }`}
+                      >
                         24h Trading Volume
                       </p>
-                      <p className= {`headline-24 ${theme === "dark" ? "text-primary-50" : ""}`} >$200B</p>
+                      <p
+                        className={`headline-24 ${
+                          theme === "dark" ? "text-primary-50" : ""
+                        }`}
+                      >
+                        $200B
+                      </p>
                     </div>
-                    <div className= {`rounded-lg shadow p-4  flex flex-col gap-1 ${theme === "dark" ? "bg-primary-900" : "bg-primary-200"}`}>
-                    <p className={`label-semibold-14 ${theme === "dark" ? "text-primary-200 " : " "}`} >
+                    <div
+                      className={`rounded-lg shadow p-4  flex flex-col gap-1 ${
+                        theme === "dark" ? "bg-primary-900" : "bg-primary-200"
+                      }`}
+                    >
+                      <p
+                        className={`label-semibold-14 ${
+                          theme === "dark" ? "text-primary-200 " : " "
+                        }`}
+                      >
                         Bitcoin Dominance
                       </p>
-                      <p className= {`headline-24 ${theme === "dark" ? "text-primary-50" : ""}`} >45%</p>
+                      <p
+                        className={`headline-24 ${
+                          theme === "dark" ? "text-primary-50" : ""
+                        }`}
+                      >
+                        45%
+                      </p>
                     </div>
-                    <div className= {`rounded-lg shadow p-4 flex flex-col gap-1 ${theme === "dark" ? "bg-primary-900" : "bg-primary-200"}`}>
-                    <p className={`label-semibold-14 ${theme === "dark" ? "text-primary-200 " : " "}`} >
+                    <div
+                      className={`rounded-lg shadow p-4 flex flex-col gap-1 ${
+                        theme === "dark" ? "bg-primary-900" : "bg-primary-200"
+                      }`}
+                    >
+                      <p
+                        className={`label-semibold-14 ${
+                          theme === "dark" ? "text-primary-200 " : " "
+                        }`}
+                      >
                         Eth Dominance
                       </p>
-                      <p className= {`headline-24 ${theme === "dark" ? "text-primary-50" : ""}`} >18%</p>
+                      <p
+                        className={`headline-24 ${
+                          theme === "dark" ? "text-primary-50" : ""
+                        }`}
+                      >
+                        18%
+                      </p>
                     </div>
                   </div>
                 </div>
 
                 {/* Latest News Section as previously designed */}
                 <h2 className="headline-semibold-28 mb-4">Latest News</h2>
-                <div className={`w-full h-[400px] overflow-y-auto shadow-inner ${theme === "dark" ? "" : ""}`}>
+                <div
+                  className={`w-full h-[400px] overflow-y-auto shadow-inner ${
+                    theme === "dark" ? "" : ""
+                  }`}
+                >
                   <TradingViewNews />
                 </div>
+
+                {/* Interactive Price Chart Placeholder */}
+                <div
+                  className={`lg:flex lg:flex-wrap  lg:mt-4  lg:rounded-lg py-5 lg:shadow lg-w-full ${
+                    theme === "dark" ? " " : " "
+                  }`}
+                >
+                  <h3 className="headline-semibold-28 ">Price Chart</h3>
+                  {/* Placeholder for a dynamic price chart component */}
+                  <div
+                    className={`w-full h-[400px]  rounded-xl mt-2 flex items-center justify-center  ${
+                      theme === "dark" ? "border border-primary-800" : ""
+                    }`}
+                  >
+                    <TradingViewTechnicalAnalysis className="p-10" />
+                  </div>
+                </div>
+
+
+                {/* Social Media and Official Links */}
+          <div
+            className={`w-full lg:flex lg:flex-col lg:h-auto  lg:mt-4 lg:rounded-lg lg:shadow mr-4 ${
+              theme === "dark"
+                ? " "
+                : " "
+            }`}
+          >
+            <h3 className="headline-semibold-28 ">Connect</h3>
+            <div className={`w-full flex  gap-4 py-5 p-4 rounded-xl ${theme === "dark" ? "border border-primary-800" : ""}`}>
+              {/* Conditional rendering for available social media links */}
+              <a
+                href={crypto.links?.twitter}
+                className="text-blue-500 hover:underline"
+              >
+                Twitter
+              </a>
+              <a
+                href={crypto.links?.reddit}
+                className="text-orange-500 hover:underline"
+              >
+                Reddit
+              </a>
+              {/* Add more social media and official links */}
+            </div>
+          </div>
 
                 {/* Additional Functionalities */}
                 <div className="mt-8">
                   <h2 className="headline-semibold-28 mb-2">Trending Coins</h2>
                   <div className="flex overflow-x-auto gap-4 p-2">
                     {/* Placeholder for trending coins. Each coin could be a component */}
-                    <div className={`min-w-[160px]  rounded-lg shadow p-4 ${theme === "dark" ? "bg-primary-900" : "bg-primary-200"}`}>
+                    <div
+                      className={`min-w-[160px]  rounded-lg shadow p-4 ${
+                        theme === "dark" ? "bg-primary-900" : "bg-primary-200"
+                      }`}
+                    >
                       <p className="text-sm font-semibold">Bitcoin</p>
                       <p className="text-lg">$60,000 USD</p>
                     </div>
-                    <div className={`min-w-[160px]  rounded-lg shadow p-4 ${theme === "dark" ? "bg-primary-900" : "bg-primary-200"}`}>
+                    <div
+                      className={`min-w-[160px]  rounded-lg shadow p-4 ${
+                        theme === "dark" ? "bg-primary-900" : "bg-primary-200"
+                      }`}
+                    >
                       <p className="text-sm font-semibold">Ethereum</p>
                       <p className="text-lg">$4,000 USD</p>
                     </div>
@@ -461,67 +559,62 @@ function CryptoPage({ user, currentCrypto }) {
           </div>
         </div>
       </div>
-        {/* Right Side Component - Posts */}
-        <div
-          className={`flex flex-col w-full h-screen xl:flex xl:flex-col xl:w-[500px]  py-5 overflow-y-auto ${
-            theme === "dark"
-              ? "" : ""
-          }`}
-        >
-          <div className={` rounded-lg shadow ${
-            theme === "dark"
-              ? " "
-              : ""
-          }`}>
-            <h2 className="headline-semibold-28 ">
-              Share your thoughts
-            </h2>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-2 mt-2">
-              <textarea
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md bg-[#031021] text-primary-200"
-                placeholder={`What do you think about ${symbol}?`}
-                rows="4"
-              ></textarea>
-              {/* #16171a */}
-              
-              <div className="flex items-center space-x-2">
-                <input
-                  type="text"
-                  placeholder="Search GIFs"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="p-2 border bg-[#031021] text-primary-200 rounded-md"
+      {/* Right Side Component - Posts */}
+      <div
+        className={`flex flex-col w-full h-screen xl:flex xl:flex-col xl:w-[500px]  py-5 overflow-y-auto ${
+          theme === "dark" ? "" : ""
+        }`}
+      >
+        <div className={` rounded-lg shadow ${theme === "dark" ? " " : ""}`}>
+          <h2 className="headline-semibold-28 ">Share your thoughts</h2>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2 mt-2">
+            <textarea
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md bg-[#031021] text-primary-200"
+              placeholder={`What do you think about ${symbol}?`}
+              rows="4"
+            ></textarea>
+            {/* #16171a */}
+
+            <div className="flex items-center space-x-2">
+              <input
+                type="text"
+                placeholder="Search GIFs"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="p-2 border bg-[#031021] text-primary-200 rounded-md"
+              />
+            </div>
+            {/* Display selected GIF */}
+            {selectedGif && (
+              <div>
+                <img
+                  src={selectedGif.images.fixed_height.url}
+                  alt="Selected GIF"
+                  className="w-full max-w-xs mt-2"
                 />
               </div>
-              {/* Display selected GIF */}
-              {selectedGif && (
-                <div>
-                  <img
-                    src={selectedGif.images.fixed_height.url}
-                    alt="Selected GIF"
-                    className="w-full max-w-xs mt-2"
-                  />
-                </div>
-              )}
-              {/* Display search results */}
-              <div className="grid grid-cols-3 gap-4">
-                {gifs.map((gif) => (
-                  <img
-                    key={gif.id}
-                    src={gif.images.fixed_height_small.url}
-                    alt="gif"
-                    onClick={() => handleGifSelect(gif)}
-                    className="cursor-pointer"
-                  />
-                ))}
-              </div>
-              
-              <div className="flex justify-between gap-4 pb-7">
-              <div className={`flex items-center justify-between ${theme === "dark"
-              ? " "
-              : " "}`}>
+            )}
+            {/* Display search results */}
+            <div className="grid grid-cols-3 gap-4">
+              {gifs.map((gif) => (
+                <img
+                  key={gif.id}
+                  src={gif.images.fixed_height_small.url}
+                  alt="gif"
+                  onClick={() => handleGifSelect(gif)}
+                  className="cursor-pointer"
+                />
+              ))}
+            </div>
+
+            <div className="flex justify-between gap-4 pb-7">
+              <div
+                className={`flex items-center justify-between ${
+                  theme === "dark" ? " " : " "
+                }`}
+              >
                 <label className="flex items-center cursor-pointer text-blue-500 hover:text-blue-600">
                   <span className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-50 text-blue-500 hover:bg-blue-100 mr-2">
                     <svg
@@ -567,76 +660,75 @@ function CryptoPage({ user, currentCrypto }) {
               >
                 Post Comment
               </button>
-              </div>
-            </form>
-          </div>
+            </div>
+          </form>
+        </div>
 
-          <div className="border-b  border-zinc-800"></div>
-          <div className="pt-5">
-            <h2 className="headline-semibold-28 mb-5">Community Posts</h2>
-            {loading ? (
-              <div className="flex justify-center items-center h-screen">
-                <div>Loading comments...</div>
-              </div>
-            ) : comments.length > 0 ? (
-              comments.map((comment) => (
-                <div
-                  key={comment.id}
-                  className={`rounded-lg overflow-hidden mb-4 ${
-                    theme === "dark"
-                      ? "bg-primary-900" : "bg-primary-100 "
-                  }`}
-                >
-                  <div className="p-4">
-                    <div className="flex flex-col-reverse gap-4 items-center mb-4">
-                      {/* Render user avatar */}
+        <div className="border-b  border-zinc-800"></div>
+        <div className="pt-5">
+          <h2 className="headline-semibold-28 mb-5">Community Posts</h2>
+          {loading ? (
+            <div className="flex justify-center items-center h-screen">
+              <div>Loading comments...</div>
+            </div>
+          ) : comments.length > 0 ? (
+            comments.map((comment) => (
+              <div
+                key={comment.id}
+                className={`rounded-lg overflow-hidden mb-4 ${
+                  theme === "dark" ? "bg-primary-900" : "bg-primary-100 "
+                }`}
+              >
+                <div className="p-4">
+                  <div className="flex flex-col-reverse gap-4 items-center mb-4">
+                    {/* Render user avatar */}
 
-                      {/* Conditional rendering for image or GIF */}
-                      {comment.imageUrl ? (
-                        // Render posted image if imageUrl exists
-                        <img
-                          className="max-w-full h-auto rounded"
-                          src={comment.imageUrl}
-                          alt="Posted Image"
-                        />
-                      ) : comment.gifUrl ? (
-                        // Render posted GIF if gifUrl exists
-                        <img
-                          className="max-w-full h-auto rounded"
-                          src={comment.gifUrl}
-                          alt="Posted GIF"
-                        />
-                      ) : null}
+                    {/* Conditional rendering for image or GIF */}
+                    {comment.imageUrl ? (
+                      // Render posted image if imageUrl exists
+                      <img
+                        className="max-w-full h-auto rounded"
+                        src={comment.imageUrl}
+                        alt="Posted Image"
+                      />
+                    ) : comment.gifUrl ? (
+                      // Render posted GIF if gifUrl exists
+                      <img
+                        className="max-w-full h-auto rounded"
+                        src={comment.gifUrl}
+                        alt="Posted GIF"
+                      />
+                    ) : null}
 
-                      <div className="w-full flex gap-4">
-                        <Link to={`/community/profile/${comment.userName}`}>
+                    <div className="w-full flex gap-4">
+                      <Link to={`/community/profile/${comment.userName}`}>
                         <img
                           className="w-10 h-10 rounded-full object-cover"
                           src={comment.userPhotoURL}
                           alt="User Avatar"
                         />
-                        </Link>
-                        <div className="flex flex-col">
-                          <span className="font-semibold">
-                            {comment.userName}
-                          </span>
-                          <span className="text-xs ">
-                            {comment.createdAt.toLocaleString()}
-                          </span>
-                        </div>
+                      </Link>
+                      <div className="flex flex-col">
+                        <span className="font-semibold">
+                          {comment.userName}
+                        </span>
+                        <span className="text-xs ">
+                          {comment.createdAt.toLocaleString()}
+                        </span>
                       </div>
                     </div>
-                    <p className="text-sm">{comment.content}</p>
                   </div>
+                  <p className="text-sm">{comment.content}</p>
                 </div>
-              ))
-            ) : (
-              <div className="flex justify-center items-center h-screen">
-                <div>No comments found.</div>
               </div>
-            )}
-          </div>
+            ))
+          ) : (
+            <div className="flex justify-center items-center h-screen">
+              <div>No comments found.</div>
+            </div>
+          )}
         </div>
+      </div>
     </div>
   );
 }
