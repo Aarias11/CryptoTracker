@@ -195,9 +195,9 @@ function Auth() {
             theme === "dark" ? " text-red-400" : " text-teal-600"
           }`}
         >
-          <li className="hidden xl:flex items-center gap-2 ">
+          <li className="hidden xl:flex items-center gap-2 translate-x-6 ">
             <PiCurrencyBtcFill className="text-yellow-500" size={23} />
-            <span className="w-[100px]">Halving: 60 Days</span>
+            <span className="w-[100px]">Halving: 16D</span>
           </li>
           <li className="hidden xl:flex  gap-2 items-center">
             <GoStarFill className="text-yellow-400" size={20} />
@@ -214,32 +214,30 @@ function Auth() {
           {/* SearchBar */}
           <div className="w-[40px] flex ">
             <button
-              className={`w-full md:w-full h-[40px] rounded-xl px-3 focus:outline-none relative hover:cursor-pointer ${
-                theme === "dark"
-                  ? "bg-zinc-700 text-zinc-200 border border-neutral-700"
-                  : "bg-zinc-200 text-gray-600"
-              }`}
+              className={`w-full md:w-full h-[40px] rounded-xl px-3 focus:outline-none relative hover:cursor-pointer hidden md:flex ${ theme === "dark"
+              ? ""
+              : "" }`}
               onClick={() => setSearchExpanded(true)}
             >
-              <div className="p-2 pt-2 font-semibold text-zinc-500"></div>
+              <div className="p-2 pt-2 font-semibold text-zinc-500 "></div>
 
               <RxMagnifyingGlass
                 size={20}
-                className="absolute top-2  left-2 text-zinc-500"
+                className="absolute top-2  left-2 text-primary-300 "
               />
             </button>
 
             {/* Search Box Component */}
             {searchExpanded && (
               <div
-                className={`absolute top-1 right-5 mt-2 p-4 md:w-[700px] md:h-[425px] rounded-lg shadow-lg ${
-                  theme === "dark"
-                    ? "bg-gray-800 text-white"
-                    : "bg-white text-gray-800"
-                }  ${theme === "dark" ? "bg-[#16171a]" : ""}`}
+                className={`absolute top-1 right-5 mt-2 p-4 md:w-[700px] md:h-[425px] rounded-lg shadow-lg z-50 ${ theme === "dark"
+                ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
+                : "" }  ${theme === "dark" ? "bg-[#16171a]" : ""}`}
               >
                 <input
-                  className="search-input w-full p-2 px-10 rounded-lg focus:outline-none text-zinc-500 font-semibold"
+                  className={`search-input w-full p-2 px-10 rounded-lg focus:outline-none text-zinc-500 font-semibold ${ theme === "dark"
+                  ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
+                  : "" }`}
                   type="search"
                   placeholder="Search coin, pair, NFT, contract address, or exchange"
                   value={searchQuery}

@@ -82,7 +82,7 @@ const handlePostSubmit = async () => {
 
   return (
     <div
-      className={`w-full h-[600px] ${
+      className={`w-full h-screen ${
         theme === "dark" ? "body-14" : "body-14"
       }`}
     >
@@ -90,16 +90,16 @@ const handlePostSubmit = async () => {
       <div className="w-full h-full flex">
         {/* Left Side */}
         {/* Left Side Container */}
-        <div className={`hidden w-[280px] h-full border-r border-zinc-700 lg:flex lg:justify-center ${
+        <div className={`hidden w-[280px] h-full border-r border-zinc-700 lg:flex lg:justify-center p-4 ${
         theme === "dark" ? "" : ""
       }`}>
           {/* Left Side Content Container */}
-          <div className={`p-4 ${
+          <div className={` w-full ${
         theme === "dark" ? "label-semibold-16" : "label-semibold-16"
       }`}>
-            <h2 className="text-2xl font-semibold">Community</h2>
+        <h2 className="headline-semibold-28 text-center">Community</h2>
             {/* Community Content */}
-            <ul className="flex flex-col justify-center items-center gap-5 pt-10">
+            <ul className="w-full flex flex-col  gap-5 pt-10 ml-4">
               <li className="cursor-pointer hover:bg-slate-800 w-[120px] h-[30px] pt-1 text-center rounded-full">
                 Feed
               </li>
@@ -119,6 +119,7 @@ const handlePostSubmit = async () => {
                 ... More
               </li>
             </ul>
+            
           </div>
         </div>
         {/* Center */}
@@ -140,7 +141,9 @@ const handlePostSubmit = async () => {
 
               {/* Text Area */}
               <textarea
-                className="w-[95%] h-[100px] bg-slate-600 rounded-lg p-2 text-sm"
+                className={`w-[95%] h-[100px] bg-slate-600 rounded-lg p-2 text-sm ${ theme === "dark"
+                ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
+                : "" }`}
                 placeholder="How do you feel about the markets today? Share your ideas here!"
                 value={postText}
   onChange={(e) => setPostText(e.target.value)}
@@ -171,7 +174,9 @@ const handlePostSubmit = async () => {
               {/* Search Users or Posts */}
               <div className="w-full flex justify-center pt-4">
                 <input
-                  className="w-[91%] h-[48px] bg-slate-600 p-2  text-sm rounded-lg"
+                  className={`w-[91%] h-[48px] bg-slate-600 p-2  text-sm rounded-lg ${ theme === "dark"
+                  ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
+                  : "" }`}
                   placeholder="Search Users or Posts.."
                 />
               </div>

@@ -60,19 +60,19 @@ const Watchlist = () => {
       <div className="px-6 ">
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Search Your Favorites"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className={`w-[300px] h-full rounded-xl font-semibold text-sm p-3 px-10 relative ${
+          className={`w-[300px] h-full border border-primary-200 rounded-xl font-semibold text-sm p-3 relative px-[40px] ${
             theme === "dark"
-              ? "bg-zinc-700 text-zinc-500"
-              : "bg-zinc-200 text-gray-600"
+              ? "bg-[#031021] text-primary-200"
+              : ""
           }`}
         />
       </div>
 
       <div
-        className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:px-7 ${
+        className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:p-[50px] ${
           theme === "dark" ? " text-white" : " text-gray-900"
         }`}
       >
@@ -80,11 +80,11 @@ const Watchlist = () => {
         <thead className={`${headerBgTheme}`}>
           <tr>
             {/* RANK */}
-            <th class="px-3  border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+            <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40 ${theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"}`}>
               # Rank
             </th>
             {/* NAME */}
-            <th class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+            <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[93px] z-40  ${theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"}`}>
               Name
             </th>
             {/* Price */}
@@ -125,7 +125,7 @@ const Watchlist = () => {
           {filteredFavorites.map((crypto) => (
             <tr key={crypto.id}>
               {/* Favorite Star and Crypto Rank */}
-              <td class="px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky left-0  z-50 bodyBgTheme">
+              <td class={`px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky left-0  ${theme === "dark" ? " bg-[#07172b]" : " "}`}>
                 <button onClick={() => toggleFavorite(crypto.id)}>
                   <MdOutlineStar
                     className="cursor-pointer text-yellow-500"
@@ -135,7 +135,7 @@ const Watchlist = () => {
                 {crypto.rank}
               </td>
               {/* Crypto Image, Name, & Symbol */}
-              <td class="px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme">
+              <td class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[93px]  ${theme === "dark" ? " bg-[#07172b]" : " "}`}>
                 <Link to={`/cryptopage/${crypto.symbol}`}>
                   <div className="flex items-center gap-3">
                     <img

@@ -94,7 +94,7 @@ function CommunityProfile({ user }) {
 
   return (
     <div
-      className={`w-full h-[600px] ${
+      className={`w-full h-screen ${
         theme === "dark" ? "body-14 " : "body-14"
       }`}
     >
@@ -203,7 +203,9 @@ function CommunityProfile({ user }) {
       <div className="w-full h-[70px]">
         <div className="w-full flex justify-center pt-4">
           <input
-            className="w-[91%] h-[48px] bg-zinc-700 p-2 text-sm rounded-lg"
+            className={`w-[91%] h-[48px] bg-slate-600 p-2 focus:outline-none text-sm rounded-lg ${ theme === "dark"
+            ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
+            : "" }`}
             placeholder="Search Posts..."
             value={searchInput}
             onChange={handleSearchInputChange}

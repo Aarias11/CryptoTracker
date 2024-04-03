@@ -452,6 +452,15 @@ function CryptoPage({ user, currentCrypto }) {
                   </div>
                 </div>
 
+
+                {/* Crypto Description */}
+                <div className="mb-2">
+                <h2 className="headline-semibold-28  mb-4">Profile</h2>
+                  <p className={`body-14 rounded-lg shadow p-4 gap-1 ${
+                        theme === "dark" ? "bg-primary-900" : "bg-primary-200"
+                      }`}>{crypto.description.en}</p>
+                </div>
+
                 {/* Latest News Section as previously designed */}
                 <h2 className="headline-semibold-28 mb-4">Latest News</h2>
                 <div
@@ -571,7 +580,7 @@ function CryptoPage({ user, currentCrypto }) {
             <textarea
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md bg-[#031021] text-primary-200"
+              className="w-full p-2 border border-gray-300 rounded-md bg-[#031021] text-primary-200 focus:outline-none"
               placeholder={`What do you think about ${symbol}?`}
               rows="4"
             ></textarea>
@@ -583,7 +592,7 @@ function CryptoPage({ user, currentCrypto }) {
                 placeholder="Search GIFs"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="p-2 border bg-[#031021] text-primary-200 rounded-md"
+                className="p-2 border bg-[#031021] focus:outline-none text-primary-200 rounded-md"
               />
             </div>
             {/* Display selected GIF */}

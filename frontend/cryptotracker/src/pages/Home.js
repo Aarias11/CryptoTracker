@@ -252,7 +252,7 @@ function Home() {
       <div className="p-3 lg:px-[50px]">
         <div className=" w-full h-[50px] relative">
           <input
-            className={`w-[300px] h-full border border-primary-200 rounded-xl font-semibold text-sm p-3 relative px-[40px] ${
+            className={`w-[300px] h-full border border-primary-200 rounded-xl font-semibold focus:outline-none text-sm p-3 relative px-[40px] ${
               theme === "dark"
                 ? "bg-[#031021] text-primary-200"
                 : ""
@@ -275,7 +275,7 @@ function Home() {
       {/* ----------------------- */}
 
       <div
-        className={`w-[95%] h-full flex flex-col justify-center overflow-x-scroll  lg:px-[50px] ${
+        className={`w-[100%] h-full flex flex-col justify-center overflow-x-scroll  lg:px-[50px] ${
           theme === "dark" ? " " : " "
         }`}
       >
@@ -288,7 +288,7 @@ function Home() {
           <thead className={`${headerBgTheme}`}>
             <tr className="">
               {/* RANK */}
-              <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40 bg-zinc-800 ${theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"}`}>
+              <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40 ${theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"}`}>
                 # Rank
               </th>
               {/* NAME */}
@@ -317,9 +317,9 @@ function Home() {
                 Market Cap
               </th>
               {/* Volume */}
-              <th class="px-5 py-3 bg- text-left text-xs font-semibold  uppercase tracking-wider headerBgTheme">
+              {/* <th class="px-5 py-3 bg- text-left text-xs font-semibold  uppercase tracking-wider headerBgTheme">
                 Volume
-              </th>
+              </th> */}
               {/* Circulating Supp */}
               <th class="px-5 py-3 bg- text-left text-xs font-semibold  uppercase tracking-wider headerBgTheme">
                 Circulating Supply
@@ -337,7 +337,7 @@ function Home() {
             {currentItems.map((crypto, index) => (
               <tr key={crypto.id}>
                 {/* RANK */}
-                <td class={`px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky left-0  ${theme === "dark" ? " bg-[#07172b]" : " bg-white"}`}>
+                <td class={`px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky left-0  ${theme === "dark" ? " bg-[#07172b]" : " "}`}>
                   <button className="  ">
                     {favorites[crypto.id] ? (
                       <MdOutlineStar
@@ -413,9 +413,9 @@ function Home() {
                   ${crypto.market_cap.toLocaleString()}
                 </td>
                 {/* VOLUME */}
-                <td class="px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme">
+                {/* <td class="px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme">
                   {crypto.total_volume.toLocaleString()}
-                </td>
+                </td> */}
                 {/* CIRCULATING SUPPLY */}
                 <td class="px-5 py-3  text-left text-xs font-semibold  uppercase tracking-wider pt-7 bodyBgTheme">
                   <div className=" items-center space-x-2">
