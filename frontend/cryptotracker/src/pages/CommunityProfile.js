@@ -1,16 +1,23 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams } from "react-router-dom";
 import ThemeContext from "../components/ThemeContext";
 import Avatar from "@mui/material/Avatar";
 import { BiHappyBeaming } from "react-icons/bi";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { doc, setDoc, getDoc, getDocs, collection, query, where } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  collection,
+  query,
+  where,
+} from "firebase/firestore";
 import { getStorage } from "firebase/storage"; // For uploading banner image
 import { db } from "../firebase"; // Adjust the import path as needed
 import { CameraIcon } from "@heroicons/react/outline"; // Ensure correct import path
 import { CiCalendarDate } from "react-icons/ci";
-
 
 function CommunityProfile({ user }) {
   const [bannerImage, setBannerImage] = useState("");
@@ -22,23 +29,24 @@ function CommunityProfile({ user }) {
   const { theme } = useContext(ThemeContext);
 
   // UseEffect for fetching User Posts
- useEffect(() => {
-  const fetchPosts = async () => {
-    if (user && user.uid) {
-      const postsRef = collection(db, "posts");
-      const q = query(postsRef, where("uid", "==", user.uid));
-      const querySnapshot = await getDocs(q);
-      const postsData = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      })).sort((a, b) => b.createdAt - a.createdAt); // Sorting posts in descending order
-      setPosts(postsData);
-    }
-  };
+  useEffect(() => {
+    const fetchPosts = async () => {
+      if (user && user.uid) {
+        const postsRef = collection(db, "posts");
+        const q = query(postsRef, where("uid", "==", user.uid));
+        const querySnapshot = await getDocs(q);
+        const postsData = querySnapshot.docs
+          .map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }))
+          .sort((a, b) => b.createdAt - a.createdAt); // Sorting posts in descending order
+        setPosts(postsData);
+      }
+    };
 
-  fetchPosts();
-}, [user]); // Depend on `user` to re-fetch posts when the user changes
-
+    fetchPosts();
+  }, [user]); // Depend on `user` to re-fetch posts when the user changes
 
   //   UseEffect for fetching banner url
   useEffect(() => {
@@ -94,18 +102,18 @@ function CommunityProfile({ user }) {
 
   return (
     <div
-      className={`w-full h-screen ${
-        theme === "dark" ? "body-14 " : "body-14"
-      }`}
+      className={`w-full h-screen ${theme === "dark" ? "body-14 " : "body-14"}`}
     >
       {/* Container */}
       <div className="w-full h-full flex">
         {/* Left Side */}
         {/* --------------- */}
         {/* Left Side Container */}
-        <div className={`hidden w-[280px] h-full border-r border-zinc-700 lg:flex lg:justify-center ${
-        theme === "dark" ? "label-semibold-16" : "label-semibold-16"
-      }`}>
+        <div
+          className={`hidden w-[280px] h-full border-r border-zinc-700 lg:flex lg:justify-center ${
+            theme === "dark" ? "label-semibold-16" : "label-semibold-16"
+          }`}
+        >
           {/* Left Side Content Container */}
           <div className="p-4 ">
             <h2 className="text-2xl font-semibold">Community</h2>
@@ -168,25 +176,28 @@ function CommunityProfile({ user }) {
 
             <div className="w-full h-[100px] flex">
               {/* Left Avatar Side */}
-              <div className="w-[200px] h-full flex justify-center translate-x-[30px] translate-y-[-100px]">
+              <div className="w-[200px] h-full flex justify-center translate-x-[30px] translate-y-[-70px] sm:translate-y-[-100px]">
                 {/* Change user.email to user.uid */}
                 <img
-                  className="w-[200px] h-[200px] object-cover rounded-full "
+                  className="w-[150px] sm:w-[200px] h-[150px] sm:h-[200px] object-cover rounded-full border-4 border-primary-700 "
                   src={user?.photoURL}
                 />
               </div>
               {/* User Info */}
               <div className="pt-4 px-20">
-              <h2 class="text-xl font-semibold">{user?.displayName}</h2>
-            <h3 class="text-lg text-gray-400">@{user?.displayName}</h3>
+                <h2 class="text-xl font-semibold">{user?.displayName}</h2>
+                <h3 class="text-lg text-gray-400">@{user?.displayName}</h3>
                 <div className="flex gap-3">
-                <span>12 Followers</span>
-                <span>1 Following</span>
+                  <span>12 Followers</span>
+                  <span>1 Following</span>
                 </div>
               </div>
             </div>
             <div className="px-5 pt-4">
-              <span className="flex items-center gap-4 text-gray-400"><CiCalendarDate size={20} /> Joined {user?.metadata.creationTime.slice(7, 16)}</span>
+              <span className="flex items-center gap-4 text-gray-400">
+                <CiCalendarDate size={20} /> Joined{" "}
+                {user?.metadata.creationTime.slice(7, 16)}
+              </span>
             </div>
             <Link to="/account">
               <button className="absolute bottom-10 right-8  p-2 font-semibold rounded-lg bg-teal-700">
@@ -200,62 +211,181 @@ function CommunityProfile({ user }) {
           </div>
           {/* Bottom-Center Content Container */}
           <div className="w-full h-full">
-      <div className="w-full h-[70px]">
-        <div className="w-full flex justify-center pt-4">
-          <input
-            className={`w-[91%] h-[48px] bg-slate-600 p-2 focus:outline-none text-sm rounded-lg ${ theme === "dark"
-            ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
-            : "" }`}
-            placeholder="Search Posts..."
-            value={searchInput}
-            onChange={handleSearchInputChange}
-          />
-        </div>
-      </div>
-      {filteredPosts.map((post) => (
-        <div
-          key={post.id}
-          className={`w-[96%] p-3 flex justify-center px-10 pt-5 m-4 mb-4 shadow-lg shadow-black rounded-xl ${
-            theme === "dark" ? "bg-gradient-to-r from-[#07172b]/90" : "bg-primary-200"
-          }`}
-        >
-          <div className="w-[60px] mr-4">
-            <Avatar
-              src={post.photoURL || "https://via.placeholder.com/60"}
-              className="w-full h-auto rounded-full object-cover"
-              alt={post.displayName || "User"}
-            />
-          </div>
-          <div className="flex-1">
-            <div className="mb-2">
-              <h2 className="font-bold">{post.displayName}</h2>
-              <span className="text-sm text-gray-500">@{post.displayName}</span>
-              <span className="text-sm text-gray-500 ml-2">
-                {post.createdAt?.toDate?.().toDateString() ?? "Unknown date"}
-              </span>
-            </div>
-            <div className="mb-2">
-              <p>{post.text}</p>
-            </div>
-            {post.imageUrl && (
-              <div className="max-w-full h-auto mt-2">
-                <img
-                  src={post.imageUrl}
-                  alt="Post"
-                  className="max-w-full h-[200px] object-cover rounded-lg"
+            <div className="w-full h-[70px]">
+              <div className="w-full flex justify-center pt-4">
+                <input
+                  className={`w-[91%] h-[48px] bg-slate-600 p-2 focus:outline-none text-sm rounded-lg ${
+                    theme === "dark"
+                      ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
+                      : ""
+                  }`}
+                  placeholder="Search Posts..."
+                  value={searchInput}
+                  onChange={handleSearchInputChange}
                 />
               </div>
-            )}
+            </div>
+            {filteredPosts.map((post) => (
+              <div
+                key={post.id}
+                className={`w-[96%] p-3 flex justify-center px-10 pt-5 m-4 mb-4 shadow-lg shadow-black rounded-xl ${
+                  theme === "dark"
+                    ? "bg-gradient-to-r from-[#07172b]/90"
+                    : "bg-primary-200"
+                }`}
+              >
+                <div className="w-[60px] mr-4">
+                  <Avatar
+                    src={post.photoURL || "https://via.placeholder.com/60"}
+                    className="w-full h-auto rounded-full object-cover"
+                    alt={post.displayName || "User"}
+                  />
+                </div>
+                <div className="flex-1">
+                  <div className="mb-2">
+                    <h2 className="font-bold">{post.displayName}</h2>
+                    <span className="text-sm text-gray-500">
+                      @{post.displayName}
+                    </span>
+                    <span className="text-sm text-gray-500 ml-2">
+                      {post.createdAt?.toDate?.().toDateString() ??
+                        "Unknown date"}
+                    </span>
+                  </div>
+                  <div className="mb-2">
+                    <p>{post.text}</p>
+                  </div>
+                  {post.imageUrl && (
+                    <div className="max-w-full h-auto mt-2">
+                      <img
+                        src={post.imageUrl}
+                        alt="Post"
+                        className="max-w-full h-[200px] object-cover rounded-lg"
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
-      ))}
-    </div>
         </div>
         {/* Right Side */}
         {/* --------------- */}
 
         {/* Right Side Content Container*/}
-        <div className="hidden xl:flex"></div>
+        <div className="hidden h-screen xl:flex xl:flex-col gap-3 overflow-y-scroll p-4">
+          <h2 className="headline-semibold-28 text-center">Recommended Profiles</h2>
+
+            
+          <div className="flex flex-col gap-4 p-4 w-[380px] h-screen overflow-y-scroll">
+
+            {/* Profile Cards Container */}
+            <div className="w-[340px] h-[170px] border border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b] flex p-10 shadow-lg shadow-black">
+              {/* Profile Card Content */}
+              <div className="w-[200px] h-full flex items-center  ">
+                {/* Change user.email to user.uid */}
+                <img
+                  className="w-[100px] h-[100px] object-cover rounded-full border-4 border-primary-700 "
+                  src={user?.photoURL}
+                />
+              </div>
+              {/* User Info */}
+              <div className="pt-4 flex flex-col justify-center items-center">
+                <h2 class="pr-14 text-xl font-semibold ">
+                  {user?.displayName}
+                </h2>
+                <h3 class="pr-14 text-lg text-gray-400">
+                  @{user?.displayName}
+                </h3>
+                <div className="flex gap-3">
+                  <span>12 Followers</span>
+                  <span>1 Following</span>
+                </div>
+              </div>
+            </div>
+
+
+            {/* Profile Cards Container */}
+            <div className="w-[340px] h-[170px] border border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b] flex p-10 shadow-lg shadow-black">
+              {/* Profile Card Content */}
+              <div className="w-[200px] h-full flex items-center  ">
+                {/* Change user.email to user.uid */}
+                <img
+                  className="w-[100px] h-[100px] object-cover rounded-full border-4 border-primary-700 "
+                  src={user?.photoURL}
+                />
+              </div>
+              {/* User Info */}
+              <div className="pt-4 flex flex-col justify-center items-center">
+                <h2 class="pr-14 text-xl font-semibold ">
+                  {user?.displayName}
+                </h2>
+                <h3 class="pr-14 text-lg text-gray-400">
+                  @{user?.displayName}
+                </h3>
+                <div className="flex gap-3">
+                  <span>12 Followers</span>
+                  <span>1 Following</span>
+                </div>
+              </div>
+            </div>
+
+
+            {/* Profile Cards Container */}
+            <div className="w-[340px] h-[170px] border border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b] flex p-10 shadow-lg shadow-black">
+              {/* Profile Card Content */}
+              <div className="w-[200px] h-full flex items-center  ">
+                {/* Change user.email to user.uid */}
+                <img
+                  className="w-[100px] h-[100px] object-cover rounded-full border-4 border-primary-700 "
+                  src={user?.photoURL}
+                />
+              </div>
+              {/* User Info */}
+              <div className="pt-4 flex flex-col justify-center items-center">
+                <h2 class="pr-14 text-xl font-semibold ">
+                  {user?.displayName}
+                </h2>
+                <h3 class="pr-14 text-lg text-gray-400">
+                  @{user?.displayName}
+                </h3>
+                <div className="flex gap-3">
+                  <span>12 Followers</span>
+                  <span>1 Following</span>
+                </div>
+              </div>
+            </div>
+
+
+            {/* Profile Cards Container */}
+            <div className="w-[340px] h-[170px] border border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b] flex p-10 shadow-lg shadow-black">
+              {/* Profile Card Content */}
+              <div className="w-[200px] h-full flex items-center  ">
+                {/* Change user.email to user.uid */}
+                <img
+                  className="w-[100px] h-[100px] object-cover rounded-full border-4 border-primary-700 "
+                  src={user?.photoURL}
+                />
+              </div>
+              {/* User Info */}
+              <div className="pt-4 flex flex-col justify-center items-center">
+                <h2 class="pr-14 text-xl font-semibold ">
+                  {user?.displayName}
+                </h2>
+                <h3 class="pr-14 text-lg text-gray-400">
+                  @{user?.displayName}
+                </h3>
+                <div className="flex gap-3">
+                  <span>12 Followers</span>
+                  <span>1 Following</span>
+                </div>
+              </div>
+            </div>
+            
+            
+            
+          </div>
+        </div>
       </div>
     </div>
   );
