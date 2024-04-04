@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import ThemeContext from "../components/ThemeContext"; // Import ThemeContext
 
+
 const Watchlist = () => {
   const [favorites, setFavorites] = useState([]);
   const [filteredFavorites, setFilteredFavorites] = useState([]);

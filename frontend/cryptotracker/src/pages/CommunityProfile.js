@@ -18,6 +18,7 @@ import { getStorage } from "firebase/storage"; // For uploading banner image
 import { db } from "../firebase"; // Adjust the import path as needed
 import { CameraIcon } from "@heroicons/react/outline"; // Ensure correct import path
 import { CiCalendarDate } from "react-icons/ci";
+import { IconPlus, IconMinus } from "@tabler/icons-react";
 
 function CommunityProfile({ user }) {
   const [bannerImage, setBannerImage] = useState("");
@@ -29,6 +30,16 @@ function CommunityProfile({ user }) {
   const { theme } = useContext(ThemeContext);
   // Recommended Profiles State
   const [recommendedProfiles, setRecommendedProfiles] = useState([]);
+
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
+  const [favorites, setFavorites] = useState([]);
+
+  const auth = getAuth();
 
   // UseEffect for fetching User Posts
   useEffect(() => {
@@ -108,18 +119,36 @@ function CommunityProfile({ user }) {
       const usersData = querySnapshot.docs
         .map((doc) => ({ ...doc.data(), id: doc.id })) // `id` is now correctly mapped from the document
         .filter((profile) => profile.id !== user.uid); // Compare `id` with `user.uid` to exclude the current user
-  
+
       console.log("Recommended Profiles:", usersData); // Log the recommended profiles to the console
-  
+
       setRecommendedProfiles(usersData);
     };
-  
+
     if (user && user.uid) {
       fetchRecommendedProfiles();
     }
   }, [user]);
-  
-  
+
+  // Fetching Favorites
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const querySnapshot = await getDocs(
+        collection(db, "users", user.uid, "favorites")
+      );
+      const fetchedFavorites = [];
+      querySnapshot.forEach((doc) => {
+        fetchedFavorites.push({ id: doc.id, ...doc.data() });
+      });
+      setFavorites(fetchedFavorites);
+      console.log(favorites);
+    };
+
+    fetchFavorites();
+  }, []);
 
   return (
     <div
@@ -230,10 +259,71 @@ function CommunityProfile({ user }) {
               <div className="w-[98%] border-b border-zinc-700"></div>
             </div>
           </div>
+          {/* Recommended Profiles Sections */}
+          {/* ------------------------------ */}
+          <div className="w-full mt-2">
+            <div className="w-full flex justify-between">
+              <div className="w-[50%]">
+                <h2 className="headline-semibold-24 pl-9  ">
+                  Recommended Profiles
+                </h2>
+              </div>
+              <div
+                className="cursor-pointer w-[50%] flex justify-end text-lg pr-7"
+                onClick={toggleCollapse}
+              >
+                {isCollapsed ? (
+                  <IconPlus strokeWidth={2} size={28} />
+                ) : (
+                  <IconMinus size={28} />
+                )}
+              </div>
+            </div>
+
+            {/*Profile Cards Section  */}
+            {!isCollapsed && (
+              <div className="flex gap-4 ml-4 p-4 w-full h-[200px] overflow-x-auto">
+                {/* Profile Cards Container */}
+                {recommendedProfiles.map((profile) => (
+                  <div
+                    key={profile.id}
+                    className="flex  w-[250px] h-[110px] border border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b] shadow-lg shadow-black pl-2"
+                  >
+                    <Link
+                      to={`/community/userprofile/${profile.id}`}
+                      className="flex items-center"
+                    >
+                      {/* Profile Card Content */}
+                      <img
+                        className="w-[50px] h-[50px] object-cover rounded-full border-4 border-primary-700 m-2"
+                        src={profile.photoURL}
+                        alt={profile.displayName}
+                      />
+                      {/* User Info */}
+                      <div className="flex flex-col justify-center">
+                        <h2 className="text-sm font-semibold">
+                          {profile.displayName}
+                        </h2>
+                        <h3 className="text-sm text-gray-400">
+                          @{profile.displayName}
+                        </h3>
+                        <div className="text-sm flex gap-3">
+                          <span>12 Followers</span>
+                          <span>1 Following</span>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* Bottom-Center Content Container */}
-          <div className="w-full h-full">
+          {/* ---------------------------------------- */}
+          <div className="w-full h-full mt-4">
             <div className="w-full h-[70px]">
-              <div className="w-full flex justify-center pt-4">
+              <div className="w-full flex justify-center ">
                 <input
                   className={`w-[91%] h-[48px] bg-slate-600 p-2 focus:outline-none text-sm rounded-lg ${
                     theme === "dark"
@@ -296,48 +386,34 @@ function CommunityProfile({ user }) {
         {/* Right Side Content Container*/}
         <div className="hidden h-screen xl:flex xl:flex-col gap-3 overflow-y-scroll p-4">
           <h2 className="headline-semibold-28 text-center">
-            Recommended Profiles
+            Currencies Followed
           </h2>
 
-          <div className="flex flex-col gap-4 p-4 w-[380px] h-screen overflow-y-scroll">
-            {/* Profile Cards Container */}
-            {/* Recommended Profiles Section */}
-            <div className="w-full flex flex-col gap-4">
-              {recommendedProfiles.map((profile) => (
-                <div
-                  key={profile.id}
-                  className="w-[340px] h-[170px] border border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b] flex justify-center shadow-lg shadow-black"
-                >
-                  <Link
-                    to={`/community/userprofile/${profile.id}`}
-                    className="flex px-20"
-                  >
-                  {/* Profile Card Content */}
-                    <div className="w-[200px] h-full flex items-center pl-20  ">
-                      {/* Change user.email to user.uid */}
-                      <img
-                        className="w-[100px] h-[100px] object-cover rounded-full border-4 border-primary-700"
-                        src={profile.photoURL}
-                        alt={profile.displayName}
-                      />
-                    </div>
-                    {/* User Info */}
-                    <div className="pt-4 flex flex-col justify-center items-center pr-20">
-                      <h2 class="text-xl font-semibold pr-20">
-                        {profile?.displayName}
-                      </h2>
-                      <h3 class=" text-lg text-gray-400 pr-20">
-                        @{profile?.displayName}
-                      </h3>
-                      <div className="flex gap-3">
-                        <span>12 Followers</span>
-                        <span>1 Following</span>
-                      </div>
-                    </div>
-                  </Link>
+          <div className="flex flex-col gap-4 p-4 w-full overflow-y-scroll">
+            {favorites.map((crypto) => (
+              <Link to={`/cryptopage/${crypto.symbol}`}>
+              <div
+                key={crypto.id}
+                className="flex w-[240px] min-h-[100px] border border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b] shadow-lg shadow-black"
+              >
+                {/* Crypto Card Content */}
+                <div className="flex items-center p-2">
+                  <img
+                    className="w-[50px] h-[50px] object-cover rounded-full m-2"
+                    src={crypto.image || "https://via.placeholder.com/50"}
+                    alt={crypto.name}
+                  />
+                  <div className="flex flex-col justify-center ml-2">
+                    <h2 className="text-sm font-semibold">{crypto.name}</h2>
+                    <h3 className="text-sm text-gray-400">{crypto.symbol.toUpperCase()}</h3>
+                    <p className="text-sm flex gap-3">
+                      ${crypto.price} <span>{crypto.change24h.toLocaleString(2)}%</span>
+                    </p>
+                  </div>
                 </div>
-              ))}
-            </div>
+              </div>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
