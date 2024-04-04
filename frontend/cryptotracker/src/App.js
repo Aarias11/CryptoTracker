@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Buffer } from 'buffer'; // Import Buffer from the buffer package
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
@@ -22,13 +23,15 @@ import useScrollToTop from './components/useScrollToTop';
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 import Web3 from 'web3';
 import CommunityUserProfile from './pages/CommunityUserProfile';
-import '@typehaus/metropolis'
+import '@typehaus/metropolis';
+
+window.Buffer = Buffer; // Assign Buffer to window to make it globally available
 
 
 // Coinbase Wallet SDK initialization
 const APP_NAME = 'My Awesome App';
 const APP_LOGO_URL = 'https://example.com/logo.png';
-const APP_SUPPORTED_CHAIN_IDS = [1, 137]
+const APP_SUPPORTED_CHAIN_IDS = [1, 137];
 
 const coinbaseWallet = new CoinbaseWalletSDK({
   appName: APP_NAME,
@@ -51,22 +54,19 @@ function App() {
     return () => unsubscribe();
   }, [auth]);
 
- // Function to disconnect from Coinbase Wallet
+  // Function to disconnect from Coinbase Wallet
   const disconnectCoinbaseWallet = () => {
     coinbaseWallet.disconnect();
     console.log('Disconnected from Coinbase Wallet');
     // Perform any additional cleanup or state updates as needed
   };
 
-
   return (
-    // Below div is the light/dark mode primary 
     <div className={`App ${
       theme === "dark" ? "bg-[#031021] text-primary-50" : "bg-[#F5F9FE] text-primary-800"
-    }`} >
+    }`}>
       <Header setUser={setUser} user={user} />
       <Navbar setUser={setUser} user={user} />
-     {/* <TradingViewTicker key={theme} /> */}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
@@ -79,13 +79,9 @@ function App() {
         <Route path='/community' element={<CommunityPage user={user} />} />
         <Route path='/community/profile/:displayname' element={<CommunityProfile user={user} />} />
         <Route path='/account' element={<Account user={user} />} />
-        <Route path="/community/profile/:username" element={<CommunityUserProfile />} />
-
-
-
+        <Route path="/community/userprofile/:id" element={<CommunityUserProfile />} />
 
       </Routes>
-      {/* <Footer /> */}
     </div>
   );
 }

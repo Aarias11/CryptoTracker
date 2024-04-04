@@ -27,6 +27,8 @@ function CommunityProfile({ user }) {
   const [posts, setPosts] = useState([]);
   const [searchInput, setSearchInput] = useState(""); // State to manage search input
   const { theme } = useContext(ThemeContext);
+  // Recommended Profiles State
+  const [recommendedProfiles, setRecommendedProfiles] = useState([]);
 
   // UseEffect for fetching User Posts
   useEffect(() => {
@@ -98,7 +100,26 @@ function CommunityProfile({ user }) {
     return post.text.toLowerCase().includes(searchInput.toLowerCase());
   });
 
-  // console.log(user);
+  // Fetching Recommended Profiles
+  useEffect(() => {
+    const fetchRecommendedProfiles = async () => {
+      const usersRef = collection(db, "users");
+      const querySnapshot = await getDocs(usersRef);
+      const usersData = querySnapshot.docs
+        .map((doc) => ({ ...doc.data(), id: doc.id })) // `id` is now correctly mapped from the document
+        .filter((profile) => profile.id !== user.uid); // Compare `id` with `user.uid` to exclude the current user
+  
+      console.log("Recommended Profiles:", usersData); // Log the recommended profiles to the console
+  
+      setRecommendedProfiles(usersData);
+    };
+  
+    if (user && user.uid) {
+      fetchRecommendedProfiles();
+    }
+  }, [user]);
+  
+  
 
   return (
     <div
@@ -274,116 +295,49 @@ function CommunityProfile({ user }) {
 
         {/* Right Side Content Container*/}
         <div className="hidden h-screen xl:flex xl:flex-col gap-3 overflow-y-scroll p-4">
-          <h2 className="headline-semibold-28 text-center">Recommended Profiles</h2>
+          <h2 className="headline-semibold-28 text-center">
+            Recommended Profiles
+          </h2>
 
-            
           <div className="flex flex-col gap-4 p-4 w-[380px] h-screen overflow-y-scroll">
-
             {/* Profile Cards Container */}
-            <div className="w-[340px] h-[170px] border border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b] flex p-10 shadow-lg shadow-black">
-              {/* Profile Card Content */}
-              <div className="w-[200px] h-full flex items-center  ">
-                {/* Change user.email to user.uid */}
-                <img
-                  className="w-[100px] h-[100px] object-cover rounded-full border-4 border-primary-700 "
-                  src={user?.photoURL}
-                />
-              </div>
-              {/* User Info */}
-              <div className="pt-4 flex flex-col justify-center items-center">
-                <h2 class="pr-14 text-xl font-semibold ">
-                  {user?.displayName}
-                </h2>
-                <h3 class="pr-14 text-lg text-gray-400">
-                  @{user?.displayName}
-                </h3>
-                <div className="flex gap-3">
-                  <span>12 Followers</span>
-                  <span>1 Following</span>
+            {/* Recommended Profiles Section */}
+            <div className="w-full flex flex-col gap-4">
+              {recommendedProfiles.map((profile) => (
+                <div
+                  key={profile.id}
+                  className="w-[340px] h-[170px] border border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b] flex justify-center shadow-lg shadow-black"
+                >
+                  <Link
+                    to={`/community/userprofile/${profile.id}`}
+                    className="flex px-20"
+                  >
+                  {/* Profile Card Content */}
+                    <div className="w-[200px] h-full flex items-center pl-20  ">
+                      {/* Change user.email to user.uid */}
+                      <img
+                        className="w-[100px] h-[100px] object-cover rounded-full border-4 border-primary-700"
+                        src={profile.photoURL}
+                        alt={profile.displayName}
+                      />
+                    </div>
+                    {/* User Info */}
+                    <div className="pt-4 flex flex-col justify-center items-center pr-20">
+                      <h2 class="text-xl font-semibold pr-20">
+                        {profile?.displayName}
+                      </h2>
+                      <h3 class=" text-lg text-gray-400 pr-20">
+                        @{profile?.displayName}
+                      </h3>
+                      <div className="flex gap-3">
+                        <span>12 Followers</span>
+                        <span>1 Following</span>
+                      </div>
+                    </div>
+                  </Link>
                 </div>
-              </div>
+              ))}
             </div>
-
-
-            {/* Profile Cards Container */}
-            <div className="w-[340px] h-[170px] border border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b] flex p-10 shadow-lg shadow-black">
-              {/* Profile Card Content */}
-              <div className="w-[200px] h-full flex items-center  ">
-                {/* Change user.email to user.uid */}
-                <img
-                  className="w-[100px] h-[100px] object-cover rounded-full border-4 border-primary-700 "
-                  src={user?.photoURL}
-                />
-              </div>
-              {/* User Info */}
-              <div className="pt-4 flex flex-col justify-center items-center">
-                <h2 class="pr-14 text-xl font-semibold ">
-                  {user?.displayName}
-                </h2>
-                <h3 class="pr-14 text-lg text-gray-400">
-                  @{user?.displayName}
-                </h3>
-                <div className="flex gap-3">
-                  <span>12 Followers</span>
-                  <span>1 Following</span>
-                </div>
-              </div>
-            </div>
-
-
-            {/* Profile Cards Container */}
-            <div className="w-[340px] h-[170px] border border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b] flex p-10 shadow-lg shadow-black">
-              {/* Profile Card Content */}
-              <div className="w-[200px] h-full flex items-center  ">
-                {/* Change user.email to user.uid */}
-                <img
-                  className="w-[100px] h-[100px] object-cover rounded-full border-4 border-primary-700 "
-                  src={user?.photoURL}
-                />
-              </div>
-              {/* User Info */}
-              <div className="pt-4 flex flex-col justify-center items-center">
-                <h2 class="pr-14 text-xl font-semibold ">
-                  {user?.displayName}
-                </h2>
-                <h3 class="pr-14 text-lg text-gray-400">
-                  @{user?.displayName}
-                </h3>
-                <div className="flex gap-3">
-                  <span>12 Followers</span>
-                  <span>1 Following</span>
-                </div>
-              </div>
-            </div>
-
-
-            {/* Profile Cards Container */}
-            <div className="w-[340px] h-[170px] border border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b] flex p-10 shadow-lg shadow-black">
-              {/* Profile Card Content */}
-              <div className="w-[200px] h-full flex items-center  ">
-                {/* Change user.email to user.uid */}
-                <img
-                  className="w-[100px] h-[100px] object-cover rounded-full border-4 border-primary-700 "
-                  src={user?.photoURL}
-                />
-              </div>
-              {/* User Info */}
-              <div className="pt-4 flex flex-col justify-center items-center">
-                <h2 class="pr-14 text-xl font-semibold ">
-                  {user?.displayName}
-                </h2>
-                <h3 class="pr-14 text-lg text-gray-400">
-                  @{user?.displayName}
-                </h3>
-                <div className="flex gap-3">
-                  <span>12 Followers</span>
-                  <span>1 Following</span>
-                </div>
-              </div>
-            </div>
-            
-            
-            
           </div>
         </div>
       </div>

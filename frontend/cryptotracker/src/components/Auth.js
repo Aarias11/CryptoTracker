@@ -445,8 +445,8 @@ function Auth() {
         ) : (
           <>
             <li
-              className={`w-[70px] p-1  justify-center border  rounded-lg bg-indigo-500 text-[#FAFAFA] font-semibold cursor-pointer hidden xl:flex ${
-                theme === "dark" ? " text-zinc-200" : " text-zinc-700"
+              className={`w-[70px] p-1  justify-center rounded-lg  font-semibold cursor-pointer hidden xl:flex ${
+                theme === "dark" ? " bg-primary-600 text-primary-25" : " text-zinc-700"
               }`}
               onClick={openModal}
             >
