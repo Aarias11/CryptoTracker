@@ -127,22 +127,7 @@ function CryptoPage({ user, currentCrypto }) {
     fetchCommentsAndUsers();
   }, [symbol]);
 
-  // Fetch USer Profile
-  // useEffect(() => {
-  //   const fetchUserProfile = async () => {
-  //     const userRef = doc(db, "users", userId);
-  //     const userSnap = await getDoc(userRef);
-
-  //     if (userSnap.exists()) {
-  //       setUserProfile({ id: userSnap.id, ...userSnap.data() });
-  //     } else {
-  //       console.log("No such user!");
-  //       // Handle user not found scenario
-  //     }
-  //   };
-
-  //   fetchUserProfile();
-  // }, [userId]); // Dependency on userId to refetch when it changes
+ 
 
   // Handling submission of comments
   const handleSubmit = async (e) => {

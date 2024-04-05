@@ -18,6 +18,7 @@ import {
 import { getAuth } from "firebase/auth";
 import ThemeContext from "../components/ThemeContext";
 import TradingViewTicker from "../components/TradingViewTicker";
+import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import useScrollToTop from "../components/useScrollToTop";
 
 
@@ -458,22 +459,24 @@ function Home() {
 <div className="w-full h-[40px] md:flex md:justify-end md:items-center">
   <div className="w-full md:w-[50%] flex justify-between items-center p-3">
   <div>
-    <span>Page {currentPage} of {totalPages}</span>
+    <span className="label-14">Page {currentPage} of {totalPages}</span>
   </div>
-  <div>
+  <div className="flex">
   <button
             onClick={handlePrevious}
             disabled={currentPage === 1}
-            className="px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+            className=" label-14 px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed flex gap-2 items-center"
           >
+          <IconArrowLeft />
             Previous
           </button>
           <button
             onClick={handleNext}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+            className=" label-14 px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed flex gap-2 items-center"
           >
-            Next
+            Next 
+          <IconArrowRight />
           </button>
   </div>
   </div>

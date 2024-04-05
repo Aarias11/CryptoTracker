@@ -8,18 +8,64 @@ import {
   query,
   where,
   getDocs,
+  setDoc,
+  deleteDoc,
 } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import ThemeContext from "../components/ThemeContext";
 import Avatar from "@mui/material/Avatar";
 
 function CommunityUserProfile() {
   const [userProfile, setUserProfile] = useState(null);
   const [posts, setPosts] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isFollowing, setIsFollowing] = useState(false); // Correctly declare isFollowing state
+  const [followersCount, setFollowersCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
+
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const { theme } = useContext(ThemeContext);
+  const auth = getAuth();
 
   useEffect(() => {
+    const fetchFollowStatusAndCount = async () => {
+      if (!id) return; // id is the profile being viewed
+
+      // Fetch followers count for the profile
+      const followersRef = collection(db, `users/${id}/followers`);
+      const followersSnap = await getDocs(followersRef);
+      setFollowersCount(followersSnap.size);
+
+      // Check if the current user is following the profile
+      if (currentUser) {
+        const userFollowingRef = doc(
+          db,
+          `users/${currentUser.uid}/following/${id}`
+        );
+        const userFollowingSnap = await getDoc(userFollowingRef);
+        setIsFollowing(userFollowingSnap.exists());
+      }
+    };
+
+    fetchFollowStatusAndCount();
+  }, [id, currentUser]);
+
+  useEffect(() => {
+    const auth = getAuth();
+    return onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      if (user) {
+        checkFollowingStatus(user.uid, id);
+      }
+    });
+
     const fetchUserProfileAndPosts = async () => {
       setLoading(true);
       const userRef = doc(db, "users", id);
@@ -37,9 +83,46 @@ function CommunityUserProfile() {
     };
 
     fetchUserProfileAndPosts();
-  }, [id]);
 
-  if (loading) return <div>Loading...</div>;
+    return () => unsubscribe();
+  }, [auth, id]);
+
+  const checkFollowingStatus = async (currentUserId, profileId) => {
+    const followRef = doc(db, `users/${currentUserId}/following/${profileId}`);
+    const followSnap = await getDoc(followRef);
+    setIsFollowing(followSnap.exists());
+  };
+
+  // Follow Function
+  const followUser = async () => {
+    if (!currentUser || !currentUser.uid) return;
+
+    const followingRef = doc(db, `users/${currentUser.uid}/following/${id}`);
+    try {
+      await setDoc(followingRef, { userId: id });
+      setIsFollowing(true); // Set following status optimistically
+      setFollowersCount(followersCount + 1); // Update followers count optimistically
+    } catch (error) {
+      console.error("Error following user:", error);
+    }
+  };
+
+  // Unfollow Function
+  const unfollowUser = async () => {
+    if (!currentUser || !currentUser.uid) return;
+
+    const followingRef = doc(db, `users/${currentUser.uid}/following/${id}`);
+    try {
+      await deleteDoc(followingRef);
+      setIsFollowing(false); // Set following status optimistically
+      setFollowersCount(followersCount - 1); // Update followers count optimistically
+    } catch (error) {
+      console.error("Error unfollowing user:", error);
+    }
+  };
+
+  if (loading)
+    return <div className="w-full h-screen bg-primary-900">Loading...</div>;
 
   return (
     <div
@@ -87,12 +170,39 @@ function CommunityUserProfile() {
                     <h3 className="text-lg text-gray-400">
                       @{userProfile.displayName}
                     </h3>
+                    <p>
+                      Followers: {followersCount} | Following: {followingCount}
+                    </p>
+                  </div>
+                  <div className="flex">
+                    {/* User details and follow/unfollow button */}
+                    {currentUser && (
+                      <div className="mt-5">
+                        {isFollowing ? (
+                          <button
+                            onClick={() => unfollowUser(id)}
+                            className="button-primary-small-dark"
+                          >
+                            Unfollow
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => followUser(id)}
+                            className="button-primary-small-dark"
+                          >
+                            Follow
+                          </button>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </>
             ) : (
               <div>No user profile data found</div>
             )}
+
+            <div className="w-full mt-10 border-b  border-zinc-700"></div>
 
             <div className="px-5 pt-4">
               {posts.map((post) => (

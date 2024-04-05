@@ -150,7 +150,7 @@ const handlePostSubmit = async () => {
               />
               <div className="w-[95%] flex justify-between">
                 <BiHappyBeaming className="text-slate-400" size={25} />
-                <input className="p-2" type="file" accept="image/*" onChange={(e) => setSelectedFile(e.target.files[0])} />
+                <input className="border rounded-lg p-2" type="file" accept="image/*" onChange={(e) => setSelectedFile(e.target.files[0])} />
 
                 <button className="w-[100px] h-[40px] border rounded-lg"
                 onClick={handlePostSubmit}>
