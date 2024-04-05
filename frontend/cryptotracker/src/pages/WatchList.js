@@ -109,9 +109,9 @@ const Watchlist = () => {
               Market Cap
             </th>
             {/* Volume */}
-            <th class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+            {/* <th class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
               Volume
-            </th>
+            </th> */}
             {/* Circulating Supp */}
             <th class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
               Circulating Supply
@@ -182,9 +182,9 @@ const Watchlist = () => {
                 ${Number(crypto.marketCap).toLocaleString()}
               </td>
               {/* Crypto Volume */}
-              <td class="px-5 py-3 bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+              {/* <td class="px-5 py-3 bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
                 ${Number(crypto.volume).toLocaleString()}
-              </td>
+              </td> */}
               {/* Crypto Circulating Supply */}
               <td class="px-5 py-3 bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider pt-7 ">
                 <div className=" items-center space-x-2">

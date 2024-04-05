@@ -18,6 +18,9 @@ function ExchangesPage() {
     setShowDetails(true);
   };
 
+
+  const topExchanges = useMemo(() => CryptoExchanges.filter(exchange => exchange.trust_score_rank <= 5), []);
+
   const sortedAndFilteredExchanges = useMemo(() => {
     return CryptoExchanges
       .filter(exchange => exchange.name.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -38,50 +41,67 @@ function ExchangesPage() {
 
   return (
     <div className={`min-h-screen  p-8 ${
-      theme === "dark" ? "bg-[#16171a] text-white" : "bg-white text-gray-900"
+      theme === "dark" ? "" : ""
     }`}>
       <div className="container mx-auto">
-        <h1 className="text-2xl font-bold text-zinc-300  mb-6">
+        <h1 className="headline-semibold-28 mb-6">
           Cryptocurrency Exchanges
         </h1>
         <p className="text-md text-zinc-200 mb-4">
           Cryptocurrency exchanges are pivotal platforms where traders and investors can buy, sell, or exchange cryptocurrencies. These platforms vary greatly in terms of features, security, and ease of use, directly impacting the trading experience and outcomes.
         </p>
-        <Carousel exchanges={CryptoExchanges.filter(exchange => exchange.trust_score_rank <= 5)} />
-        <div className={`overflow-x-auto  ${
-      theme === "dark" ? "bg-[#1d1e22]  text-white" : "bg-white text-gray-900"
-    }`}>
-        <table className="min-w-full divide-y divide-gray-200 ">
+        <div className="flex w-full overflow-x-scroll">
+          {topExchanges.map((exchange) => (
+            <div
+              key={exchange.id}
+              className={`cursor-pointer p-4 m-2 rounded-lg shadow-lg w-[300px] ${theme === "dark" ? "bg-primary-900" : "bg-gray-100"}`}
+              onClick={() => openModal(exchange)}
+            >
+              <img src={exchange.image} alt={exchange.name} className="w-16 h-16 mx-auto"/>
+              <h3 className="mt-2 text-center font-bold">{exchange.name}</h3>
+              <p className="text-center">Rank: {exchange.trust_score_rank}</p>
+              <p className="text-center">Volume: {exchange.trade_volume_24h_btc.toLocaleString()} BTC</p>
+            </div>
+          ))}
+        </div>
+
+        <div
+        className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:p-[50px] ${
+          theme === "dark" ? " " : " "
+        }`}
+      >
+              <table className={`min-w-full divide-y divide-zinc-700 `}>
+
 
             <thead>
               <tr>
-                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" onClick={() => handleSort('trust_score_rank')}>
+                <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40 ${theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"}`} onClick={() => handleSort('trust_score_rank')}>
                   Rank
                 </th>
-                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[93px] z-40  ${theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"}`}>
                   Image
                 </th>
-                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" onClick={() => handleSort('name')}>
+                <th class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider" onClick={() => handleSort('name')}>
                   Name
                 </th>
-                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" onClick={() => handleSort('trade_volume_24h_btc')}>
+                <th class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider" onClick={() => handleSort('trade_volume_24h_btc')}>
                   BTC Trade Volume
                 </th>
-                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                <th class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
                   Incentives
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-600">
               {sortedAndFilteredExchanges.map((exchange) => (
                 <tr key={exchange.id} onClick={() => openModal(exchange)} className="border-b dark:border-gray-700 cursor-pointer">
-                  <td class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider ">{exchange.trust_score_rank}</td>
-                  <td class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider ">
+                  <td class={`px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky left-0  ${theme === "dark" ? " bg-[#07172b]" : " "}`}>{exchange.trust_score_rank}</td>
+                  <td class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[93px]  ${theme === "dark" ? " bg-[#07172b]" : " "}`}>
                     <img src={exchange.image} alt={exchange.name} className="w-8 h-8 rounded-full" />
                   </td>
-                  <td class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider ">{exchange.name}</td>
-                  <td class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider ">{exchange.trade_volume_24h_btc.toLocaleString()} BTC</td>
-                  <td class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider ">{exchange.has_trading_incentive ? 'Yes' : 'No'}</td>
+                  <td class="px-5 py-3  bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">{exchange.name}</td>
+                  <td class="px-5 py-3  bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">{exchange.trade_volume_24h_btc.toLocaleString()} BTC</td>
+                  <td class="px-5 py-3  bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">{exchange.has_trading_incentive ? 'Yes' : 'No'}</td>
                 </tr>
               ))}
               {sortedAndFilteredExchanges.length === 0 && (

@@ -7,13 +7,11 @@ import { RxMagnifyingGlass } from "react-icons/rx";
 import { IoTrendingUpSharp, IoTrendingDownSharp } from "react-icons/io5";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
-import { VscClose } from "react-icons/vsc";
 import ThemeContext from "../components/ThemeContext";
 import TrendingCoins from "../TrendingCoins.json";
 import CryptoMarketCoins from "../CryptoMarketCoins.json";
 import CryptoExchanges from "../CryptoExchanges.json";
 import Wallet from "../components/Wallet";
-import { IconArrowLeft, IconAB2 } from '@tabler/icons-react';
 import Auth from "./Auth";
 
 function Navbar() {
@@ -28,64 +26,19 @@ function Navbar() {
   const [searchResults, setSearchResults] = useState([]);
   const [combinedResults, setCombinedResults] = useState([]);
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
-
+  const [user, setUser] = useState(null);
   const toggleWalletModal = () => setIsWalletModalOpen(!isWalletModalOpen);
+  const auth = getAuth();
 
-  // Close the search component when clicking on the close icon
-  const handleClose = () => {
-    setSearchExpanded(false);
-  };
 
-  // Handle outside clicks
+  const isLoggedIn = !!user; 
+
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
-        setSearchExpanded(false);
-      }
-    }
+    const unsubscribe = onAuthStateChanged(auth, setUser);
+    return unsubscribe;
+  }, []);
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [searchComponentRef]);
-
-  // Fetch search results and combine with local market data
-  useEffect(() => {
-    const fetchSearchResults = async () => {
-      if (!searchQuery) {
-        setSearchResults([]);
-        return;
-      }
-
-      try {
-        const response = await fetch(
-          `https://api.coingecko.com/api/v3/search?query=${searchQuery}`
-        );
-        const data = await response.json();
-        const searchResultsWithMarketData = data.coins.map((coin) => {
-          const marketData = CryptoMarketCoins.find(
-            (marketCoin) => marketCoin.id === coin.id
-          );
-          return {
-            ...coin,
-            current_price: marketData?.current_price,
-            price_change_percentage_24h:
-              marketData?.price_change_percentage_24h,
-          };
-        });
-        setSearchResults(searchResultsWithMarketData);
-      } catch (error) {
-        console.error("Error fetching search results:", error);
-      }
-    };
-
-    fetchSearchResults();
-  }, [searchQuery]);
-
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
+  
 
   return (
     <div
@@ -125,9 +78,9 @@ function Navbar() {
         <li className="text-xs md:text-sm">
           <Link to="/heatmap">HeatMap</Link>
         </li>
-        <li className="text-xs md:text-sm">
+        {isLoggedIn && <li className="text-xs md:text-sm">
           <Link to="/community">Community</Link>
-        </li>
+        </li>}
         <li className="text-xs md:text-sm cursor-pointer" onClick={toggleWalletModal}>Wallet</li>
 
       </ul>
