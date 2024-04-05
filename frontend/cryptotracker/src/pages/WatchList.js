@@ -57,14 +57,14 @@ const Watchlist = () => {
 
   return (
     <div className={`w-full h-screen mx-auto overflow-x-auto pt-10 ${bodyBgTheme}`}>
-      <h2 className="text-5xl font-semibold p-6">YOUR WATCHLIST</h2>
-      <div className="px-6 ">
+      <h2 className="text-5xl font-semibold ml-6 p-6">YOUR WATCHLIST</h2>
+      <div className="px-6 ml-6">
         <input
           type="text"
           placeholder="Search Your Favorites"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className={`w-[300px] h-full border border-primary-200 rounded-xl font-semibold text-sm p-3 relative px-[40px] ${
+          className={`search-input w-[300px] h-full border border-primary-200 rounded-xl font-semibold text-sm p-3 relative px-[40px] ${
             theme === "dark"
               ? "bg-[#031021] text-primary-200"
               : ""

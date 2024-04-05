@@ -325,11 +325,9 @@ function CommunityProfile({ user }) {
             <div className="w-full h-[70px]">
               <div className="w-full flex justify-center ">
                 <input
-                  className={`w-[91%] h-[48px] bg-slate-600 p-2 focus:outline-none text-sm rounded-lg ${
-                    theme === "dark"
-                      ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
-                      : ""
-                  }`}
+                  className={`search-input w-[91%] h-[48px] p-2 focus:outline-none text-sm rounded-lg ${ theme === "dark"
+                  ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
+                  : "" }`}
                   placeholder="Search Posts..."
                   value={searchInput}
                   onChange={handleSearchInputChange}

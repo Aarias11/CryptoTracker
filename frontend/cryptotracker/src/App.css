@@ -9,9 +9,9 @@
 
 
   .search-input {
-    border: 1px solid #ccc; /* Default border */
+    border: 1px solid 'primary-200'; /* Default border */
    
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 10px; /* Rounded corners */
   }
   
   .search-input:focus {

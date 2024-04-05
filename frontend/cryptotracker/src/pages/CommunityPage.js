@@ -141,7 +141,7 @@ const handlePostSubmit = async () => {
 
               {/* Text Area */}
               <textarea
-                className={`w-[95%] h-[100px] bg-slate-600 rounded-lg p-2 text-sm ${ theme === "dark"
+                className={`search-input w-[95%] h-[100px] bg-slate-600 rounded-lg p-2 text-sm ${ theme === "dark"
                 ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
                 : "" }`}
                 placeholder="How do you feel about the markets today? Share your ideas here!"
@@ -174,7 +174,7 @@ const handlePostSubmit = async () => {
               {/* Search Users or Posts */}
               <div className="w-full flex justify-center pt-4">
                 <input
-                  className={`w-[91%] h-[48px] bg-slate-600 p-2  text-sm rounded-lg ${ theme === "dark"
+                  className={`search-input w-[91%] h-[48px] bg-slate-600 p-2  text-sm rounded-lg ${ theme === "dark"
                   ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
                   : "" }`}
                   placeholder="Search Users or Posts.."
