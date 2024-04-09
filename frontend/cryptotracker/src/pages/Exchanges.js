@@ -44,7 +44,7 @@ function ExchangesPage() {
     <div className={`w-full min-h-screen p-8 ${theme === "dark" ? "" : ""}`}>
       <div className="w-full container mx-auto">
         <h1 className="headline-semibold-28 mb-6">Cryptocurrency Exchanges</h1>
-        <p className="text-md mb-4">
+        <p className="text-md mb-10">
           Cryptocurrency exchanges are pivotal platforms where traders and
           investors can buy, sell, or exchange cryptocurrencies. These platforms
           vary greatly in terms of features, security, and ease of use, directly

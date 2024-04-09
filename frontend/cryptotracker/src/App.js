@@ -82,6 +82,7 @@ function App() {
         <Route path="/community/userprofile/:id" element={<CommunityUserProfile />} />
 
       </Routes>
+      <Footer />
     </div>
   );
 }

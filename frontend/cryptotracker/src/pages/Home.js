@@ -450,8 +450,8 @@ function Home() {
         </table>
 
         {/* Pagination */}
-        <div className="w-full h-[40px] md:flex md:justify-end md:items-center">
-          <div className="w-full md:w-[50%] flex justify-between items-center p-3">
+        <div className="w-full h-auto md:flex md:justify-end md:items-center p-5 border-t border-zinc-700 ">
+          <div className="w-full md:w-[50%] flex justify-between items-center ">
             <div>
               <span className="label-14">
                 Page {currentPage} of {totalPages}
