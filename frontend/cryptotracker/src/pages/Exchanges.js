@@ -115,7 +115,7 @@ function ExchangesPage() {
                   Rank
                 </th>
                 <th
-                  className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[93px] z-40  ${
+                  className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[75px] md:left-[93px] z-40  ${
                     theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"
                   }`}
                 >
@@ -153,7 +153,7 @@ function ExchangesPage() {
                     {exchange.trust_score_rank}
                   </td>
                   <td
-                    class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[93px]  ${
+                    class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[75px] md:left-[93px]  ${
                       theme === "dark" ? " bg-[#07172b]" : " "
                     }`}
                   >
