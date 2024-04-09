@@ -206,7 +206,7 @@ function Home() {
           <div className="text-center">
             <a
               href="/explore"
-              className="regular-large-dark text-white font-semibold py-3 px-6 rounded-lg transition duration-300 ease-in-out"
+              className=" font-semibold py-3 px-6 rounded-lg transition duration-300 ease-in-out button-primary-medium-dark shadow-xl shadow-primary-800"
             >
               Start Exploring
             </a>

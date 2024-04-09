@@ -160,27 +160,27 @@ function Header() {
   return (
     <div
       className={`flex justify-between items-center border-b border-zinc-800 px-4 md:px-[32px] lg:px-[50px] p-1 w-full ${
-        theme === "dark" ? " " : " "
+        theme === "dark" ? "text-primary-300 " : " "
       }`}
     >
       
       <ul className="hidden lg:flex text-xs gap-10 p-2 label-12  font-light text-zinc-500 items-center">
         <li>
           Coins:{" "}
-          <span className="font-bold text-teal-600">
+          <span className="text-primary-400 label-12">
             {Number(activeCoins.data.active_cryptocurrencies).toLocaleString()}
           </span>
         </li>
         <li>
           Exchanges:{" "}
-          <span className="font-bold text-teal-600">
+          <span className="text-primary-400 label-12">
             {activeCoins.data.markets}
           </span>
         </li>
 
         <li>
           Market Cap:{" "}
-          <span className="font-bold text-teal-600">
+          <span className="text-primary-400 label-12">
             {activeCoins.data.markets.toString().slice(0, 3)}T USD
           </span>
         </li>
@@ -204,18 +204,18 @@ function Header() {
         </li>
         <li>
           Total Volume:{" "}
-          <span className="font-bold text-teal-600">
+          <span className="text-primary-400 label-12">
             {activeCoins.data.total_volume.usd.toString().slice(0, 3)}T USD
           </span>
         </li>
         <li>
           Dominance:{" "}
-          <span className="font-bold text-teal-600">
+          <span className="text-primary-400 label-12">
             BTC {Number(activeCoins.data.market_cap_percentage.btc).toFixed(2)}%{" "}
           </span>
-          <span className="font-bold text-teal-600">
+          {/* <span className="text-primary-500 label-12">
             ETH {Number(activeCoins.data.market_cap_percentage.eth).toFixed(2)}%
-          </span>
+          </span> */}
         </li>
       </ul>
 

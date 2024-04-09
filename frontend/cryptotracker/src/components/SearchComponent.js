@@ -67,7 +67,7 @@ function SearchComponent({ theme }) {
     {/* Search Box Component */}
     {searchExpanded && (
       <div
-        className={`absolute top-1 right-5 mt-2 p-4 md:w-[700px] md:h-[425px] rounded-lg shadow-lg z-50 ${ theme === "dark"
+        className={`absolute top-1 right-5 mt-2 p-4 md:w-[700px] md:h-auto rounded-lg shadow-lg z-50 ${ theme === "dark"
         ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
         : "" }  ${theme === "dark" ? "bg-[#16171a]" : ""}`}
       >
@@ -164,7 +164,7 @@ function SearchComponent({ theme }) {
           // Trending Coins Container
           <div className="default-content">
             {/* Trending Coins Header */}
-            <h2 className="pt-1 pb-1 text-zinc-500 font-semibold">
+            <h2 className="label-bold-12 pt-3 pb-3">
               Trending Coins
             </h2>
             {/* Trending Coins */}
@@ -196,14 +196,14 @@ function SearchComponent({ theme }) {
             </div>
             {/* Exchanges */}
             <div className="w-full h-full">
-              <h2 className="pt-1 pb-1 text-zinc-500 font-semibold">
+            <h2 className="label-bold-12 pt-3 pb-3">
                 Exchanges
               </h2>
               {/* Mapping Through Exchanges */}
               <div className="w-full h-full flex flex-wrap gap-4">
                 {exchanges.slice(0, 25).map((exchange, id) => (
                   <div
-                    className={`flex gap-2 ${
+                    className={`flex gap-3 ${
                       theme === "dark"
                         ? "text-zinc-300"
                         : "bg-white text-gray-800"
