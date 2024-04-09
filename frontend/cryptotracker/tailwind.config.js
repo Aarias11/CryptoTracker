@@ -3,6 +3,11 @@ module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
     extend: {
+      fontSize: {
+        'title-16': '16px', // Example size, adjust as needed
+        'title-20': '20px', // Example size, adjust as needed
+        'headline-24': '24px', // Example size, adjust as needed
+      },
       colors: {
         'primary': {
           25: '#F5F9FE',

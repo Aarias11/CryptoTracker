@@ -7,6 +7,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from '../firebase'; // Adjust the path as per your project structure
 import { collection, doc, setDoc, getDocs, getFirestore } from "firebase/firestore";
 import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
+import { IconSettings } from "@tabler/icons-react";
 
 
 function CommunityPage({ user }) {

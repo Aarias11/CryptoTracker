@@ -21,7 +21,6 @@ import TradingViewTicker from "../components/TradingViewTicker";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import useScrollToTop from "../components/useScrollToTop";
 
-
 function Home() {
   const [cryptos, setCryptos] = useState(CryptoMarketCoins); //use [] when dealing with API
   const [coins, setCoins] = useState("");
@@ -34,9 +33,6 @@ function Home() {
   const [shouldBlink, setShouldBlink] = useState(false);
   const auth = getAuth();
 
-
-
-
   // Fetchig Crypto API Data
   // // Coin Gecko API
 
@@ -48,9 +44,6 @@ function Home() {
 
   //     })
   // }, [])
-
-  
-
 
   // Fetching User's Favorited Cryptos
   useEffect(() => {
@@ -75,7 +68,6 @@ function Home() {
     return unsubscribe; // Cleanup subscription
   }, [auth]);
 
-  
   // -----------------
 
   // Toggle favorite State for a Crypto
@@ -155,16 +147,9 @@ function Home() {
   };
 
   // Conditional styles based on theme
-  const tableTheme =
-    theme === "dark"
-      ? "label-12"
-      : "label-12";
-  const headerBgTheme =
-    theme === "dark"
-      ? "label-12"
-      : "label-12";
-  const bodyBgTheme =
-    theme === "dark" ? "label-12" : "label-12";
+  const tableTheme = theme === "dark" ? "label-12" : "label-12";
+  const headerBgTheme = theme === "dark" ? "label-12" : "label-12";
+  const bodyBgTheme = theme === "dark" ? "label-12" : "label-12";
 
   // OPEN MODAL
   const openModal = () => {
@@ -176,7 +161,6 @@ function Home() {
     window.scrollTo(0, 0);
   }, []);
 
-
   useEffect(() => {
     const interval = setInterval(() => {
       setShouldBlink(true); // Start the blink
@@ -187,30 +171,26 @@ function Home() {
   }, []);
 
   // Apply the blink class conditionally
-  const blinkClass = shouldBlink ? 'blink' : '';
+  const blinkClass = shouldBlink ? "blink" : "";
 
   return (
-    <div
-      className={`w-full h-auto   ${
-        theme === "dark" ? " " : " "
-      }`}
-    >
+    <div className={`w-full h-auto   ${theme === "dark" ? " " : " "}`}>
       <div
         className={`w-full h-[565px] py-35 flex justify-center items-center   ${
           theme === "dark"
-          ? "bg-gradient-to-r from-[#07172b]  to-[#031021] "
-          : ""
+            ? "bg-gradient-to-r from-[#07172b]  to-[#031021] "
+            : ""
         }`}
       >
-        
-        <div className="max-w-6xl mx-auto">
+        {/* Left Side */}
+        <div className="max-w-6xl mx-auto  p-10">
           <h2 className="headline-semibold-48 p-5 text-center">
             Cryptocurrencies By Highest MarketCap
           </h2>
           <p className="body-14 leading-relaxed mx-auto text-center mb-4 max-w-4xl px-3">
             The current Market Cap for all currencies stands at
-            <span className="text-teal-400 ml-2 px-3">949T</span>, marking a pivotal
-            moment in the financial landscape.
+            <span className="text-teal-400 ml-2 px-3">949T</span>, marking a
+            pivotal moment in the financial landscape.
           </p>
           <p className="body-14 leading-relaxed mx-auto text-center mb-4 max-w-4xl px-3">
             It reflects not just investor interest, but the innovation and
@@ -226,26 +206,23 @@ function Home() {
           <div className="text-center">
             <a
               href="/explore"
-              className="bg-teal-500 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-teal-400 transition duration-300 ease-in-out"
+              className="regular-large-dark text-white font-semibold py-3 px-6 rounded-lg transition duration-300 ease-in-out"
             >
               Start Exploring
             </a>
+          
           </div>
         </div>
+        {/* Right Side - Graphic */}
+        {/* <div className="w-[40%] h-full border-l border-zinc-700 hidden "></div> */}
       </div>
 
-      <div className={`App ${
-      theme === "dark" ? "" : ""
-    }`} >
-      <div>
-       
-      <TradingViewTicker key={theme} />
-
-      
-      
-      </div>
+      <div className={`App ${theme === "dark" ? "" : ""}`}>
+        <div>
+          <TradingViewTicker key={theme} />
+        </div>
         <div className="h-[400px] lg:px-[45px]">
-        <TradingViewMarketWidget />
+          <TradingViewMarketWidget />
         </div>
       </div>
       {/* Searchbar */}
@@ -254,9 +231,7 @@ function Home() {
         <div className=" w-full h-[50px] relative">
           <input
             className={`search-input w-[300px] h-full border border-primary-200 rounded-xl font-semibold focus:outline-none text-sm p-3 relative px-[40px] ${
-              theme === "dark"
-                ? "bg-[#031021] text-primary-200"
-                : ""
+              theme === "dark" ? "bg-[#031021] text-primary-200" : ""
             }`}
             type="search"
             placeholder="Search Crypto"
@@ -289,11 +264,19 @@ function Home() {
           <thead className={`${headerBgTheme}`}>
             <tr className="">
               {/* RANK */}
-              <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40 ${theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"}`}>
+              <th
+                className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40 ${
+                  theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"
+                }`}
+              >
                 # Rank
               </th>
               {/* NAME */}
-              <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[99px] z-40  ${theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"}`}>
+              <th
+                className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[99px] z-40  ${
+                  theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"
+                }`}
+              >
                 Name
               </th>
 
@@ -338,7 +321,11 @@ function Home() {
             {currentItems.map((crypto, index) => (
               <tr key={crypto.id}>
                 {/* RANK */}
-                <td class={`px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky left-0  ${theme === "dark" ? " bg-[#07172b]" : " "}`}>
+                <td
+                  class={`px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky left-0  ${
+                    theme === "dark" ? " bg-[#07172b]" : " "
+                  }`}
+                >
                   <button className="  ">
                     {favorites[crypto.id] ? (
                       <MdOutlineStar
@@ -357,7 +344,11 @@ function Home() {
                   <span className="text-xl">{crypto.market_cap_rank}</span>
                 </td>
                 {/* IMAGE, NAME, SYMBOL */}
-                <td class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[99px]  ${theme === "dark" ? " bg-[#07172b]" : " bg-white"}`}>
+                <td
+                  class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[99px]  ${
+                    theme === "dark" ? " bg-[#07172b]" : " bg-white"
+                  }`}
+                >
                   <Link to={`/cryptopage/${crypto.symbol}`}>
                     <div className="flex items-center gap-3">
                       <img
@@ -373,7 +364,9 @@ function Home() {
                   </Link>
                 </td>
                 {/* CURRENT PRICE */}
-                <td class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme ${blinkClass}`}>
+                <td
+                  class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme ${blinkClass}`}
+                >
                   $
                   {Number(crypto.current_price) >= 1
                     ? Number(crypto.current_price)
@@ -391,7 +384,9 @@ function Home() {
                   ${Number(crypto.high_24h).toLocaleString()}
                 </td>
                 {/* 24H % */}
-                <td class={`px-5 py-3   text-left text-xs font-semibold uppercase tracking-wider bodyBgTheme ${blinkClass}`}>
+                <td
+                  class={`px-5 py-3   text-left text-xs font-semibold uppercase tracking-wider bodyBgTheme ${blinkClass}`}
+                >
                   <span
                     className={
                       crypto.price_change_percentage_24h > 0
@@ -454,42 +449,34 @@ function Home() {
           </tbody>
         </table>
 
-
-{/* Pagination */}
-<div className="w-full h-[40px] md:flex md:justify-end md:items-center">
-  <div className="w-full md:w-[50%] flex justify-between items-center p-3">
-  <div>
-    <span className="label-14">Page {currentPage} of {totalPages}</span>
-  </div>
-  <div className="flex">
-  <button
-            onClick={handlePrevious}
-            disabled={currentPage === 1}
-            className=" label-14 px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed flex gap-2 items-center"
-          >
-          <IconArrowLeft />
-            Previous
-          </button>
-          <button
-            onClick={handleNext}
-            disabled={currentPage === totalPages}
-            className=" label-14 px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed flex gap-2 items-center"
-          >
-            Next 
-          <IconArrowRight />
-          </button>
-  </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-  
+        {/* Pagination */}
+        <div className="w-full h-[40px] md:flex md:justify-end md:items-center">
+          <div className="w-full md:w-[50%] flex justify-between items-center p-3">
+            <div>
+              <span className="label-14">
+                Page {currentPage} of {totalPages}
+              </span>
+            </div>
+            <div className="flex">
+              <button
+                onClick={handlePrevious}
+                disabled={currentPage === 1}
+                className=" label-14 px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed flex gap-2 items-center"
+              >
+                <IconArrowLeft />
+                Previous
+              </button>
+              <button
+                onClick={handleNext}
+                disabled={currentPage === totalPages}
+                className=" label-14 px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed flex gap-2 items-center"
+              >
+                Next
+                <IconArrowRight />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

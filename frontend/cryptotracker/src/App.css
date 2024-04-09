@@ -135,7 +135,7 @@ line-height: 26px; /* 130% */
 }
 
 .title-16 {
-  font-family: Outfit;
+  font-family: Metropolis;
 font-size: 16px;
 font-style: normal;
 font-weight: 400;
@@ -144,7 +144,7 @@ letter-spacing: 0.032px;
 }
 
 .title-12 {
-  font-family: Outfit;
+  font-family: Metropolis;
 font-size: 12px;
 font-style: normal;
 font-weight: 400;
@@ -342,7 +342,7 @@ line-height: 26px; /* 130% */
 }
 
 .title-medium-16 {
-font-family: Outfit;
+font-family: Metropolis;
 font-size: 16px;
 font-style: normal;
 font-weight: 500;
@@ -351,7 +351,7 @@ letter-spacing: 0.032px;
 }
 
 .title-medium-12 {
-font-family: Outfit;
+font-family: Metropolis;
 font-size: 12px;
 font-style: normal;
 font-weight: 500;
@@ -552,7 +552,7 @@ line-height: 26px; /* 130% */
 }
 
 .title-semibold-16 {
-font-family: Outfit;
+font-family: Metropolis;
 font-size: 16px;
 font-style: normal;
 font-weight: 600;
@@ -561,7 +561,7 @@ letter-spacing: 0.032px;
 }
 
 .title-semibold-12 {
-font-family: Outfit;
+font-family: Metropolis;
 font-size: 12px;
 font-style: normal;
 font-weight: 600;
@@ -766,7 +766,7 @@ line-height: 26px; /* 130% */
 }
 
 .title-bold-16 {
-font-family: Outfit;
+font-family: Metropolis;
 font-size: 16px;
 font-style: normal;
 font-weight: 700;
@@ -775,7 +775,7 @@ letter-spacing: 0.032px;
 }
 
 .title-bold-12 {
-font-family: Outfit;
+font-family: Metropolis;
 font-size: 12px;
 font-style: normal;
 font-weight: 700;
@@ -1238,4 +1238,339 @@ background: var(--Primary-800, #0A336E);
   border-radius: 16px;
 opacity: 0.72;
 background: var(--Primary-800, #0A336E);
+}
+
+
+
+/* DROP SHADOWS */
+/* Subtle */
+.subtle-small-dark {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(6, 31, 66, 0.40) 0%, rgba(245, 249, 254, 0.08) 100%);
+  
+  /* Drop Shadow/Dark/Subtle/Small */
+  box-shadow: 0px 1px 0px 0px rgba(173, 204, 248, 0.03), 0px 2px 2px 0px rgba(173, 204, 248, 0.03), 0px 5px 5px 0px rgba(173, 204, 248, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.subtle-small-light {
+  border-radius: 8px;
+border: 1px solid rgba(255, 255, 255, 0.05);
+background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.25) 100%);
+
+/* Drop Shadow/Light/Subtle/Small */
+box-shadow: 0px 1px 0px 0px rgba(6, 31, 66, 0.03), 0px 2px 2px 0px rgba(6, 31, 66, 0.03), 0px 5px 5px 0px rgba(6, 31, 66, 0.05);
+backdrop-filter: blur(10px);
+}
+
+
+.subtle-medium-dark {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(6, 31, 66, 0.40) 0%, rgba(245, 249, 254, 0.08) 100%);
+  
+  /* Drop Shadow/Dark/Subtle/Medium */
+  box-shadow: 0px 1px 0px 0px rgba(173, 204, 248, 0.03), 0px 4px 4px 0px rgba(173, 204, 248, 0.05), 0px 8px 8px 0px rgba(173, 204, 248, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.subtle-medium-light {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.25) 100%);
+  
+  /* Drop Shadow/Light/Subtle/Small */
+  box-shadow: 0px 1px 0px 0px rgba(6, 31, 66, 0.03), 0px 2px 2px 0px rgba(6, 31, 66, 0.03), 0px 5px 5px 0px rgba(6, 31, 66, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.subtle-large-dark {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(6, 31, 66, 0.40) 0%, rgba(245, 249, 254, 0.08) 100%);
+  
+  /* Drop Shadow/Dark/Subtle/Large */
+  box-shadow: 0px 1px 0px 0px rgba(173, 204, 248, 0.03), 0px 6px 6px 0px rgba(173, 204, 248, 0.05), 0px 10px 10px 0px rgba(173, 204, 248, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.subtle-large-light {
+  border-radius: 8px;
+border: 1px solid rgba(255, 255, 255, 0.05);
+background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.25) 100%);
+
+/* Drop Shadow/Light/Subtle/Small */
+box-shadow: 0px 1px 0px 0px rgba(6, 31, 66, 0.03), 0px 2px 2px 0px rgba(6, 31, 66, 0.03), 0px 5px 5px 0px rgba(6, 31, 66, 0.05);
+backdrop-filter: blur(10px);
+}
+
+.subtle-x-large-dark {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(6, 31, 66, 0.40) 0%, rgba(245, 249, 254, 0.08) 100%);
+  
+  /* Drop Shadow/Dark/Subtle/X-Large */
+  box-shadow: 0px 1px 0px 0px rgba(173, 204, 248, 0.03), 0px 8px 8px 0px rgba(173, 204, 248, 0.05), 0px 12px 12px 0px rgba(173, 204, 248, 0.06);
+  backdrop-filter: blur(10px);
+}
+
+.subtle-x-large-light {
+  border-radius: 8px;
+border: 1px solid rgba(255, 255, 255, 0.05);
+background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.25) 100%);
+
+/* Drop Shadow/Light/Subtle/Small */
+box-shadow: 0px 1px 0px 0px rgba(6, 31, 66, 0.03), 0px 2px 2px 0px rgba(6, 31, 66, 0.03), 0px 5px 5px 0px rgba(6, 31, 66, 0.05);
+backdrop-filter: blur(10px);
+}
+
+
+
+/* Regular */
+.regular-small-dark {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(6, 31, 66, 0.40) 0%, rgba(245, 249, 254, 0.08) 100%);
+  
+  /* Drop Shadow/Dark/Regular/Small */
+  box-shadow: 0px 1px 0px 0px rgba(173, 204, 248, 0.05), 0px 4px 4px 0px rgba(173, 204, 248, 0.05), 0px 10px 10px 0px rgba(173, 204, 248, 0.10);
+  backdrop-filter: blur(10px);
+}
+
+
+.regular-small-light {
+  border-radius: 8px;
+border: 1px solid rgba(255, 255, 255, 0.05);
+background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.25) 100%);
+
+/* Drop Shadow/Light/Regular/Small */
+box-shadow: 0px 1px 0px 0px rgba(6, 31, 66, 0.05), 0px 4px 4px 0px rgba(6, 31, 66, 0.05), 0px 10px 10px 0px rgba(6, 31, 66, 0.10);
+backdrop-filter: blur(10px);
+}
+
+
+
+.regular-medium-dark {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(6, 31, 66, 0.40) 0%, rgba(245, 249, 254, 0.08) 100%);
+  
+  /* Drop Shadow/Dark/Regular/Medium */
+  box-shadow: 0px 2px 4px 0px rgba(173, 204, 248, 0.10), 0px 5px 10px 0px rgba(173, 204, 248, 0.10), 0px 15px 30px 0px rgba(173, 204, 248, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.regular-medium-light {
+  border-radius: 8px;
+border: 1px solid rgba(255, 255, 255, 0.05);
+background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.25) 100%);
+
+/* Drop Shadow/Light/Regular/Medium */
+box-shadow: 0px 2px 4px 0px rgba(6, 31, 66, 0.10), 0px 5px 10px 0px rgba(6, 31, 66, 0.10), 0px 15px 30px 0px rgba(6, 31, 66, 0.15);
+backdrop-filter: blur(10px);
+}
+
+
+
+.regular-large-dark {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(6, 31, 66, 0.40) 0%, rgba(245, 249, 254, 0.08) 100%);
+  
+  /* Drop Shadow/Dark/Regular/Large */
+  box-shadow: 0px 3px 6px 0px rgba(173, 204, 248, 0.10), 0px 10px 20px 0px rgba(173, 204, 248, 0.10), 0px 15px 30px 0px rgba(173, 204, 248, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+
+.regular-large-light {
+  border-radius: 8px;
+border: 1px solid rgba(255, 255, 255, 0.05);
+background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.25) 100%);
+
+/* Drop Shadow/Light/Regular/Large */
+box-shadow: 0px 3px 6px 0px rgba(6, 31, 66, 0.10), 0px 10px 20px 0px rgba(6, 31, 66, 0.10), 0px 15px 30px 0px rgba(6, 31, 66, 0.15);
+backdrop-filter: blur(10px);
+}
+
+.regular-x-large-dark {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(6, 31, 66, 0.40) 0%, rgba(245, 249, 254, 0.08) 100%);
+  
+  /* Drop Shadow/Dark/Regular/X-Large */
+  box-shadow: 0px 5px 10px 0px rgba(173, 204, 248, 0.10), 0px 15px 30px 0px rgba(173, 204, 248, 0.10), 0px 20px 40px 0px rgba(173, 204, 248, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.regular-x-large-light {
+  border-radius: 8px;
+border: 1px solid rgba(255, 255, 255, 0.05);
+background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.25) 100%);
+
+/* Drop Shadow/Light/Regular/X-Large */
+box-shadow: 0px 5px 10px 0px rgba(6, 31, 66, 0.10), 0px 15px 30px 0px rgba(6, 31, 66, 0.10), 0px 20px 40px 0px rgba(6, 31, 66, 0.15);
+backdrop-filter: blur(10px);
+}
+
+/* Strong */
+.strong-small-dark {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(6, 31, 66, 0.40) 0%, rgba(245, 249, 254, 0.08) 100%);
+  
+  /* Drop Shadow/Dark/Strong/Small */
+  box-shadow: 0px 1px 0px 0px rgba(173, 204, 248, 0.05), 0px 4px 4px 0px rgba(173, 204, 248, 0.10), 0px 10px 10px 0px rgba(173, 204, 248, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.strong-small-light {
+  border-radius: 8px;
+border: 1px solid rgba(255, 255, 255, 0.05);
+background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.25) 100%);
+
+/* Drop Shadow/Light/Strong/Small */
+box-shadow: 0px 1px 0px 0px rgba(6, 31, 66, 0.05), 0px 4px 4px 0px rgba(6, 31, 66, 0.10), 0px 10px 10px 0px rgba(6, 31, 66, 0.15);
+backdrop-filter: blur(10px);
+}
+
+
+.strong-medium-dark {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(6, 31, 66, 0.40) 0%, rgba(245, 249, 254, 0.08) 100%);
+  
+  /* Drop Shadow/Dark/Strong/Medium */
+  box-shadow: 0px 2px 4px 0px rgba(173, 204, 248, 0.10), 0px 5px 10px 0px rgba(173, 204, 248, 0.10), 0px 10px 20px 0px rgba(173, 204, 248, 0.20);
+  backdrop-filter: blur(10px);
+}
+
+
+.strong-medium-light {
+  border-radius: 8px;
+border: 1px solid rgba(255, 255, 255, 0.05);
+background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.25) 100%);
+
+/* Drop Shadow/Light/Strong/Medium */
+box-shadow: 0px 2px 4px 0px rgba(6, 31, 66, 0.10), 0px 5px 10px 0px rgba(6, 31, 66, 0.10), 0px 10px 20px 0px rgba(6, 31, 66, 0.20);
+backdrop-filter: blur(10px);
+}
+
+
+
+.strong-large-dark {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(6, 31, 66, 0.40) 0%, rgba(245, 249, 254, 0.08) 100%);
+  
+  /* Drop Shadow/Dark/Strong/Large */
+  box-shadow: 0px 3px 6px 0px rgba(173, 204, 248, 0.10), 0px 10px 20px 0px rgba(173, 204, 248, 0.15), 0px 15px 30px 0px rgba(173, 204, 248, 0.20);
+  backdrop-filter: blur(10px);
+}
+
+.strong-large-light {
+  border-radius: 8px;
+border: 1px solid rgba(255, 255, 255, 0.05);
+background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.25) 100%);
+
+/* Drop Shadow/Light/Strong/Large */
+box-shadow: 0px 3px 6px 0px rgba(6, 31, 66, 0.10), 0px 10px 20px 0px rgba(6, 31, 66, 0.15), 0px 15px 30px 0px rgba(6, 31, 66, 0.20);
+backdrop-filter: blur(10px);
+}
+
+
+.strong-x-large-dark {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(6, 31, 66, 0.40) 0%, rgba(245, 249, 254, 0.08) 100%);
+  
+  /* Drop Shadow/Dark/Strong/X-Large */
+  box-shadow: 0px 5px 10px 0px rgba(173, 204, 248, 0.05), 0px 15px 30px 0px rgba(173, 204, 248, 0.15), 0px 20px 40px 0px rgba(173, 204, 248, 0.25);
+  backdrop-filter: blur(10px);
+}
+
+.strong-x-large-light {
+  border-radius: 8px;
+border: 1px solid rgba(255, 255, 255, 0.05);
+background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.25) 100%);
+
+/* Drop Shadow/Light/Strong/X-Large */
+box-shadow: 0px 5px 10px 0px rgba(6, 31, 66, 0.05), 0px 15px 30px 0px rgba(6, 31, 66, 0.15), 0px 20px 40px 0px rgba(6, 31, 66, 0.25);
+backdrop-filter: blur(10px);
+}
+
+
+
+/* Cards */
+
+/* Testimonial */
+.testimonial-dark {
+  border-radius: var(--Container-corner-radius, 10px);
+border: 1px solid var(--Light-Mode-Container-Border, rgba(255, 255, 255, 0.10));
+background: var(--Light-Mode-Container-Background, linear-gradient(180deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.50) 100%));
+
+/* Shadow-Blur-Subtle/sm */
+box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.03), 0px 2px 2px 0px rgba(0, 0, 0, 0.03), 0px 5px 5px 0px rgba(0, 0, 0, 0.05);
+backdrop-filter: blur(10px);
+}
+
+.testimonial-light {
+  border-radius: var(--Container-corner-radius, 10px);
+border: 1px solid var(--Light-Mode-Container-Border, rgba(255, 255, 255, 0.10));
+background: var(--Light-Mode-Container-Background, linear-gradient(180deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.50) 100%));
+
+/* Shadow-Blur-Subtle/sm */
+box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.03), 0px 2px 2px 0px rgba(0, 0, 0, 0.03), 0px 5px 5px 0px rgba(0, 0, 0, 0.05);
+backdrop-filter: blur(10px);
+}
+
+
+.financial-card-dark {
+  border-radius: 10px;
+border: 1px solid var(--Light-Mode-Container-Border, rgba(255, 255, 255, 0.10));
+background: var(--Light-Mode-Container-Background, linear-gradient(180deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.50) 100%));
+
+/* Shadow-Blur/sm */
+box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.05), 0px 4px 4px 0px rgba(0, 0, 0, 0.05), 0px 10px 10px 0px rgba(0, 0, 0, 0.10);
+backdrop-filter: blur(10px);
+}
+
+.financial-card-light {
+  border-radius: 10px;
+  border: 1px solid var(--Light-Mode-Container-Border, rgba(255, 255, 255, 0.10));
+  background: var(--Light-Mode-Container-Background, linear-gradient(180deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.50) 100%));
+  
+  /* Shadow-Blur/sm */
+  box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.05), 0px 4px 4px 0px rgba(0, 0, 0, 0.05), 0px 10px 10px 0px rgba(0, 0, 0, 0.10);
+  backdrop-filter: blur(10px);
+}
+
+
+/* confirmation */
+.confirmation-dark {
+  border-radius: var(--Container-corner-radius, 10px);
+border: 1px solid var(--Light-Mode-Container-Border, rgba(255, 255, 255, 0.10));
+background: var(--Light-Mode-Container-Background, linear-gradient(180deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.50) 100%));
+
+/* Elevation/Dark/Large */
+box-shadow: 0px 5px 10px 0px rgba(245, 249, 254, 0.10), 0px 15px 30px 0px rgba(245, 249, 254, 0.10), 0px 20px 40px 0px rgba(245, 249, 254, 0.15);
+backdrop-filter: blur(10px);
+}
+
+.confirmation-light {
+  border-radius: var(--Container-corner-radius, 10px);
+border: 1px solid var(--Light-Mode-Container-Border, rgba(255, 255, 255, 0.10));
+background: var(--Light-Mode-Container-Background, linear-gradient(180deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.50) 100%));
+
+/* Elevation/Light/Large */
+box-shadow: 0px 5px 10px 0px rgba(6, 31, 66, 0.10), 0px 15px 30px 0px rgba(6, 31, 66, 0.10), 0px 20px 40px 0px rgba(6, 31, 66, 0.15);
+backdrop-filter: blur(10px);
+}
+
+
+.exchanges-card {
+  border-radius: 12px;
+  background: var(--cryptotracker-bf-76-c-web-app-deep-cove, #061F42);
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.10), 0px 4px 6px -4px rgba(0, 0, 0, 0.10);
 }

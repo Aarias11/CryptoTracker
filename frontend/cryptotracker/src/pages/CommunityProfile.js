@@ -18,7 +18,7 @@ import { getStorage } from "firebase/storage"; // For uploading banner image
 import { db } from "../firebase"; // Adjust the import path as needed
 import { CameraIcon } from "@heroicons/react/outline"; // Ensure correct import path
 import { CiCalendarDate } from "react-icons/ci";
-import { IconPlus, IconMinus } from "@tabler/icons-react";
+import { IconPlus, IconMinus, IconSettings } from "@tabler/icons-react";
 
 function CommunityProfile({ user }) {
   const [bannerImage, setBannerImage] = useState("");
@@ -251,7 +251,7 @@ function CommunityProfile({ user }) {
             </div>
             <Link to="/account">
               <button className="absolute bottom-10 right-8  p-2 font-semibold rounded-lg bg-teal-700">
-                Edit Profile
+                <IconSettings />
               </button>
             </Link>
             {/* Line Divider */}
@@ -382,12 +382,12 @@ function CommunityProfile({ user }) {
         {/* --------------- */}
 
         {/* Right Side Content Container*/}
-        <div className="hidden h-screen xl:flex xl:flex-col gap-3 overflow-y-scroll p-4">
+        <div className="hidden w-[390px] h-screen xl:flex xl:flex-col gap-3 overflow-y-scroll p-4 ">
           <h2 className="headline-semibold-28 text-center">
             Currencies Followed
           </h2>
 
-          <div className="flex flex-col gap-4 p-4 w-full overflow-y-scroll">
+          <div className="flex flex-col justify-center items-center gap-4 p-4 w-full overflow-y-scroll">
             {favorites.map((crypto) => (
               <Link to={`/cryptopage/${crypto.symbol}`}>
               <div

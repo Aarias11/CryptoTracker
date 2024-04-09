@@ -2,11 +2,16 @@ import React, { useState, useContext } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 // Make sure your Firebase configuration is properly imported
 import ThemeContext from "../components/ThemeContext";
+import { useNavigate } from "react-router-dom";
+
 
 function SignUp({ closeSignUpModal }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { theme } = useContext(ThemeContext); // Using ThemeContext
+
+
+  const nav = useNavigate();
 
   const handleRegister = async (event) => {
     event.preventDefault();
@@ -15,6 +20,7 @@ function SignUp({ closeSignUpModal }) {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       alert("User registered successfully");
+      closeSignUpModal();
     } catch (error) {
       console.error("Error during registration:", error.message);
     }
