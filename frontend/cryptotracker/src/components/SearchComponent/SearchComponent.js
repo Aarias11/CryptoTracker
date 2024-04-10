@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { VscClose } from "react-icons/vsc";
 import { IoTrendingUpSharp, IoTrendingDownSharp } from "react-icons/io5";
-import CryptoMarketCoins from "../CryptoMarketCoins.json"; // Adjust the import path as needed
-import TrendingCoins from "../TrendingCoins.json";
-import CryptoExchanges from "../CryptoExchanges.json";
+import CryptoMarketCoins from "../../API's/CryptoMarketCoins.json"; // Adjust the import path as needed
+import TrendingCoins from "../../API's/TrendingCoins.json";
+import CryptoExchanges from "../../API's/CryptoExchanges.json";
 
 
 function SearchComponent({ theme }) {

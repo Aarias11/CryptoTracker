@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { useParams } from "react-router-dom";
-import ThemeContext from './ThemeContext'; // Adjust this import according to your file structure
+import ThemeContext from '../ThemeContext/ThemeContext'; // Adjust this import according to your file structure
 
 const TradingViewTechnicalAnalysis = () => {
   const widgetRef = useRef(null);

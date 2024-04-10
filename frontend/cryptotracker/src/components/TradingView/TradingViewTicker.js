@@ -1,6 +1,6 @@
 // TradingViewTickerTape.js
 import React, { useEffect, useRef, useContext } from "react";
-import ThemeContext from "./ThemeContext"; // Adjust the import path as needed
+import ThemeContext from "../ThemeContext/ThemeContext"; // Adjust the import path as needed
 
 const TradingViewTicker = () => {
   const { theme } = useContext(ThemeContext);

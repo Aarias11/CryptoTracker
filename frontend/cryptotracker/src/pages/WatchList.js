@@ -5,7 +5,7 @@ import { db } from "../firebase";
 import { getAuth } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { Sparklines, SparklinesLine } from "react-sparklines";
-import ThemeContext from "../components/ThemeContext"; // Import ThemeContext
+import ThemeContext from "../components/ThemeContext/ThemeContext"; // Import ThemeContext
 
 
 const Watchlist = () => {

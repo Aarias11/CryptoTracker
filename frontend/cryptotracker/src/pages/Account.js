@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { CameraIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
-import ThemeContext from "../components/ThemeContext";
+import ThemeContext from "../components/ThemeContext/ThemeContext";
 import { getAuth, updateProfile } from "firebase/auth";
 import { db, doc, setDoc } from '../firebase';
 import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";

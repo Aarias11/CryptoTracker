@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import ThemeContext from "../components/ThemeContext";
+import ThemeContext from "../components/ThemeContext/ThemeContext";
 
 function Login({ closeModal }) {
   const [email, setEmail] = useState("");

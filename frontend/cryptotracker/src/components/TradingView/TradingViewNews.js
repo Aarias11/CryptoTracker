@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useContext } from "react";
 import { useParams } from "react-router-dom";
-import ThemeContext from "../components/ThemeContext";
+import ThemeContext from "../ThemeContext/ThemeContext";
 
 const TradingViewNews = () => {
   const { symbol } = useParams();

@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Web3 from 'web3';
-import metamasklogo from '../assets/metamasklogo.png';
-import cbwallet from '../assets/cbwallet.png';
+import metamasklogo from '../../assets/metamasklogo.png';
+import cbwallet from '../../assets/cbwallet.png';
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
-import ThemeContext from "../components/ThemeContext";
-
-
+import ThemeContext from "../ThemeContext/ThemeContext";
 import axios from 'axios';
 
 // Define your app's name and logo URL

@@ -1,5 +1,5 @@
 import React from 'react'
-import TradingViewWidget from '../components/TradingViewWidget'
+import TradingViewWidget from '../components/TradingView/TradingViewWidget'
 
 function HeatMap() {
     

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 // Make sure your Firebase configuration is properly imported
-import ThemeContext from "../components/ThemeContext";
+import ThemeContext from "../components/ThemeContext/ThemeContext";
 import { useNavigate } from "react-router-dom";
 
 

@@ -3,29 +3,10 @@ import { Link } from "react-router-dom";
 import { BsMoonStarsFill, BsSunFill } from "react-icons/bs";
 import axios from "axios";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import Avatar from "@mui/material/Avatar";
 import { useNavigate } from "react-router-dom";
-import CryptoGlobalData from "../CryptoGlobalData.json";
-import ThemeContext from "../components/ThemeContext";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { GoStarFill } from "react-icons/go";
-import { GiPieChart } from "react-icons/gi";
-import { PiMapTrifoldFill } from "react-icons/pi";
-import { IconAward } from "@tabler/icons-react";
-import {
-  RiCloseLine,
-  RiSunLine,
-  RiMoonLine,
-  RiDashboardLine,
-  RiExchangeDollarLine,
-  RiSearchLine,
-  RiBookLine,
-  RiGalleryLine,
-  RiStarLine,
-  RiBriefcaseLine,
-} from "react-icons/ri";
-import Login from "../pages/Login";
-import SignUp from "../pages/SignUp";
+import CryptoGlobalData from "../../API's/CryptoGlobalData.json";
+import ThemeContext from "../ThemeContext/ThemeContext";
+
 
 function Header() {
   const [activeCoins, setActiveCoins] = useState(CryptoGlobalData);

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import Avatar from "@mui/material/Avatar";
 import { useNavigate } from "react-router-dom";
-import ThemeContext from "../components/ThemeContext";
+import ThemeContext from "../ThemeContext/ThemeContext";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { GoStarFill } from "react-icons/go";
 import { GiPieChart } from "react-icons/gi";
@@ -23,11 +23,11 @@ import {
   RiLoginBoxLine,
   RiUserAddLine,
 } from "react-icons/ri";
-import Login from "../pages/Login";
-import SignUp from "../pages/SignUp";
+import Login from "../../pages/Login";
+import SignUp from "../../pages/SignUp";
 
 import { PiCurrencyBtcFill } from "react-icons/pi";
-import SearchComponent from "./SearchComponent";
+import SearchComponent from "../SearchComponent/SearchComponent";
 
 function Auth() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

@@ -1,8 +1,8 @@
 import React, { useState, useMemo, useContext } from "react";
-import CryptoExchanges from "../CryptoExchanges.json";
-import Carousel from "../components/Carousel";
-import Modal from "../components/Modal";
-import ThemeContext from "../components/ThemeContext";
+import CryptoExchanges from "../API's/CryptoExchanges.json";
+import Carousel from "../components/Carousel/Carousel";
+import Modal from "../components/ExchangeModal/Modal";
+import ThemeContext from "../components/ThemeContext/ThemeContext";
 
 function ExchangesPage() {
   const [showDetails, setShowDetails] = useState(false);
@@ -50,53 +50,7 @@ function ExchangesPage() {
           vary greatly in terms of features, security, and ease of use, directly
           impacting the trading experience and outcomes.
         </p>
-        <div className="flex gap-6 overflow-x-auto">
-          {topExchanges.map((exchange) => (
-            <div
-              key={exchange.id}
-              className={`cursor-pointer md:w-[163px] lg:w-[188px] xl:w-[250px] h-auto flex-shrink-0 p-[20px] rounded-xl ${
-                theme === "dark" ? "bg-primary-900" : "bg-gray-100"
-              }`}
-              onClick={() => openModal(exchange)}
-            >
-              <div className="flex flex-col gap-2">
-              <img
-                src={exchange.image}
-                alt={exchange.name}
-                className="w-16 h-16 mx-auto"
-              />
-              <h3 className="mt-2 text-center title-16">{exchange.name}</h3>
-
-              <p
-                className={`text-center md:label-14 lg:label-16 xl:label-18 ${
-                  theme === "dark" ? "text-primary-200" : ""
-                }`}
-              >
-                Rank
-              </p>
-              <p
-                className={`text-center sm:body-14 md:body-16 lg:body-18 xl:body-20 ${
-                  theme === "dark" ? "" : ""
-                }`}
-              >
-              {exchange.trust_score_rank}
-              </p>
-              <p
-                className={`text-center md:label-14 lg:label-16 xl:label-18 ${
-                  theme === "dark" ? "text-primary-200" : ""
-                }`}
-              >
-                Volume
-              </p>
-              <p className="text-center sm:body-14 md:body-16 lg:body-18 xl:body-20">
-                {exchange.trade_volume_24h_btc.toLocaleString()} BTC
-              </p>
-                </div>
-            </div>
-          ))}
-        </div>
-        
-
+        <Carousel theme={theme} topExchanges={topExchanges} openModal={openModal} />
 
         <div
           className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:p-[50px] ${

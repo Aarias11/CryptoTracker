@@ -1,18 +1,17 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ledgerlook from "../assets/ledgerlook.png";
 import { GoStarFill } from "react-icons/go";
 import { GiPieChart } from "react-icons/gi";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { IoTrendingUpSharp, IoTrendingDownSharp } from "react-icons/io5";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
-import ThemeContext from "../components/ThemeContext";
-import TrendingCoins from "../TrendingCoins.json";
-import CryptoMarketCoins from "../CryptoMarketCoins.json";
-import CryptoExchanges from "../CryptoExchanges.json";
-import Wallet from "../components/Wallet";
-import Auth from "./Auth";
+import ThemeContext from "../ThemeContext/ThemeContext";
+import TrendingCoins from "../../API's/TrendingCoins.json";
+import CryptoMarketCoins from "../../API's/CryptoMarketCoins.json";
+import CryptoExchanges from "../../API's/CryptoExchanges.json";
+import Wallet from "../Wallet/Wallet";
+import Auth from "../Auth/Auth";
 
 function Navbar() {
   const [crypto, setCrypto] = useState(TrendingCoins);

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useContext, memo } from 'react';
-import ThemeContext from "../components/ThemeContext";
+import ThemeContext from "../ThemeContext/ThemeContext";
 
 function TradingViewWidget() {
   const container = useRef();

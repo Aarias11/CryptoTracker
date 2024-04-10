@@ -12,7 +12,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import ThemeContext from "../components/ThemeContext";
+import ThemeContext from "../components/ThemeContext/ThemeContext";
 import Avatar from "@mui/material/Avatar";
 
 function CommunityUserProfile() {

@@ -10,11 +10,11 @@ import {
   FaThumbsDown,
 } from "react-icons/fa";
 import { IoDocumentTextOutline } from "react-icons/io5";
-import TradingViewChart from "../components/TradingViewChart";
-import TradingViewNews from "../components/TradingViewNews";
-import TradingViewTechnicalAnalysis from "../components/TradingViewTechnicalAnalysis";
-import CryptoApi from "../CryptoApi.json";
-import ThemeContext from "../components/ThemeContext";
+import TradingViewChart from "../components/TradingView/TradingViewChart";
+import TradingViewNews from "../components/TradingView/TradingViewNews";
+import TradingViewTechnicalAnalysis from "../components/TradingView/TradingViewTechnicalAnalysis";
+import CryptoApi from "../API's/CryptoApi.json";
+import ThemeContext from "../components/ThemeContext/ThemeContext";
 import { db } from "../firebase";
 import {
   collection,
@@ -30,7 +30,7 @@ import firebase from "firebase/compat/app";
 import { getAuth } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebase";
-import useScrollToTop from "../components/useScrollToTop";
+import useScrollToTop from "../components/ScrollToTop/useScrollToTop";
 // import GiphySearch from './GiphySearch';
 
 function CryptoPage({ user, currentCrypto }) {

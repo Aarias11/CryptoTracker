@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useContext } from "react";
 import { useParams } from "react-router-dom";
-import ThemeContext from "./ThemeContext"; // Adjust the import path as needed
+import ThemeContext from "../ThemeContext"; // Adjust the import path as needed
 
 const TradingViewCompanyProfile = () => {
   const { symbol } = useParams();

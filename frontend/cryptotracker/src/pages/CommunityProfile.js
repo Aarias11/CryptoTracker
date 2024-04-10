@@ -1,6 +1,6 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import ThemeContext from "../components/ThemeContext";
+import ThemeContext from "../components/ThemeContext/ThemeContext";
 import Avatar from "@mui/material/Avatar";
 import { BiHappyBeaming } from "react-icons/bi";
 import { getAuth, onAuthStateChanged } from "firebase/auth";

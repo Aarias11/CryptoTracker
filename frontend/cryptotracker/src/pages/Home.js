@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import TradingViewMarketWidget from "../components/TradingViewMarketWidget";
+import TradingViewMarketWidget from "../components/TradingView/TradingViewMarketWidget";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import { Link } from "react-router-dom";
-import CryptoMarketCoins from "../CryptoMarketCoins.json";
+import CryptoMarketCoins from "../API's/CryptoGlobalData.json";
 import { MdOutlineStarBorder, MdOutlineStar } from "react-icons/md";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { FaCaretUp, FaCaretDown } from "react-icons/fa";
@@ -16,11 +16,11 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import ThemeContext from "../components/ThemeContext";
-import TradingViewTicker from "../components/TradingViewTicker";
+import ThemeContext from "../components/ThemeContext/ThemeContext";
+import TradingViewTicker from "../components/TradingView/TradingViewTicker";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
-import useScrollToTop from "../components/useScrollToTop";
-import News from "../components/News";
+import useScrollToTop from "../components/ScrollToTop/useScrollToTop";
+import News from "../components/HomeNews/News";
 
 function Home() {
   const [cryptos, setCryptos] = useState(CryptoMarketCoins); //use [] when dealing with API
