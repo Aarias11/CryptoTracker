@@ -3,7 +3,7 @@ import axios from "axios";
 import TradingViewMarketWidget from "../components/TradingView/TradingViewMarketWidget";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import { Link } from "react-router-dom";
-import CryptoMarketCoins from "../API's/CryptoGlobalData.json";
+import CryptoMarketCoins from "../API's/CryptoMarketCoins.json";
 import { MdOutlineStarBorder, MdOutlineStar } from "react-icons/md";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { FaCaretUp, FaCaretDown } from "react-icons/fa";
