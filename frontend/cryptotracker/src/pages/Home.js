@@ -20,6 +20,7 @@ import ThemeContext from "../components/ThemeContext";
 import TradingViewTicker from "../components/TradingViewTicker";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import useScrollToTop from "../components/useScrollToTop";
+import News from "../components/News";
 
 function Home() {
   const [cryptos, setCryptos] = useState(CryptoMarketCoins); //use [] when dealing with API
@@ -176,32 +177,21 @@ function Home() {
   return (
     <div className={`w-full h-auto   ${theme === "dark" ? " " : " "}`}>
       <div
-        className={`w-full h-[565px] py-35 flex justify-center items-center   ${
+        className={`w-full h-[565px] py-35 flex justify-center    ${
           theme === "dark"
             ? "bg-gradient-to-r from-[#07172b]  to-[#031021] "
             : ""
         }`}
       >
         {/* Left Side */}
-        <div className="max-w-6xl mx-auto  p-10">
-          <h2 className="headline-semibold-48 p-5 text-center">
-            Cryptocurrencies By Highest MarketCap
+        <div className=" mx-auto w-full lg:w-[50%]  py-[80px] px-12  text-left flex flex-col gap-8">
+          <h2 className="headline-semibold-48  text-left">
+            Own your crypto journey
           </h2>
-          <p className="body-14 leading-relaxed mx-auto text-center mb-4 max-w-4xl px-3">
-            The current Market Cap for all currencies stands at
-            <span className="text-teal-400 ml-2 px-3">949T</span>, marking a
-            pivotal moment in the financial landscape.
-          </p>
-          <p className="body-14 leading-relaxed mx-auto text-center mb-4 max-w-4xl px-3">
-            It reflects not just investor interest, but the innovation and
-            utility brought by platforms and tokens to the digital economy. The
-            sector's evolution, from Bitcoin and Ethereum to DeFi and NFTs, is
-            rapid and vibrant.
-          </p>
-          <p className="body-14 leading-relaxed mx-auto text-center mb-8 max-w-4xl px-3">
-            Engage with market trends, delve into the analytics, and explore the
-            digital economy on our platform. Your journey into investment and
-            participation starts here.
+
+          <p className="body-18 leading-relaxed mx-auto text-left mb-8 max-w-4xl px-3">
+            Uncover high quality data, learn from the best, and build a winning
+            crypto portfolio. CoinCrowd has your back.
           </p>
           <div className="text-center">
             <a
@@ -210,11 +200,12 @@ function Home() {
             >
               Start Exploring
             </a>
-          
           </div>
         </div>
         {/* Right Side - Graphic */}
-        {/* <div className="w-[40%] h-full border-l border-zinc-700 hidden "></div> */}
+        <div className="w-[60%] h-full  border-zinc-700  hidden lg:flex">
+          asdad
+        </div>
       </div>
 
       <div className={`App ${theme === "dark" ? "" : ""}`}>
@@ -223,6 +214,9 @@ function Home() {
         </div>
         <div className="h-[400px] lg:px-[45px]">
           <TradingViewMarketWidget />
+        </div>
+        <div className=" lg:px-[45px]">
+          <News />
         </div>
       </div>
       {/* Searchbar */}
