@@ -1,17 +1,18 @@
 import React, { useState, useContext } from 'react';
 import CryptoMarketCoins from '../../API/CryptoMarketCoins.json';
-import { addDoc, collection } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, setDoc, collection } from 'firebase/firestore';
 import ThemeContext from "../ThemeContext/ThemeContext";
 import { db } from '../../firebase'; // Ensure this is the correct path to your Firebase config
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { getAuth } from 'firebase/auth';
 
-function PortfolioModal({ isOpen, onClose }) {
+function PortfolioModal({ isOpen, onClose, portfolio }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCrypto, setSelectedCrypto] = useState(null);
   const [quantity, setQuantity] = useState('');
   const [avgPrice, setAvgPrice] = useState('');
-  const [portfolioName, setPortfolioName] = useState(''); // State for portfolio name
+  const [purchaseDate, setPurchaseDate] = useState('');
+  const [portfolioName, setPortfolioName] = useState(portfolio ? portfolio.name : ''); // State for portfolio name, initializing with existing name if editing
   const { theme } = useContext(ThemeContext);
   const [user] = useAuthState(getAuth());
 
@@ -22,42 +23,62 @@ function PortfolioModal({ isOpen, onClose }) {
 
   const handleSelectCrypto = (crypto) => {
     setSelectedCrypto(crypto);
-    setSearchTerm(crypto.name);  // Set the search term to the name of the selected crypto to display it in the input box
+    setSearchTerm(crypto.name); // Clear the search term to display the selected crypto name in the input field
     setQuantity('');
     setAvgPrice('');
   };
 
   const handleSave = async () => {
-    if (!selectedCrypto || !quantity || !avgPrice || !portfolioName) return; // Validate input
+    if (!selectedCrypto || !quantity || !avgPrice || !purchaseDate || !portfolioName) return; // Validate input
     try {
-      await addDoc(collection(db, 'users', user.uid, 'portfolios'), {
-        name: portfolioName,
-        cryptos: [{
-          cryptoId: selectedCrypto.id,
-          name: selectedCrypto.name,
-          symbol: selectedCrypto.symbol,
-          quantity: Number(quantity),
-          averagePrice: Number(avgPrice),
-        }]
-      });
+      if (portfolio) {
+        // Updating an existing portfolio
+        const portfolioRef = doc(db, 'users', user.uid, 'portfolios', portfolio.id);
+        await updateDoc(portfolioRef, {
+          cryptos: arrayUnion({
+            cryptoId: selectedCrypto.id,
+            name: selectedCrypto.name,
+            symbol: selectedCrypto.symbol,
+            quantity: Number(quantity),
+            averagePrice: Number(avgPrice),
+            purchaseDate: purchaseDate
+          })
+        });
+      } else {
+        // Creating a new portfolio
+        const newPortfolioRef = doc(collection(db, 'users', user.uid, 'portfolios'));
+        await setDoc(newPortfolioRef, {
+          name: portfolioName,
+          cryptos: [{
+            cryptoId: selectedCrypto.id,
+            name: selectedCrypto.name,
+            symbol: selectedCrypto.symbol,
+            quantity: Number(quantity),
+            averagePrice: Number(avgPrice),
+            purchaseDate: purchaseDate
+          }]
+        });
+      }
       // Reset and close modal
       setSearchTerm('');
       setSelectedCrypto(null);
       setQuantity('');
       setAvgPrice('');
+      setPurchaseDate('');
       setPortfolioName('');
       onClose();
     } catch (error) {
       console.error("Error saving to Firestore:", error);
     }
   };
+  
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4">
       <div className={`p-6 rounded-lg shadow-lg max-w-md w-full ${theme === "dark" ? "bg-[#031021]" : "bg-white"}`}>
-        <h3 className="text-lg font-bold mb-4">Add to Portfolio</h3>
+        <h3 className="text-lg font-bold mb-4">{portfolio ? "Edit Portfolio" : "Add to Portfolio"}</h3>
         <div className="mb-4">
           <input
             type="text"
@@ -67,6 +88,7 @@ function PortfolioModal({ isOpen, onClose }) {
             className={`search-input w-full p-2 ${
                 theme === "dark" ? "bg-[#031021] text-primary-200" : ""
               }`}
+            disabled={!!portfolio} // Disable if editing an existing portfolio
           />
         </div>
         <div className="mb-4">
@@ -112,6 +134,17 @@ function PortfolioModal({ isOpen, onClose }) {
             placeholder="Average Price"
             value={avgPrice}
             onChange={(e) => setAvgPrice(e.target.value)}
+            className={`search-input w-full p-2 ${
+                theme === "dark" ? "bg-[#031021] text-primary-200" : ""
+              }`}
+          />
+        </div>
+        <div className="mb-4">
+          <input
+            type="date"
+            placeholder="Purchase Date"
+            value={purchaseDate}
+            onChange={(e) => setPurchaseDate(e.target.value)}
             className={`search-input w-full p-2 ${
                 theme === "dark" ? "bg-[#031021] text-primary-200" : ""
               }`}

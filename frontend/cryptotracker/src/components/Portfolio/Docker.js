@@ -5,7 +5,7 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import PortfolioModal from './PortfolioModal';
 
-function Docker() {
+function Docker({ onSelectPortfolio }) {
   const [user] = useAuthState(getAuth());
   const [portfolios, setPortfolios] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,12 +14,17 @@ function Docker() {
     if (user) {
       const portfoliosCollection = collection(db, "users", user.uid, "portfolios");
       const unsubscribe = onSnapshot(portfoliosCollection, (querySnapshot) => {
-        const portfoliosData = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
+        const portfoliosData = querySnapshot.docs.map(doc => {
+          const data = doc.data();
+          // Calculate total balance for each portfolio
+          const balance = data.cryptos.reduce((acc, crypto) => acc + (crypto.quantity * crypto.averagePrice), 0);
+          return {
+            id: doc.id,
+            ...data,
+            balance // Store the computed balance directly in the portfolio object
+          };
+        });
         setPortfolios(portfoliosData);
-        console.log(portfoliosData)
       });
 
       return () => unsubscribe(); // Cleanup the subscription
@@ -28,6 +33,7 @@ function Docker() {
 
   const handleAddClick = () => {
     setIsModalOpen(true);
+    onSelectPortfolio(null); // If adding a new portfolio, there's no selected portfolio
   };
 
   return (
@@ -35,18 +41,21 @@ function Docker() {
       {/* Overview Container */}
       <div className="w-auto">
         <p className="p-1">Overview Total</p>
-        <p className="px-1">$4,203.39</p>
+        {/* Sum of all portfolios' balances */}
+        <p className="px-1">${portfolios.reduce((acc, p) => acc + p.balance, 0).toFixed(2)}</p>
       </div>
       {/* Portfolio Container */}
       <div className="w-[350px] label-10">
         <h3 className="p-1 label-10">My Portfolios</h3>
         <div className="px-1 flex gap-3 w-full overflow-x-scroll">
           {portfolios.map(portfolio => (
-            <div key={portfolio.id} className="flex items-center gap-2">
+            <div key={portfolio.id} className="flex items-center gap-2 cursor-pointer"
+            onClick={() => onSelectPortfolio(portfolio)}>
               <img className="w-[20px] h-[20px] border rounded-full" />
               <div className='flex flex-col'>
                 <span>{portfolio.name}</span>
-                <span>${portfolio.balance ? portfolio.balance.toFixed(2) : '0.00'}</span>
+                {/* Display the calculated balance */}
+                <span>${portfolio.balance.toFixed(2)}</span>
               </div>
             </div>
           ))}
@@ -55,7 +64,7 @@ function Docker() {
       </div>
 
       {/* Other Content */}
-      <div className="w-[150px]  label-10">
+      <div className="w-[150px] label-10">
         <h3 className="p-1">Community</h3>
         <div className="w-full flex px-1 gap-4">
           <p>Track Portfolios +</p>
