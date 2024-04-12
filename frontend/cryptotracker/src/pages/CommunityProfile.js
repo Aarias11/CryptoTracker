@@ -243,17 +243,18 @@ function CommunityProfile({ user }) {
                 </div>
               </div>
             </div>
-            <div className="px-5 pt-4">
+            {/* Joined and Settings Icon */}
+            <div className="flex justify-between items-center translate-y-[10px]">
               <span className="flex items-center gap-4 text-gray-400">
-                <CiCalendarDate size={20} /> Joined{" "}
+                <CiCalendarDate className="translate-y-[-2px]" size={20} /> Joined{" "}
                 {user?.metadata.creationTime.slice(7, 16)}
               </span>
-            </div>
             <Link to="/account">
-              <button className="absolute bottom-10 right-8  p-2 font-semibold rounded-lg bg-teal-700">
+              <button className="pt-1 ">
                 <IconSettings />
               </button>
             </Link>
+            </div>
             {/* Line Divider */}
             <div className="w-full h-[10px] flex justify-center pt-5">
               <div className="w-[98%] border-b border-zinc-700"></div>

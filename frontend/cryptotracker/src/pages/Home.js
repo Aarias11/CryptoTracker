@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
 import TradingViewMarketWidget from "../components/TradingView/TradingViewMarketWidget";
 import { Sparklines, SparklinesLine } from "react-sparklines";
@@ -21,6 +21,8 @@ import TradingViewTicker from "../components/TradingView/TradingViewTicker";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import useScrollToTop from "../components/ScrollToTop/useScrollToTop";
 import News from "../components/HomeNews/News";
+import { motion } from "framer-motion";
+import { useFollowPointer } from "../../src/use-follow-pointer";
 
 function Home() {
   const [cryptos, setCryptos] = useState(CryptoMarketCoins); //use [] when dealing with API
@@ -33,6 +35,11 @@ function Home() {
   const [itemsPerPage, setItemsPerPage] = useState(50);
   const [shouldBlink, setShouldBlink] = useState(false);
   const auth = getAuth();
+
+  const rightContainerRef = useRef(null);
+const { x, y } = useFollowPointer(rightContainerRef);
+  
+  
 
   // Fetchig Crypto API Data
   // // Coin Gecko API
@@ -174,6 +181,11 @@ function Home() {
   // Apply the blink class conditionally
   const blinkClass = shouldBlink ? "blink" : "";
 
+
+
+  
+  
+
   return (
     <div className={`w-full h-auto   ${theme === "dark" ? " " : " "}`}>
       <div
@@ -203,25 +215,44 @@ function Home() {
           </div>
         </div>
         {/* Right Side - Graphic */}
-        <div className="w-[60%] h-full  border-zinc-700  hidden lg:flex">
-          asdad
+        {/* Right Side - Container */}
+        <div className="w-[60%] h-full hidden lg:flex p- lg:p-24"
+        >
+          <div className="w-full h-full flex flex-col gap-5   justify-center items-center "
+          ref={rightContainerRef}>
+            {/* Ball */}
+            <motion.div className="w-[300px] h-[300px] rounded-full flex justify-center items-center bg-blue-900"
+            // ref={ref}
+            animate={{ x, y, rotateX: 360 }}
+            transition={{
+              type: "spring",
+              damping: 3,
+              stiffness: 50,
+              restDelta: 0.001
+            }}>
+              <h2>THIS IS A TEST</h2>
+        </motion.div>
+            
+          </div>
         </div>
+
+
       </div>
 
       <div className={`App ${theme === "dark" ? "" : ""}`}>
         <div>
           <TradingViewTicker key={theme} />
         </div>
-        <div className="h-[400px] lg:px-[45px]">
+        {/* <div className="h-[400px] lg:px-[45px]">
           <TradingViewMarketWidget />
-        </div>
-        <div className=" lg:px-[45px]">
-          <News />
+        </div> */}
+        <div className=" lg:px-[45px] pt-7">
+          <News theme={theme} />
         </div>
       </div>
       {/* Searchbar */}
       {/* ----------------------- */}
-      <div className="p-3 lg:px-[50px]">
+      <div className="p-3 lg:px-[50px] pt-7">
         <div className=" w-full h-[50px] relative">
           <input
             className={`search-input w-[300px] h-full border border-primary-200 rounded-xl font-semibold focus:outline-none text-sm p-3 relative px-[40px] ${

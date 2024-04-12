@@ -308,23 +308,23 @@ function CryptoPage({ user, currentCrypto }) {
             {/* Stats */}
 
             <div className="hidden md:flex md:flex-col">
-              <p className="text-xs  dark:text-primary-50 label-semibold-12">
+              <p className="label-semibold-12">
                 Current Price
               </p>
-              <p className="text-lg font-semibold">
+              <p className="label-semibold-18 ">
                 ${crypto.market_data?.current_price?.usd.toLocaleString()}
               </p>
             </div>
             <div className="hidden md:flex md:flex-col">
-              <p className="text-xs  dark:text-primary-50 label-semibold-12">
+              <p className="label-semibold-12">
                 Market Cap
               </p>
-              <p className="text-lg font-semibold">
+              <p className="label-semibold-18 ">
                 ${crypto.market_data?.market_cap?.usd.toLocaleString()}
               </p>
             </div>
             <div className="hidden md:flex md:flex-col">
-              <p className="text-xs  dark:text-gray-400">24h Volume</p>
+              <p className="label-semibold-12">24h Volume</p>
               <p className="text-lg font-semibold">
                 ${crypto.market_data?.total_volume?.usd.toLocaleString()}
               </p>
@@ -547,28 +547,6 @@ function CryptoPage({ user, currentCrypto }) {
                   </div>
                 </div>
 
-                {/* Footer with additional links for navigation */}
-                {/* <div className="mt-8 pt-4 border-t border-zinc-700 ">
-                  <div className="flex justify-between items-center">
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      © 2024 CryptoDashboard
-                    </p>
-                    <div className="flex gap-4">
-                      <a
-                        href="#"
-                        className="text-sm text-gray-600 dark:text-gray-400 hover:underline"
-                      >
-                        Privacy Policy
-                      </a>
-                      <a
-                        href="#"
-                        className="text-sm text-gray-600 dark:text-gray-400 hover:underline"
-                      >
-                        Terms of Service
-                      </a>
-                    </div>
-                  </div>
-                </div> */}
               </div>
             </div>
           </div>

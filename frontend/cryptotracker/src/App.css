@@ -1583,3 +1583,52 @@ backdrop-filter: blur(10px);
 background: var(--Primary-800, #0A336E);
 box-shadow: 0px 0px 0px 1px #131722 inset;
 }
+
+
+
+.box {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+
+
+
+/* @keyframes bounce-ball {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-40px);
+  }
+}
+
+@keyframes bounce-shadow {
+  0%, 100% {
+    transform: scaleX(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scaleX(0.5);
+    opacity: 0.1;
+  }
+} */
+
+/* .ball {
+  animation: bounce-ball 4s infinite;
+  background-color: #555; 
+  border-radius: 50%;
+  width: 400px;
+  height: 400px;
+}
+
+.ball-shadow {
+  animation: bounce-shadow 3s infinite;
+  background-color: whitesmoke; 
+  border-radius: 50%;
+  width: 400px;
+  height: 70px;
+  margin-top: -10px; 
+} */
