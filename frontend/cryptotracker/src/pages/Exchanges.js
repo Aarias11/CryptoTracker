@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useContext } from "react";
-import CryptoExchanges from "../API's/CryptoExchanges.json";
+import CryptoExchanges from "../API/CryptoExchanges.json";
 import Carousel from "../components/Carousel/Carousel";
 import Modal from "../components/ExchangeModal/Modal";
 import ThemeContext from "../components/ThemeContext/ThemeContext";

@@ -7,9 +7,9 @@ import { IoTrendingUpSharp, IoTrendingDownSharp } from "react-icons/io5";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 import ThemeContext from "../ThemeContext/ThemeContext";
-import TrendingCoins from "../../API's/TrendingCoins.json";
-import CryptoMarketCoins from "../../API's/CryptoMarketCoins.json";
-import CryptoExchanges from "../../API's/CryptoExchanges.json";
+import TrendingCoins from "../../API/TrendingCoins.json";
+import CryptoMarketCoins from "../../API/CryptoMarketCoins.json";
+import CryptoExchanges from "../../API/CryptoExchanges.json";
 import Wallet from "../Wallet/Wallet";
 import Auth from "../Auth/Auth";
 

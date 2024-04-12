@@ -13,7 +13,7 @@ import { IoDocumentTextOutline } from "react-icons/io5";
 import TradingViewChart from "../components/TradingView/TradingViewChart";
 import TradingViewNews from "../components/TradingView/TradingViewNews";
 import TradingViewTechnicalAnalysis from "../components/TradingView/TradingViewTechnicalAnalysis";
-import CryptoApi from "../API's/CryptoApi.json";
+import CryptoApi from "../API/CryptoApi.json";
 import ThemeContext from "../components/ThemeContext/ThemeContext";
 import { db } from "../firebase";
 import {
