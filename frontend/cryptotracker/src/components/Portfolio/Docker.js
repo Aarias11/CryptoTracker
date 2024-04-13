@@ -14,30 +14,25 @@ function Docker({ onSelectPortfolio }) {
     if (user) {
       const portfoliosCollection = collection(db, "users", user.uid, "portfolios");
       const unsubscribe = onSnapshot(portfoliosCollection, (querySnapshot) => {
-        const portfoliosData = querySnapshot.docs.map(doc => {
-          const data = doc.data();
-          // Calculate total balance for each portfolio
-          const balance = data.cryptos.reduce((acc, crypto) => acc + (crypto.quantity * crypto.averagePrice), 0);
-          return {
-            id: doc.id,
-            ...data,
-            balance // Store the computed balance directly in the portfolio object
-          };
-        });
+        const portfoliosData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+          balance: doc.data().cryptos.reduce((acc, crypto) => acc + (crypto.quantity * crypto.averagePrice), 0) // Calculate balance
+        }));
         setPortfolios(portfoliosData);
       });
 
-      return () => unsubscribe(); // Cleanup the subscription
+      return () => unsubscribe();
     }
-  }, [user]); // Depend on user state
+  }, [user]);
 
   const handleAddClick = () => {
     setIsModalOpen(true);
-    onSelectPortfolio(null); // If adding a new portfolio, there's no selected portfolio
+    onSelectPortfolio(null); // Ensure no portfolio is selected when adding new
   };
 
   return (
-    <div className="w-[50%] h-[54px] border rounded-full label-12 p-1 px-6 flex gap-4 overflow-x-scroll flex-shrink-0 ">
+    <div className="w-full xl:w-[50%] h-[54px] border rounded-full label-12 p-1 px-6 flex gap-4 overflow-x-scroll flex-shrink-0 ">
       {/* Overview Container */}
       <div className="w-auto">
         <p className="p-1">Overview Total</p>

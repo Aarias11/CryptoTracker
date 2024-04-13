@@ -29,13 +29,13 @@ function SignUp({ closeSignUpModal }) {
   return (
     <div
       className={`fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 ${
-        theme === "dark" ? "bg-gray-800 text-primary-700" : " "
+        theme === "dark" ? "bg-gray-800 " : " "
       }`}
     >
       <div
         className={`p-8 rounded-lg shadow-xl lg:w-1/3 md:w-1/2 w-full relative ${
           theme === "dark"
-            ? "bg-primary-900 "
+            ? "bg-[#031021]"
             : ""
         }`}
       >
@@ -49,7 +49,9 @@ function SignUp({ closeSignUpModal }) {
               Email Address
             </label>
             <input
-              className="w-full p-3 mt-1 border rounded-md focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              className={`search-input w-full p-2 ${
+                theme === "dark" ? "bg-[#031021] border border-primary-300 text-primary-200" : ""
+              }`}
               type="email"
               id="email"
               name="email"
@@ -66,7 +68,9 @@ function SignUp({ closeSignUpModal }) {
               Password
             </label>
             <input
-              className="w-full p-3 mt-1 border rounded-md focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              className={`search-input w-full p-2 ${
+                theme === "dark" ? "bg-[#031021] border border-primary-300 text-primary-200" : ""
+              }`}
               type="password"
               id="password"
               name="password"

@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import ThemeContext from "../components/ThemeContext/ThemeContext";
 import { getAuth } from "firebase/auth";
 import { db } from "../firebase";
+import { deleteDoc } from "firebase/firestore"; 
 import { Line, Pie, Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -16,9 +17,19 @@ import {
   BarElement,
   Tooltip,
 } from "chart.js";
-import { collection, query, where, onSnapshot, arrayRemove, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  onSnapshot,
+  arrayRemove,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import Docker from "../components/Portfolio/Docker";
 import PortfolioModal from "../components/Portfolio/PortfolioModal";
+import AddCryptoModal from "../components/Portfolio/AddCryptoModal";
+import CryptoMarketCoins from "../API/CryptoMarketCoins.json";
 
 ChartJS.register(
   CategoryScale,
@@ -58,7 +69,7 @@ const Portfolio = () => {
           );
           if (portfolio) {
             setCryptoData(portfolio.cryptos || []);
-            console.log(portfolio.cryptos)
+            console.log(portfolio.cryptos);
           }
         }
       });
@@ -67,28 +78,80 @@ const Portfolio = () => {
   }, [user, selectedPortfolio]);
 
   const handlePortfolioSelect = (portfolio) => {
+    console.log("Portfolio selected:", portfolio);
     setSelectedPortfolio(portfolio);
-    setIsModalOpen(true);
     if (portfolio) {
       setCryptoData(portfolio.cryptos || []);
     } else {
       setCryptoData([]);
     }
   };
-
-
+  
 
   const handleDeleteCrypto = async (cryptoId) => {
-    const portfolioRef = doc(db, "users", user.uid, "portfolios", selectedPortfolio.id);
-    const cryptoToRemove = cryptoData.find(crypto => crypto.cryptoId === cryptoId);
-  
+    const portfolioRef = doc(
+      db,
+      "users",
+      user.uid,
+      "portfolios",
+      selectedPortfolio.id
+    );
+    const cryptoToRemove = cryptoData.find(
+      (crypto) => crypto.cryptoId === cryptoId
+    );
+
     try {
       await updateDoc(portfolioRef, {
-        cryptos: arrayRemove(cryptoToRemove)
+        cryptos: arrayRemove(cryptoToRemove),
       });
       console.log("Crypto deleted successfully!");
     } catch (error) {
       console.error("Error removing crypto:", error);
+    }
+  };
+
+  const getCurrentPrice = (cryptoId) => {
+    const coin = CryptoMarketCoins.find((coin) => coin.id === cryptoId);
+    return coin ? coin.current_price : "N/A";
+  };
+
+  const getCryptoImage = (cryptoId) => {
+    const coin = CryptoMarketCoins.find((coin) => coin.id === cryptoId);
+    return coin ? coin.image : "path/to/default/image.png";
+  };
+
+  const calculateProfitLoss = (crypto) => {
+    const marketCoin = CryptoMarketCoins.find(
+      (coin) => coin.id === crypto.cryptoId
+    );
+    if (marketCoin) {
+      return (marketCoin.current_price - crypto.averagePrice) * crypto.quantity;
+    }
+    return 0;
+  };
+
+  const handleOpenModal = () => {
+    if (selectedPortfolio) {
+      setIsModalOpen(true);
+    } else {
+      console.error("No portfolio selected!");
+      // Optionally, alert the user or handle this case visually in your UI
+    }
+  };
+  
+
+
+
+  const handleDeletePortfolio = async () => {
+    if (selectedPortfolio) {
+      try {
+        await deleteDoc(doc(db, "users", user.uid, "portfolios", selectedPortfolio.id));
+        console.log("Portfolio deleted successfully!");
+        setSelectedPortfolio(null);
+        setCryptoData([]);
+      } catch (error) {
+        console.error("Error deleting portfolio:", error);
+      }
     }
   };
 
@@ -129,7 +192,6 @@ const Portfolio = () => {
     ],
   };
 
-
   // Conditional styles based on theme
   const tableTheme = theme === "dark" ? "" : "";
   const headerBgTheme = theme === "dark" ? "" : "";
@@ -137,23 +199,42 @@ const Portfolio = () => {
 
   return (
     <div className="w-full screen dashboard-page px-14 pt-5">
-      <div className="w-full flex  justify-between">
-        <h1 className="headline-28 mb-4 pt-2">Portfolio</h1>
+      <div className="w-full flex flex-wrap  justify-between items-center">
+        <h1 className="headline-28  pt-2">Portfolio</h1>
+        <button
+          onClick={handleOpenModal}
+          className="w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out button-primary-medium-dark shadow-xl shadow-primary-800"
+        >
+          Add Crypto
+        </button>
         <Docker onSelectPortfolio={handlePortfolioSelect} />
-        {isModalOpen && (
-          <PortfolioModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            portfolio={selectedPortfolio}
-          />
-        )}
       </div>
+      {isModalOpen && (
+        <AddCryptoModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        portfolioId={selectedPortfolio ? selectedPortfolio.id : undefined}
+      />
+      
+      
+      )}
+
+{selectedPortfolio && (
+          <>
+            <div className="text-lg font-bold my-4">
+              Viewing Portfolio: {selectedPortfolio.name}
+            </div>
+            <button onClick={handleDeletePortfolio} className="w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out button-primary-medium-dark shadow-xl shadow-primary-800">
+              Delete Profile
+            </button>
+          </>
+        )}
 
       {/* CHARTS */}
-      <div className="w-full h-auto xl:h-[500px] flex flex-col xl:grid xl:grid-cols-2 pb-4">
+      <div className="w-full h-auto xl:h-auto flex flex-col xl:grid xl:grid-cols-2  pt-6">
         {/* Pie Chart Card */}
         <div
-          className={`card w-full xl:w-[600px] h-[250px] p-4 shadow-lg rounded-lg mb-6 w-50 ${
+          className={`card w-full xl:w-[600px] h-[250px] p-4 shadow-lg rounded-lg w-50 ${
             theme === "dark" ? " " : " "
           } `}
         >
@@ -182,7 +263,7 @@ const Portfolio = () => {
         {/* ----------------------
       
       {/* Line Chart Card */}
-        <div
+        {/* <div
           className={`card w-full xl:w-[600px] h-[250px] p-4 shadow-lg rounded-lg mb-6 ${
             theme === "dark" ? " " : " "
           }`}
@@ -196,10 +277,10 @@ const Portfolio = () => {
               options={{ maintainAspectRatio: false }}
             />
           </div>
-        </div>
+        </div> */}
 
         {/* Pie Chart Card */}
-        <div
+        {/* <div
           className={`card w-full xl:w-[600px] h-[250px] p-4 shadow-lg rounded-lg mb-6 w-50 ${
             theme === "dark" ? " " : " "
           } `}
@@ -208,70 +289,84 @@ const Portfolio = () => {
           <div className="chart-container">
             <Bar data={pieChartData} options={{ maintainAspectRatio: false }} />
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Table */}
 
       <div
-  className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:p-[50px] ${
-    theme === "dark" ? " " : ""
-  }`}
->
-  <table className={`min-w-full divide-y divide-zinc-700 `}>
-    <thead className={`${headerBgTheme}`}>
-      <tr>
-        {/* NAME */}
-        <th
-          className={`px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider ${
-            theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"
-          }`}
-        >
-          Name
-        </th>
-        {/* Holdings (Assuming you want to show Holdings here, change the header to reflect this) */}
-        <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
-          Holdings
-        </th>
-        {/* Avg Buy In Price */}
-        <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
-          Ave Buy Price
-        </th>
-        {/* Profit/Loss */}
-        <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
-          Profit/Loss
-        </th>
-        {/* Actions */}
-        <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
-          Actions
-        </th>
-      </tr>
-    </thead>
-    <tbody className={`divide-y divide-zinc-600 bodyBgTheme`}>
-  {cryptoData.map((crypto) => (
-    <tr key={crypto.cryptoId}>
-      <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
-        {crypto.name}
-      </td>
-      <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
-        {crypto.quantity}
-      </td>
-      <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
-        ${crypto.averagePrice.toFixed(2)}
-      </td>
-      <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
-        ${crypto.profitLoss}
-      </td>
-      <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
-        <button onClick={() => handleDeleteCrypto(crypto.cryptoId)}>Delete</button>
-      </td>
-    </tr>
-  ))}
-</tbody>
+        className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:p-[50px] ${
+          theme === "dark" ? "" : ""
+        }`}
+      >
+        <table className="min-w-full divide-y divide-zinc-700">
+          <thead>
+            <tr>
+              <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
+                Name
+              </th>
+              <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
+                Current Price
+              </th>
+              <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
+                Holdings
+              </th>
+              <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
+                Ave Buy Price
+              </th>
+              <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
+                Profit/Loss
+              </th>
+              <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {cryptoData.map((crypto) => (
+              <tr key={crypto.cryptoId}>
+                <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider flex gap-2 items-center">
+                  <img
+                    src={getCryptoImage(crypto.cryptoId)}
+                    alt={crypto.name}
+                    className="w-6 h-6 rounded-full"
+                  />
+                  {crypto.name}
+                </td>
+                <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
+                  ${getCurrentPrice(crypto.cryptoId)}
+                </td>
+                <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
+                  {crypto.quantity}
+                </td>
+                <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
+                  ${crypto.averagePrice.toFixed(2)}
+                </td>
+                <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
+                  <span
+                    style={{
+                      color:
+                        calculateProfitLoss(crypto) > 0
+                          ? "green"
+                          : calculateProfitLoss(crypto) < 0
+                          ? "red"
+                          : "inherit",
+                    }}
+                  >
+                    ${calculateProfitLoss(crypto).toFixed(2)}
+                  </span>
+                </td>
 
-  </table>
-</div>
-
+                <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
+                  <button onClick={() => handleDeleteCrypto(crypto.cryptoId)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -52,9 +52,7 @@ function Login({ closeModal }) {
     >
       <div
         className={`p-8 rounded-lg shadow-xl lg:w-1/3 md:w-1/2 w-full relative ${
-          theme === "dark"
-            ? "bg-[#1a1a1a]/90 text-white"
-            : "bg-white text-gray-900"
+          theme === "dark" ? "bg-[#031021]" : "bg-white"
         }`}
       >
         <h2 className="text-3xl font-semibold text-center ">Login</h2>
@@ -65,7 +63,9 @@ function Login({ closeModal }) {
               Email Address
             </label>
             <input
-              className="w-full p-3 mt-1 border rounded-md  text-black focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              className={`search-input w-full p-2 ${
+                theme === "dark" ? "bg-[#031021] border border-primary-300 text-primary-200" : ""
+              }`}
               type="email"
               id="email"
               name="email"
@@ -79,7 +79,9 @@ function Login({ closeModal }) {
               Password
             </label>
             <input
-              className="w-full p-3 mt-1 border rounded-md text-black focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              className={`search-input w-full p-2 ${
+                theme === "dark" ? "bg-[#031021] border border-primary-300 text-primary-200" : ""
+              }`}
               type="password"
               id="password"
               name="password"
