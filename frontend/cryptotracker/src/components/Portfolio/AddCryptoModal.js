@@ -29,51 +29,49 @@ function AddCryptoModal({ isOpen, onClose, portfolioId }) {
   };
 
   const handleSave = async () => {
-    console.log({
-      selectedCrypto,
-      quantity,
-      avgPrice,
-      purchaseDate,
-      portfolioId,
-    });
-
-    // Validate input
-    if (
-      !selectedCrypto ||
-      quantity <= 0 ||
-      avgPrice <= 0 ||
-      !purchaseDate ||
-      !portfolioId
-    ) {
-      console.error(
-        "All fields must be filled correctly, and a portfolio must be selected."
-      );
+    if (!selectedCrypto || !quantity || !avgPrice || !purchaseDate || !portfolioId) {
+      console.error("All fields must be filled, and a portfolio must be selected.");
       return;
     }
 
-    const cryptoEntry = {
+    const newQuantity = Number(quantity);
+    const newAvgPrice = Number(avgPrice);
+    const newCryptoEntry = {
       cryptoId: selectedCrypto.id,
       name: selectedCrypto.name,
       symbol: selectedCrypto.symbol,
-      quantity: Number(quantity),
-      averagePrice: Number(avgPrice),
+      quantity: newQuantity,
+      averagePrice: newAvgPrice,
       purchaseDate: purchaseDate,
     };
 
-    const portfolioRef = doc(db, "users", user.uid, "portfolios", portfolioId);
-
     try {
+      const portfolioRef = doc(db, 'users', user.uid, 'portfolios', portfolioId);
       const docSnap = await getDoc(portfolioRef);
+
       if (docSnap.exists()) {
         let cryptos = docSnap.data().cryptos || [];
-        const index = cryptos.findIndex(
-          (c) => c.cryptoId === selectedCrypto.id
-        );
+        const index = cryptos.findIndex(c => c.cryptoId === selectedCrypto.id);
+
         if (index !== -1) {
-          cryptos[index] = { ...cryptos[index], ...cryptoEntry };
+          // Calculate new quantity and new average price
+          const existingCrypto = cryptos[index];
+          const totalQuantity = existingCrypto.quantity + newQuantity;
+          const totalCost = existingCrypto.quantity * existingCrypto.averagePrice + newQuantity * newAvgPrice;
+          const updatedAvgPrice = totalCost / totalQuantity;
+
+          // Update existing crypto data
+          cryptos[index] = {
+            ...existingCrypto,
+            quantity: totalQuantity,
+            averagePrice: updatedAvgPrice
+          };
         } else {
-          cryptos.push(cryptoEntry);
+          // Add new crypto data
+          cryptos.push(newCryptoEntry);
         }
+
+        // Update Firestore
         await updateDoc(portfolioRef, { cryptos });
         onClose(); // Close the modal after operation
       } else {
