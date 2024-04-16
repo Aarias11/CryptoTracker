@@ -159,7 +159,7 @@ function Auth() {
         )}
         {user ? (
           <>
-            <li className="font-semibold ">{user.email}</li>
+            <li className="hidden xl:flex font-semibold ">{user.email}</li>
 
             {/* User avatar and dropdown menu toggle */}
             <li className="relative" ref={dropdownRef}>

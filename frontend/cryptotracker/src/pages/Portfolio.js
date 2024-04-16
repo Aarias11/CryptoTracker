@@ -302,7 +302,9 @@ const Portfolio = () => {
         <table className="min-w-full divide-y divide-zinc-700">
           <thead>
             <tr>
-              <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
+              <th className={`w-[150px] px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider ${
+                  theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
+                }`}>
                 Name
               </th>
               <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
@@ -312,7 +314,7 @@ const Portfolio = () => {
                 Holdings
               </th>
               <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
-                Ave Buy Price
+                Avg Buy Price
               </th>
               <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
                 Profit/Loss
@@ -325,7 +327,9 @@ const Portfolio = () => {
           <tbody>
             {cryptoData.map((crypto) => (
               <tr key={crypto.cryptoId}>
-                <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider flex gap-2 items-center">
+                <td className={`w-[150px] p-5 md:p-3 text-left text-xs font-semibold uppercase tracking-wider flex gap-2 items-center ${
+                  theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
+                }`}>
                   <img
                     src={getCryptoImage(crypto.cryptoId)}
                     alt={crypto.name}

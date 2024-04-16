@@ -19,7 +19,7 @@ function News() {
 
 
   return (
-    <div className={`w-full  relative${theme === "dark" ? " " : " "}`}>
+    <div className={`w-full  relative ${theme === "dark" ? " " : " "}`}>
        {/* <h2 className='headline-28'>News</h2> */}
        {/* News Container */}
        <div className=' w-full h-[380px] flex gap-4 mt-4 p-3 overflow-x-scroll'

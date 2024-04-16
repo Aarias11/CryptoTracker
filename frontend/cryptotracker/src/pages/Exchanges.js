@@ -53,7 +53,7 @@ function ExchangesPage() {
         <Carousel theme={theme} topExchanges={topExchanges} openModal={openModal} />
 
         <div
-          className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:p-[50px] ${
+          className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:p-[50px] pt-5 ${
             theme === "dark" ? " " : " "
           }`}
         >
@@ -62,7 +62,7 @@ function ExchangesPage() {
               <tr>
                 <th
                   className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40 ${
-                    theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"
+                    theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
                   }`}
                   onClick={() => handleSort("trust_score_rank")}
                 >
@@ -70,7 +70,7 @@ function ExchangesPage() {
                 </th>
                 <th
                   className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[75px] md:left-[93px] z-40  ${
-                    theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"
+                    theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
                   }`}
                 >
                   Image
@@ -101,14 +101,14 @@ function ExchangesPage() {
                 >
                   <td
                     class={`px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky left-0  ${
-                      theme === "dark" ? " bg-[#07172b]" : " "
+                      theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
                     }`}
                   >
                     {exchange.trust_score_rank}
                   </td>
                   <td
-                    class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[75px] md:left-[93px]  ${
-                      theme === "dark" ? " bg-[#07172b]" : " "
+                    class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[75px] md:left-[93px] ${
+                      theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
                     }`}
                   >
                     <img
@@ -139,7 +139,7 @@ function ExchangesPage() {
           </table>
         </div>
         {showDetails && (
-          <Modal
+          <Modal theme={theme}
             exchange={selectedExchange}
             onClose={() => setShowDetails(false)}
           />
