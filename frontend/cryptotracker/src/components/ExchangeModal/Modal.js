@@ -31,9 +31,11 @@ const Modal = ({ exchange, onClose, theme }) => {
         <h3 className="headline-28">{exchange.name} </h3>
         <img className='w-10 h-10 rounded-full' src={exchange.image} />
         </div>
+        <div>
+        <p className='body-semibold-16'>BTC Trade Volume: {exchange.trade_volume_24h_btc}</p>
+        </div>
         <div className='pt-10'>
         <p className='body-semibold-16'>Rank: {exchange.trust_score_rank}</p>
-        <p className='body-semibold-16'>BTC Trade Volume: {exchange.trade_volume_24h_btc}</p>
         <p className='body-semibold-16'>Incentives: {exchange.has_trading_incentive ? 'Yes' : 'No'}</p>
         <p className='body-semibold-16'>Country: {exchange.country}</p>
         <p className='body-semibold-16'>Description: {exchange.description}</p>

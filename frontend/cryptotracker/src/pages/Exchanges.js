@@ -3,6 +3,7 @@ import CryptoExchanges from "../API/CryptoExchanges.json";
 import Carousel from "../components/Carousel/Carousel";
 import Modal from "../components/ExchangeModal/Modal";
 import ThemeContext from "../components/ThemeContext/ThemeContext";
+import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 
 function ExchangesPage() {
   const [showDetails, setShowDetails] = useState(false);
@@ -10,6 +11,8 @@ function ExchangesPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortKey, setSortKey] = useState("trust_score_rank");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(50);
   const { theme } = useContext(ThemeContext); // useContext call corrected for use inside the component
 
   const openModal = (exchange) => {
@@ -40,6 +43,32 @@ function ExchangesPage() {
     setSortKey(key);
   };
 
+  // Calculate the Total Number of Pages based on sorted and filtered exchanges
+  const totalPages = useMemo(
+    () => Math.ceil(sortedAndFilteredExchanges.length / itemsPerPage),
+    [sortedAndFilteredExchanges.length, itemsPerPage]
+  );
+
+  // Calculate the Current Items to Display on the Page
+  const currentItems = useMemo(() => {
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    return sortedAndFilteredExchanges.slice(indexOfFirstItem, indexOfLastItem);
+  }, [currentPage, itemsPerPage, sortedAndFilteredExchanges]);
+
+  // Handler functions for pagination controls
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   return (
     <div className={`w-full min-h-screen p-8 ${theme === "dark" ? "" : ""}`}>
       <div className="w-full container mx-auto">
@@ -50,7 +79,11 @@ function ExchangesPage() {
           vary greatly in terms of features, security, and ease of use, directly
           impacting the trading experience and outcomes.
         </p>
-        <Carousel theme={theme} topExchanges={topExchanges} openModal={openModal} />
+        <Carousel
+          theme={theme}
+          topExchanges={topExchanges}
+          openModal={openModal}
+        />
 
         <div
           className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:p-[50px] pt-5 ${
@@ -93,7 +126,7 @@ function ExchangesPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-600">
-              {sortedAndFilteredExchanges.map((exchange) => (
+              {currentItems.map((exchange) => (
                 <tr
                   key={exchange.id}
                   onClick={() => openModal(exchange)}
@@ -139,17 +172,45 @@ function ExchangesPage() {
           </table>
         </div>
         {showDetails && (
-          <Modal theme={theme}
+          <Modal
+            theme={theme}
             exchange={selectedExchange}
             onClose={() => setShowDetails(false)}
           />
         )}
-        <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Refresh Data
-        </button>
+        {/* Pagination */}
+        <div className="w-full h-auto md:flex md:justify-end md:items-center p-5 border-t border-zinc-700 ">
+          <div className="w-full md:w-[50%] flex justify-between items-center ">
+            <div>
+              <span className="label-14">
+                Page {currentPage} of {totalPages}
+              </span>
+            </div>
+            <div className="flex">
+              <button
+                onClick={handlePrevious}
+                disabled={currentPage === 1}
+                className=" label-14 px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed flex gap-2 items-center"
+              >
+                <IconArrowLeft />
+                Previous
+              </button>
+              <button
+                onClick={handleNext}
+                disabled={currentPage === totalPages}
+                className=" label-14 px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed flex gap-2 items-center"
+              >
+                Next
+                <IconArrowRight />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
 export default ExchangesPage;
+
+
