@@ -30,6 +30,8 @@ import Docker from "../components/Portfolio/Docker";
 import PortfolioModal from "../components/Portfolio/PortfolioModal";
 import AddCryptoModal from "../components/Portfolio/AddCryptoModal";
 import CryptoMarketCoins from "../API/CryptoMarketCoins.json";
+import { IconX } from "@tabler/icons-react";
+
 
 ChartJS.register(
   CategoryScale,
@@ -201,12 +203,6 @@ const Portfolio = () => {
     <div className="w-full screen dashboard-page px-14 pt-5">
       <div className="w-full flex flex-wrap  justify-between items-center">
         <h1 className="headline-28  pt-2">Portfolio</h1>
-        <button
-          onClick={handleOpenModal}
-          className="w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out button-primary-medium-dark shadow-xl shadow-primary-800"
-        >
-          Add Crypto
-        </button>
         <Docker onSelectPortfolio={handlePortfolioSelect} />
       </div>
       {isModalOpen && (
@@ -225,7 +221,7 @@ const Portfolio = () => {
               Viewing Portfolio: {selectedPortfolio.name}
             </div>
             <button onClick={handleDeletePortfolio} className="w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out button-primary-medium-dark shadow-xl shadow-primary-800">
-              Delete Profile
+              Delete Portfolio
             </button>
           </>
         )}
@@ -293,13 +289,18 @@ const Portfolio = () => {
       </div>
 
       {/* Table */}
-
+      <button
+          onClick={handleOpenModal}
+          className="w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out button-primary-medium-dark shadow-xl shadow-primary-800"
+        >
+          Add Crypto
+        </button>
       <div
         className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:p-[50px] ${
           theme === "dark" ? "" : ""
         }`}
       >
-        <table className="min-w-full divide-y divide-zinc-700">
+        <table className="min-w-full ">
           <thead>
             <tr>
               <th className={`w-[150px] px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider ${
@@ -320,7 +321,7 @@ const Portfolio = () => {
                 Profit/Loss
               </th>
               <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
-                Actions
+                
               </th>
             </tr>
           </thead>
@@ -361,10 +362,11 @@ const Portfolio = () => {
                   </span>
                 </td>
 
-                <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
+                <td className="px-5 py-3 text-left  tracking-wider">
                   <button onClick={() => handleDeleteCrypto(crypto.cryptoId)}>
-                    Delete
+                    <IconX size={15} className="text-neutral-400" />
                   </button>
+                  
                 </td>
               </tr>
             ))}

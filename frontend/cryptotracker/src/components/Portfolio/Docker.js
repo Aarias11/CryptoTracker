@@ -32,15 +32,15 @@ function Docker({ onSelectPortfolio }) {
   };
 
   return (
-    <div className="w-full xl:w-[50%] h-[54px] border rounded-full label-12 p-1 px-6 flex gap-4 overflow-x-scroll flex-shrink-0 ">
+    <div className="w-full xl:w-[65%] h-[54px] border rounded-full label-12 p-1 px-6 flex gap-4 overflow-x-scroll flex-shrink-0 ">
       {/* Overview Container */}
-      <div className="w-auto">
+      <div className="w-[200px]">
         <p className="p-1">Overview Total</p>
         {/* Sum of all portfolios' balances */}
         <p className="px-1">${portfolios.reduce((acc, p) => acc + p.balance, 0).toFixed(2)}</p>
       </div>
       {/* Portfolio Container */}
-      <div className="w-[350px] label-10">
+      <div className="w-full label-10">
         <h3 className="p-1 label-10">My Portfolios</h3>
         <div className="px-1 flex gap-3 w-full overflow-x-scroll">
           {portfolios.map(portfolio => (
@@ -59,13 +59,13 @@ function Docker({ onSelectPortfolio }) {
       </div>
 
       {/* Other Content */}
-      <div className="w-[150px] label-10">
+      {/* <div className="w-[150px] label-10">
         <h3 className="p-1">Community</h3>
         <div className="w-full flex px-1 gap-4">
           <p>Track Portfolios +</p>
           <p>Start Question Thread</p>
         </div>
-      </div>
+      </div> */}
       {isModalOpen && <PortfolioModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} db={db} user={user} />}
     </div>
   );

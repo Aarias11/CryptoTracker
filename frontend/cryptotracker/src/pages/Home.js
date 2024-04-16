@@ -24,6 +24,7 @@ import News from "../components/HomeNews/News";
 import { motion } from "framer-motion";
 import { useFollowPointer } from "../../src/use-follow-pointer";
 
+
 function Home() {
   const [cryptos, setCryptos] = useState(CryptoMarketCoins); //use [] when dealing with API
   const [coins, setCoins] = useState("");
@@ -230,7 +231,27 @@ const { x, y } = useFollowPointer(rightContainerRef);
               stiffness: 50,
               restDelta: 0.001
             }}>
-              <h2>THIS IS A TEST</h2>
+
+
+
+
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </motion.div>
             
           </div>

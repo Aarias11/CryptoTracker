@@ -23,7 +23,7 @@ function PortfolioModal({ isOpen, onClose }) {
 
   const handleSelectCrypto = (crypto) => {
     setSelectedCrypto(crypto);
-    setSearchTerm(''); // Clear the search term to display the selected crypto name
+    setSearchTerm(crypto.name); // Clear the search term to display the selected crypto name
     setQuantity('');
     setAvgPrice('');
   };

@@ -102,7 +102,7 @@ function Auth() {
     >
       <ul
         className={`w-full flex justify-end text-sm  lg:w-[370px] label-12 gap-5 items-center ${
-          theme === "dark" ? " text-zinc-200" : " text-zinc-700"
+          theme === "dark" ? " " : " "
         }`}
       >
         {!isLoggedIn ? (
@@ -114,7 +114,7 @@ function Auth() {
             >
               <li className="hidden xl:flex items-center gap-2 translate-x-6 ">
                 <PiCurrencyBtcFill className="text-yellow-500" size={23} />
-                <span className="w-[100px]">Halving: 16D</span>
+                <span className="w-[100px]">Halving: 3D</span>
               </li>
 
               <li>
@@ -159,7 +159,9 @@ function Auth() {
         )}
         {user ? (
           <>
-            <li className="hidden xl:flex font-semibold ">{user.email}</li>
+            <li className={`hidden xl:flex font-semibold ${
+                theme === "dark" ? " text-[#EAF2FD]" : " text-teal-600"
+              } `}>{user.email}</li>
 
             {/* User avatar and dropdown menu toggle */}
             <li className="relative" ref={dropdownRef}>
@@ -273,7 +275,7 @@ function Auth() {
             className={`p-2 border-b border-zinc-700  ${
               theme === "dark"
                 ? "bg-gradient-to-r from-[#07172b]  to-primary-900 "
-                : "bg-white text-gray-900"
+                : "bg-white "
             }`}
           >
             <div className="flex items-center space-x-3">
@@ -284,15 +286,10 @@ function Auth() {
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               />
               <div>
-                <p className="text-sm font-semibold label-semibold-14 ">
+                <p className="label-semibold-12 ">
                   {user.email}
                 </p>
-                <button
-                  onClick={handleSignOut}
-                  className="text-xs font-medium text-red-500 mt-1 label-semibold-14"
-                >
-                  Sign Out
-                </button>
+                
               </div>
               {/* Footer - Theme Switcher */}
 
@@ -441,6 +438,14 @@ function Auth() {
                     Watchlist
                   </Link>
                 </li>
+                <div className="text-center">
+                <button
+                  onClick={handleSignOut}
+                  className=" text-error-400 mt-1 label-semibold-14 button-primary-small-hover-dark"
+                >
+                  Sign Out
+                </button>
+                </div>
                 {/* Additional Features */}
                 {/* Search Feature Placeholder */}
                 {/* <li>
