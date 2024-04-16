@@ -160,8 +160,8 @@ function CommunityProfile({ user }) {
         {/* --------------- */}
         {/* Left Side Container */}
         <div
-          className={`hidden w-[280px] h-full border-r border-zinc-700 lg:flex lg:justify-center ${
-            theme === "dark" ? "label-semibold-16" : "label-semibold-16"
+          className={`hidden w-[280px] h-full border-r lg:flex lg:justify-center ${
+            theme === "dark" ? "label-semibold-16 border-zinc-800" : "label-semibold-16 border-primary-100"
           }`}
         >
           {/* Left Side Content Container */}
@@ -194,7 +194,7 @@ function CommunityProfile({ user }) {
         {/* --------------- */}
 
         {/* Center Container*/}
-        <div className="w-[800px] h-full overflow-y-scroll border-r border-zinc-700 ">
+        <div className="w-[800px] h-full overflow-y-scroll border-r border-primary-100 ">
           {/* Center Content Container */}
           <div className="w-full h-[500px] pt-8 px-8 relative ">
             {/* ProfilePage Banner Image*/}
@@ -288,7 +288,7 @@ function CommunityProfile({ user }) {
                 {recommendedProfiles.map((profile) => (
                   <div
                     key={profile.id}
-                    className="flex  w-[250px] h-[110px] border border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b] shadow-lg shadow-black pl-2"
+                    className={`flex  w-[250px] h-[110px] border rounded-xl shadow-lg shadow-black pl-2 ${theme == "dark" ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]" : "bg-primary-50 shadow-primary-100 border-primary-200"}`}
                   >
                     <Link
                       to={`/community/userprofile/${profile.id}`}
@@ -326,10 +326,10 @@ function CommunityProfile({ user }) {
             <div className="w-full h-[70px]">
               <div className="w-full flex justify-center ">
                 <input
-                  className={`search-input w-[91%] h-[48px] p-2 focus:outline-none text-sm rounded-lg ${ theme === "dark"
+                  className={`search-input w-[91%] h-[48px] p-2 focus:outline-none text-sm rounded-lg border border-primary-200  ${ theme === "dark"
                   ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
-                  : "" }`}
-                  placeholder="Search Posts..."
+                  : "bg-primary-50 shadow-primary-100" }`}
+                  placeholder="Search Posts"
                   value={searchInput}
                   onChange={handleSearchInputChange}
                 />
@@ -338,10 +338,10 @@ function CommunityProfile({ user }) {
             {filteredPosts.map((post) => (
               <div
                 key={post.id}
-                className={`w-[96%] p-3 flex justify-center px-10 pt-5 m-4 mb-4 shadow-lg shadow-black rounded-xl ${
+                className={`w-[96%] p-3 flex justify-center px-10 pt-5 m-4 mb-4 shadow-md  rounded-xl border ${
                   theme === "dark"
-                    ? "bg-gradient-to-r from-[#07172b]/90"
-                    : "bg-primary-200"
+                    ? "bg-gradient-to-r from-[#07172b]/90 shadow-black border-primary-900"
+                    : "bg-primary-50 shadow-primary-100 border-primary-200"
                 }`}
               >
                 <div className="w-[60px] mr-4">
@@ -393,8 +393,9 @@ function CommunityProfile({ user }) {
               <Link to={`/cryptopage/${crypto.symbol}`}>
               <div
                 key={crypto.id}
-                className="flex w-[240px] min-h-[100px] border border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b] shadow-lg shadow-black"
+                className={`flex w-[240px] min-h-[100px] border rounded-xl shadow-lg shadow-black pl-2 ${theme == "dark" ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]" : "bg-primary-50 shadow-primary-100 border-primary-200"}`}
               >
+                {/* "bg-primary-50 shadow-primary-100" */}
                 {/* Crypto Card Content */}
                 <div className="flex items-center p-2">
                   <img

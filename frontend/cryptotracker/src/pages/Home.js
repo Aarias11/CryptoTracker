@@ -192,7 +192,7 @@ const { x, y } = useFollowPointer(rightContainerRef);
         className={`w-full h-[565px] py-35 flex justify-center    ${
           theme === "dark"
             ? "bg-gradient-to-r from-[#07172b]  to-[#031021] "
-            : ""
+            : "bg-gradient-to-r from-[#F5F9FE]  to-primary-100"
         }`}
       >
         {/* Left Side */}
@@ -205,14 +205,14 @@ const { x, y } = useFollowPointer(rightContainerRef);
             Uncover high quality data, learn from the best, and build a winning
             crypto portfolio. CoinCrowd has your back.
           </p>
-          <div className="text-center">
+          <button className="text-center">
             <a
               href="/explore"
-              className=" font-semibold py-3 px-6 rounded-lg transition duration-300 ease-in-out button-primary-medium-dark shadow-xl shadow-primary-800"
+              className={`first-letter: font-semibold py-3 px-6 rounded-lg transition duration-300 ease-in-out ${theme === "dark" ? " button-primary-medium-dark shadow-xl shadow-primary-800 " : " button-primary-medium-light shadow-xl shadow-primary-200 text-primary-100 "}`}
             >
               Start Exploring
             </a>
-          </div>
+          </button>
         </div>
         {/* Right Side - Graphic */}
         {/* Right Side - Container */}
@@ -291,7 +291,7 @@ const { x, y } = useFollowPointer(rightContainerRef);
               {/* RANK */}
               <th
                 className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40 ${
-                  theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"
+                  theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
                 }`}
               >
                 # Rank
@@ -299,7 +299,7 @@ const { x, y } = useFollowPointer(rightContainerRef);
               {/* NAME */}
               <th
                 className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[99px] z-40  ${
-                  theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"
+                  theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
                 }`}
               >
                 Name
@@ -348,7 +348,7 @@ const { x, y } = useFollowPointer(rightContainerRef);
                 {/* RANK */}
                 <td
                   class={`px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky left-0  ${
-                    theme === "dark" ? " bg-[#07172b]" : " "
+                    theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
                   }`}
                 >
                   <button className="  ">
@@ -371,7 +371,7 @@ const { x, y } = useFollowPointer(rightContainerRef);
                 {/* IMAGE, NAME, SYMBOL */}
                 <td
                   class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[99px]  ${
-                    theme === "dark" ? " bg-[#07172b]" : " bg-white"
+                    theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
                   }`}
                 >
                   <Link to={`/cryptopage/${crypto.symbol}`}>

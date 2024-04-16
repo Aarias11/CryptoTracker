@@ -69,7 +69,7 @@ function SearchComponent({ theme }) {
       <div
         className={`absolute top-1 right-5 mt-2 p-4 md:w-[700px] md:h-auto rounded-lg shadow-lg z-50 ${ theme === "dark"
         ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
-        : "" }  ${theme === "dark" ? "bg-[#16171a]" : ""}`}
+        : "" }  ${theme === "dark" ? "bg-[#16171a]" : "bg-[#F5F9FE]"}`}
       >
         <input
           className={`search-input w-full p-2 px-10 rounded-lg focus:outline-none text-zinc-500 font-semibold ${ theme === "dark"

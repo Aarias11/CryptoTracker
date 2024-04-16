@@ -41,8 +41,8 @@ function Navbar() {
 
   return (
     <div
-      className={`h-[70px] flex items-center justify-between border-b border-zinc-800 px-4 md:px-8 lg:px-12 ${
-        theme === "dark" ? "  " : ""
+      className={`h-[70px] flex items-center justify-between border-b  px-4 md:px-8 lg:px-12 ${
+        theme === "dark" ? "border-zinc-800  " : "border-primary-100"
       }`}
     >
       <div className=" flex items-center gap-10 justify-around">

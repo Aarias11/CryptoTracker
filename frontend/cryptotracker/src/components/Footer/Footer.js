@@ -1,8 +1,13 @@
 import React from "react";
+import { useTheme } from '../../components/ThemeContext/ThemeContext'; // Correct import
 
 function Footer() {
+  
+  const { theme } = useTheme(); // Correct usage
+
+  
   return (
-    <footer className="bg-[#031021] w-full h-auto md:h-[265px] text-primary-50 border-t border-zinc-700 border flex justify-center">
+    <footer className={` w-full h-auto md:h-[265px] border-t  border flex justify-center ${theme === "dark" ? "border-zinc-700 " : "border-primary-100 "}`}>
       {/* Footer Container */}
       <div className="w-[93%] h-full md:flex md:flex-wrap ">
         {/* Left Side */}

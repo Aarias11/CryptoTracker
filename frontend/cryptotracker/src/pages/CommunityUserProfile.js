@@ -130,8 +130,8 @@ function CommunityUserProfile() {
     >
       <div className="w-full h-full flex">
         <div
-          className={`hidden w-[280px] h-full border-r border-zinc-700 lg:flex lg:justify-center ${
-            theme === "dark" ? "label-semibold-16" : "label-semibold-16"
+          className={`hidden w-[280px] h-full border-r  lg:flex lg:justify-center ${
+            theme === "dark" ? "label-semibold-16 border-zinc-700" : "label-semibold-16 border-primary-100"
           }`}
         >
           <div className="p-4">
@@ -140,7 +140,9 @@ function CommunityUserProfile() {
           </div>
         </div>
 
-        <div className="w-[800px] h-full overflow-y-scroll border-r border-zinc-700">
+        <div className={`w-[800px] h-full overflow-y-scroll border-r ${
+            theme === "dark" ? "label-semibold-16 border-zinc-700" : "label-semibold-16 border-primary-100"
+          }`}>
           <div className="w-full h-[500px] pt-8 px-8 relative">
             {userProfile ? (
               <>
@@ -208,10 +210,10 @@ function CommunityUserProfile() {
               {posts.map((post) => (
                 <div
                   key={post.id}
-                  className={`w-[96%] p-3 flex justify-center px-10 pt-5 m-4 mb-4 shadow-lg shadow-black rounded-xl ${
+                  className={`w-[96%] p-3 flex justify-center px-10 pt-5 m-4 mb-4 shadow-md  rounded-xl border ${
                     theme === "dark"
-                      ? "bg-gradient-to-r from-[#07172b]/90"
-                      : "bg-primary-200"
+                      ? "bg-gradient-to-r from-[#07172b]/90 shadow-black border-primary-900"
+                      : "bg-primary-50 shadow-primary-100 border-primary-200"
                   }`}
                 >
                   <div className="w-[60px] mr-4">

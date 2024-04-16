@@ -140,8 +140,8 @@ function Header() {
 
   return (
     <div
-      className={`flex justify-between items-center border-b border-zinc-800 px-4 md:px-[32px] lg:px-[50px] p-1 w-full ${
-        theme === "dark" ? "text-primary-300 " : " "
+      className={`flex justify-between items-center border-b px-4 md:px-[32px] lg:px-[50px] p-1 w-full ${
+        theme === "dark" ? "border-zinc-800  text-primary-300 " : "border-primary-100 "
       }`}
     >
       

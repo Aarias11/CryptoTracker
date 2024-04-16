@@ -14,6 +14,7 @@ import TradingViewChart from "../components/TradingView/TradingViewChart";
 import TradingViewNews from "../components/TradingView/TradingViewNews";
 import TradingViewTechnicalAnalysis from "../components/TradingView/TradingViewTechnicalAnalysis";
 import CryptoApi from "../API/CryptoApi.json";
+import News from "../components/HomeNews/News";
 import ThemeContext from "../components/ThemeContext/ThemeContext";
 import { db } from "../firebase";
 import {
@@ -281,7 +282,7 @@ function CryptoPage({ user, currentCrypto }) {
             className={`flex items-center justify-between w-full py-6 px-3 mt-5 rounded-xl ${
               theme === "dark"
                 ? "bg-gradient-to-r from-[#07172b]  to-primary-800 "
-                : "bg-primary-200"
+                : "bg-gradient-to-r from-[#F5F9FE]  to-primary-100"
             }`}
           >
             <div className="flex items-center space-x-4">
@@ -363,7 +364,7 @@ function CryptoPage({ user, currentCrypto }) {
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div
                       className={`rounded-lg shadow p-4  flex flex-col gap-1  ${
-                        theme === "dark" ? "bg-primary-900 " : "bg-primary-200"
+                        theme === "dark" ? "bg-primary-900 " : "bg-primary-100"
                       }`}
                     >
                       <p
@@ -383,7 +384,7 @@ function CryptoPage({ user, currentCrypto }) {
                     </div>
                     <div
                       className={`rounded-lg shadow p-4 flex flex-col gap-1 ${
-                        theme === "dark" ? "bg-primary-900" : "bg-primary-200"
+                        theme === "dark" ? "bg-primary-900" : "bg-primary-100"
                       }`}
                     >
                       <p
@@ -403,7 +404,7 @@ function CryptoPage({ user, currentCrypto }) {
                     </div>
                     <div
                       className={`rounded-lg shadow p-4  flex flex-col gap-1 ${
-                        theme === "dark" ? "bg-primary-900" : "bg-primary-200"
+                        theme === "dark" ? "bg-primary-900" : "bg-primary-100"
                       }`}
                     >
                       <p
@@ -423,7 +424,7 @@ function CryptoPage({ user, currentCrypto }) {
                     </div>
                     <div
                       className={`rounded-lg shadow p-4 flex flex-col gap-1 ${
-                        theme === "dark" ? "bg-primary-900" : "bg-primary-200"
+                        theme === "dark" ? "bg-primary-900" : "bg-primary-100"
                       }`}
                     >
                       <p
@@ -449,7 +450,7 @@ function CryptoPage({ user, currentCrypto }) {
                   <h2 className="headline-semibold-28 mb-2">Profile</h2>
                   <p
                     className={`body-14 rounded-lg shadow p-4 flex flex-col gap-3 ${
-                      theme === "dark" ? "bg-primary-900" : "bg-primary-200"
+                      theme === "dark" ? "bg-primary-900" : "bg-primary-100"
                     }`}
                   >
                     {showFullDescription
@@ -465,14 +466,15 @@ function CryptoPage({ user, currentCrypto }) {
                 </div>
 
                 {/* Latest News Section as previously designed */}
-                <div className="mb-4">
+                <div className="mb-4 w-[1000px]">
                 <h2 className="headline-semibold-28 mb-2">Latest News</h2>
                 <div
                   className={`w-full h-[400px] overflow-y-auto shadow-inner ${
                     theme === "dark" ? "" : ""
                   }`}
                 >
-                  <TradingViewNews />
+                  {/* <TradingViewNews /> */}
+                  <News />
                 </div>
                 </div>
 
@@ -486,7 +488,7 @@ function CryptoPage({ user, currentCrypto }) {
                   {/* Placeholder for a dynamic price chart component */}
                   <div
                     className={`w-full h-[400px]  rounded-xl mt-2 flex items-center justify-center  ${
-                      theme === "dark" ? " bg-primary-900" : ""
+                      theme === "dark" ? " bg-primary-900" : "bg-primary-100"
                     }`}
                   >
                     <TradingViewTechnicalAnalysis className="p-10" />
@@ -502,7 +504,7 @@ function CryptoPage({ user, currentCrypto }) {
                   <h3 className="headline-semibold-28 ">Connect</h3>
                   <div
                     className={`w-full flex  gap-4 py-5 p-4 rounded-xl ${
-                      theme === "dark" ? "bg-primary-900" : ""
+                      theme === "dark" ? "bg-primary-900" : "bg-primary-100"
                     }`}
                   >
                     {/* Conditional rendering for available social media links */}
@@ -529,7 +531,7 @@ function CryptoPage({ user, currentCrypto }) {
                     {/* Placeholder for trending coins. Each coin could be a component */}
                     <div
                       className={`min-w-[160px]  rounded-lg shadow p-4 ${
-                        theme === "dark" ? "bg-primary-900" : "bg-primary-200"
+                        theme === "dark" ? "bg-primary-900" : "bg-primary-100"
                       }`}
                     >
                       <p className="text-sm font-semibold">Bitcoin</p>
@@ -537,7 +539,7 @@ function CryptoPage({ user, currentCrypto }) {
                     </div>
                     <div
                       className={`min-w-[160px]  rounded-lg shadow p-4 ${
-                        theme === "dark" ? "bg-primary-900" : "bg-primary-200"
+                        theme === "dark" ? "bg-primary-900" : "bg-primary-100"
                       }`}
                     >
                       <p className="text-sm font-semibold">Ethereum</p>
@@ -564,7 +566,9 @@ function CryptoPage({ user, currentCrypto }) {
             <textarea
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md bg-[#031021] text-primary-200 focus:outline-none"
+              className={`search-input w-full p-2 rounded-md border border-primary-200 focus:outline-none ${
+                theme === "dark" ? "bg-[#031021] text-primary-200" : ""
+              }`}
               placeholder={`What do you think about ${symbol}?`}
               rows="4"
             ></textarea>
@@ -576,7 +580,9 @@ function CryptoPage({ user, currentCrypto }) {
                 placeholder="Search GIFs"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="p-2 border bg-[#031021] focus:outline-none text-primary-200 rounded-md"
+                className={`search-input p-2 border border-primary-200 focus:outline-none text-primary-200 rounded-md ${
+                  theme === "dark" ? "bg-[#031021] text-primary-200" : ""
+                }`}
               />
             </div>
             {/* Display selected GIF */}

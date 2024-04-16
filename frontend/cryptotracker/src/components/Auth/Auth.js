@@ -443,7 +443,7 @@ function Auth() {
                 </li>
                 {/* Additional Features */}
                 {/* Search Feature Placeholder */}
-                <li>
+                {/* <li>
                   <div className="flex items-center bg-gray-200 rounded-md p-2">
                     <RiSearchLine className="text-lg text-gray-500 mr-2" />
                     <input
@@ -453,7 +453,7 @@ function Auth() {
                       // Implement search functionality
                     />
                   </div>
-                </li>
+                </li> */}
               </>
             )}
           </ul>

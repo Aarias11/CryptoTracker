@@ -101,8 +101,6 @@ function AddCryptoModal({ isOpen, onClose, portfolioId }) {
             theme === "dark" ? "bg-[#031021] text-primary-200" : ""
           }`}
         />
-
-        {/* Only show the dropdown if there are filtered cryptos and the search term is at least 3 characters long */}
         {filteredCryptos.length > 0 && searchTerm.length >= 3 && (
           <ul className="border rounded shadow-lg max-h-40 overflow-auto mt-2">
             {filteredCryptos.map((crypto) => (
