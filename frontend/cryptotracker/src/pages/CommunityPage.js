@@ -15,8 +15,9 @@ import {
   where,
   orderBy,
 } from "firebase/firestore";
-import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
-import { IconSettings } from "@tabler/icons-react";
+import { getStorage, uploadBytes, getDownloadURL, ref as storageRef } from "firebase/storage";
+
+import { IconSettings, IconPaperclip } from "@tabler/icons-react";
 
 function CommunityPage({ user }) {
   const [postText, setPostText] = useState("");
@@ -29,6 +30,13 @@ function CommunityPage({ user }) {
   const { theme, toggleTheme } = useContext(ThemeContext); // Using ThemeContext
   const auth = getAuth();
   const [followedProfiles, setFollowedProfiles] = useState([]);
+  const fileInputRef = useRef(null);
+
+
+
+// Trigger function for file input
+const triggerFileSelectPopup = () => fileInputRef.current.click();
+
 
   // UseEffect for fetching and displaying posts
   useEffect(() => {
@@ -54,7 +62,7 @@ function CommunityPage({ user }) {
 
     if (selectedFile) {
       // Define the storage path
-      const fileRef = ref(
+      const fileRef = storageRef(
         getStorage(),
         `posts/${user.uid}/${selectedFile.name}`
       );
@@ -227,15 +235,13 @@ function CommunityPage({ user }) {
               <div className="w-[95%] flex justify-between">
                 <BiHappyBeaming className="text-slate-400" size={25} />
                 <input
-                  className={`border rounded-lg p-2 ${
-                    theme == "dark"
-                      ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
-                      : "bg-primary-50 shadow-primary-100 border-primary-200"
-                  }`}
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setSelectedFile(e.target.files[0])}
-                />
+          ref={fileInputRef}
+          type="file"
+          hidden
+          accept="image/*"
+          onChange={handleImageChange}
+        />
+        <IconPaperclip onClick={triggerFileSelectPopup} style={{ cursor: 'pointer' }} />
 
                 <button
                   className={`w-[100px] h-[40px] border rounded-lg ${
