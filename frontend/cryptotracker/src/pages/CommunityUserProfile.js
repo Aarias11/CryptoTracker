@@ -228,7 +228,7 @@ function CommunityUserProfile() {
 
                   <div className="flex-1">
                     <h2 className="font-bold">{post.displayName}</h2>
-                    <p>{post.text}</p>
+                    <p className="label-14">{post.text}</p>
                     {post.imageUrl && (
                       <div className="mt-2">
                         <img

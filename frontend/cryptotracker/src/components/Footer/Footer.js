@@ -1,5 +1,6 @@
 import React from "react";
 import { useTheme } from '../../components/ThemeContext/ThemeContext'; // Correct import
+import coingecko from '../../assets/coingecko.png'
 
 function Footer() {
   
@@ -137,6 +138,8 @@ function Footer() {
           )}
           <div className="flex flex-col gap-9 ">
           <p className="body-14">Combining fundamental analysis of the crypto market with a supportive community</p>
+          <p className="flex gap-2 items-center">Powered by <a href="https://www.coingecko.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit' }}>CoinGecko</a> <img className="w-34 h-10" src={coingecko} /></p>
+
           <p className="hidden md:flex">2024 CoinCrowd. All Rights Reserved.</p>
           </div>
         </div>
