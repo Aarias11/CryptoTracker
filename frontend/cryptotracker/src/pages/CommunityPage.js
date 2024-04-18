@@ -144,86 +144,25 @@ function CommunityPage({ user }) {
       <div className="w-full h-full flex ">
         {/* Left Side */}
         {/* Left Side Container */}
-        <div
-          className={`hidden overflow-y-scroll w-[30%] h-full border-r border-zinc-700 xl:flex lg:justify-center p-4 ${
+        <div className={`xl:w-[20%] hidden xl:flex flex-col p-7 border-r ${
             theme == "dark"
-              ? " bg-gradient-to-r from-[#07172b]"
+              ? "border-zinc-700 bg-gradient-to-r from-[#07172b]"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
-          }`}
-        >
-          {/* Left Side Content Container */}
-          <div
-            className={` w-full h-screen  ${
-              theme == "dark"
-                ? "  bg-gradient-to-r from-[#07172b]"
-                : "bg-primary-50 shadow-primary-100 border-primary-200"
-            }`}
-          >
-            {/* Events Near By Container */}
-            <div className="h-auto px-4  pt-4">
-              <h2 className="headline-semibold-28 w-full  px-5">
-                Events Nearby
-              </h2>
-              <div className="w-full h-full p-6 flex flex-col gap-14 ">
-                <div
-                  className={`w-full h-[200px] rounded-xl ${
-                    theme == "dark"
-                      ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
-                      : "bg-primary-50 shadow-primary-100 border-primary-200"
-                  }`}
-                >
-                  <img
-                    className="object-cover rounded-xl"
-                    src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZXZlbnR8ZW58MHx8MHx8fDA%3D"
-                  />
-                </div>
-
-                <div
-                  className={`w-full h-[200px] border rounded-xl ${
-                    theme == "dark"
-                      ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
-                      : "bg-primary-50 shadow-primary-100 border-primary-200"
-                  }`}
-                >
-                  <img
-                    className="object-cover rounded-xl"
-                    src="https://images.unsplash.com/photo-1531058020387-3be344556be6?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZXZlbnRzfGVufDB8fDB8fHww"
-                  />
-                </div>
-
-                <div
-                  className={`w-full h-[200px] border rounded-xl ${
-                    theme == "dark"
-                      ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
-                      : "bg-primary-50 shadow-primary-100 border-primary-200"
-                  }`}
-                >
-                  <img
-                    className="object-cover rounded-xl"
-                    src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGV2ZW50c3xlbnwwfHwwfHx8MA%3D%3D"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Center */}
-        {/* Center Container*/}
-        <div className="w-[100%] xl:w-[70%] h-full overflow-y-scroll border-r border-zinc-700 p-10 ">
-          <h2 className="headline-semibold-28 w-full  px-5">
-            Profiles Followed
+          }`}>
+        <h2 className="headline-semibold-28 w-full  px-5">
+            Following
           </h2>
 
-          <div className={` w-full h-auto flex gap-3 overflow-x-scroll p-4  `}>
+          <div className={` w-full h-auto flex flex-col gap-3 overflow-y-scroll p-4  `}>
             {/* Profile Followed Cards */}
-            <div className="flex   items-center gap-4  w-full overflow-x-scroll">
+            <div className="w-full flex flex-col  items-center gap-4  overflow-y-scroll">
               {/* Profiles Followed */}
 
               {followedProfiles.map((profile) => (
                 <Link to={`/community/userprofile/${profile.id}`} key={profile.id}>
                   <div
                     key={crypto.id}
-                    className={`flex w-[175px] min-h-[70px] border rounded-xl shadow-lg shadow-black pl-2 ${
+                    className={`flex w-[205px] min-h-[70px] border rounded-xl shadow-lg shadow-black pl-2 ${
                       theme == "dark"
                         ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
                         : "bg-primary-50 shadow-primary-100 border-primary-200"
@@ -248,10 +187,16 @@ function CommunityPage({ user }) {
               ))}
             </div>
           </div>
-          <h2 className="headline-semibold-28 w-full  px-5 pt-4">Community </h2>
+        </div>
+        
+        {/* Center */}
+        {/* Center Container*/}
+        <div className="w-[100%] xl:w-[70%] h-full overflow-y-scroll border-r border-zinc-700 p-3 ">
+          
+          <h2 className="headline-semibold-28 w-full   px-5 pt-8">Community </h2>
 
           {/* Center Content Container */}
-          <div className="w-full h-[275px] p-3 flex">
+          <div className="w-full h-[275px] p-6 flex">
             {/* Left Avatar Side */}
             <div className="w-[120px] h-full flex justify-center px-2 pt-6">
               {/* CHange user.email to user.uid */}
@@ -318,7 +263,7 @@ function CommunityPage({ user }) {
             <div className="w-[92%] border-b border-zinc-700"></div>
           </div>
           {/* Bottom-Center Content Container */}
-          <div className="w-full h-full">
+          <div className="w-full h-full p-3">
             {/* Bottom-Center Content */}
             <div className="w-full h-[100px] ">
               {/* Search Users or Posts */}
@@ -387,6 +332,70 @@ function CommunityPage({ user }) {
                   </div>
                 </Link>
               ))}
+            </div>
+          </div>
+        </div>
+        {/* Right Side */}
+        <div
+          className={`hidden overflow-y-scroll w-[30%] h-full border-r border-zinc-700 xl:flex lg:justify-center p-4 ${
+            theme == "dark"
+              ? " bg-gradient-to-r from-[#07172b]"
+              : "bg-primary-50 shadow-primary-100 border-primary-200"
+          }`}
+        >
+          {/* Left Side Content Container */}
+          <div
+            className={` w-full h-screen  ${
+              theme == "dark"
+                ? "  bg-gradient-to-r from-[#07172b]"
+                : "bg-primary-50 shadow-primary-100 border-primary-200"
+            }`}
+          >
+            {/* Events Near By Container */}
+            <div className="h-auto px-4  pt-4">
+              <h2 className="headline-semibold-28 w-full  px-5">
+                Events Nearby
+              </h2>
+              <div className="w-full h-full p-6 flex flex-col gap-8 ">
+                <div
+                  className={`w-full h-[200px] rounded-xl ${
+                    theme == "dark"
+                      ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
+                      : "bg-primary-50 shadow-primary-100 border-primary-200"
+                  }`}
+                >
+                  <img
+                    className="h-full object-cover rounded-xl"
+                    src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZXZlbnR8ZW58MHx8MHx8fDA%3D"
+                  />
+                </div>
+
+                <div
+                  className={`w-full h-[200px] border rounded-xl ${
+                    theme == "dark"
+                      ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
+                      : "bg-primary-50 shadow-primary-100 border-primary-200"
+                  }`}
+                >
+                  <img
+                    className="h-full object-cover rounded-xl"
+                    src="https://images.unsplash.com/photo-1531058020387-3be344556be6?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZXZlbnRzfGVufDB8fDB8fHww"
+                  />
+                </div>
+
+                <div
+                  className={`w-full h-[200px] border rounded-xl ${
+                    theme == "dark"
+                      ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
+                      : "bg-primary-50 shadow-primary-100 border-primary-200"
+                  }`}
+                >
+                  <img
+                    className="h-full object-cover rounded-xl"
+                    src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGV2ZW50c3xlbnwwfHwwfHx8MA%3D%3D"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
