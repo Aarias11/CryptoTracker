@@ -218,10 +218,7 @@ function CryptoPage({ user, currentCrypto }) {
     // Close GIF picker UI here if applicable
   };
 
-  // Toggle function
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite); // Toggle the state
-  };
+ 
 
   function useDebounce(value, delay) {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -253,16 +250,55 @@ function CryptoPage({ user, currentCrypto }) {
     window.scrollTo(0, 0);
   }, []);
 
+
+
+// FETCHING FAVORITES
+
+// Helper functions for managing favorites
+const addFavorite = (symbol) => {
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  if (!favorites.includes(symbol)) {
+    favorites.push(symbol);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }
+};
+
+const removeFavorite = (symbol) => {
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  const filteredFavorites = favorites.filter((s) => s !== symbol);
+  localStorage.setItem("favorites", JSON.stringify(filteredFavorites));
+};
+
+const checkFavorite = (symbol) => {
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  return favorites.includes(symbol);
+};
+
+useEffect(() => {
+  setIsFavorite(checkFavorite(symbol));
+}, [symbol]);
+
+const toggleFavorite = () => {
+  setIsFavorite((prev) => {
+    if (prev) {
+      removeFavorite(symbol);
+    } else {
+      addFavorite(symbol);
+    }
+    return !prev;
+  });
+};
+
+
+
+
+
+
+
   // If loading or no crypto data, show loading or appropriate message
   if (!crypto) return <div>Loading...</div>;
 
-  console.log(crypto.sentiment_votes_up_percentage);
-
-  console.log(user?.displayName);
-
-  console.log(crypto.sentiment_votes_up_percentage);
-
-  console.log(user?.displayName);
+  
   return (
     <div
       className={`w-full h-auto px-5 md:px-[32px] lg:px-[55px] xl:flex ${
@@ -285,7 +321,7 @@ function CryptoPage({ user, currentCrypto }) {
                 : "bg-gradient-to-r from-[#F5F9FE]  to-primary-100"
             }`}
           >
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 ">
               <img
                 src={crypto.image?.large}
                 alt={crypto.name}
@@ -473,8 +509,8 @@ function CryptoPage({ user, currentCrypto }) {
                     theme === "dark" ? "" : ""
                   }`}
                 >
-                  {/* <TradingViewNews /> */}
-                  <News />
+                  <TradingViewNews />
+                  {/* <News /> */}
                 </div>
                 </div>
 

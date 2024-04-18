@@ -56,7 +56,7 @@ const Watchlist = () => {
 
 
   return (
-    <div className={`w-full h-screen mx-auto overflow-x-auto pt-10 ${bodyBgTheme}`}>
+    <div className={`w-full h-screen mx-auto overflow-x-auto  ${bodyBgTheme}`}>
       <h2 className="text-5xl font-semibold ml-6 p-6">YOUR WATCHLIST</h2>
       <div className="px-6 ml-6 ">
         <input
@@ -73,7 +73,7 @@ const Watchlist = () => {
       </div>
 
       <div
-        className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:p-[50px]  ${
+        className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:p-[50px] mt-10  ${
           theme === "dark" ? " " : ""
         }`}
       >

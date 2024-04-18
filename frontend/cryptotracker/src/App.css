@@ -1586,12 +1586,6 @@ box-shadow: 0px 0px 0px 1px #131722 inset;
 
 
 
-.box {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  background: var(--accent);
-}
 
 
 

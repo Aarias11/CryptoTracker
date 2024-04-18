@@ -149,6 +149,7 @@ function CommunityProfile({ user }) {
 
     fetchFavorites();
   }, []);
+  
 
   return (
     <div
@@ -160,13 +161,14 @@ function CommunityProfile({ user }) {
         {/* --------------- */}
         {/* Left Side Container */}
         <div
-          className={`hidden w-[280px] h-full border-r lg:flex lg:justify-center ${
+          className={`hidden w-[280px] h-full border-r lg:flex lg:justify-center pt-4 ${
             theme === "dark" ? "label-semibold-16 border-zinc-800" : "label-semibold-16 border-primary-100"
           }`}
         >
           {/* Left Side Content Container */}
           <div className="p-4 ">
-            <h2 className="text-2xl font-semibold">Community</h2>
+            
+            <h2 className="headline-semibold-28">Community</h2>
             {/* Community Content */}
             <ul className="flex flex-col justify-center items-center gap-5 pt-10">
               <li className="cursor-pointer hover:bg-slate-800 w-[120px] h-[30px] pt-1 text-center rounded-full">
@@ -262,7 +264,7 @@ function CommunityProfile({ user }) {
           </div>
           {/* Recommended Profiles Sections */}
           {/* ------------------------------ */}
-          <div className="w-full mt-2">
+          <div className="w-[98%] mt-2">
             <div className="w-full flex justify-between">
               <div className="w-[50%]">
                 <h2 className="headline-semibold-24 pl-9  ">
@@ -283,12 +285,12 @@ function CommunityProfile({ user }) {
 
             {/*Profile Cards Section  */}
             {!isCollapsed && (
-              <div className="flex gap-4 ml-4 p-4 w-full h-[200px] overflow-x-auto">
+              <div className="flex gap-4 ml-4 p-4 px-5 w-full h-[200px] overflow-x-auto">
                 {/* Profile Cards Container */}
                 {recommendedProfiles.map((profile) => (
                   <div
                     key={profile.id}
-                    className={`flex  w-[250px] h-[110px] border rounded-xl shadow-lg shadow-black pl-2 ${theme == "dark" ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]" : "bg-primary-50 shadow-primary-100 border-primary-200"}`}
+                    className={`flex  w-[200px] h-[110px] border rounded-xl shadow-lg shadow-black pl-2 ${theme == "dark" ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]" : "bg-primary-50 shadow-primary-100 border-primary-200"}`}
                   >
                     <Link
                       to={`/community/userprofile/${profile.id}`}
@@ -301,7 +303,7 @@ function CommunityProfile({ user }) {
                         alt={profile.displayName}
                       />
                       {/* User Info */}
-                      <div className="flex flex-col justify-center">
+                      <div className="flex flex-col justify-center ml-2">
                         <h2 className="text-sm font-semibold">
                           {profile.displayName}
                         </h2>
@@ -310,7 +312,7 @@ function CommunityProfile({ user }) {
                         </h3>
                         <div className="text-sm flex gap-3">
                           <span>12 Followers</span>
-                          <span>1 Following</span>
+                          {/* <span>1 Following</span> */}
                         </div>
                       </div>
                     </Link>
@@ -335,10 +337,14 @@ function CommunityProfile({ user }) {
                 />
               </div>
             </div>
+            {/* Posts */}
+            <div className="">
             {filteredPosts.map((post) => (
+            <>
+            <div className="w-full flex justify-center">
               <div
                 key={post.id}
-                className={`w-[96%] p-3 flex justify-center px-10 pt-5 m-4 mb-4 shadow-md  rounded-xl border ${
+                className={`w-[90%] p-3 flex justify-center px-10 pt-5  mb-4 shadow-md  rounded-xl border ${
                   theme === "dark"
                     ? "bg-gradient-to-r from-[#07172b]/90 shadow-black border-primary-900"
                     : "bg-primary-50 shadow-primary-100 border-primary-200"
@@ -376,15 +382,18 @@ function CommunityProfile({ user }) {
                   )}
                 </div>
               </div>
+            </div>
+            </>
             ))}
+            </div>
           </div>
         </div>
         {/* Right Side */}
         {/* --------------- */}
 
         {/* Right Side Content Container*/}
-        <div className="hidden w-[390px] h-screen xl:flex xl:flex-col gap-3 overflow-y-scroll p-4 ">
-          <h2 className="headline-semibold-28 text-center">
+        <div className="hidden w-[390px] h-screen xl:flex xl:flex-col gap-3 overflow-y-scroll pt-4 ">
+          <h2 className="headline-semibold-28 text-center pt-4">
             Currencies Followed
           </h2>
 

@@ -15,11 +15,13 @@ function ExchangesPage() {
   const [itemsPerPage, setItemsPerPage] = useState(50);
   const { theme } = useContext(ThemeContext); // useContext call corrected for use inside the component
 
+  // Open Modal
   const openModal = (exchange) => {
     setSelectedExchange(exchange);
     setShowDetails(true);
   };
 
+  
   const topExchanges = useMemo(
     () => CryptoExchanges.filter((exchange) => exchange.trust_score_rank <= 5),
     []
@@ -38,6 +40,8 @@ function ExchangesPage() {
     });
   }, [searchTerm, sortKey, sortOrder]);
 
+
+// Handle Sorted Exchanges
   const handleSort = (key) => {
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     setSortKey(key);
@@ -57,12 +61,13 @@ function ExchangesPage() {
   }, [currentPage, itemsPerPage, sortedAndFilteredExchanges]);
 
   // Handler functions for pagination controls
+  // Handle Previous Page
   const handlePrevious = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
-
+// Handle Next pAge
   const handleNext = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
