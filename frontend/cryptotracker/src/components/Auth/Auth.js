@@ -165,7 +165,7 @@ function Auth() {
 
             {/* User avatar and dropdown menu toggle */}
             <li className="relative" ref={dropdownRef}>
-              <img
+              <Avatar
                 className="w-10 h-10 rounded-full cursor-pointer object-cover"
                 src={user.photoURL}
                 alt="User Avatar"

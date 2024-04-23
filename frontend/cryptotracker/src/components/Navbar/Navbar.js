@@ -199,7 +199,9 @@ function Navbar() {
         <Wallet onClose={() => setIsWalletModalOpen(false)} />
       )}
 
-      <Auth />
+      <div className="w-[30%] xl:w-[40%] xl:flex xl:justify-end">
+      <Auth className="w-[50%]" />
+      </div>
     </div>
   );
 }

@@ -154,7 +154,7 @@ const triggerFileSelectPopup = () => fileInputRef.current.click();
         {/* Left Side Container */}
         <div className={`xl:w-[20%] hidden xl:flex flex-col p-7 border-r ${
             theme == "dark"
-              ? "border-zinc-700 bg-gradient-to-r from-[#07172b]"
+              ? "border-zinc-700 bg-gradient-to-l from-[#07172b]"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
           }`}>
         <h2 className="headline-semibold-28 w-full  px-5">
@@ -201,7 +201,7 @@ const triggerFileSelectPopup = () => fileInputRef.current.click();
         {/* Center Container*/}
         <div className="w-[100%] xl:w-[70%] h-full overflow-y-scroll border-r border-zinc-700 p-3 ">
           
-          <h2 className="headline-semibold-28 w-full   px-5 pt-8">Community </h2>
+          <h2 className="headline-semibold-28 w-full   px-5 pt-6">Community </h2>
 
           {/* Center Content Container */}
           <div className="w-full h-[275px] p-6 flex">
@@ -210,20 +210,20 @@ const triggerFileSelectPopup = () => fileInputRef.current.click();
               {/* CHange user.email to user.uid */}
               <Link to={`/community/profile/${user?.displayName}`}>
                 <img
-                  className="w-[80px] h-[80px] rounded-full object-cover"
+                  className="w-[100px] h-[90px] rounded-full object-cover"
                   src={user?.photoURL}
                 />
               </Link>
             </div>
             {/* TEXT AREA AND POST */}
-            <div className="w-full h-full pt-7 flex flex-col gap-2 leading-3 tracking-tighter ">
+            <div className="w-full h-full pt-7 flex flex-col gap-4 leading-3 tracking-tighter  ml-7">
               {/* User Email */}
               <h2 className="title-bold-20">{user?.displayName}</h2>
-              <h2 className="title-semibold-20">@{user?.displayName}</h2>
+              <h2 className="title-16">@{user?.displayName}</h2>
 
               {/* Text Area */}
               <textarea
-                className={`search-input w-[95%] h-[100px] rounded-lg p-2 border border-primary-200 text-sm ${
+                className={`search-input w-[96%] h-[100px] rounded-lg p-2 border border-primary-200 text-sm ${
                   theme === "dark"
                     ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
                     : ""
@@ -232,8 +232,8 @@ const triggerFileSelectPopup = () => fileInputRef.current.click();
                 value={postText}
                 onChange={(e) => setPostText(e.target.value)}
               />
-              <div className="w-[95%] flex justify-between">
-                <BiHappyBeaming className="text-slate-400" size={25} />
+              <div className="w-[96%] flex justify-end gap-4 items-center ">
+                
                 <input
           ref={fileInputRef}
           type="file"
@@ -302,18 +302,20 @@ const triggerFileSelectPopup = () => fileInputRef.current.click();
                     }`}
                   >
                     {/* Left Avatar Side */}
-                    <div className="w-[100px] h-full flex justify-center ">
-                      <Avatar
-                        className="border-2 border-zinc-600"
+                    <div className="w-[100px] h-full flex justify-center translate-x-[-5px] ">
+                      <img
+                        className="w-[64px] h-[64px] rounded-full border-2 border-zinc-600"
                         src={post.photoURL || "https://via.placeholder.com/150"}
                       />
                     </div>
                     {/* TEXT AREA AND POST */}
-                    <div className="w-full h-full  flex flex-col gap-4">
+                    <div className="w-full h-full ml-2  flex flex-col gap-4">
                       {/* Poster Content */}
-                      <div className="flex gap-4 items-center">
+                      <div className="w-[530px] flex gap-4 items-center ">
+                        <div className="md:flex md:gap-4 md:items-center">
                         <h2 className="title-bold-20">{post.displayName}</h2>
                         <span className="title-16">@{post.displayName}</span>
+                        </div>
                         <span className="ml-auto title-16">
                           {new Date(
                             post.createdAt.seconds * 1000
@@ -322,7 +324,7 @@ const triggerFileSelectPopup = () => fileInputRef.current.click();
                       </div>
                       {/* Poster Comment */}
                       <div className="">
-                        <p className="h-auto font-light body-14">{post.text}</p>
+                        <p className="h-auto font-light body-14 w-[400px]">{post.text}</p>
                       </div>
                       {/* Poster Image */}
                       {post.imageUrl && (

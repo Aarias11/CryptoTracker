@@ -468,7 +468,7 @@ function Home() {
         <div>
           <TradingViewTicker key={theme} />
         </div>
-        <div className="h-[400px] lg:px-[45px] pt-4 pb-4">
+        <div className="h-[450px] lg:px-[45px] pt-4 pb-4">
           <TradingViewMarketWidget />
         </div>
         <div className=" lg:px-[45px] ">

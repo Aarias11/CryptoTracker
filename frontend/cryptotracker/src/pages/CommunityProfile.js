@@ -19,6 +19,7 @@ import { db } from "../firebase"; // Adjust the import path as needed
 import { CameraIcon } from "@heroicons/react/outline"; // Ensure correct import path
 import { CiCalendarDate } from "react-icons/ci";
 import { IconPlus, IconMinus, IconSettings } from "@tabler/icons-react";
+import TrendingCoins from "../API/TrendingCoins.json";
 
 function CommunityProfile({ user }) {
   const [bannerImage, setBannerImage] = useState("");
@@ -38,8 +39,27 @@ function CommunityProfile({ user }) {
   };
 
   const [favorites, setFavorites] = useState([]);
+  const [crypto, setCrypto] = useState([]);
+  const [isTrendingCurrenciesTab, setIsTrendingCurrenciesTab] = useState(true);
+  const [isCommunityTab, setIsCommunityTab] = useState(true);
 
   const auth = getAuth();
+
+  // UseEffect Trending Coins
+  useEffect(() => {
+    setCrypto(TrendingCoins.coins);
+    console.log("There are your coins", TrendingCoins);
+  }, []);
+
+  const TrendingCurrencies = () => {
+    setIsTrendingCurrenciesTab(true);
+    setIsCommunityTab(false);
+  };
+
+  const CommunityTab = () => {
+    setIsCommunityTab(true);
+    setIsTrendingCurrenciesTab(false);
+  };
 
   // UseEffect for fetching User Posts
   useEffect(() => {
@@ -149,56 +169,115 @@ function CommunityProfile({ user }) {
 
     fetchFavorites();
   }, []);
-  
 
   return (
     <div
       className={`w-full h-screen ${theme === "dark" ? "body-14 " : "body-14"}`}
     >
       {/* Container */}
-      <div className="w-full h-full flex">
+      <div className="w-full h-full md:flex md:flex-row flex flex-col-reverse">
         {/* Left Side */}
         {/* --------------- */}
         {/* Left Side Container */}
+
         <div
-          className={`hidden w-[280px] h-full border-r lg:flex lg:justify-center pt-4 ${
-            theme === "dark" ? "label-semibold-16 border-zinc-800" : "label-semibold-16 border-primary-100"
+          className={`w-full h-[200px] md:h-auto md:flex flex flex-col md:w-[30%] p-8 overflow-y-scroll border-r border-zinc-800 ${
+            theme == "dark"
+              ? "border-primary-900  bg-gradient-to-l from-[#07172b]"
+              : "bg-primary-50 shadow-primary-100 border-primary-200"
           }`}
         >
-          {/* Left Side Content Container */}
-          <div className="p-4 ">
-            
-            <h2 className="headline-semibold-28">Community</h2>
-            {/* Community Content */}
-            <ul className="flex flex-col justify-center items-center gap-5 pt-10">
-              <li className="cursor-pointer hover:bg-slate-800 w-[120px] h-[30px] pt-1 text-center rounded-full">
-                Feed
-              </li>
-              <li className="cursor-pointer hover:bg-slate-800 w-[120px] h-[30px] pt-1 text-center rounded-full">
-                Topics
-              </li>
-              <li className="cursor-pointer hover:bg-slate-800 w-[120px] h-[30px] pt-1 text-center rounded-full">
-                Lives
-              </li>
-              <li className="cursor-pointer hover:bg-slate-800 w-[130px] h-[40px] pt-2 text-center rounded-full">
-                Notifications
-              </li>
-              <li className="cursor-pointer hover:bg-slate-800 w-[120px] h-[30px] pt-1 text-center rounded-full">
-                My Page
-              </li>
-              <li className="cursor-pointer hover:bg-slate-800 w-[120px] h-[30px] pt-1 text-center rounded-full">
-                ... More
-              </li>
-            </ul>
+          <div className="h-auto flex flex-col overflow-y-scroll ">
+            <h2 className="headline-semibold-28 ">Trending</h2>
+            <div className="w-full flex flex-shrink-0 gap-4 md:flex md:flex-col md:gap-4 md:overflow-y-scroll pt-7">
+              {crypto.map((crypto) => (
+                <Link to={`/cryptopage/${crypto.item.symbol}`} key={crypto.id}>
+                  <div
+                    className={`flex w-[200px] md:w-full min-h-[70px] flex-shrink-0 border rounded-xl shadow-lg shadow-black pl-2 ${
+                      theme === "dark"
+                        ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
+                        : "bg-primary-50 shadow-primary-100 border-primary-200"
+                    }`}
+                  >
+                    <div className="flex items-center p-2">
+                      <img
+                        className="rounded-full"
+                        src={
+                          crypto.item.small || "https://via.placeholder.com/50"
+                        }
+                        alt={crypto.item.name}
+                      />
+                      <div className="flex flex-col justify-center ml-2">
+                        <h2 className="label-semibold-14">
+                          {crypto.item.name}
+                        </h2>
+                        <h3 className="label-semibold-12 text-gray-400">
+                          {crypto.item.symbol.toUpperCase()}
+                        </h3>
+                        <p className="text-sm flex gap-3">
+                          <span>
+                            {crypto.item.data.price_change_percentage_24h.usd.toLocaleString(
+                              1
+                            )}
+                            %
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
-        {/* Center */}
+
+        {/* Right */}
         {/* --------------- */}
 
-        {/* Center Container*/}
-        <div className="w-[800px] h-full overflow-y-scroll border-r border-primary-100 ">
-          {/* Center Content Container */}
-          <div className="w-full h-[500px] pt-8 px-8 relative ">
+        {/* Right Container*/}
+        <div className="w-full  h-screen overflow-x-scroll p-8">
+          {/* Currencies Followed */}
+          <div className={`w-full  flex flex-col overflow-x-scroll rounded-xl`}>
+            <h2 className="headline-semibold-28">Currencies Followed</h2>
+            <div className="w-full h-auto flex  gap-3 overflow-x-scroll">
+              <div className="w-full flex gap-3 overflow-x-scroll pt-6">
+                {favorites.map((crypto) => (
+                  <Link to={`/cryptopage/${crypto.symbol}`} key={crypto.id}>
+                    <div
+                      className={`flex w-[240px] min-h-[100px] border rounded-xl shadow-lg shadow-black  ${
+                        theme === "dark"
+                          ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
+                          : "bg-primary-50 shadow-primary-100 border-primary-200"
+                      }`}
+                    >
+                      <div className="flex items-center p-2">
+                        <img
+                          className="w-[50px] h-[50px] object-cover rounded-full m-2"
+                          src={crypto.image || "https://via.placeholder.com/50"}
+                          alt={crypto.name}
+                        />
+                        <div className="flex flex-col justify-center ml-2">
+                          <h2 className="text-sm font-semibold">
+                            {crypto.name}
+                          </h2>
+                          <h3 className="text-sm text-gray-400">
+                            {crypto.symbol.toUpperCase()}
+                          </h3>
+                          <p className="text-sm flex gap-3">
+                            ${crypto.price}{" "}
+                            <span>{crypto.change24h.toLocaleString(2)}%</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Content Container */}
+          <div className="w-full pt-8  relative">
             {/* ProfilePage Banner Image*/}
             <div
               className="relative w-full h-[300px]"
@@ -226,36 +305,41 @@ function CommunityProfile({ user }) {
               />
             </div>
 
-            <div className="w-full h-[100px] flex">
+            <div className="w-full h-[100px] flex gap-24 items-center py-4 px-4 sm:px-20 ">
               {/* Left Avatar Side */}
-              <div className="w-[200px] h-full flex justify-center translate-x-[30px] translate-y-[-70px] sm:translate-y-[-100px]">
-                {/* Change user.email to user.uid */}
+              <div className="flex-none w-[150px] sm:w-[200px] h-[150px] sm:h-[200px] relative">
                 <img
-                  className="w-[150px] sm:w-[200px] h-[150px] sm:h-[200px] object-cover rounded-full border-4 border-primary-700 "
-                  src={user?.photoURL}
+                  className="absolute left-1/2 transform -translate-x-1/2 -translate-y-[50px] sm:-translate-y-20 w-[150px] sm:w-[200px] h-[150px] sm:h-[200px] object-cover rounded-full border-4 border-primary-700"
+                  src={user?.photoURL || "https://via.placeholder.com/200"}
+                  alt={user?.displayName || "User Avatar"}
                 />
               </div>
               {/* User Info */}
-              <div className="pt-4 px-20">
-                <h2 class="text-xl font-semibold">{user?.displayName}</h2>
-                <h3 class="text-lg text-gray-400">@{user?.displayName}</h3>
+              <div className="flex-1 w-auto ml-4  translate-x-[-92px] md:translate-x-0 pt-3">
+                <h2 className="text-xl font-semibold truncate">
+                  {user?.displayName}
+                </h2>
+                <h3 className="text-lg text-gray-400 truncate">
+                  @{user?.displayName}
+                </h3>
                 <div className="flex gap-3">
                   <span>12 Followers</span>
                   <span>1 Following</span>
                 </div>
               </div>
             </div>
+
             {/* Joined and Settings Icon */}
-            <div className="flex justify-between items-center translate-y-[10px]">
+            <div className="flex justify-between items-center pt-3">
               <span className="flex items-center gap-4 text-gray-400">
-                <CiCalendarDate className="translate-y-[-2px]" size={20} /> Joined{" "}
-                {user?.metadata.creationTime.slice(7, 16)}
+                <CiCalendarDate className="translate-y-[-2px]" size={20} />{" "}
+                Joined {user?.metadata.creationTime.slice(7, 16)}
               </span>
-            <Link to="/account">
-              <button className="pt-1 ">
-                <IconSettings />
-              </button>
-            </Link>
+              <Link to="/account">
+                <button className="pt-1 ">
+                  <IconSettings />
+                </button>
+              </Link>
             </div>
             {/* Line Divider */}
             <div className="w-full h-[10px] flex justify-center pt-5">
@@ -272,7 +356,7 @@ function CommunityProfile({ user }) {
                 </h2>
               </div>
               <div
-                className="cursor-pointer w-[50%] flex justify-end text-lg pr-7"
+                className="cursor-pointer w-[50%] flex justify-end text-lg pr-7 "
                 onClick={toggleCollapse}
               >
                 {isCollapsed ? (
@@ -290,7 +374,11 @@ function CommunityProfile({ user }) {
                 {recommendedProfiles.map((profile) => (
                   <div
                     key={profile.id}
-                    className={`flex  w-[200px] h-[110px] border rounded-xl shadow-lg shadow-black pl-2 ${theme == "dark" ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]" : "bg-primary-50 shadow-primary-100 border-primary-200"}`}
+                    className={`flex flex-shrink-0  w-[200px] h-[110px] border rounded-xl shadow-lg shadow-black pl-2 ${
+                      theme == "dark"
+                        ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
+                        : "bg-primary-50 shadow-primary-100 border-primary-200"
+                    }`}
                   >
                     <Link
                       to={`/community/userprofile/${profile.id}`}
@@ -328,9 +416,11 @@ function CommunityProfile({ user }) {
             <div className="w-full h-[70px]">
               <div className="w-full flex justify-center ">
                 <input
-                  className={`search-input w-[91%] h-[48px] p-2 focus:outline-none text-sm rounded-lg border border-primary-200  ${ theme === "dark"
-                  ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
-                  : "bg-primary-50 shadow-primary-100" }`}
+                  className={`search-input w-[91%] h-[48px] p-2 focus:outline-none text-sm rounded-lg border border-primary-200  ${
+                    theme === "dark"
+                      ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
+                      : "bg-primary-50 shadow-primary-100"
+                  }`}
                   placeholder="Search Posts"
                   value={searchInput}
                   onChange={handleSearchInputChange}
@@ -338,93 +428,77 @@ function CommunityProfile({ user }) {
               </div>
             </div>
             {/* Posts */}
-            <div className="">
-            {filteredPosts.map((post) => (
-            <>
-            <div className="w-full flex justify-center">
-              <div
-                key={post.id}
-                className={`w-[90%] p-3 flex justify-center px-10 pt-5  mb-4 shadow-md  rounded-xl border ${
-                  theme === "dark"
-                    ? "bg-gradient-to-r from-[#07172b]/90 shadow-black border-primary-900"
-                    : "bg-primary-50 shadow-primary-100 border-primary-200"
-                }`}
-              >
-                <div className="w-[60px] mr-4">
-                  <Avatar
-                    src={post.photoURL || "https://via.placeholder.com/60"}
-                    className="w-full h-auto rounded-full object-cover"
-                    alt={post.displayName || "User"}
-                  />
-                </div>
-                <div className="flex-1">
-                  <div className="mb-2">
-                    <h2 className="font-bold">{post.displayName}</h2>
-                    <span className="text-sm text-gray-500">
-                      @{post.displayName}
-                    </span>
-                    <span className="text-sm text-gray-500 ml-2">
-                      {post.createdAt?.toDate?.().toDateString() ??
-                        "Unknown date"}
-                    </span>
-                  </div>
-                  <div className="mb-2">
-                    <p>{post.text}</p>
-                  </div>
-                  {post.imageUrl && (
-                    <div className="max-w-full h-auto mt-2">
-                      <img
-                        src={post.imageUrl}
-                        alt="Post"
-                        className="max-w-full h-[200px] object-cover rounded-lg"
-                      />
+            <div className="px-5 pt-4">
+              {filteredPosts.map((post) => (
+                <>
+                  <div className="w-full flex justify-center">
+                    <div
+                      key={post.id}
+                      className={`w-full md:w-[90%] p-3 flex justify-center px-10 pt-5  mb-4 shadow-md  rounded-xl border ${
+                        theme === "dark"
+                          ? "bg-gradient-to-r from-[#07172b]/90 shadow-black border-primary-900"
+                          : "bg-primary-50 shadow-primary-100 border-primary-200"
+                      }`}
+                    >
+                      <div className="w-[60px] mr-4">
+                        <Avatar
+                          src={
+                            post.photoURL || "https://via.placeholder.com/60"
+                          }
+                          className="w-full h-auto rounded-full object-cover"
+                          alt={post.displayName || "User"}
+                        />
+                      </div>
+                      {/* Content Text */}
+                      <div className="w-full ">
+                        <div className="w-full md:w-[95%] flex justify-center ">
+                          <div className="mb-2 w-full  flex justify-between">
+                            <div>
+                            <h2 className="font-bold">{post.displayName}</h2>
+                            <span className="text-sm text-gray-500">
+                              @{post.displayName}
+                            </span>
+                            </div>
+                            <div className="md:flex md:gap-2">
+                              <p className="label-14">
+                                {post.createdAt?.toDate().toDateString() ??
+                                  "Unknown date"}
+                              </p>
+                              <p className="label-14">
+                                {post.createdAt
+                                  ?.toDate()
+                                  .toLocaleTimeString("en-US", {
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                    hour12: true,
+                                  }) ?? "Unknown time"}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mb-2">
+                          <p>{post.text}</p>
+                        </div>
+                        {post.imageUrl && (
+                          <div className="max-w-full h-auto mt-2 flex justify-center">
+                            <img
+                              src={post.imageUrl}
+                              alt="Post"
+                              className="w-[95%] h-[200px] md:h-[400px] rounded-lg text-sm object-contain"
+                            />
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  )}
-                </div>
-              </div>
-            </div>
-            </>
-            ))}
+                  </div>
+                </>
+              ))}
             </div>
           </div>
         </div>
+
         {/* Right Side */}
         {/* --------------- */}
-
-        {/* Right Side Content Container*/}
-        <div className="hidden w-[390px] h-screen xl:flex xl:flex-col gap-3 overflow-y-scroll pt-4 ">
-          <h2 className="headline-semibold-28 text-center pt-4">
-            Currencies Followed
-          </h2>
-
-          <div className="flex flex-col justify-center items-center gap-4 p-4 w-full overflow-y-scroll">
-            {favorites.map((crypto) => (
-              <Link to={`/cryptopage/${crypto.symbol}`}>
-              <div
-                key={crypto.id}
-                className={`flex w-[240px] min-h-[100px] border rounded-xl shadow-lg shadow-black pl-2 ${theme == "dark" ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]" : "bg-primary-50 shadow-primary-100 border-primary-200"}`}
-              >
-                {/* "bg-primary-50 shadow-primary-100" */}
-                {/* Crypto Card Content */}
-                <div className="flex items-center p-2">
-                  <img
-                    className="w-[50px] h-[50px] object-cover rounded-full m-2"
-                    src={crypto.image || "https://via.placeholder.com/50"}
-                    alt={crypto.name}
-                  />
-                  <div className="flex flex-col justify-center ml-2">
-                    <h2 className="text-sm font-semibold">{crypto.name}</h2>
-                    <h3 className="text-sm text-gray-400">{crypto.symbol.toUpperCase()}</h3>
-                    <p className="text-sm flex gap-3">
-                      ${crypto.price} <span>{crypto.change24h.toLocaleString(2)}%</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              </Link>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );
