@@ -131,7 +131,7 @@ function Wallet({ onClose }) {
     <div className={`fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50 ${
         theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
       }`}>
-      <div className={`w-[450px] h-[600px]  rounded-2xl shadow-xl flex flex-col justify-between overflow-hidden ${
+      <div className={`w-[450px] h-[400px]  rounded-2xl shadow-xl flex flex-col justify-between overflow-hidden ${
         theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
       }`} >
         <div className="p-6">
@@ -143,14 +143,14 @@ function Wallet({ onClose }) {
             </button>
           </div>
           {!account ? (
-            <div className="h-[500px] flex flex-col justify-center items-center ">
-              <h2 className="text-xl font-bold  pb-10 ">{account ? 'Wallet Details' : 'Connect Wallet'}</h2>
+            <div className="h-[500px] flex flex-col items-center ">
+              <h2 className="text-xl font-bold  pb-5 ">{account ? 'Wallet Details' : 'Connect Wallet'}</h2>
               <button onClick={() => connectWallet('MetaMask')} className="w-[300px] flex items-center justify-center  mb-4 bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition duration-300">
                 <img className="w-6 h-6 mr-2" src={metamasklogo} alt="MetaMask" />
                 Connect with MetaMask
               </button>
               <button onClick={() => connectWallet('Coinbase Wallet')} className="w-[300px] flex items-center justify-center mb-4 bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition duration-300">
-                <img className="w-6 h-6 mr-2" src={cbwallet} alt="Coinbase Wallet" />
+                <img className="w-6 h-6 mr-2 rounded-full" src={cbwallet} alt="Coinbase Wallet" />
                 Connect with Coinbase Wallet
               </button>
             </div>
