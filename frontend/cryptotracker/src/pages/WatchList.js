@@ -79,13 +79,15 @@ const Watchlist = () => {
       >
       <table className={`min-w-full divide-y divide-zinc-700 `}>
         <thead className={`${headerBgTheme}`}>
+          {/* TABLE BODY */}
+          {/* ----------------------- */}
           <tr>
             {/* RANK */}
-            <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40 ${theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"}`}>
+            <th className={`w-[100px] h-[80px] px-5 py-3 text-left label-semibold-12 uppercase tracking-wider sticky left-0 items-center flex gap-2 ${theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"}`}>
               # Rank
             </th>
             {/* NAME */}
-            <th className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[93px] z-40  ${theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"}`}>
+            <th className={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-0  ${theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"}`}>
               Name
             </th>
             {/* Price */}
@@ -126,7 +128,7 @@ const Watchlist = () => {
           {filteredFavorites.map((crypto) => (
             <tr key={crypto.id}>
               {/* Favorite Star and Crypto Rank */}
-              <td class={`px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky left-0  ${theme === "dark" ? " bg-[#07172b]" : " "}`}>
+              <td class={`w-[100px] h-[80px] px-5 py-3 text-left label-semibold-12 uppercase tracking-wider sticky left-0 items-center flex gap-2  ${theme === "dark" ? " bg-[#07172b]" : " "}`}>
                 <button onClick={() => toggleFavorite(crypto.id)}>
                   <MdOutlineStar
                     className="cursor-pointer text-yellow-500"
@@ -136,7 +138,7 @@ const Watchlist = () => {
                 {crypto.rank}
               </td>
               {/* Crypto Image, Name, & Symbol */}
-              <td class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[93px]  ${theme === "dark" ? " bg-[#07172b]" : " "}`}>
+              <td class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-0  ${theme === "dark" ? " bg-[#07172b]" : " "}`}>
                 <Link to={`/cryptopage/${crypto.symbol}`}>
                   <div className="flex items-center gap-3">
                     <img
