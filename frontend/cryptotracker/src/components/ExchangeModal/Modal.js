@@ -26,7 +26,7 @@ const Modal = ({ exchange, onClose, theme }) => {
 
   return (
       <div className={`fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50`} onClick={onClose}>
-      <div className={` w-[700px] h-auto relative top-36 mx-auto p-5 border shadow-lg rounded-md  pt-14  ${theme === "dark" ? "bg-[#031021] border-primary-900 shadow-lg shadow-black" : "bg-[#F5F9FE] border-primary-200 shadow-md shadow-primary-300"}`} onClick={(e) => e.stopPropagation()}>
+      <div className={`w-auto lg:w-[700px] h-auto relative top-36 mx-auto p-5 border shadow-lg rounded-md  pt-14  ${theme === "dark" ? "bg-[#031021] border-primary-900 shadow-lg shadow-black" : "bg-[#F5F9FE] border-primary-200 shadow-md shadow-primary-300"}`} onClick={(e) => e.stopPropagation()}>
         <div className='flex gap-4 items-center'>
         <h3 className="headline-28">{exchange.name} </h3>
         <img className='w-10 h-10 rounded-full' src={exchange.image} />
