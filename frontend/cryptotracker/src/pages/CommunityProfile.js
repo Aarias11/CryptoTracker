@@ -476,8 +476,8 @@ function CommunityProfile({ user }) {
                             </div>
                           </div>
                         </div>
-                        <div className="mb-2">
-                          <p>{post.text}</p>
+                        <div className="mb-2 ">
+                          <p className="label-12 border">{post.text}</p>
                         </div>
                         {post.imageUrl && (
                           <div className="max-w-full h-auto mt-2 flex justify-center">

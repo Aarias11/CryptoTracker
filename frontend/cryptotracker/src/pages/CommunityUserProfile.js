@@ -309,7 +309,7 @@ function CommunityUserProfile() {
                           </div>
                         </div>
                         <div className="mb-2">
-                          <p>{post.text}</p>
+                          <p className="body-14">{post.text}</p>
                         </div>
                         {post.imageUrl && (
                           <div className="max-w-full h-auto mt-2 flex justify-center">
