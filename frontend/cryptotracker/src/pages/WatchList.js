@@ -87,7 +87,7 @@ const Watchlist = () => {
               # Rank
             </th>
             {/* NAME */}
-            <th className={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-0  ${theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"}`}>
+            <th className={`px-14  py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-0  ${theme === "dark" ? " bg-[#07172b]" : " bg-zinc-300"}`}>
               Name
             </th>
             {/* Price */}
@@ -138,7 +138,7 @@ const Watchlist = () => {
                 {crypto.rank}
               </td>
               {/* Crypto Image, Name, & Symbol */}
-              <td class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-0  ${theme === "dark" ? " bg-[#07172b]" : " "}`}>
+              <td class={`px-14 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-0  ${theme === "dark" ? " bg-[#07172b]" : " "}`}>
                 <Link to={`/cryptopage/${crypto.symbol}`}>
                   <div className="flex items-center gap-3">
                     <img

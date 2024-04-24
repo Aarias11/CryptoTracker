@@ -319,7 +319,7 @@ function Home() {
             <tr className="">
               {/* RANK */}
               <th
-                className={`px-5 py-3 text-left label-semibold-12 uppercase tracking-wider sticky left-0  ${
+                className={`w-[100px] h-[80px] px-5 py-3 text-left label-semibold-12 uppercase tracking-wider sticky left-0 items-center flex gap-2 ${
                   theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
                 }`}
               >
@@ -327,7 +327,7 @@ function Home() {
               </th>
               {/* NAME */}
               <th
-                className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40  ${
+                className={`px-14 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40  ${
                   theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
                 }`}
               >
@@ -399,7 +399,7 @@ function Home() {
                 </td>
                 {/* IMAGE, NAME, SYMBOL */}
                 <td
-                  class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-0  ${
+                  class={`px-14 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-0  ${
                     theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
                   }`}
                 >
