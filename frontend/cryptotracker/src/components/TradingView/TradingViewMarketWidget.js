@@ -20,7 +20,7 @@ const TradingViewMarketWidget = () => {
       "isTransparent": theme === "dark" ? true : false,
       "displayMode": "compact",
       "width": "100%",
-      "height": "550",
+      "height": "400",
       "colorTheme": theme === "dark" ? "dark" : "light",
       "locale": "en"
     });
