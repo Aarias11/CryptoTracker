@@ -440,12 +440,12 @@ function CommunityProfile({ user }) {
                           : "bg-primary-50 shadow-primary-100 border-primary-200"
                       }`}
                     >
-                      <div className="w-[60px] mr-4">
-                        <Avatar
+                      <div className="w-[70px] h-[64px] mr-4 ">
+                        <img
                           src={
                             post.photoURL || "https://via.placeholder.com/60"
                           }
-                          className="w-full h-auto rounded-full object-cover"
+                          className="w-[64px] h-[64px] rounded-full border-2 border-zinc-600 object-cover"
                           alt={post.displayName || "User"}
                         />
                       </div>
@@ -484,7 +484,7 @@ function CommunityProfile({ user }) {
                             <img
                               src={post.imageUrl}
                               alt="Post"
-                              className="w-[95%] h-[200px] md:h-[400px] rounded-lg text-sm object-contain"
+                              className="w-[95%] h-[200px] md:h-[400px] rounded-xl object-contain"
                             />
                           </div>
                         )}

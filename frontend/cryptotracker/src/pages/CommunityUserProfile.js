@@ -271,13 +271,13 @@ function CommunityUserProfile() {
                         : "bg-primary-50 shadow-primary-100 border-primary-200"
                     }`}
                   >
-                    <div className="w-[60px] mr-4">
-                      <Avatar
+                    <div className="w-[70px] h-[64px] mr-4">
+                      <img
                         src={
                           userProfile.photoURL ||
                           "https://via.placeholder.com/60"
                         }
-                        className="w-12 h-12 rounded-full object-cover"
+                        className="w-[70px] h-[64px] border-2 border-zinc-600 rounded-full object-cover"
                         alt={userProfile.displayName || "User"}
                       />
                     </div>

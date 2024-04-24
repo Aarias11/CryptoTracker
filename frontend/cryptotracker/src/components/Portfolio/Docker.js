@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { getAuth } from 'firebase/auth';
-import { db } from '../../firebase';
-import { collection, onSnapshot } from 'firebase/firestore';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import PortfolioModal from './PortfolioModal';
+import React, { useState, useEffect } from "react";
+import { getAuth } from "firebase/auth";
+import { db } from "../../firebase";
+import { collection, onSnapshot } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import PortfolioModal from "./PortfolioModal";
 
 function Docker({ onSelectPortfolio }) {
   const [user] = useAuthState(getAuth());
@@ -12,12 +12,22 @@ function Docker({ onSelectPortfolio }) {
 
   useEffect(() => {
     if (user) {
-      const portfoliosCollection = collection(db, "users", user.uid, "portfolios");
+      const portfoliosCollection = collection(
+        db,
+        "users",
+        user.uid,
+        "portfolios"
+      );
       const unsubscribe = onSnapshot(portfoliosCollection, (querySnapshot) => {
-        const portfoliosData = querySnapshot.docs.map(doc => ({
+        const portfoliosData = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
-          balance: doc.data().cryptos.reduce((acc, crypto) => acc + (crypto.quantity * crypto.averagePrice), 0) // Calculate balance
+          balance: doc
+            .data()
+            .cryptos.reduce(
+              (acc, crypto) => acc + crypto.quantity * crypto.averagePrice,
+              0
+            ), // Calculate balance
         }));
         setPortfolios(portfoliosData);
       });
@@ -32,29 +42,49 @@ function Docker({ onSelectPortfolio }) {
   };
 
   return (
-    <div className="w-full xl:w-[65%] h-[54px] border rounded-full label-12 p-1 px-6 flex gap-4 overflow-x-scroll flex-shrink-0 ">
+    <div className="w-full xl:w-[65%] h-[100px]  label-12 p-1 px-6 flex gap-4 overflow-x-scroll flex-shrink-0 ">
       {/* Overview Container */}
       <div className="w-[200px]">
-        <p className="p-1">Overview Total</p>
+        <p className="p-1 title-20">Overview Total</p>
         {/* Sum of all portfolios' balances */}
-        <p className="px-1">${portfolios.reduce((acc, p) => acc + p.balance, 0).toFixed(2)}</p>
+        <p className="px-1 title-semibold-20">
+          {portfolios
+            .reduce((acc, p) => acc + p.balance, 0)
+            .toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            })}
+        </p>
       </div>
       {/* Portfolio Container */}
       <div className="w-full label-10">
-        <h3 className="p-1 label-10">My Portfolios</h3>
+        <h3 className="p-1 label-18">My Portfolios</h3>
         <div className="px-1 flex gap-3 w-full overflow-x-scroll">
-          {portfolios.map(portfolio => (
-            <div key={portfolio.id} className="flex items-center gap-2 cursor-pointer"
-            onClick={() => onSelectPortfolio(portfolio)}>
+          {portfolios.map((portfolio) => (
+            <div
+              key={portfolio.id}
+              className="flex items-center gap-2 cursor-pointer"
+              onClick={() => onSelectPortfolio(portfolio)}
+            >
               <img className="w-[20px] h-[20px] border rounded-full" />
-              <div className='flex flex-col'>
-                <span>{portfolio.name}</span>
+              <div className="flex flex-col">
+                <span className="label-semibold-14">{portfolio.name}</span>
                 {/* Display the calculated balance */}
-                <span>${portfolio.balance.toFixed(2)}</span>
+                <span className="label-14">
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(portfolio.balance)}
+                </span>
               </div>
             </div>
           ))}
-          <button onClick={handleAddClick} className="bg-blue-500 text-white px-4 py-1 rounded">Add Portfolio</button>
+          <button
+            onClick={handleAddClick}
+            className="bg-blue-500 text-white px-4 py-1 rounded"
+          >
+            Add Portfolio
+          </button>
         </div>
       </div>
 
@@ -66,7 +96,14 @@ function Docker({ onSelectPortfolio }) {
           <p>Start Question Thread</p>
         </div>
       </div> */}
-      {isModalOpen && <PortfolioModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} db={db} user={user} />}
+      {isModalOpen && (
+        <PortfolioModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          db={db}
+          user={user}
+        />
+      )}
     </div>
   );
 }

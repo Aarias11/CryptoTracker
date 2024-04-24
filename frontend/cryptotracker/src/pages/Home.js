@@ -305,7 +305,7 @@ function Home() {
       {/* ----------------------- */}
 
       <div
-        className={`w-[100%] h-full flex flex-col justify-center overflow-x-scroll  lg:px-[50px] ${
+        className={`w-[100%] h-full flex flex-col justify-center overflow-x-scroll  lg:px-[50px] mt-5 ${
           theme === "dark" ? " " : " "
         }`}
       >
