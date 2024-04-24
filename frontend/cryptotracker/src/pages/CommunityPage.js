@@ -212,7 +212,7 @@ function CommunityPage({ user }) {
           </h2>
 
           {/* Center Content Container */}
-          <div className="w-full h-[275px] p-6 flex z-50">
+          <div className="w-full h-[275px] md:p-6 flex z-50">
             {/* Left Avatar Side */}
             <div className="w-[120px] h-full flex justify-center px-2 pt-6 ">
               {/* Change user.email to user.uid */}
@@ -222,13 +222,14 @@ function CommunityPage({ user }) {
                   src={user?.photoURL}
                 />
               </Link>
-              <div className=" absolute top-0 right-0 opacity-30 translate-x-[150px] translate-y-[-100px] z-10">
+              <div >
                 <svg
                   width="500"
                   height="500"
                   viewBox="0 0 2545 2506"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
+                  className="hidden md:absolute md:top-0 md:right-0 md:opacity-30 md:translate-x-[150px] md:translate-y-[-100px] md:z-10"
                 >
                   <path
                     fill-rule="evenodd"
@@ -461,7 +462,7 @@ function CommunityPage({ user }) {
               {/* Search Users or Posts */}
               <div className="w-full flex justify-center pt-4">
                 <input
-                  className={`search-input w-[91%] h-[48px] border border-primary-200  p-2  text-sm rounded-lg z-20 ${
+                  className={`search-input w-[96%] md:w-[91%] h-[48px] border border-primary-200  p-2  text-sm rounded-lg z-20 ${
                     theme === "dark"
                       ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
                       : ""
@@ -470,12 +471,12 @@ function CommunityPage({ user }) {
                 />
               </div>
               {/* For You / Following */}
-              <div className="w-[92%] flex gap-12 text-2xl px-10 pt-4 ">
+              <div className="w-[92%] flex gap-12 text-2xl px-3  md:px-10 pt-4 ">
                 <span>Posts</span>
               </div>
             </div>
             {/* Posts Container*/}
-            <div className="w-full h-full p-10 flex flex-col gap-4 ">
+            <div className="w-full h-auto p-2 pt-6  md:p-10  flex flex-col gap-4 mb-10 pb-5">
               {posts.map((post) => (
                 <Link to={`/community/userprofile/${post.uid}`} key={post.id}>
                   {" "}
