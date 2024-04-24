@@ -319,7 +319,7 @@ function Home() {
             <tr className="">
               {/* RANK */}
               <th
-                className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 top-0 z-40 ${
+                className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky right-0  z-40 ${
                   theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
                 }`}
               >
@@ -376,7 +376,7 @@ function Home() {
               <tr key={crypto.id}>
                 {/* RANK */}
                 <td
-                  class={`px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky left-0  ${
+                  class={`px-5 py-3 h-[85px]  text-xs font-semibold items-center flex gap-4 tracking-wider sticky right-0  ${
                     theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
                   }`}
                 >
