@@ -23,9 +23,10 @@ import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 import Web3 from 'web3';
 import CommunityUserProfile from './pages/CommunityUserProfile';
 import '@typehaus/metropolis';
+import { analytics } from './firebase';
+import { logEvent } from "firebase/analytics";
 
 window.Buffer = Buffer; // Assign Buffer to window to make it globally available
-
 
 // Coinbase Wallet SDK initialization
 const APP_NAME = 'My Awesome App';
@@ -47,10 +48,17 @@ function App() {
   const auth = getAuth();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user ? user : null);
     });
-    return () => unsubscribe();
+
+    // Log the event that the application has been opened or viewed
+    logEvent(analytics, 'app_open');
+
+    return () => {
+      unsubscribe();
+      console.log('Cleanup on component unmount');
+    };
   }, [auth]);
 
   // Function to disconnect from Coinbase Wallet
@@ -79,7 +87,6 @@ function App() {
         <Route path='/community/profile/:displayname' element={<CommunityProfile user={user} />} />
         <Route path='/account' element={<Account user={user} />} />
         <Route path="/community/userprofile/:id" element={<CommunityUserProfile />} />
-
       </Routes>
       <Footer />
     </div>

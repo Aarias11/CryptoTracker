@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore, collection, getDoc, getDocs, addDoc, doc, setDoc, deleteDoc } from "firebase/firestore";
 import { getStorage } from "firebase/storage"; // Import for Firebase Storage
+import { getAnalytics } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -12,6 +13,7 @@ const firebaseConfig = {
   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_ANALYTICS_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
@@ -25,5 +27,7 @@ const db = getFirestore(app);
 
 // Initialize Firebase Storage and get a reference to the service
 const storage = getStorage(app);
+// Initialize Google analytics
+const analytics = getAnalytics(app);
 
-export { auth, db, storage, doc, setDoc, deleteDoc, collection, getDoc, getDocs, addDoc };
+export { auth, db, storage, doc, setDoc, deleteDoc, collection, getDoc, getDocs, addDoc, analytics };
