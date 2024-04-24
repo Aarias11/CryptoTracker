@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import ThemeContext from "../components/ThemeContext/ThemeContext";
 import { getAuth } from "firebase/auth";
 import { db } from "../firebase";
-import { deleteDoc } from "firebase/firestore"; 
+import { deleteDoc } from "firebase/firestore";
 import { Line, Pie, Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -31,7 +31,6 @@ import PortfolioModal from "../components/Portfolio/PortfolioModal";
 import AddCryptoModal from "../components/Portfolio/AddCryptoModal";
 import CryptoMarketCoins from "../API/CryptoMarketCoins.json";
 import { IconX } from "@tabler/icons-react";
-
 
 ChartJS.register(
   CategoryScale,
@@ -88,7 +87,6 @@ const Portfolio = () => {
       setCryptoData([]);
     }
   };
-  
 
   const handleDeleteCrypto = async (cryptoId) => {
     const portfolioRef = doc(
@@ -140,14 +138,13 @@ const Portfolio = () => {
       // Optionally, alert the user or handle this case visually in your UI
     }
   };
-  
-
-
 
   const handleDeletePortfolio = async () => {
     if (selectedPortfolio) {
       try {
-        await deleteDoc(doc(db, "users", user.uid, "portfolios", selectedPortfolio.id));
+        await deleteDoc(
+          doc(db, "users", user.uid, "portfolios", selectedPortfolio.id)
+        );
         console.log("Portfolio deleted successfully!");
         setSelectedPortfolio(null);
         setCryptoData([]);
@@ -200,38 +197,51 @@ const Portfolio = () => {
   const bodyBgTheme = theme === "dark" ? "" : "";
 
   return (
-    <div className="w-full screen dashboard-page px-14 pt-5">
-      <div className="w-full flex flex-wrap  justify-between items-center">
-        <h1 className="headline-28  pt-2">Portfolio</h1>
-        <Docker onSelectPortfolio={handlePortfolioSelect} />
+    <div className="w-full h-auto  p-3 pt-10  md:px-14  ">
+        <h1 className="headline-semibold-28  ">Portfolio</h1>
+      <div className="w-full h-auto flex flex-col-reverse gap-4 xl:flex-row xl:justify-between  ">
+      {selectedPortfolio && (
+        <div className="flex flex-col">
+          <div className="pt-4 pb-4 flex gap-3">
+            <p className='title-20 '>
+            Viewing Portfolio:
+
+            </p>
+            <p className='title-semibold-20'>
+            {selectedPortfolio.name}
+            </p>
+          </div>
+          <button
+            onClick={handleDeletePortfolio}
+            className={`w-[150px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-primary-800 ${
+              theme === "dark" ? "button-primary-medium-dark text-primary-50" : "button-primary-medium-light text-primary-50"
+            }`}
+          >
+            Delete Portfolio
+          </button>
+        </div>
+      )}
+        <Docker onSelectPortfolio={handlePortfolioSelect} theme={theme} />
+        
       </div>
       {isModalOpen && (
         <AddCryptoModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        portfolioId={selectedPortfolio ? selectedPortfolio.id : undefined}
-      />
-      
-      
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          portfolioId={selectedPortfolio ? selectedPortfolio.id : undefined}
+        />
       )}
 
-{selectedPortfolio && (
-          <>
-            <div className="text-lg font-bold my-4">
-              Viewing Portfolio: {selectedPortfolio.name}
-            </div>
-            <button onClick={handleDeletePortfolio} className="w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out button-primary-medium-dark shadow-xl shadow-primary-800">
-              Delete Portfolio
-            </button>
-          </>
-        )}
+      
 
       {/* CHARTS */}
-      <div className="w-full h-auto xl:h-auto flex flex-col xl:grid xl:grid-cols-2  pt-6">
+      <div className="w-full h-auto xl:h-auto flex flex-col gap-4 xl:grid xl:grid-cols-2  pt-6">
         {/* Pie Chart Card */}
         <div
-          className={`card w-full xl:w-[600px] h-[250px] p-4 shadow-lg rounded-lg w-50 ${
-            theme === "dark" ? " " : " "
+          className={`card w-full xl:w-[600px] h-[250px] p-4 shadow-lg rounded-lg w-50 border ${
+            theme === "dark"
+              ? "border-primary-900  bg-[#07172b]"
+              : "bg-primary-50 shadow-primary-100 border-primary-200"
           } `}
         >
           <h2 className="text-lg font-semibold mb-4">Asset Distribution</h2>
@@ -241,8 +251,10 @@ const Portfolio = () => {
         </div>
         {/* Line Chart Card */}
         <div
-          className={`card w-full xl:w-[600px] h-[250px] p-4 shadow-lg rounded-lg mb-6 ${
-            theme === "dark" ? " " : " "
+          className={`card w-full xl:w-[600px] h-[250px] p-4 shadow-lg border rounded-lg mb-6 ${
+            theme === "dark"
+              ? "border-primary-900  bg-[#07172b]"
+              : "bg-primary-50 shadow-primary-100 border-primary-200"
           }`}
         >
           <h2 className="text-lg font-semibold mb-4">
@@ -288,24 +300,28 @@ const Portfolio = () => {
         </div> */}
       </div>
 
-      {/* Table */}
       <button
-          onClick={handleOpenModal}
-          className="w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out button-primary-medium-dark shadow-xl shadow-primary-800"
-        >
-          Add Crypto
-        </button>
+        onClick={handleOpenModal}
+        className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-primary-800 ${
+          theme === "dark" ? "button-primary-medium-dark text-primary-50" : "button-primary-medium-light text-primary-50"
+        }`}
+      >
+        Add Crypto
+      </button>
+      {/* Table */}
       <div
-        className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:p-[50px] ${
+        className={`w-full h-full flex flex-col justify-center overflow-x-scroll pt-4 lg:p-[50px] ${
           theme === "dark" ? "" : ""
         }`}
       >
         <table className="min-w-full ">
           <thead>
             <tr>
-              <th className={`w-[150px] px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider ${
+              <th
+                className={`w-[150px] h-[80px] px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 ${
                   theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
-                }`}>
+                }`}
+              >
                 Name
               </th>
               <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
@@ -320,17 +336,17 @@ const Portfolio = () => {
               <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
                 Profit/Loss
               </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
-                
-              </th>
+              <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"></th>
             </tr>
           </thead>
           <tbody>
             {cryptoData.map((crypto) => (
               <tr key={crypto.cryptoId}>
-                <td className={`w-[150px] p-5 md:p-3 text-left text-xs font-semibold uppercase tracking-wider flex gap-2 items-center ${
-                  theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
-                }`}>
+                <td
+                  className={`w-[150px] h-[80px] px-5 py-3 text-left label-semibold-12 uppercase tracking-wider sticky left-0 items-center flex gap-2  ${
+                    theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
+                  }`}
+                >
                   <img
                     src={getCryptoImage(crypto.cryptoId)}
                     alt={crypto.name}
@@ -366,7 +382,6 @@ const Portfolio = () => {
                   <button onClick={() => handleDeleteCrypto(crypto.cryptoId)}>
                     <IconX size={15} className="text-neutral-400" />
                   </button>
-                  
                 </td>
               </tr>
             ))}

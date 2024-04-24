@@ -369,7 +369,7 @@ function CommunityProfile({ user }) {
 
             {/*Profile Cards Section  */}
             {!isCollapsed && (
-              <div className="flex gap-4 p-2 md:ml-4 md:p-4 md:px-5 w-full h-[200px] overflow-x-auto">
+              <div className="flex gap-4 p-2 md:ml-4 md:p-4 md:px-5 w-full h-[200px] overflow-x-scroll">
                 {/* Profile Cards Container */}
                 {recommendedProfiles.map((profile) => (
                   <div
