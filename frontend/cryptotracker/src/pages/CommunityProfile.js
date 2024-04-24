@@ -181,13 +181,13 @@ function CommunityProfile({ user }) {
         {/* Left Side Container */}
 
         <div
-          className={`w-full h-[200px] md:h-auto md:flex flex flex-col md:w-[30%] p-8 overflow-y-scroll border-r border-zinc-800 ${
+          className={`w-full h-[200px] md:h-auto md:flex flex flex-col md:w-[30%] p-4 md:p-8 overflow-y-scroll border-r border-zinc-800 ${
             theme == "dark"
               ? "border-primary-900  bg-gradient-to-l from-[#07172b]"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
           }`}
         >
-          <div className="h-auto flex flex-col overflow-y-scroll ">
+          <div className="h-[300px] md:h-auto flex flex-col overflow-y-scroll ">
             <h2 className="headline-semibold-28 ">Trending</h2>
             <div className="w-full flex flex-shrink-0 gap-4 md:flex md:flex-col md:gap-4 md:overflow-y-scroll pt-7">
               {crypto.map((crypto) => (
@@ -199,7 +199,7 @@ function CommunityProfile({ user }) {
                         : "bg-primary-50 shadow-primary-100 border-primary-200"
                     }`}
                   >
-                    <div className="flex items-center p-2">
+                    <div className="flex items-center md:p-2">
                       <img
                         className="rounded-full"
                         src={
@@ -235,7 +235,7 @@ function CommunityProfile({ user }) {
         {/* --------------- */}
 
         {/* Right Container*/}
-        <div className="w-full  h-screen overflow-x-scroll p-8">
+        <div className="w-full  h-screen overflow-x-scroll p-3 md:p-8">
           {/* Currencies Followed */}
           <div className={`w-full  flex flex-col overflow-x-scroll rounded-xl`}>
             <h2 className="headline-semibold-28">Currencies Followed</h2>
@@ -351,12 +351,12 @@ function CommunityProfile({ user }) {
           <div className="w-[98%] mt-2">
             <div className="w-full flex justify-between">
               <div className="w-[50%]">
-                <h2 className="headline-semibold-24 pl-9  ">
+                <h2 className="headline-semibold-24 p-2 md:pl-9  ">
                   Recommended Profiles
                 </h2>
               </div>
               <div
-                className="cursor-pointer w-[50%] flex justify-end text-lg pr-7 "
+                className="cursor-pointer w-[50%] flex justify-end text-lg md:pr-7 "
                 onClick={toggleCollapse}
               >
                 {isCollapsed ? (
@@ -369,7 +369,7 @@ function CommunityProfile({ user }) {
 
             {/*Profile Cards Section  */}
             {!isCollapsed && (
-              <div className="flex gap-4 ml-4 p-4 px-5 w-full h-[200px] overflow-x-auto">
+              <div className="flex gap-4 p-2 md:ml-4 md:p-4 md:px-5 w-full h-[200px] overflow-x-auto">
                 {/* Profile Cards Container */}
                 {recommendedProfiles.map((profile) => (
                   <div
@@ -412,11 +412,11 @@ function CommunityProfile({ user }) {
 
           {/* Bottom-Center Content Container */}
           {/* ---------------------------------------- */}
-          <div className="w-full h-full mt-4">
+          <div className="w-full h-full ">
             <div className="w-full h-[70px]">
               <div className="w-full flex justify-center ">
                 <input
-                  className={`search-input w-[91%] h-[48px] p-2 focus:outline-none text-sm rounded-lg border border-primary-200  ${
+                  className={`search-input w-[96%] md:w-[91%] h-[48px] p-2 focus:outline-none text-sm rounded-lg border border-primary-200  ${
                     theme === "dark"
                       ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
                       : "bg-primary-50 shadow-primary-100"
@@ -428,7 +428,7 @@ function CommunityProfile({ user }) {
               </div>
             </div>
             {/* Posts */}
-            <div className="px-5 pt-4">
+            <div className="px-1 md:px-5 pt-4">
               {filteredPosts.map((post) => (
                 <>
                   <div className="w-full flex justify-center">
@@ -477,7 +477,7 @@ function CommunityProfile({ user }) {
                           </div>
                         </div>
                         <div className="mb-2 ">
-                          <p className="label-12 border">{post.text}</p>
+                          <p className="label-14 ">{post.text}</p>
                         </div>
                         {post.imageUrl && (
                           <div className="max-w-full h-auto mt-2 flex justify-center">

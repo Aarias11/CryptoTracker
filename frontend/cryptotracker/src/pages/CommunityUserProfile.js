@@ -146,7 +146,7 @@ function CommunityUserProfile() {
               : "bg-primary-50 shadow-primary-100 border-primary-200"
           }`}
         >
-          <div className="h-auto flex flex-col overflow-y-scroll ">
+          <div className="h-[300px] md:h-auto flex flex-col overflow-y-scroll ">
             <h2 className="headline-semibold-28 ">Trending</h2>
             <div className="w-full flex flex-shrink-0 gap-4 lg:flex lg:flex-col lg:gap-4 lg:overflow-y-scroll pt-7">
               {crypto.map((crypto) => (
