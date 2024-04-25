@@ -52,6 +52,8 @@ const Portfolio = () => {
   const [cryptoData, setCryptoData] = useState([]);
   const [selectedPortfolio, setSelectedPortfolio] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isNewPortfolioModalOpen, setIsNewPortfolioModalOpen] = useState(false);
+
 
   useEffect(() => {
     if (user) {
@@ -140,9 +142,10 @@ const Portfolio = () => {
   };
 
   const handleAddClick = () => {
-    setIsModalOpen(true);
-    selectedPortfolio(null); // Ensure no portfolio is selected when adding new
+    setIsNewPortfolioModalOpen(true);  // This should control the NewPortfolioModal
   };
+  
+  
 
   const handleDeletePortfolio = async () => {
     if (selectedPortfolio) {
@@ -204,39 +207,43 @@ const Portfolio = () => {
   return (
     <div className="w-full h-auto  p-3 pt-10  md:px-14  ">
       <h1 className="headline-semibold-28  ">Portfolio</h1>
-      <div className="w-full h-auto flex flex-col-reverse gap-4  ">
-        {selectedPortfolio && (
-          <div className="flex flex-col xl:ml-16 pl-1 pt-2 ">
-            <div className="flex gap-3">
-             
-              <button
-                onClick={handleAddClick}
-                className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-primary-800 ${
-                  theme === "dark"
-                    ? "button-primary-medium-dark text-primary-50"
-                    : "button-primary-medium-light text-primary-50"
-                }`}
-              >
-                Add Portfolio
-              </button>
+      <div className="w-full h-auto flex flex-col-reverse gap-4">
+        
+        {/* Section for buttons and viewing text */}
+        <div className="flex flex-col xl:ml-16 pl-1 pt-2">
+          {/* Button Container always visible */}
+          <div className="flex gap-3">
+            <button
+              onClick={handleAddClick}
+              className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-primary-800 ${
+                theme === "dark" ? "button-primary-medium-dark text-primary-50" : "button-primary-medium-light text-primary-50"
+              }`}
+            >
+              Add Portfolio
+            </button>
+
+            {/* Conditionally render the Delete Portfolio button */}
+            {selectedPortfolio && (
               <button
                 onClick={handleDeletePortfolio}
-                className={`w-[150px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out  ${
-                  theme === "dark"
-                    ? " text-primary-50"
-                    : "button-primary-medium-light text-primary-50"
+                className={`w-[150px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out ${
+                  theme === "dark" ? "text-primary-50" : "button-primary-medium-light text-primary-50"
                 }`}
               >
                 Delete Portfolio
               </button>
-            </div>
-            <div className="pt-14 pb-4 flex gap-2 items-center ">
-              <p className="title-20 ">Viewing</p>
+            )}
+          </div>
+
+          {/* Portfolio Viewing Details, conditionally displayed */}
+          {selectedPortfolio && (
+            <div className="pt-4 pb-4 flex gap-2 items-center">
+              <p className="title-20">Viewing</p>
               <p className="title-semibold-20">{selectedPortfolio.name}</p>
             </div>
-            
-          </div>
-        )}
+          )}
+        </div>
+
         <Docker onSelectPortfolio={handlePortfolioSelect} theme={theme} />
 
         {isModalOpen && (
@@ -252,11 +259,11 @@ const Portfolio = () => {
       <div className="w-full h-auto xl:grid xl:grid-cols-2 xl:place-items-center pt-4">
         {/* Pie Chart Card */}
         <div
-          className={`card w-full xl:w-[562px] h-[250px] p-4 shadow-lg translate-y-[-12px] rounded-lg w-50 border ${
+          className={`card w-full xl:w-[564px] h-[250px] p-4 shadow-lg border rounded-lg mb-6 ${
             theme === "dark"
               ? "border-primary-900  bg-[#07172b]"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
-          } `}
+          }`}
         >
           <h2 className="text-lg font-semibold mb-4">Asset Distribution</h2>
           <div className="chart-container">
@@ -406,6 +413,14 @@ const Portfolio = () => {
           </tbody>
         </table>
       </div>
+      {isNewPortfolioModalOpen && (
+  <PortfolioModal
+    isOpen={isNewPortfolioModalOpen}
+    onClose={() => setIsNewPortfolioModalOpen(false)}
+    db={db}
+    user={user}
+  />
+)}
     </div>
   );
 };

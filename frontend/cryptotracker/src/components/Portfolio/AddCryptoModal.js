@@ -87,7 +87,7 @@ function AddCryptoModal({ isOpen, onClose, portfolioId }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4">
       <div
-        className={`p-6 rounded-lg shadow-lg max-w-md w-full ${
+        className={`p-6 rounded-lg shadow-lg max-w-md w-full z-50 ${
           theme === "dark" ? "bg-[#031021]" : "bg-white"
         }`}
       >
