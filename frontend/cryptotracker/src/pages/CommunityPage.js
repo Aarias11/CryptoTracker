@@ -177,7 +177,7 @@ function CommunityPage({ user }) {
                 >
                   <div
                     key={crypto.id}
-                    className={`flex flex-col flex-shrink-0  w-[200px] h-[110px] border rounded-xl shadow-lg shadow-black  ${
+                    className={`flex flex-col flex-shrink-0  w-auto h-[110px] border rounded-xl shadow-lg shadow-black  ${
                       theme == "dark"
                         ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
                         : "bg-primary-50 shadow-primary-100 border-primary-200"
@@ -185,9 +185,9 @@ function CommunityPage({ user }) {
                   >
                     <div className="w-[205px] h-[100px]">
                         {/* Profile Card Content */}
-                        <div className="w-full h-[100%]">
+                        <div className="w-full h-[100%] ">
                           <img
-                            className="w-full h-[60%] object-cover rounded-tl-xl rounded-tr-xl"
+                            className="w-full h-[60%] object-cover rounded-tl-xl rounded-tr-xl border-b-2 border-primary-800"
                             src={profile.bannerImage}
                           />
                         </div>
@@ -198,15 +198,15 @@ function CommunityPage({ user }) {
                             alt={profile.displayName}
                           />
                           {/* User Info */}
-                          <div className="flex flex-col justify-center ml-2 pt-3">
-                            {/* <h2 className="text-sm font-semibold">
+                          <div className="flex flex-col justify-center ml-2 pt-4">
+                            <h2 className="text-sm font-semibold">
                               {profile.displayName}
-                            </h2> */}
-                            <h3 className="text-sm text-gray-400">
+                            </h2>
+                            <h3 className="label-12 text-gray-400">
                               @{profile.displayName}
                             </h3>
                             <div className="text-sm flex gap-3">
-                              <span>12 Followers</span>
+                              {/* <span>12 Followers</span> */}
                               {/* <span>1 Following</span> */}
                             </div>
                           </div>

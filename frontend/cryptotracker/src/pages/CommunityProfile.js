@@ -389,7 +389,7 @@ function CommunityProfile({ user }) {
                         {/* Profile Card Content */}
                         <div className="w-full h-[100%]">
                           <img
-                            className="w-full h-[60%] object-cover rounded-tl-xl rounded-tr-xl"
+                            className="w-full h-[60%] object-cover rounded-tl-xl rounded-tr-xl border-b-2 border-primary-800"
                             src={profile.bannerImage}
                           />
                         </div>
