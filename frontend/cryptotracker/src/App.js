@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Buffer } from 'buffer'; // Import Buffer from the buffer package
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation  } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
@@ -23,8 +23,7 @@ import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 import Web3 from 'web3';
 import CommunityUserProfile from './pages/CommunityUserProfile';
 import '@typehaus/metropolis';
-import { analytics } from './firebase';
-import { logEvent } from "firebase/analytics";
+import { analytics, logEvent } from "../src/firebase";
 
 window.Buffer = Buffer; // Assign Buffer to window to make it globally available
 
@@ -42,10 +41,23 @@ const coinbaseWallet = new CoinbaseWalletSDK({
 const ethereum = coinbaseWallet.makeWeb3Provider();
 export const web3 = new Web3(ethereum);
 
+
+function usePageTracking() {
+  const location = useLocation();
+  useEffect(() => {
+    logEvent(analytics, 'page_view', {
+      page_path: location.pathname,
+      page_title: document.title
+    });
+  }, [location]);
+}
+
 function App() {
   const [user, setUser] = useState(null);
   const { theme } = useTheme();
   const auth = getAuth();
+
+  usePageTracking(); // Initialize page tracking on route change
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
