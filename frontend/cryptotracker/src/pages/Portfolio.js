@@ -50,7 +50,7 @@ const Portfolio = () => {
   const auth = getAuth();
   const user = auth.currentUser;
   const [cryptoData, setCryptoData] = useState([]);
-  const [selectedPortfolio, setSelectedPortfolio] = useState(null);
+  const [selectedPortfolio, setSelectedPortfolio] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -139,6 +139,12 @@ const Portfolio = () => {
     }
   };
 
+
+  const handleAddClick = () => {
+    setIsModalOpen(true);
+    selectedPortfolio(null); // Ensure no portfolio is selected when adding new
+  };
+
   const handleDeletePortfolio = async () => {
     if (selectedPortfolio) {
       try {
@@ -196,6 +202,8 @@ const Portfolio = () => {
   const headerBgTheme = theme === "dark" ? "" : "";
   const bodyBgTheme = theme === "dark" ? "" : "";
 
+  
+
   return (
     <div className="w-full h-auto  p-3 pt-10  md:px-14  ">
         <h1 className="headline-semibold-28  ">Portfolio</h1>
@@ -211,19 +219,28 @@ const Portfolio = () => {
             {selectedPortfolio.name}
             </p>
           </div>
+          <div className="flex gap-3">
+          <button
+            onClick={handleAddClick}
+            className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-primary-800 ${
+              theme === "dark" ? "button-primary-medium-dark text-primary-50" : "button-primary-medium-light text-primary-50"
+            }`} 
+        >
+            Add Portfolio
+          </button>
           <button
             onClick={handleDeletePortfolio}
-            className={`w-[150px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-primary-800 ${
-              theme === "dark" ? "button-primary-medium-dark text-primary-50" : "button-primary-medium-light text-primary-50"
+            className={`w-[150px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out  ${
+              theme === "dark" ? " text-primary-50" : "button-primary-medium-light text-primary-50"
             }`}
           >
             Delete Portfolio
           </button>
+            </div>
         </div>
       )}
         <Docker onSelectPortfolio={handlePortfolioSelect} theme={theme} />
         
-      </div>
       {isModalOpen && (
         <AddCryptoModal
           isOpen={isModalOpen}
@@ -231,6 +248,7 @@ const Portfolio = () => {
           portfolioId={selectedPortfolio ? selectedPortfolio.id : undefined}
         />
       )}
+      </div>
 
       
 
@@ -302,8 +320,8 @@ const Portfolio = () => {
 
       <button
         onClick={handleOpenModal}
-        className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-primary-800 ${
-          theme === "dark" ? "button-primary-medium-dark text-primary-50" : "button-primary-medium-light text-primary-50"
+        className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-information-800 ${
+          theme === "dark" ? "bg-information-600 text-primary-50" : "button-primary-medium-light text-primary-50"
         }`}
       >
         Add Crypto

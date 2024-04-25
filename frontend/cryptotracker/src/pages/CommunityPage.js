@@ -177,26 +177,41 @@ function CommunityPage({ user }) {
                 >
                   <div
                     key={crypto.id}
-                    className={`flex w-[205px] min-h-[70px] border rounded-xl shadow-lg shadow-black pl-2 ${
+                    className={`flex flex-col flex-shrink-0  w-[200px] h-[110px] border rounded-xl shadow-lg shadow-black  ${
                       theme == "dark"
                         ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
                         : "bg-primary-50 shadow-primary-100 border-primary-200"
                     }`}
                   >
-                    <div className="flex items-center p-2">
-                      <img
-                        className="w-[50px] h-[50px] object-cover rounded-full m-2"
-                        src={
-                          profile.photoURL || "https://via.placeholder.com/50"
-                        }
-                        alt={profile.displayName}
-                      />
-                      <div className="flex flex-col justify-center ml-2">
-                        <h2 className="text-sm font-semibold">
-                          {profile.displayName}
-                        </h2>
+                    <div className="w-[205px] h-[100px]">
+                        {/* Profile Card Content */}
+                        <div className="w-full h-[100%]">
+                          <img
+                            className="w-full h-[60%] object-cover rounded-tl-xl rounded-tr-xl"
+                            src={profile.bannerImage}
+                          />
+                        </div>
+                        <div className="w-full h-[50%] flex translate-y-[-50px]">
+                          <img
+                            className="w-[50px] h-[50px] object-cover rounded-full border-4 border-zinc-700 m-2 translate-y-[-20px]"
+                            src={profile.photoURL}
+                            alt={profile.displayName}
+                          />
+                          {/* User Info */}
+                          <div className="flex flex-col justify-center ml-2 pt-3">
+                            {/* <h2 className="text-sm font-semibold">
+                              {profile.displayName}
+                            </h2> */}
+                            <h3 className="text-sm text-gray-400">
+                              @{profile.displayName}
+                            </h3>
+                            <div className="text-sm flex gap-3">
+                              <span>12 Followers</span>
+                              {/* <span>1 Following</span> */}
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
                   </div>
                 </Link>
               ))}

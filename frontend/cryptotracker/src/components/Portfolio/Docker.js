@@ -37,27 +37,27 @@ function Docker({ onSelectPortfolio, theme }) {
     }
   }, [user]);
 
-  const handleAddClick = () => {
-    setIsModalOpen(true);
-    onSelectPortfolio(null); // Ensure no portfolio is selected when adding new
-  };
+  // const handleAddClick = () => {
+  //   setIsModalOpen(true);
+  //   onSelectPortfolio(null); // Ensure no portfolio is selected when adding new
+  // };
 
   return (
-    <div className="w-full xl:w-[70%] h-auto  label-12  lg:flex justify-end lg:gap-4 xl:translate-y-[-70px] ">
+    <div className="w-full xl:w-[100%] h-auto  label-12  lg:flex lg:justify-end lg:gap-4  xl:pt-1.5 xl:translate-y-[-70px] ">
       
-      <div className="w-full xl:w-[87%] h-full pt-5">
+      <div className="w-full xl:w-[70%] h-full pt-5">
         {/* Header Container */}
-        <div className="flex justify-between gap-4 items-center mb-4">
+        <div className="flex justify-between gap-4 items-center mb-4 ">
         <div className="w-[50%] flex flex-col gap-2 md:flex md:flex-row md:justify-between">
-        <h3 className="p-1 label-18">My Portfolios</h3>
-        <button
+        <h3 className="p-1 label-18 translate-y-[-10px]">My Portfolios</h3>
+        {/* <button
             onClick={handleAddClick}
             className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-primary-800 ${
               theme === "dark" ? "button-primary-medium-dark text-primary-50" : "button-primary-medium-light text-primary-50"
             }`} 
         >
             Add Portfolio
-          </button>
+          </button> */}
         </div>
         <div>
         <p className="p-1 mr-3 label-18">Overview Total</p>
@@ -72,11 +72,11 @@ function Docker({ onSelectPortfolio, theme }) {
         </div>
         </div>
         {/* Portfolios Container */}
-        <div className="w-[100%] flex gap-3 overflow-x-scroll">
+        <div className="w-[100%] flex lg:flex lg:justify-end gap-3 overflow-x-scroll ">
         {portfolios.map((portfolio) => (
             <div
               key={portfolio.id}
-              className={`flex justify-center gap-3 flex-shrink-0 p-3  w-[150px] h-auto border rounded-xl shadow-lg shadow-black pl-2 cursor-pointer ${
+              className={`flex justify-center gap-3 flex-shrink-0 p-3  w-auto h-auto border rounded-xl shadow-lg shadow-black pl-2 cursor-pointer ${
                 theme == "dark"
                   ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
                   : "bg-primary-50 shadow-primary-100 border-primary-200"
