@@ -49,6 +49,7 @@ function usePageTracking() {
       page_path: location.pathname,
       page_title: document.title
     });
+    // console.log("Logging app open event"); 
   }, [location]);
 }
 
