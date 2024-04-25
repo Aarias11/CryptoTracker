@@ -239,12 +239,12 @@ function CommunityPage({ user }) {
               </Link>
               <div >
                 <svg
-                  width="500"
-                  height="500"
+                  width="380"
+                  height="380"
                   viewBox="0 0 2545 2506"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="hidden md:absolute md:top-0 md:right-0 md:opacity-30 md:translate-x-[150px] md:translate-y-[-100px] md:z-10"
+                  className=" md:absolute md:top-0 md:right-0 md:opacity-30 md:translate-x-[100px] md:translate-y-[-110px] md:z-10"
                 >
                   <path
                     fill-rule="evenodd"

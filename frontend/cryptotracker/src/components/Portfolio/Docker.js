@@ -43,12 +43,12 @@ function Docker({ onSelectPortfolio, theme }) {
   // };
 
   return (
-    <div className="w-full xl:w-[100%] h-auto  label-12  lg:flex lg:justify-end lg:gap-4  xl:pt-1.5 xl:translate-y-[-70px] ">
+    <div className="w-full h-auto xl:flex xl:justify-end">
       
-      <div className="w-full xl:w-[70%] h-full pt-5">
+      <div className="w-full xl:w-[95%] h-full pt-5 xl:pr-16 ml-2">
         {/* Header Container */}
         <div className="flex justify-between gap-4 items-center mb-4 ">
-        <div className="w-[50%] flex flex-col gap-2 md:flex md:flex-row md:justify-between">
+        <div className="w-[50%] flex flex-col gap-2 ">
         <h3 className="p-1 label-18 translate-y-[-10px]">My Portfolios</h3>
         {/* <button
             onClick={handleAddClick}
@@ -72,7 +72,7 @@ function Docker({ onSelectPortfolio, theme }) {
         </div>
         </div>
         {/* Portfolios Container */}
-        <div className="w-[100%] flex lg:flex lg:justify-end gap-3 overflow-x-scroll ">
+        <div className="w-[100%] flex xl:flex  gap-3 overflow-x-scroll">
         {portfolios.map((portfolio) => (
             <div
               key={portfolio.id}

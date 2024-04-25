@@ -50,7 +50,7 @@ const Portfolio = () => {
   const auth = getAuth();
   const user = auth.currentUser;
   const [cryptoData, setCryptoData] = useState([]);
-  const [selectedPortfolio, setSelectedPortfolio] = useState('');
+  const [selectedPortfolio, setSelectedPortfolio] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -139,7 +139,6 @@ const Portfolio = () => {
     }
   };
 
-
   const handleAddClick = () => {
     setIsModalOpen(true);
     selectedPortfolio(null); // Ensure no portfolio is selected when adding new
@@ -202,61 +201,58 @@ const Portfolio = () => {
   const headerBgTheme = theme === "dark" ? "" : "";
   const bodyBgTheme = theme === "dark" ? "" : "";
 
-  
-
   return (
     <div className="w-full h-auto  p-3 pt-10  md:px-14  ">
-        <h1 className="headline-semibold-28  ">Portfolio</h1>
-      <div className="w-full h-auto flex flex-col-reverse gap-4 xl:flex-row xl:justify-between  ">
-      {selectedPortfolio && (
-        <div className="flex flex-col">
-          <div className="pt-4 pb-4 flex gap-3">
-            <p className='title-20 '>
-            Viewing Portfolio:
-
-            </p>
-            <p className='title-semibold-20'>
-            {selectedPortfolio.name}
-            </p>
-          </div>
-          <div className="flex gap-3">
-          <button
-            onClick={handleAddClick}
-            className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-primary-800 ${
-              theme === "dark" ? "button-primary-medium-dark text-primary-50" : "button-primary-medium-light text-primary-50"
-            }`} 
-        >
-            Add Portfolio
-          </button>
-          <button
-            onClick={handleDeletePortfolio}
-            className={`w-[150px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out  ${
-              theme === "dark" ? " text-primary-50" : "button-primary-medium-light text-primary-50"
-            }`}
-          >
-            Delete Portfolio
-          </button>
+      <h1 className="headline-semibold-28  ">Portfolio</h1>
+      <div className="w-full h-auto flex flex-col-reverse gap-4  ">
+        {selectedPortfolio && (
+          <div className="flex flex-col xl:ml-16 pl-1 pt-2 ">
+            <div className="flex gap-3">
+             
+              <button
+                onClick={handleAddClick}
+                className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-primary-800 ${
+                  theme === "dark"
+                    ? "button-primary-medium-dark text-primary-50"
+                    : "button-primary-medium-light text-primary-50"
+                }`}
+              >
+                Add Portfolio
+              </button>
+              <button
+                onClick={handleDeletePortfolio}
+                className={`w-[150px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out  ${
+                  theme === "dark"
+                    ? " text-primary-50"
+                    : "button-primary-medium-light text-primary-50"
+                }`}
+              >
+                Delete Portfolio
+              </button>
             </div>
-        </div>
-      )}
+            <div className="pt-14 pb-4 flex gap-2 items-center ">
+              <p className="title-20 ">Viewing</p>
+              <p className="title-semibold-20">{selectedPortfolio.name}</p>
+            </div>
+            
+          </div>
+        )}
         <Docker onSelectPortfolio={handlePortfolioSelect} theme={theme} />
-        
-      {isModalOpen && (
-        <AddCryptoModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          portfolioId={selectedPortfolio ? selectedPortfolio.id : undefined}
-        />
-      )}
+
+        {isModalOpen && (
+          <AddCryptoModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            portfolioId={selectedPortfolio ? selectedPortfolio.id : undefined}
+          />
+        )}
       </div>
 
-      
-
       {/* CHARTS */}
-      <div className="w-full h-auto xl:h-auto flex flex-col gap-4 xl:grid xl:grid-cols-2  pt-6">
+      <div className="w-full h-auto xl:grid xl:grid-cols-2 xl:place-items-center pt-4">
         {/* Pie Chart Card */}
         <div
-          className={`card w-full xl:w-[600px] h-[250px] p-4 shadow-lg rounded-lg w-50 border ${
+          className={`card w-full xl:w-[562px] h-[250px] p-4 shadow-lg translate-y-[-12px] rounded-lg w-50 border ${
             theme === "dark"
               ? "border-primary-900  bg-[#07172b]"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
@@ -269,7 +265,7 @@ const Portfolio = () => {
         </div>
         {/* Line Chart Card */}
         <div
-          className={`card w-full xl:w-[600px] h-[250px] p-4 shadow-lg border rounded-lg mb-6 ${
+          className={`card w-full xl:w-[564px] h-[250px] p-4 shadow-lg border rounded-lg mb-6 ${
             theme === "dark"
               ? "border-primary-900  bg-[#07172b]"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
@@ -318,17 +314,21 @@ const Portfolio = () => {
         </div> */}
       </div>
 
-      <button
-        onClick={handleOpenModal}
-        className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-information-800 ${
-          theme === "dark" ? "bg-information-600 text-primary-50" : "button-primary-medium-light text-primary-50"
-        }`}
-      >
-        Add Crypto
-      </button>
+      <div className="xl:px-14  pt-2">
+        <button
+          onClick={handleOpenModal}
+          className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-information-800 ${
+            theme === "dark"
+              ? "bg-information-600 text-primary-50"
+              : "button-primary-medium-light text-primary-50"
+          }`}
+        >
+          Add Crypto
+        </button>
+      </div>
       {/* Table */}
       <div
-        className={`w-full h-full flex flex-col justify-center overflow-x-scroll pt-4 lg:p-[50px] ${
+        className={`w-full h-full flex flex-col justify-center overflow-x-scroll pt-8 xl:p-[50px] ${
           theme === "dark" ? "" : ""
         }`}
       >
