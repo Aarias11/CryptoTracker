@@ -15,6 +15,7 @@ const Watchlist = () => {
   const auth = getAuth();
   const { theme } = useContext(ThemeContext); // Use ThemeContext
 
+  // Fetching Favorites
   useEffect(() => {
     const fetchFavorites = async () => {
       const user = auth.currentUser;
@@ -32,6 +33,7 @@ const Watchlist = () => {
     fetchFavorites();
   }, []);
 
+  // Fetching Filtered Search Favorites
   useEffect(() => {
     const filtered = favorites.filter(crypto => crypto.name.toLowerCase().includes(searchTerm.toLowerCase()) || crypto.symbol.toLowerCase().includes(searchTerm.toLowerCase()));
     setFilteredFavorites(filtered);

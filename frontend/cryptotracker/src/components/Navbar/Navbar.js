@@ -1,34 +1,16 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { GoStarFill } from "react-icons/go";
-import { GiPieChart } from "react-icons/gi";
-import { RxMagnifyingGlass } from "react-icons/rx";
-import { IoTrendingUpSharp, IoTrendingDownSharp } from "react-icons/io5";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-
 import ThemeContext from "../ThemeContext/ThemeContext";
-import TrendingCoins from "../../API/TrendingCoins.json";
-import CryptoMarketCoins from "../../API/CryptoMarketCoins.json";
-import CryptoExchanges from "../../API/CryptoExchanges.json";
 import Wallet from "../Wallet/Wallet";
 import Auth from "../Auth/Auth";
 
 function Navbar() {
-  const [crypto, setCrypto] = useState(TrendingCoins);
-  const [coins, setCoins] = useState(CryptoMarketCoins);
-  const [exchanges, setExchanges] = useState(CryptoExchanges);
   const { theme, toggleTheme } = useContext(ThemeContext); // Using ThemeContext
-  const [searchExpanded, setSearchExpanded] = useState(false); // State to manage the search component's visibility
-  const searchComponentRef = useRef(null);
-  const searchRef = useRef(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [combinedResults, setCombinedResults] = useState([]);
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
   const [user, setUser] = useState(null);
   const toggleWalletModal = () => setIsWalletModalOpen(!isWalletModalOpen);
   const auth = getAuth();
-
   const isLoggedIn = !!user;
 
   useEffect(() => {

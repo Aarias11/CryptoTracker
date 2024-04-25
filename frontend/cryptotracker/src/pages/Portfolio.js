@@ -70,7 +70,7 @@ const Portfolio = () => {
           );
           if (portfolio) {
             setCryptoData(portfolio.cryptos || []);
-            console.log(portfolio.cryptos);
+            // console.log(portfolio.cryptos);
           }
         }
       });
@@ -79,7 +79,7 @@ const Portfolio = () => {
   }, [user, selectedPortfolio]);
 
   const handlePortfolioSelect = (portfolio) => {
-    console.log("Portfolio selected:", portfolio);
+    // console.log("Portfolio selected:", portfolio);
     setSelectedPortfolio(portfolio);
     if (portfolio) {
       setCryptoData(portfolio.cryptos || []);

@@ -48,7 +48,7 @@ function CommunityProfile({ user }) {
   // UseEffect Trending Coins
   useEffect(() => {
     setCrypto(TrendingCoins.coins);
-    console.log("There are your coins", TrendingCoins);
+    // console.log("There are your coins", TrendingCoins);
   }, []);
 
   const TrendingCurrencies = () => {
@@ -140,7 +140,7 @@ function CommunityProfile({ user }) {
         .map((doc) => ({ ...doc.data(), id: doc.id })) // `id` is now correctly mapped from the document
         .filter((profile) => profile.id !== user.uid); // Compare `id` with `user.uid` to exclude the current user
 
-      console.log("Recommended Profiles:", usersData); // Log the recommended profiles to the console
+      // console.log("Recommended Profiles:", usersData); // Log the recommended profiles to the console
 
       setRecommendedProfiles(usersData);
     };
@@ -164,7 +164,7 @@ function CommunityProfile({ user }) {
         fetchedFavorites.push({ id: doc.id, ...doc.data() });
       });
       setFavorites(fetchedFavorites);
-      console.log(favorites);
+      // console.log(favorites);
     };
 
     fetchFavorites();

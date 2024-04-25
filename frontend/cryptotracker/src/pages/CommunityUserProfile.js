@@ -13,7 +13,6 @@ import {
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import ThemeContext from "../components/ThemeContext/ThemeContext";
-import Avatar from "@mui/material/Avatar";
 import TrendingCoins from "../API/TrendingCoins.json";
 
 function CommunityUserProfile() {
@@ -24,7 +23,6 @@ function CommunityUserProfile() {
   const [followersCount, setFollowersCount] = useState(0);
   const [followingCount, setFollowingCount] = useState(0);
   const [crypto, setCrypto] = useState(TrendingCoins);
-
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const { theme } = useContext(ThemeContext);
@@ -33,7 +31,7 @@ function CommunityUserProfile() {
   // UseEffect Trending Coins
   useEffect(() => {
     setCrypto(TrendingCoins.nfts);
-    console.log("There are your coins", TrendingCoins.nfts);
+    // console.log("There are your coins", TrendingCoins.nfts);
   }, []);
 
   useEffect(() => {
@@ -261,35 +259,34 @@ function CommunityUserProfile() {
               {/* Posts */}
               <div className="px-5 pt-4">
                 {posts.map((post) => (
-                                    <div className="w-full flex justify-center">
-
+                  <div className="w-full flex justify-center">
                     <div
-                    key={post.id}
-                    className={`w-full md:w-[90%] p-3 flex justify-center px-10 pt-5  mb-4 shadow-md  rounded-xl border ${
-                      theme === "dark"
-                        ? "bg-gradient-to-r from-[#07172b]/90 shadow-black border-primary-900"
-                        : "bg-primary-50 shadow-primary-100 border-primary-200"
-                    }`}
-                  >
-                    <div className="w-[70px] h-[64px] mr-4">
-                      <img
-                        src={
-                          userProfile.photoURL ||
-                          "https://via.placeholder.com/60"
-                        }
-                        className="w-[70px] h-[64px] border-2 border-zinc-600 rounded-full object-cover"
-                        alt={userProfile.displayName || "User"}
-                      />
-                    </div>
-                    {/* Content Text */}
-                    <div className="w-full ">
+                      key={post.id}
+                      className={`w-full md:w-[90%] p-3 flex justify-center px-10 pt-5  mb-4 shadow-md  rounded-xl border ${
+                        theme === "dark"
+                          ? "bg-gradient-to-r from-[#07172b]/90 shadow-black border-primary-900"
+                          : "bg-primary-50 shadow-primary-100 border-primary-200"
+                      }`}
+                    >
+                      <div className="w-[70px] h-[64px] mr-4">
+                        <img
+                          src={
+                            userProfile.photoURL ||
+                            "https://via.placeholder.com/60"
+                          }
+                          className="w-[70px] h-[64px] border-2 border-zinc-600 rounded-full object-cover"
+                          alt={userProfile.displayName || "User"}
+                        />
+                      </div>
+                      {/* Content Text */}
+                      <div className="w-full ">
                         <div className="w-full md:w-[95%] flex justify-center ">
                           <div className="mb-2 w-full  flex justify-between">
                             <div>
-                            <h2 className="font-bold">{post.displayName}</h2>
-                            <span className="text-sm text-gray-500">
-                              @{post.displayName}
-                            </span>
+                              <h2 className="font-bold">{post.displayName}</h2>
+                              <span className="text-sm text-gray-500">
+                                @{post.displayName}
+                              </span>
                             </div>
                             <div className="md:flex md:gap-2">
                               <p className="label-14">
@@ -321,8 +318,8 @@ function CommunityUserProfile() {
                           </div>
                         )}
                       </div>
-                  </div>
                     </div>
+                  </div>
                 ))}
               </div>
             </div>

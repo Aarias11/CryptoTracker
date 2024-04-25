@@ -58,7 +58,7 @@ function Account({ user }) {
             photoURL: profilePic, // Save the profile picture URL
         }, { merge: true }); // Merge with existing document to prevent overwriting other fields
 
-        console.log("Profile updated successfully");
+        // console.log("Profile updated successfully");
     } catch (error) {
         console.error("Error updating profile:", error);
     }

@@ -108,7 +108,7 @@ function CommunityPage({ user }) {
         .map((doc) => ({ ...doc.data(), id: doc.id })) // `id` is now correctly mapped from the document
         .filter((profile) => profile.id !== user.uid); // Compare `id` with `user.uid` to exclude the current user
 
-      console.log("Followed Profiles:", usersData); // Log the recommended profiles to the console
+      // console.log("Followed Profiles:", usersData); // Log the recommended profiles to the console
 
       setFollowedProfiles(usersData);
     };
@@ -144,7 +144,7 @@ function CommunityPage({ user }) {
     fetchPosts();
   }, [followedProfiles]); // Depend on followedProfiles to re-fetch whenever it changes
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <div
