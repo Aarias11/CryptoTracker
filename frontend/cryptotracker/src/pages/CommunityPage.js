@@ -853,6 +853,15 @@ function CommunityPage({ user }) {
                           />
                         </div>
                       )}
+                      {post.gifUrl && (
+                          <div className="max-w-full h-auto mt-2 flex justify-center">
+                            <img
+                              src={post.gifUrl}
+                              alt="GIF in post"
+                              className="w-full max-w-xs mt-2 rounded-xl"
+                            />
+                          </div>
+                        )}
                     </div>
                   </div>
                 </Link>
