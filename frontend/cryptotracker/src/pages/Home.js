@@ -179,6 +179,9 @@ function Home() {
   // Apply the blink class conditionally
   const blinkClass = shouldBlink ? "blink" : "";
 
+  const cryptoTableRef = useRef(null);
+
+
   return (
     <div className={`w-full h-auto   ${theme === "dark" ? " " : " "}`}>
       <div
@@ -198,9 +201,10 @@ function Home() {
             Uncover high quality data, learn from the best, and build a winning
             crypto portfolio. CoinCrowd has your back.
           </p>
-          <button className="text-center">
+          <button className="text-center"
+          onClick={() => cryptoTableRef.current?.scrollIntoView({ behavior: 'smooth' })}>
             <a
-              href="/explore"
+              // href="/explore"
               className={`first-letter: font-semibold py-3 px-6 rounded-lg transition duration-300 ease-in-out ${
                 theme === "dark"
                   ? " button-primary-medium-dark shadow-xl shadow-primary-800 "
@@ -282,7 +286,9 @@ function Home() {
       {/* Searchbar */}
       {/* ----------------------- */}
       <div className="p-3 lg:px-[50px] ">
-        <div className=" w-full h-[50px] relative">
+        <div className=" w-full h-[50px] relative"
+        ref={cryptoTableRef}
+        >
           <input
             className={`search-input w-[300px] h-full border border-primary-200 rounded-xl font-semibold focus:outline-none text-sm p-3 relative px-[40px] ${
               theme === "dark" ? "bg-[#031021] text-primary-200" : ""
@@ -308,6 +314,7 @@ function Home() {
         className={`w-[100%] h-full flex flex-col justify-center overflow-x-scroll  lg:px-[50px] mt-5 ${
           theme === "dark" ? " " : " "
         }`}
+        
       >
         {/* CRYPTO TABLE */}
         {/* ----------------------- */}
