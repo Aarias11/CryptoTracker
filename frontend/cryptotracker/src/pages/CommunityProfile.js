@@ -75,6 +75,7 @@ function CommunityProfile({ user }) {
           }))
           .sort((a, b) => b.createdAt - a.createdAt); // Sorting posts in descending order
         setPosts(postsData);
+        // console.log(postsData)
       }
     };
 
@@ -143,7 +144,7 @@ function CommunityProfile({ user }) {
       // console.log("Recommended Profiles:", usersData); // Log the recommended profiles to the console
 
       setRecommendedProfiles(usersData);
-      console.log(usersData);
+      // console.log(usersData);
     };
 
     if (user && user.uid) {
@@ -499,7 +500,17 @@ function CommunityProfile({ user }) {
                             />
                           </div>
                         )}
+                        {post.gifUrl && (
+      <div className="max-w-full h-auto mt-2 flex justify-center">
+        <img
+        src={post.gifUrl}
+        alt="GIF in post"
+        className="w-full max-w-xs mt-2 rounded-xl"
+      />
+      </div>
+    )}
                       </div>
+                      
                     </div>
                   </div>
                 </>

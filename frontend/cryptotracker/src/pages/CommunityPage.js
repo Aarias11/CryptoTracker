@@ -2,6 +2,8 @@ import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import ThemeContext from "../components/ThemeContext/ThemeContext";
 import Avatar from "@mui/material/Avatar";
+import axios from "axios";
+
 import { BiHappyBeaming } from "react-icons/bi";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from "../firebase"; // Adjust the path as per your project structure
@@ -36,6 +38,11 @@ function CommunityPage({ user }) {
   const auth = getAuth();
   const [followedProfiles, setFollowedProfiles] = useState([]);
   const fileInputRef = useRef(null);
+  const [selectedGif, setSelectedGif] = useState(null);
+  const [gifs, setGifs] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   // Trigger function for file input
   const triggerFileSelectPopup = () => fileInputRef.current.click();
@@ -56,11 +63,12 @@ function CommunityPage({ user }) {
 
   // Posting User Post to Firebase
   const handlePostSubmit = async () => {
-    if (!postText && !selectedFile) return; // Don't proceed if there's no content
+    if (!postText && !selectedFile && !selectedGif) return; // Don't proceed if there's no content
 
     setUploading(true);
 
     let imageUrl = ""; // Default to an empty string if no image is selected
+    let gifUrl = selectedGif ? selectedGif.images.fixed_height.url : ""; // Get GIF URL if a GIF is selected
 
     if (selectedFile) {
       // Define the storage path
@@ -76,6 +84,7 @@ function CommunityPage({ user }) {
     const post = {
       text: postText,
       imageUrl: imageUrl,
+      gifUrl: gifUrl, // Add GIF URL to the post structure
       createdAt: new Date(),
       uid: user.uid,
       displayName: user.displayName,
@@ -88,7 +97,51 @@ function CommunityPage({ user }) {
     // Reset states after posting
     setPostText("");
     setSelectedFile(null);
+    setSelectedGif(null); // Ensure this is reset
     setUploading(false);
+  };
+
+  // Inside your component
+  useEffect(() => {
+    // Automatically clear GIFs when the search query is empty
+    if (searchQuery.length === 0) {
+      setGifs([]);
+    }
+  }, [searchQuery]);
+
+  // Fetching GIFs with optional search functionality
+  const fetchGifs = async (query) => {
+    setLoading(true);
+    setError("");
+    const apiKey = "RQ5SXHNSOiJygpRRGjP1JTEP5qAGCaDc";
+    let url = `https://api.giphy.com/v1/gifs/${
+      query ? "search" : "trending"
+    }?api_key=${apiKey}&limit=10`;
+
+    if (query) {
+      url += `&q=${encodeURIComponent(query)}`;
+    }
+
+    try {
+      const response = await axios.get(url);
+      setGifs(response.data.data);
+    } catch (error) {
+      console.error("Error fetching GIFs:", error);
+      setError("Failed to fetch GIFs. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (searchQuery !== "") {
+      fetchGifs(searchQuery);
+    }
+  }, [searchQuery]);
+  // Handling GIF selection
+  const handleGifSelect = (gif) => {
+    setSelectedGif(gif);
+    // Close GIF picker UI here if applicable
   };
 
   // Preview User Image Post
@@ -227,16 +280,15 @@ function CommunityPage({ user }) {
           </h2>
 
           {/* Center Content Container */}
-          <div className="w-full h-[275px] md:p-6 flex z-50">
+          <div className="w-full h-auto md:p-6 flex z-10">
             {/* Left Avatar Side */}
             <div className="w-[120px] h-full flex justify-center px-2 pt-6 ">
               {/* Change user.email to user.uid */}
               <Link to={`/community/profile/${user?.displayName}`}>
-              <img
-  className="w-[120px] sm:h-[90px] h-[75px] rounded-full object-cover z-20"
-  src={user?.photoURL}
-/>
-
+                <img
+                  className="w-[120px] sm:h-[90px] h-[75px] rounded-full border-2 border-zinc-600 object-cover z-10"
+                  src={user?.photoURL}
+                />
               </Link>
               <div className="absolute top-0 right-0">
                 {theme === "dark" ? (
@@ -633,7 +685,21 @@ function CommunityPage({ user }) {
                 value={postText}
                 onChange={(e) => setPostText(e.target.value)}
               />
-              <div className="w-[96%] flex justify-end gap-4 items-center ">
+              <div className="w-[96%] flex flex-col lg:flex lg:flex-row md:justify-end lg:gap-4 items-center ">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="text"
+                    placeholder="Search GIFs"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className={`search-input p-2 border border-primary-200 focus:outline-none text-primary-200 rounded-md z-50 ${
+                      theme === "dark"
+                        ? "bg-[#031021] text-primary-200"
+                        : "bg-white"
+                    }`}
+                  />
+                </div>
+
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -667,6 +733,41 @@ function CommunityPage({ user }) {
               )}
             </div>
           </div>
+              {/* Display selected GIF */}
+              {selectedGif && (
+                <div className="bg-gray-100 dark:bg-gray-800 p-2 sm:p-4 md:p-6 rounded-lg shadow-lg z-50 w-full">
+                  <img
+                    src={selectedGif.images.fixed_height.url}
+                    alt="Selected GIF"
+                    className="w-full max-w-xs sm:max-w-sm md:max-w-md mt-2 rounded" // Responsive max-width adjustment
+                  />
+                </div>
+              )}
+
+              {/* Display search results */}
+              {searchQuery && gifs.length > 0 && (
+                <div
+                  className={`mt-2 grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 p-2 sm:p-4 md:p-6 w-full rounded-lg shadow z-40 ${
+                    theme === "dark"
+                      ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
+                      : ""
+                  }`}
+                >
+                  {gifs.map((gif) => (
+                    <div
+                      key={gif.id}
+                      className="bg-white dark:bg-gray-700 rounded-lg overflow-hidden shadow hover:shadow-md transition-shadow duration-300"
+                    >
+                      <img
+                        src={gif.images.fixed_height_small.url}
+                        alt="gif"
+                        onClick={() => handleGifSelect(gif)}
+                        className="w-full h-[100px] object-cover cursor-pointer" // Adjusted for aspect ratio
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
           {/* Line Divider */}
           <div className="w-full h-[10px] flex justify-center z-20 ">
             <div className="w-[92%] border-b border-zinc-700"></div>

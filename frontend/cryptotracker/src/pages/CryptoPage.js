@@ -769,3 +769,6 @@ const toggleFavorite = () => {
 }
 
 export default CryptoPage;
+
+
+
