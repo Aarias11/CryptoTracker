@@ -151,8 +151,7 @@ function Footer() {
             <h2 className="label-semibold-14 mb-3 ">Resourses</h2>
             <div className="label-14">
               <p>Resources</p>
-              <p>Resources</p>
-              <p>Resources</p>
+              
             </div>
           </div>
           {/* 2nd Grid */}
@@ -160,8 +159,7 @@ function Footer() {
             <h2 className="label-semibold-14 mb-3">Support</h2>
             <div className="label-14">
               <p>Support</p>
-              <p>Support</p>
-              <p>Support</p>
+              
             </div>
           </div>
           {/* 3rd Grid */}
@@ -169,8 +167,7 @@ function Footer() {
             <h2 className="label-semibold-14 mb-3">About</h2>
             <div className="label-14">
               <p>About</p>
-              <p>About</p>
-              <p>About</p>
+              
             </div>
           </div>
           {/* 4th Grid */}
@@ -178,8 +175,7 @@ function Footer() {
             <h2 className="label-semibold-14 mb-3">Community</h2>
             <div className="label-14">
               <p>Social</p>
-              <p>Social</p>
-              <p>Social</p>
+              
             </div>
          </div>
           </div>
