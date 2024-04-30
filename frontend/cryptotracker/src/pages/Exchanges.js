@@ -99,26 +99,23 @@ function ExchangesPage() {
             <thead>
               <tr>
                 <th
-                  className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 z-40 ${
+                  className={`h-[80px] px-5 py-3 text-left label-semibold-12 uppercase tracking-wider sticky left-0 items-center flex gap-2 z-10 ${
                     theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
                   }`}
                   onClick={() => handleSort("trust_score_rank")}
                 >
                   Rank
                 </th>
+                
                 <th
-                  className={`px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider sticky left-[75px] md:left-[93px] z-40  ${
+                  class={`px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider  ${
                     theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
                   }`}
-                >
-                  Image
-                </th>
-                <th
-                  class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider"
                   onClick={() => handleSort("name")}
                 >
                   Name
                 </th>
+                
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider"
                   onClick={() => handleSort("trade_volume_24h_btc")}
@@ -144,19 +141,17 @@ function ExchangesPage() {
                   >
                     {exchange.trust_score_rank}
                   </td>
-                  <td
-                    class={`px-5 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-[75px] md:left-[93px] ${
+                  
+                  <td class={`px-5 py-3  bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider ${
                       theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
-                    }`}
-                  >
-                    <img
+                    }`} >
+                  <div className="flex gap-2 items-center">
+                  <img
                       src={exchange.image}
                       alt={exchange.name}
                       className="w-8 h-8 rounded-full"
-                    />
-                  </td>
-                  <td class="px-5 py-3  bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
-                    {exchange.name}
+                    /> <p>{exchange.name}</p>
+                  </div>
                   </td>
                   <td class="px-5 py-3  bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
                     {exchange.trade_volume_24h_btc.toLocaleString()} BTC
