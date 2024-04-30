@@ -70,14 +70,14 @@ function App() {
 
     return () => {
       unsubscribe();
-      console.log('Cleanup on component unmount');
+      // console.log('Cleanup on component unmount');
     };
   }, [auth]);
 
   // Function to disconnect from Coinbase Wallet
   const disconnectCoinbaseWallet = () => {
     coinbaseWallet.disconnect();
-    console.log('Disconnected from Coinbase Wallet');
+    // console.log('Disconnected from Coinbase Wallet');
     // Perform any additional cleanup or state updates as needed
   };
 

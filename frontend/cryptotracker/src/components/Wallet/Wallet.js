@@ -131,9 +131,11 @@ function Wallet({ onClose }) {
     <div className={`fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50 ${
         theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
       }`}>
-      <div className={`w-[450px] h-[400px]  rounded-2xl shadow-xl flex flex-col justify-between overflow-hidden ${
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
-      }`} >
+      <div className={`w-[450px] h-[400px]  rounded-2xl shadow-md flex flex-col justify-between overflow-hidden border ${
+                        theme === "dark"
+                          ? "border-primary-900 rounded-xl bg-[#07172b]"
+                          : "bg-primary-200 shadow-primary-100 border-primary-400"
+                      }`} >
         <div className="p-6">
           <div className="text-right items-center mb-4">
             <button onClick={onClose} className="text-gray-400 hover:text-gray-500">
