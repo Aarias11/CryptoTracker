@@ -1,19 +1,21 @@
 import React from "react";
-import { useTheme } from '../../components/ThemeContext/ThemeContext'; // Correct import
-import coingecko from '../../assets/coingecko.png'
+import { useTheme } from "../../components/ThemeContext/ThemeContext"; // Correct import
+import coingecko from "../../assets/coingecko.png";
 
 function Footer() {
-  
   const { theme } = useTheme(); // Correct usage
 
-  
   return (
-    <footer className={` w-full h-auto md:h-[265px] border-t  border flex justify-center ${theme === "dark" ? "border-zinc-700 " : "border-primary-100 "}`}>
+    <footer
+      className={` w-full h-auto md:h-[265px] border-t  border flex justify-center ${
+        theme === "dark" ? "border-zinc-700 " : "border-primary-100 "
+      }`}
+    >
       {/* Footer Container */}
       <div className="w-[93%] h-full md:flex md:flex-wrap ">
         {/* Left Side */}
         <div className="w-full md:w-[50%] mt-2 ">
-        {theme === "dark" ? (
+          {theme === "dark" ? (
             <svg
               width="150"
               height="80"
@@ -137,51 +139,65 @@ function Footer() {
             </svg>
           )}
           <div className="flex flex-col gap-9 ">
-          <p className="body-14">Combining fundamental analysis of the crypto market with a supportive community</p>
-          <p className="flex gap-2 items-center">Powered by <a href="https://www.coingecko.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit' }}>CoinGecko</a> <img className="w-34 h-10" src={coingecko} /></p>
+            <p className="body-14">
+              Combining fundamental analysis of the crypto market with a
+              supportive community
+            </p>
 
-          <p className="hidden md:flex">2024 CoinCrowd. All Rights Reserved.</p>
+            <p className="hidden md:flex">
+              2024 CoinCrowd. All Rights Reserved.
+            </p>
           </div>
         </div>
         {/* Right Side */}
-        <div className="w-full md:w-[50%] h-full  pt-[40px] pb-10 flex justify-start md:justify-end ">
-         <div className="grid grid-cols-2 gap-10 md:grid-cols-4 ">
-           {/* 1st Grid */}
-           <div className="">
-            <h2 className="label-semibold-14 mb-3 ">Resourses</h2>
-            <div className="label-14">
-              <p>Resources</p>
-              
+        <div className="w-full md:w-[50%] h-full  pt-[40px] pb-10 flex flex-col-reverse gap-8 justify-start  ">
+          {/* CoinGecko Logo */}
+        <div className="w-[91%] flex justify-end">
+              <p className="w-full flex gap-2 items-center body-14 md:justify-end">
+                Powered by{" "}
+                <a
+                  href="https://www.coingecko.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "inherit" }}
+                >
+                  CoinGecko
+                </a>{" "}
+                <img className="w-34 h-9" src={coingecko} />
+              </p>
+            </div>
+          <div className="grid grid-cols-2 gap-10 md:grid-cols-4 ">
+            {/* 1st Grid */}
+            <div className="">
+              <h2 className="label-semibold-14 mb-3 ">Resourses</h2>
+              <div className="label-14">
+                <p>Resources</p>
+              </div>
+            </div>
+            {/* 2nd Grid */}
+            <div className="ml-14 md:ml-0">
+              <h2 className="label-semibold-14 mb-3">Support</h2>
+              <div className="label-14">
+                <p>Support</p>
+              </div>
+            </div>
+            {/* 3rd Grid */}
+            <div className="">
+              <h2 className="label-semibold-14 mb-3">About</h2>
+              <div className="label-14">
+                <p>About</p>
+              </div>
+            </div>
+            {/* 4th Grid */}
+            <div className="ml-14 md:ml-0">
+              <h2 className="label-semibold-14 mb-3">Community</h2>
+              <div className="label-14">
+                <p>Social</p>
+              </div>
             </div>
           </div>
-          {/* 2nd Grid */}
-          <div className="ml-14 md:ml-0">
-            <h2 className="label-semibold-14 mb-3">Support</h2>
-            <div className="label-14">
-              <p>Support</p>
-              
-            </div>
-          </div>
-          {/* 3rd Grid */}
-          <div className="">
-            <h2 className="label-semibold-14 mb-3">About</h2>
-            <div className="label-14">
-              <p>About</p>
-              
-            </div>
-          </div>
-          {/* 4th Grid */}
-          <div className="ml-14 md:ml-0">
-            <h2 className="label-semibold-14 mb-3">Community</h2>
-            <div className="label-14">
-              <p>Social</p>
-              
-            </div>
-         </div>
-          </div>
-
         </div>
-          <p className="pb-4 md:hidden">2024 CoinCrowd. All Rights Reserved.</p>
+        <p className="pb-4 md:hidden body-14">2024 CoinCrowd. All Rights Reserved.</p>
       </div>
     </footer>
   );
