@@ -325,7 +325,7 @@ function Auth() {
             {!isLoggedIn ? (
               <>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiLoginBoxLine className="text-lg text-zinc-200 mr-2" />
+                  <RiLoginBoxLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
                   <button
                     onClick={() => {
                       setIsLoginModalOpen(true);
@@ -337,7 +337,7 @@ function Auth() {
                   </button>
                 </li>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiUserAddLine className="text-lg text-zinc-200 mr-2" />
+                  <RiUserAddLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`} />
                   <button
                     onClick={() => {
                       setIsSignUpModalOpen(true);
@@ -349,13 +349,13 @@ function Auth() {
                   </button>
                 </li>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiDashboardLine className="text-lg text-zinc-200 group-hover:text-gray-200 mr-2" />
+                  <RiDashboardLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
                   <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
                     Cryptocurrencies
                   </Link>
                 </li>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiExchangeDollarLine className="text-lg text-zinc-200   mr-2 " />
+                  <RiExchangeDollarLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
                   <Link
                     to="/exchanges"
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -364,7 +364,7 @@ function Auth() {
                   </Link>
                 </li>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <PiMapTrifoldFill className="text-lg text-zinc-200  mr-2" />
+                  <PiMapTrifoldFill className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`} />
                   <Link
                     to="/heatmap"
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -374,20 +374,20 @@ function Auth() {
                 </li>
                 
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiBookLine className="text-lg text-zinc-200  mr-2" />
+                  <RiBookLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
                   Learn
                 </li>
               </>
             ) : (
               <>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiDashboardLine className="text-lg text-zinc-200 group-hover:text-gray-200 mr-2" />
+                  <RiDashboardLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
                   <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
                     Cryptocurrencies
                   </Link>
                 </li>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiExchangeDollarLine className="text-lg text-zinc-200   mr-2 " />
+                  <RiExchangeDollarLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`} />
                   <Link
                     to="/exchanges"
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -396,7 +396,7 @@ function Auth() {
                   </Link>
                 </li>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <PiMapTrifoldFill className="text-lg text-zinc-200  mr-2" />
+                  <PiMapTrifoldFill className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
                   <Link
                     to="/heatmap"
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -405,7 +405,7 @@ function Auth() {
                   </Link>
                 </li>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiGalleryLine className="text-lg text-zinc-200  mr-2" />
+                  <RiGalleryLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
                   <Link
                     to="/community"
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -413,13 +413,10 @@ function Auth() {
                     Community
                   </Link>
                 </li>
-                <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiBookLine className="text-lg text-zinc-200  mr-2" />
-                  Learn
-                </li>
+                
                 {/* Portfolio */}
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiBriefcaseLine className="text-lg text-zinc-200   mr-2" />
+                  <RiBriefcaseLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
                   <Link
                     to="/portfolio"
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -430,7 +427,7 @@ function Auth() {
 
                 {/* Watchlist */}
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiStarLine className="text-lg text-zinc-200  mr-2" />
+                  <RiStarLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
                   <Link
                     to="/watchlist"
                     onClick={() => setIsMobileMenuOpen(false)}
