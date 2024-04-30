@@ -237,6 +237,7 @@ function Auth() {
         {/* Hamburger Menu Icon */}
         <div className="xl:hidden">
           <RxHamburgerMenu
+          className="cursor-pointer"
             size={25}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           />
@@ -438,7 +439,7 @@ function Auth() {
                 <div className="text-center">
                 <button
                   onClick={handleSignOut}
-                  className=" text-error-400 mt-1 label-semibold-14 button-primary-small-hover-dark"
+                  className=" text-white mt-1 label-semibold-14 button-primary-small-hover-dark"
                 >
                   Sign Out
                 </button>

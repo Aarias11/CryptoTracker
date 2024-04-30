@@ -685,7 +685,7 @@ function CommunityPage({ user }) {
                 value={postText}
                 onChange={(e) => setPostText(e.target.value)}
               />
-              <div className="w-[96%] flex flex-col lg:flex lg:flex-row md:justify-end lg:gap-4 items-center z-30">
+              <div className="w-[96%] flex flex-col gap-5 lg:flex lg:flex-row md:justify-end lg:gap-4 items-center z-30">
                 <div className="flex items-center space-x-2">
                   <input
                     type="text"
