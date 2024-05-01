@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { Link } from "react-router-dom";
 import { BsMoonStarsFill, BsSunFill } from "react-icons/bs";
-import axios from "axios";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import CryptoGlobalData from "../../API/CryptoGlobalData.json";
