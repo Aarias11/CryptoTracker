@@ -1,9 +1,8 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ThemeContext from "../components/ThemeContext/ThemeContext";
-import Avatar from "@mui/material/Avatar";
-import { BiHappyBeaming } from "react-icons/bi";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+import { getAuth } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {
   doc,
@@ -22,28 +21,27 @@ import { IconPlus, IconMinus, IconSettings } from "@tabler/icons-react";
 import TrendingCoins from "../API/TrendingCoins.json";
 
 function CommunityProfile({ user }) {
+  const { theme } = useContext(ThemeContext);
   const [bannerImage, setBannerImage] = useState("");
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
   const [hover, setHover] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [searchInput, setSearchInput] = useState(""); // State to manage search input
-  const { theme } = useContext(ThemeContext);
-  // Recommended Profiles State
+  const [searchInput, setSearchInput] = useState(""); 
   const [recommendedProfiles, setRecommendedProfiles] = useState([]);
-
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+  const [crypto, setCrypto] = useState([]);
+  const [isTrendingCurrenciesTab, setIsTrendingCurrenciesTab] = useState(true);
+  const [isCommunityTab, setIsCommunityTab] = useState(true);
+  
+  const auth = getAuth();
 
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
 
-  const [favorites, setFavorites] = useState([]);
-  const [crypto, setCrypto] = useState([]);
-  const [isTrendingCurrenciesTab, setIsTrendingCurrenciesTab] = useState(true);
-  const [isCommunityTab, setIsCommunityTab] = useState(true);
 
-  const auth = getAuth();
 
   // UseEffect Trending Coins
   useEffect(() => {
@@ -166,11 +164,10 @@ function CommunityProfile({ user }) {
         fetchedFavorites.push({ id: doc.id, ...doc.data() });
       });
       setFavorites(fetchedFavorites);
-      // console.log(favorites);
     };
 
     fetchFavorites();
-  }, []);
+  });
 
   return (
     <div
@@ -184,7 +181,7 @@ function CommunityProfile({ user }) {
 
         <div
           className={`w-full h-[200px] md:h-auto md:flex flex flex-col md:w-[30%] p-4 md:p-8 overflow-y-scroll border-r border-zinc-800 ${
-            theme == "dark"
+            theme === "dark"
               ? "border-primary-900  bg-gradient-to-l from-[#07172b]"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
           }`}
@@ -377,7 +374,7 @@ function CommunityProfile({ user }) {
                   <div
                     key={profile.id}
                     className={`flex flex-col flex-shrink-0  w-[200px] h-[110px] border rounded-xl shadow-lg shadow-black  ${
-                      theme == "dark"
+                      theme === "dark"
                         ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
                         : "bg-primary-50 shadow-primary-100 border-primary-200"
                     }`}
@@ -391,7 +388,7 @@ function CommunityProfile({ user }) {
                         <div className="w-full h-[100%]">
                           <img
                             className="w-full h-[60%] object-cover rounded-tl-xl rounded-tr-xl border-b-2 border-primary-800"
-                            src={profile.bannerImage}
+                            src={profile.bannerImage} alt="profile_banner"
                           />
                         </div>
                         <div className="w-full h-[50%] flex translate-y-[-50px]">

@@ -10,10 +10,12 @@ function Account({ user }) {
   const [displayName, setDisplayName] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const [uploading, setUploading] = useState(false); // Track upload status
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   const auth = getAuth();
   const storage = getStorage(); // Initialize Firebase Storage
 
+
+  
   useEffect(() => {
     if (user) {
       setDisplayName(user.displayName || "");
@@ -58,7 +60,7 @@ function Account({ user }) {
             photoURL: profilePic, // Save the profile picture URL
         }, { merge: true }); // Merge with existing document to prevent overwriting other fields
 
-        // console.log("Profile updated successfully");
+        alert("Profile updated successfully");
     } catch (error) {
         console.error("Error updating profile:", error);
     }
@@ -66,7 +68,6 @@ function Account({ user }) {
 };
 
 
-  console.log(user);
 
   return (
     <div className={`flex flex-col md:flex-row ${
@@ -74,7 +75,7 @@ function Account({ user }) {
     }`}>
     {/* Sidebar */}
     <div className={`w-full md:w-64 h-auto hidden md:flex md: md:h-screen ${
-            theme == "dark"
+            theme === "dark"
               ? "border-zinc-700 bg-gradient-to-l from-[#07172b]"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
           }`}>

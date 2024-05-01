@@ -20,7 +20,6 @@ import {
 import {
   collection,
   query,
-  where,
   onSnapshot,
   arrayRemove,
   doc,

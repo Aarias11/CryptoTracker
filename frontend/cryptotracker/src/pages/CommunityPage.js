@@ -1,18 +1,13 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ThemeContext from "../components/ThemeContext/ThemeContext";
-import Avatar from "@mui/material/Avatar";
 import axios from "axios";
-
-import { BiHappyBeaming } from "react-icons/bi";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from "../firebase"; // Adjust the path as per your project structure
 import {
   collection,
   doc,
   setDoc,
   getDocs,
-  getFirestore,
   query,
   where,
   orderBy,
@@ -24,18 +19,15 @@ import {
   ref as storageRef,
 } from "firebase/storage";
 
-import { IconSettings, IconPaperclip } from "@tabler/icons-react";
+import { IconPaperclip } from "@tabler/icons-react";
 
 function CommunityPage({ user }) {
+  const { theme } = useContext(ThemeContext); // Using ThemeContext
   const [postText, setPostText] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [posts, setPosts] = useState([]);
   const [uploading, setUploading] = useState(false); // Define the missing setUploading state
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
-  const { username } = useParams();
-  const [userProfile, setUserProfile] = useState(null);
-  const { theme, toggleTheme } = useContext(ThemeContext); // Using ThemeContext
-  const auth = getAuth();
   const [followedProfiles, setFollowedProfiles] = useState([]);
   const fileInputRef = useRef(null);
   const [selectedGif, setSelectedGif] = useState(null);
@@ -113,7 +105,7 @@ function CommunityPage({ user }) {
   const fetchGifs = async (query) => {
     setLoading(true);
     setError("");
-    const apiKey = "RQ5SXHNSOiJygpRRGjP1JTEP5qAGCaDc";
+    const apiKey = process.env.GIPHY_API_KEY;
     let url = `https://api.giphy.com/v1/gifs/${
       query ? "search" : "trending"
     }?api_key=${apiKey}&limit=10`;
@@ -209,7 +201,7 @@ function CommunityPage({ user }) {
         {/* Left Side Container */}
         <div
           className={`xl:w-[20%] hidden xl:flex flex-col p-7 border-r ${
-            theme == "dark"
+            theme === "dark"
               ? "border-zinc-700 bg-gradient-to-l from-[#07172b]"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
           }`}
@@ -231,7 +223,7 @@ function CommunityPage({ user }) {
                   <div
                     key={crypto.id}
                     className={`flex flex-col flex-shrink-0  w-auto h-[110px] border rounded-xl shadow-lg shadow-black  ${
-                      theme == "dark"
+                      theme === "dark"
                         ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
                         : "bg-primary-50 shadow-primary-100 border-primary-200"
                     }`}
@@ -242,6 +234,7 @@ function CommunityPage({ user }) {
                         <img
                           className="w-full h-[60%] object-cover rounded-tl-xl rounded-tr-xl border-b-2 border-primary-800"
                           src={profile.bannerImage}
+                          alt="profile_banner"
                         />
                       </div>
                       <div className="w-full h-[50%] flex translate-y-[-50px]">
@@ -288,6 +281,7 @@ function CommunityPage({ user }) {
                 <img
                   className="w-[120px] sm:h-[90px] h-[75px] rounded-full border-2 border-zinc-600 object-cover z-10"
                   src={user?.photoURL}
+                  alt="user_avatar"
                 />
               </Link>
               <div className="absolute top-0 right-0">
@@ -714,7 +708,7 @@ function CommunityPage({ user }) {
 
                 <button
                   className={`w-[100px] h-[40px] border rounded-lg z-20 ${
-                    theme == "dark"
+                    theme === "dark"
                       ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b] hover:bg-primary-800"
                       : "bg-primary-50 shadow-primary-100 border-primary-200 hover:bg-primary-300"
                   }`}
@@ -733,41 +727,41 @@ function CommunityPage({ user }) {
               )}
             </div>
           </div>
-              {/* Display selected GIF */}
-              {selectedGif && (
-                <div className="bg-gray-100 dark:bg-gray-800 p-2 sm:p-4 md:p-6 rounded-lg shadow-lg z-50 w-full">
+          {/* Display selected GIF */}
+          {selectedGif && (
+            <div className="bg-gray-100 dark:bg-gray-800 p-2 sm:p-4 md:p-6 rounded-lg shadow-lg z-50 w-full">
+              <img
+                src={selectedGif.images.fixed_height.url}
+                alt="Selected GIF"
+                className="w-full max-w-xs sm:max-w-sm md:max-w-md mt-2 rounded" // Responsive max-width adjustment
+              />
+            </div>
+          )}
+
+          {/* Display search results */}
+          {searchQuery && gifs.length > 0 && (
+            <div
+              className={`mt-2 grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 p-2 sm:p-4 md:p-6 w-full rounded-lg shadow z-40 ${
+                theme === "dark"
+                  ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
+                  : ""
+              }`}
+            >
+              {gifs.map((gif) => (
+                <div
+                  key={gif.id}
+                  className="bg-white dark:bg-gray-700 rounded-lg overflow-hidden shadow hover:shadow-md transition-shadow duration-300"
+                >
                   <img
-                    src={selectedGif.images.fixed_height.url}
-                    alt="Selected GIF"
-                    className="w-full max-w-xs sm:max-w-sm md:max-w-md mt-2 rounded" // Responsive max-width adjustment
+                    src={gif.images.fixed_height_small.url}
+                    alt="gif"
+                    onClick={() => handleGifSelect(gif)}
+                    className="w-full h-[100px] object-cover cursor-pointer" // Adjusted for aspect ratio
                   />
                 </div>
-              )}
-
-              {/* Display search results */}
-              {searchQuery && gifs.length > 0 && (
-                <div
-                  className={`mt-2 grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 p-2 sm:p-4 md:p-6 w-full rounded-lg shadow z-40 ${
-                    theme === "dark"
-                      ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
-                      : ""
-                  }`}
-                >
-                  {gifs.map((gif) => (
-                    <div
-                      key={gif.id}
-                      className="bg-white dark:bg-gray-700 rounded-lg overflow-hidden shadow hover:shadow-md transition-shadow duration-300"
-                    >
-                      <img
-                        src={gif.images.fixed_height_small.url}
-                        alt="gif"
-                        onClick={() => handleGifSelect(gif)}
-                        className="w-full h-[100px] object-cover cursor-pointer" // Adjusted for aspect ratio
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
+              ))}
+            </div>
+          )}
           {/* Line Divider */}
           <div className="w-full h-[10px] flex justify-center z-20 ">
             <div className="w-[92%] border-b border-zinc-700"></div>
@@ -810,6 +804,7 @@ function CommunityPage({ user }) {
                       <img
                         className="w-[64px] h-[64px] rounded-full border-2 border-zinc-600"
                         src={post.photoURL || "https://via.placeholder.com/150"}
+                        alt="avatar"
                       />
                     </div>
                     {/* TEXT AREA AND POST */}
@@ -854,14 +849,14 @@ function CommunityPage({ user }) {
                         </div>
                       )}
                       {post.gifUrl && (
-                          <div className="max-w-full h-auto mt-2 flex justify-center">
-                            <img
-                              src={post.gifUrl}
-                              alt="GIF in post"
-                              className="w-full max-w-xs mt-2 rounded-xl"
-                            />
-                          </div>
-                        )}
+                        <div className="max-w-full h-auto mt-2 flex justify-center">
+                          <img
+                            src={post.gifUrl}
+                            alt="GIF in post"
+                            className="w-full max-w-xs mt-2 rounded-xl"
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                 </Link>
@@ -872,7 +867,7 @@ function CommunityPage({ user }) {
         {/* Right Side */}
         <div
           className={`hidden overflow-y-scroll w-[30%] h-full border-r border-zinc-700 xl:flex lg:justify-center p-4 ${
-            theme == "dark"
+            theme === "dark"
               ? " bg-gradient-to-r from-[#07172b]"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
           }`}
@@ -880,7 +875,7 @@ function CommunityPage({ user }) {
           {/* Left Side Content Container */}
           <div
             className={` w-full h-screen  ${
-              theme == "dark"
+              theme === "dark"
                 ? "  bg-gradient-to-r from-[#07172b]"
                 : "bg-primary-50 shadow-primary-100 border-primary-200"
             }`}
@@ -893,7 +888,7 @@ function CommunityPage({ user }) {
               <div className="w-full h-full p-6 flex flex-col gap-8 ">
                 <div
                   className={`w-full h-[200px] rounded-xl ${
-                    theme == "dark"
+                    theme === "dark"
                       ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
                       : "bg-primary-50 shadow-primary-100 border-primary-200"
                   }`}
@@ -901,12 +896,13 @@ function CommunityPage({ user }) {
                   <img
                     className="h-full object-cover rounded-xl"
                     src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZXZlbnR8ZW58MHx8MHx8fDA%3D"
+                    alt="events_1"
                   />
                 </div>
 
                 <div
                   className={`w-full h-[200px] border rounded-xl ${
-                    theme == "dark"
+                    theme === "dark"
                       ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
                       : "bg-primary-50 shadow-primary-100 border-primary-200"
                   }`}
@@ -914,12 +910,13 @@ function CommunityPage({ user }) {
                   <img
                     className="h-full object-cover rounded-xl"
                     src="https://images.unsplash.com/photo-1531058020387-3be344556be6?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZXZlbnRzfGVufDB8fDB8fHww"
+                    alt="events_2"
                   />
                 </div>
 
                 <div
                   className={`w-full h-[200px] border rounded-xl ${
-                    theme == "dark"
+                    theme === "dark"
                       ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
                       : "bg-primary-50 shadow-primary-100 border-primary-200"
                   }`}
@@ -927,6 +924,7 @@ function CommunityPage({ user }) {
                   <img
                     className="h-full object-cover rounded-xl"
                     src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGV2ZW50c3xlbnwwfHwwfHx8MA%3D%3D"
+                    alt="events_3"
                   />
                 </div>
               </div>

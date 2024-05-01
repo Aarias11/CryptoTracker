@@ -193,7 +193,7 @@ function CryptoPage({ user, currentCrypto }) {
   // Fetching GIFs with optional search functionality
   const fetchGifs = async (searchQuery = "") => {
     setLoading(true);
-    const apiKey = "RQ5SXHNSOiJygpRRGjP1JTEP5qAGCaDc";
+    const apiKey = process.env.GIPHY_API_KEY;
     let url = `https://api.giphy.com/v1/gifs/${
       searchQuery.trim() ? "search" : "trending"
     }?api_key=${apiKey}&limit=10`;
