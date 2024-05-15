@@ -157,7 +157,7 @@ function CommunityProfile({ user }) {
     const fetchFavorites = async () => {
       const user = auth.currentUser;
       if (!user) return;
-
+  
       const querySnapshot = await getDocs(
         collection(db, "users", user.uid, "favorites")
       );
@@ -167,10 +167,15 @@ function CommunityProfile({ user }) {
       });
       setFavorites(fetchedFavorites);
     };
-
+  
     fetchFavorites();
-  });
-
+    
+    // Cleanup function
+    return () => {
+      // Cancel any ongoing operations here
+    };
+  }, []);
+  
   return (
     <div
       className={`w-full h-screen ${theme === "dark" ? "body-14 " : "body-14"}`}
