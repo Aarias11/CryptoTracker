@@ -144,15 +144,15 @@ function Footer() {
               supportive community
             </p>
 
-            <p className="hidden md:flex">
+            <p className="hidden md:flex label-14">
               2024 CoinCrowd. All Rights Reserved.
             </p>
           </div>
         </div>
         {/* Right Side */}
-        <div className="w-full md:w-[50%] h-full  pt-[40px] pb-10 flex flex-col-reverse gap-8 justify-start  ">
+        <div className="w-full md:w-[50%] h-full  pt-[40px] pb-10 flex flex-col-reverse gap-8 justify-start ">
           {/* CoinGecko Logo */}
-        <div className="w-[91%] flex justify-end">
+        <div className="w-[91%] flex justify-end ">
               <p className="w-full flex gap-2 items-center body-14 md:justify-end">
                 Powered by{" "}
                 <a
@@ -161,15 +161,15 @@ function Footer() {
                   rel="noopener noreferrer"
                   style={{ color: "inherit" }}
                 >
-                  CoinGecko
+                  
                 </a>{" "}
                 <img className="w-34 h-9" src={coingecko} />
               </p>
             </div>
-          <div className="grid grid-cols-2 gap-10 md:grid-cols-4 ">
+          <div className="grid grid-cols-2 gap-10 md:grid-cols-4 translate-y-[-14px]">
             {/* 1st Grid */}
             <div className="">
-              <h2 className="label-semibold-14 mb-3 ">Resourses</h2>
+              <h2 className="label-semibold-14 mb-3 ">Resources</h2>
               <div className="label-14">
                 <p>Resources</p>
               </div>
@@ -197,7 +197,7 @@ function Footer() {
             </div>
           </div>
         </div>
-        <p className="pb-4 md:hidden body-14">2024 CoinCrowd. All Rights Reserved.</p>
+        <p className="pb-4 md:hidden label-14 ">2024 CoinCrowd. All Rights Reserved.</p>
       </div>
     </footer>
   );
