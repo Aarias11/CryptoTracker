@@ -18,6 +18,8 @@ import {
   getDownloadURL,
   ref as storageRef,
 } from "firebase/storage";
+import Avatar from "@mui/material/Avatar";
+
 
 import { IconPaperclip } from "@tabler/icons-react";
 
@@ -278,11 +280,18 @@ function CommunityPage({ user }) {
             <div className="w-[120px] h-full flex justify-center px-2 pt-6 ">
               {/* Change user.email to user.uid */}
               <Link to={`/community/profile/${user?.displayName}`}>
-                <img
-                  className="w-[120px] sm:h-[90px] h-[75px] rounded-full border-2 border-zinc-600 object-cover z-10"
-                  src={user?.photoURL}
-                  alt="user_avatar"
-                />
+              {user?.photoURL ? (
+                    <img
+                      className="w-full h-full object-cover rounded-full border-2 border-zinc-600 z-10 translate-y-[-5px] sm:translate-y-[-10px]"
+                      src={user.photoURL}
+                      alt="user_avatar"
+                    />
+                  ) : (
+                    <Avatar
+                      className="w-full h-full rounded-full border-2 border-zinc-600 object-cover z-10 translate-y-[-50px] p-16 mt-5"
+                      alt="user_avatar"
+                    />
+                  )}
               </Link>
               <div className="absolute top-0 right-0">
                 {theme === "dark" ? (

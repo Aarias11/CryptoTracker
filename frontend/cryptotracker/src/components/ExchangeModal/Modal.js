@@ -1,4 +1,3 @@
-// src/components/Modal.js
 import React, { useEffect, useState } from 'react';
 
 const Modal = ({ exchange, onClose, theme }) => {

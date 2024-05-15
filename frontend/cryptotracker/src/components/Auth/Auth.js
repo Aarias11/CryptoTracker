@@ -37,6 +37,7 @@ function Auth() {
   const [searchExpanded, setSearchExpanded] = useState(false); // State to manage the search component's visibility
 
   const dropdownRef = useRef(null);
+  const searchRef = useRef(null); // Reference for the search component
 
   const nav = useNavigate();
   const { theme, toggleTheme } = useContext(ThemeContext); // Using ThemeContext
@@ -74,6 +75,25 @@ function Auth() {
         console.error("Sign out error", error);
       });
   };
+
+  // Detect clicks outside of the search component
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setSearchExpanded(false);
+      }
+    };
+
+    if (searchExpanded) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [searchExpanded]);
 
   // OPEN LOGIN MODAL
   const openModal = () => {
@@ -117,7 +137,7 @@ function Auth() {
                 <span className="w-[100px]">Halving: 3D</span>
               </li>
 
-              <li>
+              <li ref={searchRef}>
                 <SearchComponent
                   theme={theme}
                   setSearchExpanded={setSearchExpanded}
@@ -148,7 +168,7 @@ function Auth() {
                   <span className="text-primary-400">Portfolio</span>
                 </Link>
               </li>
-              <li>
+              <li ref={searchRef}>
                 <SearchComponent
                   theme={theme}
                   setSearchExpanded={setSearchExpanded}
@@ -159,9 +179,13 @@ function Auth() {
         )}
         {user ? (
           <>
-            <li className={`hidden xl:flex font-semibold ${
+            <li
+              className={`hidden xl:flex font-semibold ${
                 theme === "dark" ? " text-[#EAF2FD]" : " text-teal-600"
-              } `}>{user.email}</li>
+              } `}
+            >
+              {user.email}
+            </li>
 
             {/* User avatar and dropdown menu toggle */}
             <li className="relative" ref={dropdownRef}>
@@ -237,7 +261,7 @@ function Auth() {
         {/* Hamburger Menu Icon */}
         <div className="xl:hidden">
           <RxHamburgerMenu
-          className="cursor-pointer"
+            className="cursor-pointer"
             size={25}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           />
@@ -287,10 +311,7 @@ function Auth() {
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               />
               <div>
-                <p className="label-semibold-12 ">
-                  {user.email}
-                </p>
-                
+                <p className="label-semibold-12 ">{user.email}</p>
               </div>
               {/* Footer - Theme Switcher */}
 
@@ -326,7 +347,11 @@ function Auth() {
             {!isLoggedIn ? (
               <>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiLoginBoxLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
+                  <RiLoginBoxLine
+                    className={`text-lg mr-2 ${
+                      theme === "dark" ? "text-zinc-200" : "text-zinc-800"
+                    }`}
+                  />
                   <button
                     onClick={() => {
                       setIsLoginModalOpen(true);
@@ -338,7 +363,11 @@ function Auth() {
                   </button>
                 </li>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiUserAddLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`} />
+                  <RiUserAddLine
+                    className={`text-lg mr-2 ${
+                      theme === "dark" ? "text-zinc-200" : "text-zinc-800"
+                    }`}
+                  />
                   <button
                     onClick={() => {
                       setIsSignUpModalOpen(true);
@@ -350,13 +379,21 @@ function Auth() {
                   </button>
                 </li>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiDashboardLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
+                  <RiDashboardLine
+                    className={`text-lg mr-2 ${
+                      theme === "dark" ? "text-zinc-200" : "text-zinc-800"
+                    }`}
+                  />
                   <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
                     Cryptocurrencies
                   </Link>
                 </li>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiExchangeDollarLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
+                  <RiExchangeDollarLine
+                    className={`text-lg mr-2 ${
+                      theme === "dark" ? "text-zinc-200" : "text-zinc-800"
+                    }`}
+                  />
                   <Link
                     to="/exchanges"
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -365,7 +402,11 @@ function Auth() {
                   </Link>
                 </li>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <PiMapTrifoldFill className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`} />
+                  <PiMapTrifoldFill
+                    className={`text-lg mr-2 ${
+                      theme === "dark" ? "text-zinc-200" : "text-zinc-800"
+                    }`}
+                  />
                   <Link
                     to="/heatmap"
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -373,22 +414,34 @@ function Auth() {
                     HeatMap
                   </Link>
                 </li>
-                
+
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiBookLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
+                  <RiBookLine
+                    className={`text-lg mr-2 ${
+                      theme === "dark" ? "text-zinc-200" : "text-zinc-800"
+                    }`}
+                  />
                   Learn
                 </li>
               </>
             ) : (
               <>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiDashboardLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
+                  <RiDashboardLine
+                    className={`text-lg mr-2 ${
+                      theme === "dark" ? "text-zinc-200" : "text-zinc-800"
+                    }`}
+                  />
                   <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
                     Cryptocurrencies
                   </Link>
                 </li>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiExchangeDollarLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`} />
+                  <RiExchangeDollarLine
+                    className={`text-lg mr-2 ${
+                      theme === "dark" ? "text-zinc-200" : "text-zinc-800"
+                    }`}
+                  />
                   <Link
                     to="/exchanges"
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -397,7 +450,11 @@ function Auth() {
                   </Link>
                 </li>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <PiMapTrifoldFill className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
+                  <PiMapTrifoldFill
+                    className={`text-lg mr-2 ${
+                      theme === "dark" ? "text-zinc-200" : "text-zinc-800"
+                    }`}
+                  />
                   <Link
                     to="/heatmap"
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -406,7 +463,11 @@ function Auth() {
                   </Link>
                 </li>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiGalleryLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
+                  <RiGalleryLine
+                    className={`text-lg mr-2 ${
+                      theme === "dark" ? "text-zinc-200" : "text-zinc-800"
+                    }`}
+                  />
                   <Link
                     to="/community"
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -414,10 +475,14 @@ function Auth() {
                     Community
                   </Link>
                 </li>
-                
+
                 {/* Portfolio */}
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiBriefcaseLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
+                  <RiBriefcaseLine
+                    className={`text-lg mr-2 ${
+                      theme === "dark" ? "text-zinc-200" : "text-zinc-800"
+                    }`}
+                  />
                   <Link
                     to="/portfolio"
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -428,7 +493,11 @@ function Auth() {
 
                 {/* Watchlist */}
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiStarLine className={`text-lg mr-2 ${theme === "dark" ? "text-zinc-200" : "text-zinc-800"}`}  />
+                  <RiStarLine
+                    className={`text-lg mr-2 ${
+                      theme === "dark" ? "text-zinc-200" : "text-zinc-800"
+                    }`}
+                  />
                   <Link
                     to="/watchlist"
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -437,12 +506,12 @@ function Auth() {
                   </Link>
                 </li>
                 <div className="text-center">
-                <button
-                  onClick={handleSignOut}
-                  className=" text-white mt-1 label-semibold-14 button-primary-small-hover-dark"
-                >
-                  Sign Out
-                </button>
+                  <button
+                    onClick={handleSignOut}
+                    className=" text-white mt-1 label-semibold-14 button-primary-small-hover-dark"
+                  >
+                    Sign Out
+                  </button>
                 </div>
                 {/* Additional Features */}
                 {/* Search Feature Placeholder */}

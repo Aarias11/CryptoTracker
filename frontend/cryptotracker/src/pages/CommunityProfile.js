@@ -19,6 +19,8 @@ import { CameraIcon } from "@heroicons/react/outline"; // Ensure correct import 
 import { CiCalendarDate } from "react-icons/ci";
 import { IconPlus, IconMinus, IconSettings } from "@tabler/icons-react";
 import TrendingCoins from "../API/TrendingCoins.json";
+import Avatar from "@mui/material/Avatar";
+
 
 function CommunityProfile({ user }) {
   const { theme } = useContext(ThemeContext);
@@ -307,11 +309,21 @@ function CommunityProfile({ user }) {
             <div className="w-full h-[100px] flex gap-24 items-center py-4 px-4 sm:px-20 ">
               {/* Left Avatar Side */}
               <div className="flex-none w-[150px] sm:w-[200px] h-[150px] sm:h-[200px] relative">
-                <img
-                  className="absolute left-1/2 transform -translate-x-1/2 -translate-y-[50px] sm:-translate-y-20 w-[150px] sm:w-[200px] h-[150px] sm:h-[200px] object-cover rounded-full border-4 border-primary-700"
-                  src={user?.photoURL || "https://via.placeholder.com/200"}
-                  alt={user?.displayName || "User Avatar"}
-                />
+                
+              <Link to={`/community/profile/${user?.displayName}`}>
+                  {user?.photoURL ? (
+                    <img
+                      className="w-full h-full object-cover rounded-full border-2 border-zinc-600 z-10 translate-y-[-50px]"
+                      src={user.photoURL}
+                      alt="user_avatar"
+                    />
+                  ) : (
+                    <Avatar
+                      className="w-full h-full rounded-full border-2 border-zinc-600 object-cover z-10 translate-y-[-50px] p-16 mt-5"
+                      alt="user_avatar"
+                    />
+                  )}
+                </Link>
               </div>
               {/* User Info */}
               <div className="flex-1 w-auto ml-4  translate-x-[-92px] md:translate-x-0 pt-3">
