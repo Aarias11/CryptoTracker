@@ -6,7 +6,7 @@ import { getAuth } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import ThemeContext from "../components/ThemeContext/ThemeContext"; // Import ThemeContext
-
+import WatchListEmptyState from "../components/Portfolio/WatchListEmptyState";
 
 const Watchlist = () => {
   const [favorites, setFavorites] = useState([]);
@@ -59,8 +59,11 @@ const Watchlist = () => {
 
   return (
     <div className={`w-full h-screen mx-auto overflow-x-auto  ${bodyBgTheme}`}>
-      <h2 className="text-5xl font-semibold ml-6 p-6">YOUR WATCHLIST</h2>
-      <div className="px-6 ml-6 ">
+      <h2 className="headline-semibold-28 ml-6 p-6">YOUR WATCHLIST</h2>
+      
+      <div>
+        {filteredFavorites.length > 0 ? (
+          <div className="px-6 ml-6 ">
         <input
           type="text"
           placeholder="Search Your Favorites"
@@ -72,9 +75,7 @@ const Watchlist = () => {
               : ""
           }`}
         />
-      </div>
-
-      <div
+        <div
         className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:p-[50px] mt-10  ${
           theme === "dark" ? " " : ""
         }`}
@@ -219,6 +220,15 @@ const Watchlist = () => {
         </tbody>
       </table>
 
+      </div>
+      </div>
+        ) : (
+          <WatchListEmptyState theme={theme} />
+        )}
+      
+      
+
+      
       </div>
     </div>
   );
