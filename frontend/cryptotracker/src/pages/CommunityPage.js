@@ -277,7 +277,7 @@ function CommunityPage({ user }) {
           {/* Center Content Container */}
           <div className="w-full h-auto md:p-6 flex z-10">
             {/* Left Avatar Side */}
-            <div className="w-[200px] h-[150px] flex justify-center px-2 pt-6 ">
+            <div className="w-[170px] h-[150px] flex justify-center px-2 pt-6 ">
               {/* Change user.email to user.uid */}
               <Link to={`/community/profile/${user?.displayName}`}>
               {user?.photoURL ? (
