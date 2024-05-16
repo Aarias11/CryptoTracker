@@ -30,6 +30,7 @@ import PortfolioModal from "../components/Portfolio/PortfolioModal";
 import AddCryptoModal from "../components/Portfolio/AddCryptoModal";
 import CryptoMarketCoins from "../API/CryptoMarketCoins.json";
 import { IconX } from "@tabler/icons-react";
+import PortfolioEmptyState from "../components/Portfolio/PortfolioEmptyState";
 
 ChartJS.register(
   CategoryScale,
@@ -52,32 +53,23 @@ const Portfolio = () => {
   const [selectedPortfolio, setSelectedPortfolio] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNewPortfolioModalOpen, setIsNewPortfolioModalOpen] = useState(false);
-
+  const [portfolios, setPortfolios] = useState([]); // State to store the list of portfolios
 
   useEffect(() => {
     if (user) {
-      const q = query(collection(db, "users", user.uid, "portfolios"));
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        let portfolios = [];
-        snapshot.forEach((doc) => {
-          portfolios.push({
-            id: doc.id,
-            ...doc.data(),
-          });
+        const q = query(collection(db, "users", user.uid, "portfolios"));
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            let fetchedPortfolios = [];
+            snapshot.forEach((doc) => {
+                fetchedPortfolios.push({ id: doc.id, ...doc.data() });
+            });
+            setPortfolios(fetchedPortfolios);
+            console.log("Updated portfolios", fetchedPortfolios);
         });
-        if (selectedPortfolio) {
-          const portfolio = portfolios.find(
-            (p) => p.id === selectedPortfolio.id
-          );
-          if (portfolio) {
-            setCryptoData(portfolio.cryptos || []);
-            // console.log(portfolio.cryptos);
-          }
-        }
-      });
-      return () => unsubscribe();
+        return () => unsubscribe();
     }
-  }, [user, selectedPortfolio]);
+}, [user]);
+
 
   const handlePortfolioSelect = (portfolio) => {
     // console.log("Portfolio selected:", portfolio);
@@ -141,10 +133,8 @@ const Portfolio = () => {
   };
 
   const handleAddClick = () => {
-    setIsNewPortfolioModalOpen(true);  // This should control the NewPortfolioModal
+    setIsNewPortfolioModalOpen(true); // This should control the NewPortfolioModal
   };
-  
-  
 
   const handleDeletePortfolio = async () => {
     if (selectedPortfolio) {
@@ -206,92 +196,107 @@ const Portfolio = () => {
   return (
     <div className="w-full h-auto  p-3 pt-10  md:px-14  ">
       <h1 className="headline-semibold-28  ">Portfolio</h1>
-      <div className="w-full h-auto flex flex-col-reverse gap-4">
-        
-        {/* Section for buttons and viewing text */}
-        <div className="flex flex-col xl:ml-16 pl-1 pt-2">
-          {/* Button Container always visible */}
-          <div className="flex gap-3">
-            <button
-              onClick={handleAddClick}
-              className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-primary-800 ${
-                theme === "dark" ? "button-primary-medium-dark text-primary-50" : "button-primary-medium-light text-primary-50"
-              }`}
-            >
-              Add Portfolio
-            </button>
+      <div>
+        {portfolios.length > 0 ? (
+          <>
+            <div className="w-full h-auto flex flex-col-reverse gap-4">
+              {/* Section for buttons and viewing text */}
+              <div className="flex flex-col xl:ml-16 pl-1 pt-2">
+                {/* Button Container always visible */}
+                <div className="flex gap-3">
+                  <button
+                    onClick={handleAddClick}
+                    className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-primary-800 ${
+                      theme === "dark"
+                        ? "button-primary-medium-dark text-primary-50"
+                        : "button-primary-medium-light text-primary-50"
+                    }`}
+                  >
+                    Add Portfolio
+                  </button>
 
-            {/* Conditionally render the Delete Portfolio button */}
-            {selectedPortfolio && (
-              <button
-                onClick={handleDeletePortfolio}
-                className={`w-[150px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out ${
-                  theme === "dark" ? "text-primary-50" : "button-primary-medium-light text-primary-50"
+                  {/* Conditionally render the Delete Portfolio button */}
+                  {selectedPortfolio && (
+                    <button
+                      onClick={handleDeletePortfolio}
+                      className={`w-[150px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out ${
+                        theme === "dark"
+                          ? "text-primary-50"
+                          : "button-primary-medium-light text-primary-50"
+                      }`}
+                    >
+                      Delete Portfolio
+                    </button>
+                  )}
+                </div>
+
+                {/* Portfolio Viewing Details, conditionally displayed */}
+                {selectedPortfolio && (
+                  <div className="pt-4 pb-4 flex gap-2 items-center">
+                    <p className="title-20">Viewing</p>
+                    <p className="title-semibold-20">
+                      {selectedPortfolio.name}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              <Docker onSelectPortfolio={handlePortfolioSelect} theme={theme} />
+
+              {isModalOpen && (
+                <AddCryptoModal
+                  isOpen={isModalOpen}
+                  onClose={() => setIsModalOpen(false)}
+                  portfolioId={
+                    selectedPortfolio ? selectedPortfolio.id : undefined
+                  }
+                />
+              )}
+            </div>
+
+            {/* CHARTS */}
+            <div className="w-full h-auto xl:grid xl:grid-cols-2 xl:place-items-center pt-4">
+              {/* Pie Chart Card */}
+              <div
+                className={`card w-full xl:w-[564px] h-[250px] p-4 shadow-lg border rounded-lg mb-6 ${
+                  theme === "dark"
+                    ? "border-primary-900  bg-[#07172b]"
+                    : "bg-primary-50 shadow-primary-100 border-primary-200"
                 }`}
               >
-                Delete Portfolio
-              </button>
-            )}
-          </div>
+                <h2 className="text-lg font-semibold mb-4">
+                  Asset Distribution
+                </h2>
+                <div className="chart-container">
+                  <Pie
+                    data={pieChartData}
+                    options={{ maintainAspectRatio: false }}
+                  />
+                </div>
+              </div>
+              {/* Line Chart Card */}
+              <div
+                className={`card w-full xl:w-[564px] h-[250px] p-4 shadow-lg border rounded-lg mb-6 ${
+                  theme === "dark"
+                    ? "border-primary-900  bg-[#07172b]"
+                    : "bg-primary-50 shadow-primary-100 border-primary-200"
+                }`}
+              >
+                <h2 className="text-lg font-semibold mb-4">
+                  Portfolio Value Over Time
+                </h2>
+                <div className="chart-container">
+                  <Line
+                    data={pieChartData}
+                    options={{ maintainAspectRatio: false }}
+                  />
+                </div>
+              </div>
 
-          {/* Portfolio Viewing Details, conditionally displayed */}
-          {selectedPortfolio && (
-            <div className="pt-4 pb-4 flex gap-2 items-center">
-              <p className="title-20">Viewing</p>
-              <p className="title-semibold-20">{selectedPortfolio.name}</p>
-            </div>
-          )}
-        </div>
-
-        <Docker onSelectPortfolio={handlePortfolioSelect} theme={theme} />
-
-        {isModalOpen && (
-          <AddCryptoModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            portfolioId={selectedPortfolio ? selectedPortfolio.id : undefined}
-          />
-        )}
-      </div>
-
-      {/* CHARTS */}
-      <div className="w-full h-auto xl:grid xl:grid-cols-2 xl:place-items-center pt-4">
-        {/* Pie Chart Card */}
-        <div
-          className={`card w-full xl:w-[564px] h-[250px] p-4 shadow-lg border rounded-lg mb-6 ${
-            theme === "dark"
-              ? "border-primary-900  bg-[#07172b]"
-              : "bg-primary-50 shadow-primary-100 border-primary-200"
-          }`}
-        >
-          <h2 className="text-lg font-semibold mb-4">Asset Distribution</h2>
-          <div className="chart-container">
-            <Pie data={pieChartData} options={{ maintainAspectRatio: false }} />
-          </div>
-        </div>
-        {/* Line Chart Card */}
-        <div
-          className={`card w-full xl:w-[564px] h-[250px] p-4 shadow-lg border rounded-lg mb-6 ${
-            theme === "dark"
-              ? "border-primary-900  bg-[#07172b]"
-              : "bg-primary-50 shadow-primary-100 border-primary-200"
-          }`}
-        >
-          <h2 className="text-lg font-semibold mb-4">
-            Portfolio Value Over Time
-          </h2>
-          <div className="chart-container">
-            <Line
-              data={pieChartData}
-              options={{ maintainAspectRatio: false }}
-            />
-          </div>
-        </div>
-
-        {/* ----------------------
+              {/* ----------------------
       
       {/* Line Chart Card */}
-        {/* <div
+              {/* <div
           className={`card w-full xl:w-[600px] h-[250px] p-4 shadow-lg rounded-lg mb-6 ${
             theme === "dark" ? " " : " "
           }`}
@@ -307,8 +312,8 @@ const Portfolio = () => {
           </div>
         </div> */}
 
-        {/* Pie Chart Card */}
-        {/* <div
+              {/* Pie Chart Card */}
+              {/* <div
           className={`card w-full xl:w-[600px] h-[250px] p-4 shadow-lg rounded-lg mb-6 w-50 ${
             theme === "dark" ? " " : " "
           } `}
@@ -318,108 +323,122 @@ const Portfolio = () => {
             <Bar data={pieChartData} options={{ maintainAspectRatio: false }} />
           </div>
         </div> */}
-      </div>
-
-      <div className="xl:px-14  pt-2">
-        <button
-          onClick={handleOpenModal}
-          className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-information-800 ${
-            theme === "dark"
-              ? "bg-information-600 text-primary-50"
-              : "button-primary-medium-light text-primary-50"
-          }`}
-        >
-          Add Crypto
-        </button>
-      </div>
-      {/* Table */}
-      <div
-        className={`w-full h-full flex flex-col justify-center overflow-x-scroll pt-8 xl:p-[50px] ${
-          theme === "dark" ? "" : ""
-        }`}
-      >
-        <table className="min-w-full ">
-          <thead>
-            <tr>
-              <th
-                className={`w-[150px] h-[80px] px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 ${
-                  theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
+            </div>
+            <div className="xl:px-14  pt-2">
+              <button
+                onClick={handleOpenModal}
+                className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-information-800 ${
+                  theme === "dark"
+                    ? "bg-information-600 text-primary-50"
+                    : "button-primary-medium-light text-primary-50"
                 }`}
               >
-                Name
-              </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
-                Current Price
-              </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
-                Holdings
-              </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
-                Avg Buy Price
-              </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
-                Profit/Loss
-              </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {cryptoData.map((crypto) => (
-              <tr key={crypto.cryptoId}>
-                <td
-                  className={`w-[150px] h-[80px] px-5 py-3 text-left label-semibold-12 uppercase tracking-wider sticky left-0 items-center flex gap-2  ${
-                    theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
-                  }`}
-                >
-                  <img
-                    src={getCryptoImage(crypto.cryptoId)}
-                    alt={crypto.name}
-                    className="w-6 h-6 rounded-full"
-                  />
-                  {crypto.name}
-                </td>
-                <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
-                  ${getCurrentPrice(crypto.cryptoId)}
-                </td>
-                <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
-                  {crypto.quantity}
-                </td>
-                <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
-                  ${crypto.averagePrice.toFixed(2)}
-                </td>
-                <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
-                  <span
-                    style={{
-                      color:
-                        calculateProfitLoss(crypto) > 0
-                          ? "green"
-                          : calculateProfitLoss(crypto) < 0
-                          ? "red"
-                          : "inherit",
-                    }}
-                  >
-                    ${calculateProfitLoss(crypto).toFixed(2)}
-                  </span>
-                </td>
+                Add Crypto
+              </button>
+            </div>
+            {/* Table */}
+            <div
+              className={`w-full h-full flex flex-col justify-center overflow-x-scroll pt-8 xl:p-[50px] ${
+                theme === "dark" ? "" : ""
+              }`}
+            >
+              <table className="min-w-full ">
+                <thead>
+                  <tr>
+                    <th
+                      className={`w-[150px] h-[80px] px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider sticky left-0 ${
+                        theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
+                      }`}
+                    >
+                      Name
+                    </th>
+                    <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
+                      Current Price
+                    </th>
+                    <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
+                      Holdings
+                    </th>
+                    <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
+                      Avg Buy Price
+                    </th>
+                    <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">
+                      Profit/Loss
+                    </th>
+                    <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cryptoData.map((crypto) => (
+                    <tr key={crypto.cryptoId}>
+                      <td
+                        className={`w-[150px] h-[80px] px-5 py-3 text-left label-semibold-12 uppercase tracking-wider sticky left-0 items-center flex gap-2  ${
+                          theme === "dark" ? " bg-[#07172b]" : " bg-primary-50"
+                        }`}
+                      >
+                        <img
+                          src={getCryptoImage(crypto.cryptoId)}
+                          alt={crypto.name}
+                          className="w-6 h-6 rounded-full"
+                        />
+                        {crypto.name}
+                      </td>
+                      <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
+                        ${getCurrentPrice(crypto.cryptoId)}
+                      </td>
+                      <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
+                        {crypto.quantity}
+                      </td>
+                      <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
+                        ${crypto.averagePrice.toFixed(2)}
+                      </td>
+                      <td className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider">
+                        <span
+                          style={{
+                            color:
+                              calculateProfitLoss(crypto) > 0
+                                ? "green"
+                                : calculateProfitLoss(crypto) < 0
+                                ? "red"
+                                : "inherit",
+                          }}
+                        >
+                          ${calculateProfitLoss(crypto).toFixed(2)}
+                        </span>
+                      </td>
 
-                <td className="px-5 py-3 text-left  tracking-wider">
-                  <button onClick={() => handleDeleteCrypto(crypto.cryptoId)}>
-                    <IconX size={15} className="text-neutral-400" />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                      <td className="px-5 py-3 text-left  tracking-wider">
+                        <button
+                          onClick={() => handleDeleteCrypto(crypto.cryptoId)}
+                        >
+                          <IconX size={15} className="text-neutral-400" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {isNewPortfolioModalOpen && (
+              <PortfolioModal
+                isOpen={isNewPortfolioModalOpen}
+                onClose={() => setIsNewPortfolioModalOpen(false)}
+                db={db}
+                user={user}
+              />
+            )}
+          </>
+        ) : (
+          <PortfolioEmptyState theme={theme} setIsNewPortfolioModalOpen={setIsNewPortfolioModalOpen} />
+        )}
+         {isNewPortfolioModalOpen && (
+          <PortfolioModal
+            isOpen={isNewPortfolioModalOpen}
+            onClose={() => setIsNewPortfolioModalOpen(false)}
+            db={db}
+            user={user}
+          />
+        )}
       </div>
-      {isNewPortfolioModalOpen && (
-  <PortfolioModal
-    isOpen={isNewPortfolioModalOpen}
-    onClose={() => setIsNewPortfolioModalOpen(false)}
-    db={db}
-    user={user}
-  />
-)}
     </div>
   );
 };

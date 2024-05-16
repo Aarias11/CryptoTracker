@@ -6,7 +6,7 @@ import { getAuth } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import ThemeContext from "../components/ThemeContext/ThemeContext"; // Import ThemeContext
-import WatchListEmptyState from "../components/Portfolio/WatchListEmptyState";
+import WatchListEmptyState from "../components/WatchListEmptyState/WatchListEmptyState";
 
 const Watchlist = () => {
   const [favorites, setFavorites] = useState([]);
