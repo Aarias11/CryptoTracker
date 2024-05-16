@@ -145,7 +145,7 @@ function Wallet({ onClose }) {
             </button>
           </div>
           {!account ? (
-            <div className="h-[500px] flex flex-col items-center ">
+            <div className="h-[300px] flex flex-col items-center ">
               <h2 className="text-xl font-bold  pb-5 ">{account ? 'Wallet Details' : 'Connect Wallet'}</h2>
               <button onClick={() => connectWallet('MetaMask')} className="w-[300px] flex items-center justify-center  mb-4 bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition duration-300">
                 <img className="w-6 h-6 mr-2" src={metamasklogo} alt="MetaMask" />
@@ -166,9 +166,6 @@ function Wallet({ onClose }) {
               {tokenBalances.map((token) => (
                 <p key={token.symbol} className="text-lg font-semibold">{token.symbol}: {token.balance}</p>
               ))}
-            </div>
-          )}
-        </div>
         <div className="p-6">
           <h2 className="text-xl font-bold text-gray-800 pb-4 dark:text-white">Activity</h2>
           <ul>
@@ -184,6 +181,9 @@ function Wallet({ onClose }) {
               <li key={index}>{transaction}</li>
             ))}
           </ul>
+        </div>
+            </div>
+          )}
         </div>
         {account && (
           <button onClick={disconnectWallet} className="bg-red-500 text-white py-3 rounded-b-2xl hover:bg-red-600 transition duration-300">
