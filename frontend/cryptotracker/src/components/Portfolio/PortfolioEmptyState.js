@@ -6,7 +6,7 @@ function PortfolioEmptyState({ theme, setIsNewPortfolioModalOpen }) {
   };
 
   return (
-    <div className="w-full h-[300px]">
+    <div className="w-full h-[500px]">
       <div className="flex justify-center">
         <div className="flex flex-col gap-5 mt-6">
           <h2 className="headline-semibold-48 ">
