@@ -84,13 +84,22 @@ function Account({ user }) {
               <input
                 type="file"
                 onChange={handleProfilePicChange}
-                className={`search-input ml-5 p-2 ${
-                  theme === "dark" ? "bg-[#031021] border border-primary-300 text-primary-200" : "bg-white"
-                }`}
+                id="profilePicInput"
+                className="hidden"
               />
+              <label
+                htmlFor="profilePicInput"
+                className={`w-[100px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-primary-800 ${
+                  theme === "dark"
+                    ? "button-primary-medium-dark text-primary-50"
+                    : "button-primary-medium-light text-primary-50"
+                }`}
+              >
+                Browse
+              </label>
             </div>
             <div className="mt-4">
-              <label className="block">Display Name</label>
+              <label className="block mb-2">Display Name</label>
               <input
                 type="text"
                 value={displayName}
@@ -102,7 +111,7 @@ function Account({ user }) {
             </div>
             <button
               onClick={saveChanges}
-              className={`mt-4 px-4 py-2 ${uploading ? "bg-gray-500" : "bg-blue-500"} text-white rounded hover:bg-blue-600`}
+              className={`mt-4 px-4 py-2 w-[150px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-information-800 bg-information-700 ${uploading ? "text-primary-50" : " text-primary-50"} text-white rounded hover:bg-information-600`}
               disabled={uploading}
             >
               {uploading ? "Saving..." : "Save Changes"}
@@ -123,7 +132,7 @@ function Account({ user }) {
       theme === "dark" ? "bg-[#031021] text-primary-50" : "bg-[#F5F9FE] text-primary-800"
     }`}>
       {/* Sidebar */}
-      <div className={`w-full md:w-64 h-auto hidden md:flex md: md:h-screen ${
+      <div className={`w-full md:w-64 h-auto hidden md:flex md:h-screen ${
         theme === "dark"
           ? "border-zinc-700 bg-gradient-to-l from-[#07172b]"
           : "bg-primary-50 shadow-primary-100 border-primary-200"
@@ -131,9 +140,24 @@ function Account({ user }) {
         <div className="p-10 ">
           <h2 className="headline-semibold-28 ml-2">Account</h2>
           <nav className="mt-10 body-16">
-            <button onClick={() => setSelectedTab("profile")} className="block py-2.5 px-4 rounded hover:bg-gray-700">Profile</button>
-            <button onClick={() => setSelectedTab("security")} className="block py-2.5 px-4 rounded hover:bg-gray-700">Account Security</button>
-            <button onClick={() => setSelectedTab("wallet")} className="block py-2.5 px-4 rounded hover:bg-gray-700">Crypto Wallet</button>
+            <button
+              onClick={() => setSelectedTab("profile")}
+              className={`block py-2.5 px-4 rounded hover:bg-gray-700 ${selectedTab === "profile" ? "rounded-none border-l-2 border-blue-500 transition duration-300 ease-in-out " : ""}`}
+            >
+              Profile
+            </button>
+            <button
+              onClick={() => setSelectedTab("security")}
+              className={`block py-2.5 px-4 rounded hover:bg-gray-700 ${selectedTab === "security" ? "rounded-none border-l-2 border-blue-500 transition duration-300 ease-in-out " : ""}`}
+            >
+              Account Security
+            </button>
+            <button
+              onClick={() => setSelectedTab("wallet")}
+              className={`block py-2.5 px-4 rounded hover:bg-gray-700 ${selectedTab === "wallet" ? "rounded-none border-l-2 border-blue-500 transition duration-700 ease-in-out " : ""}`}
+            >
+              Crypto Wallet
+            </button>
           </nav>
         </div>
       </div>
