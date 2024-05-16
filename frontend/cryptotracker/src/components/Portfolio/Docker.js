@@ -78,7 +78,7 @@ function Docker({ onSelectPortfolio, theme }) {
               key={portfolio.id}
               className={`flex justify-center gap-3 flex-shrink-0 p-3  w-auto h-auto border rounded-xl shadow-lg shadow-black pl-2 cursor-pointer ${
                 theme == "dark"
-                  ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
+                  ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b] hover:border-primary-200"
                   : "bg-primary-50 shadow-primary-100 border-primary-200"
               }`}
               onClick={() => onSelectPortfolio(portfolio)}
