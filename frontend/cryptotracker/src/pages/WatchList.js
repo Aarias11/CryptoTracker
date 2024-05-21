@@ -59,11 +59,11 @@ const Watchlist = () => {
 
   return (
     <div className={`w-full h-screen mx-auto overflow-x-auto  ${bodyBgTheme}`}>
-      <h2 className="headline-semibold-28 ml-6 p-6">YOUR WATCHLIST</h2>
+      <h2 className="headline-semibold-28 ml-6 p-6 mt-4">YOUR WATCHLIST</h2>
       
       <div>
         {filteredFavorites.length > 0 ? (
-          <div className="px-6 ml-6 ">
+          <div className="px-6 ml-6">
         <input
           type="text"
           placeholder="Search Your Favorites"
@@ -76,7 +76,7 @@ const Watchlist = () => {
           }`}
         />
         <div
-        className={`w-full h-full flex flex-col justify-center overflow-x-scroll lg:p-[50px] mt-10  ${
+        className={`w-full h-full  overflow-x-scroll mt-32  ${
           theme === "dark" ? " " : ""
         }`}
       >
