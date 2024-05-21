@@ -194,9 +194,13 @@ const Portfolio = () => {
   const bodyBgTheme = theme === "dark" ? "" : "";
 
   return (
-    <div className="w-full h-auto  p-3 pt-10  md:px-14  ">
+    <div className={`w-full h-auto  p-3 pt-10  md:px-14 ${
+      theme === "dark"
+        ? "bg-gradient-to-r from-[#07172b]  to-[#031021] "
+        : "bg-gradient-to-r from-[#F5F9FE]  to-primary-100"
+    }` }  >
       <h1 className="headline-semibold-28  ">Portfolio</h1>
-      <div>
+      <div >
         {portfolios.length > 0 ? (
           <>
             <div className="w-full h-auto flex flex-col-reverse gap-4">
