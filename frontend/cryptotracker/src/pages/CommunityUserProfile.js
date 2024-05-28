@@ -14,8 +14,12 @@ import {
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import ThemeContext from "../components/ThemeContext/ThemeContext";
 import TrendingCoins from "../API/TrendingCoins.json";
+import BeatLoader from "react-spinners/BeatLoader";
+import LoadingComponent from "../components/LoadingComponent";
+
 
 function CommunityUserProfile() {
+  let [color, setColor] = useState("#ffffff");
   const [userProfile, setUserProfile] = useState(null);
   const [posts, setPosts] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
@@ -128,7 +132,7 @@ function CommunityUserProfile() {
   };
 
   if (loading)
-    return <div className="w-full h-screen bg-primary-900">Loading...</div>;
+    return <LoadingComponent theme={theme} />
 
   return (
     <div
