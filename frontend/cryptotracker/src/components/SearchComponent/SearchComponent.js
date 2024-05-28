@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { VscClose } from "react-icons/vsc";
@@ -7,12 +7,13 @@ import CryptoMarketCoins from "../../API/CryptoMarketCoins.json"; // Adjust the 
 import TrendingCoins from "../../API/TrendingCoins.json";
 import CryptoExchanges from "../../API/CryptoExchanges.json";
 
-function SearchComponent({ theme }) {
+function SearchComponent({ theme, searchExpanded, setSearchExpanded }) {
   const [crypto, setCrypto] = useState(TrendingCoins);
   const [exchanges, setExchanges] = useState(CryptoExchanges);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [searchExpanded, setSearchExpanded] = useState(false);
+
+  const searchRef = useRef(null);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -49,8 +50,23 @@ function SearchComponent({ theme }) {
     fetchSearchResults();
   }, [searchQuery]);
 
+  // Detect clicks outside of the search component
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setSearchExpanded(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setSearchExpanded]);
+
   return (
-    <div className="w-[40px] flex ">
+    <div className="w-[40px] flex " ref={searchRef}>
       <button
         className={`w-full md:w-full h-[40px] rounded-xl px-3 focus:outline-none relative hover:cursor-pointer hidden md:flex ${
           theme === "dark" ? "" : ""
@@ -61,7 +77,7 @@ function SearchComponent({ theme }) {
 
         <RxMagnifyingGlass
           size={20}
-          className="absolute top-2  left-2 text-primary-300 "
+          className="absolute top-2 left-2 text-primary-300 "
         />
       </button>
 
@@ -84,7 +100,6 @@ function SearchComponent({ theme }) {
             placeholder="Search coin, pair, NFT, contract address, or exchange"
             value={searchQuery}
             onChange={handleSearchChange}
-            // autoFocus
           />
           <RxMagnifyingGlass
             size={20}

@@ -235,7 +235,7 @@ function CommunityPage({ user }) {
                       <div className="w-full h-[100%] ">
                         <img
                           className="w-full h-[60%] object-cover rounded-tl-xl rounded-tr-xl border-b-2 border-primary-800"
-                          src={profile.bannerImage}
+                          src={profile.bannerImage || "https://images.unsplash.com/photo-1663065718834-b7ade5d5f0a5?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
                           alt="profile_banner"
                         />
                       </div>

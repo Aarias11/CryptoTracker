@@ -25,7 +25,7 @@ import {
   getDoc,
   query,
   where,
-  doc, // Make sure to include this import
+  doc, 
 } from "firebase/firestore";
 import firebase from "firebase/compat/app";
 import { getAuth } from "firebase/auth";

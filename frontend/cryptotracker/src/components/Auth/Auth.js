@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import Avatar from "@mui/material/Avatar";
 import { useNavigate } from "react-router-dom";
 import ThemeContext from "../ThemeContext/ThemeContext";
@@ -62,7 +62,7 @@ function Auth() {
     });
 
     return () => unsubscribe(); // Clean up subscription
-  }, []);
+  }, [auth]);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -76,24 +76,23 @@ function Auth() {
       });
   };
 
-  // Detect clicks outside of the search component
+  // Detect clicks outside of the search component and the dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
         setSearchExpanded(false);
       }
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
     };
 
-    if (searchExpanded) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [searchExpanded]);
+  }, [searchExpanded, isDropdownOpen]);
 
   // OPEN LOGIN MODAL
   const openModal = () => {
@@ -140,6 +139,7 @@ function Auth() {
               <li ref={searchRef}>
                 <SearchComponent
                   theme={theme}
+                  searchExpanded={searchExpanded}
                   setSearchExpanded={setSearchExpanded}
                 />
               </li>
@@ -171,6 +171,7 @@ function Auth() {
               <li ref={searchRef}>
                 <SearchComponent
                   theme={theme}
+                  searchExpanded={searchExpanded}
                   setSearchExpanded={setSearchExpanded}
                 />
               </li>
@@ -211,11 +212,7 @@ function Auth() {
                             ? "bg-gray-800 text-white"
                             : "bg-white text-gray-900"
                         }`}
-                        onClick={() => {
-                          /* Handle account click here */ setIsDropdownOpen(
-                            false
-                          );
-                        }}
+                        onClick={() => setIsDropdownOpen(false)}
                       >
                         Account
                       </li>
@@ -513,19 +510,6 @@ function Auth() {
                     Sign Out
                   </button>
                 </div>
-                {/* Additional Features */}
-                {/* Search Feature Placeholder */}
-                {/* <li>
-                  <div className="flex items-center bg-gray-200 rounded-md p-2">
-                    <RiSearchLine className="text-lg text-gray-500 mr-2" />
-                    <input
-                      className="bg-transparent placeholder-gray-500 text-sm focus:outline-none"
-                      type="search"
-                      placeholder="Search..."
-                      // Implement search functionality
-                    />
-                  </div>
-                </li> */}
               </>
             )}
           </ul>
