@@ -70,7 +70,7 @@ const Portfolio = () => {
             setPortfolios(fetchedPortfolios);
       setLoading(false);
 
-            console.log("Updated portfolios", fetchedPortfolios);
+            // console.log("Updated portfolios", fetchedPortfolios);
         });
         return () => unsubscribe();
     }
