@@ -73,6 +73,7 @@ function ExchangesPage() {
       setCurrentPage(currentPage + 1);
     }
   };
+  
 
   return (
     <div className={`w-full min-h-screen p-8 ${theme === "dark" ? "" : ""}`}>

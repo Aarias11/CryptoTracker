@@ -33,6 +33,8 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebase";
 import useScrollToTop from "../components/ScrollToTop/useScrollToTop";
 // import GiphySearch from './GiphySearch';
+import LoadingComponent from "../components/LoadingComponent";
+
 
 function CryptoPage({ user, currentCrypto }) {
   const [crypto, setCrypto] = useState(CryptoApi);
@@ -290,7 +292,9 @@ const toggleFavorite = () => {
 };
 
 
-
+if (loading) {
+  return <LoadingComponent theme={theme} />;
+}
 
 
 

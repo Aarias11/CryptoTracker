@@ -6,6 +6,7 @@ import { db, doc, setDoc } from '../firebase';
 import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 import AccountSecurity from "../components/AccountFeatures/AccountSecurity";  // Import the AccountSecurity component
 import CryptoWallet from "../components/AccountFeatures/CryptoWallet";        // Import the CryptoWallet component
+import LoadingComponent from "../components/LoadingComponent";
 
 function Account({ user }) {
   const [displayName, setDisplayName] = useState("");
@@ -15,11 +16,13 @@ function Account({ user }) {
   const auth = getAuth();
   const storage = getStorage(); // Initialize Firebase Storage
   const [selectedTab, setSelectedTab] = useState("profile"); // State for managing selected tab
-  
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     if (user) {
       setDisplayName(user.displayName || "");
       setProfilePic(user.photoURL || "");
+      setLoading(false); // Set loading to false once user data is loaded
     }
   }, [user]);
 
@@ -66,6 +69,10 @@ function Account({ user }) {
     }
     setUploading(false);
   };
+
+  if (loading) {
+    return <LoadingComponent theme={theme} />;
+  }
 
   // Render different components based on the selected tab
   const renderContent = () => {

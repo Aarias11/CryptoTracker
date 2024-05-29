@@ -31,6 +31,7 @@ import AddCryptoModal from "../components/Portfolio/AddCryptoModal";
 import CryptoMarketCoins from "../API/CryptoMarketCoins.json";
 import { IconX } from "@tabler/icons-react";
 import PortfolioEmptyState from "../components/Portfolio/PortfolioEmptyState";
+import LoadingComponent from "../components/LoadingComponent";
 
 ChartJS.register(
   CategoryScale,
@@ -45,6 +46,8 @@ ChartJS.register(
   BarElement
 );
 
+
+
 const Portfolio = () => {
   const { theme } = useContext(ThemeContext);
   const auth = getAuth();
@@ -54,6 +57,7 @@ const Portfolio = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNewPortfolioModalOpen, setIsNewPortfolioModalOpen] = useState(false);
   const [portfolios, setPortfolios] = useState([]); // State to store the list of portfolios
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (user) {
@@ -64,6 +68,8 @@ const Portfolio = () => {
                 fetchedPortfolios.push({ id: doc.id, ...doc.data() });
             });
             setPortfolios(fetchedPortfolios);
+      setLoading(false);
+
             console.log("Updated portfolios", fetchedPortfolios);
         });
         return () => unsubscribe();
@@ -192,6 +198,11 @@ const Portfolio = () => {
   const tableTheme = theme === "dark" ? "" : "";
   const headerBgTheme = theme === "dark" ? "" : "";
   const bodyBgTheme = theme === "dark" ? "" : "";
+
+
+  if (loading) {
+    return <LoadingComponent theme={theme} />;
+  }
 
   return (
     <div className={`w-full h-auto  p-3 pt-10  md:px-14 ${

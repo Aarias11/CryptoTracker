@@ -7,8 +7,10 @@ import { Link } from "react-router-dom";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import ThemeContext from "../components/ThemeContext/ThemeContext"; // Import ThemeContext
 import WatchListEmptyState from "../components/WatchListEmptyState/WatchListEmptyState";
+import LoadingComponent from "../components/LoadingComponent";
 
 const Watchlist = () => {
+  const [loading, setLoading] = useState(true);
   const [favorites, setFavorites] = useState([]);
   const [filteredFavorites, setFilteredFavorites] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -28,10 +30,11 @@ const Watchlist = () => {
       });
       setFavorites(fetchedFavorites);
       setFilteredFavorites(fetchedFavorites);
+      setLoading(false); // Set loading to false once the data is fetched
     };
 
     fetchFavorites();
-  }, []);
+  }, [auth]);
 
   // Fetching Filtered Search Favorites
   useEffect(() => {
@@ -56,6 +59,9 @@ const Watchlist = () => {
   const headerBgTheme = theme === "dark" ? "" : "";
   const bodyBgTheme = theme === "dark" ? "" : "";
 
+  if (loading) {
+    return <LoadingComponent theme={theme} />;
+  }
 
   return (
     <div className={`w-full h-screen mx-auto overflow-x-auto  ${bodyBgTheme}`}>
@@ -94,35 +100,35 @@ const Watchlist = () => {
               Name
             </th>
             {/* Price */}
-            <th class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+            <th className="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
               Price
             </th>
             {/* Low 24H */}
-            <th class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+            <th className="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
               Low 24H
             </th>
             {/* High 24H */}
-            <th class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+            <th className="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
               High 24H
             </th>
             {/* 24H % */}
-            <th class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+            <th className="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
               24H %
             </th>
             {/* Market Cap */}
-            <th class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+            <th className="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
               Market Cap
             </th>
             {/* Volume */}
-            {/* <th class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+            {/* <th className="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
               Volume
             </th> */}
             {/* Circulating Supp */}
-            <th class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+            <th className="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
               Circulating Supply
             </th>
             {/* 7 Day */}
-            <th class="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+            <th className="px-5 py-3 border-b-2 border-gray-200 headerBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
               7 Day
             </th>
           </tr>
@@ -131,7 +137,7 @@ const Watchlist = () => {
           {filteredFavorites.map((crypto) => (
             <tr key={crypto.id}>
               {/* Favorite Star and Crypto Rank */}
-              <td class={`w-[100px] h-[80px] px-5 py-3 text-left label-semibold-12 uppercase tracking-wider sticky left-0 items-center flex gap-2  ${theme === "dark" ? " bg-[#07172b]" : " "}`}>
+              <td className={`w-[100px] h-[80px] px-5 py-3 text-left label-semibold-12 uppercase tracking-wider sticky left-0 items-center flex gap-2  ${theme === "dark" ? " bg-[#07172b]" : " "}`}>
                 <button onClick={() => toggleFavorite(crypto.id)}>
                   <MdOutlineStar
                     className="cursor-pointer text-yellow-500"
@@ -141,7 +147,7 @@ const Watchlist = () => {
                 {crypto.rank}
               </td>
               {/* Crypto Image, Name, & Symbol */}
-              <td class={`px-14 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-0  ${theme === "dark" ? " bg-[#07172b]" : " "}`}>
+              <td className={`px-14 py-3   text-left text-xs font-semibold  uppercase tracking-wider bodyBgTheme sticky left-0  ${theme === "dark" ? " bg-[#07172b]" : " "}`}>
                 <Link to={`/cryptopage/${crypto.symbol}`}>
                   <div className="flex items-center gap-3">
                     <img
@@ -157,19 +163,19 @@ const Watchlist = () => {
                 </Link>
               </td>
               {/* Crypto Price */}
-              <td class="px-5 py-3  bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+              <td className="px-5 py-3  bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
                 ${crypto.price}
               </td>
               {/* Crypto Low24h */}
-              <td class="px-5 py-3  bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+              <td className="px-5 py-3  bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
                 ${crypto.low24h}
               </td>
               {/* Crypto High24h */}
-              <td class="px-5 py-3  bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+              <td className="px-5 py-3  bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
                 ${crypto.high24h}
               </td>
               {/* Crypto Change24h */}
-              <td class="px-5 py-3  bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+              <td className="px-5 py-3  bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
                 <span
                   className={
                     crypto.change24h > 0
@@ -183,15 +189,15 @@ const Watchlist = () => {
                 </span>
               </td>
               {/* Crypto Market Cap */}
-              <td class="px-5 py-3 bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+              <td className="px-5 py-3 bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
                 ${Number(crypto.marketCap).toLocaleString()}
               </td>
               {/* Crypto Volume */}
-              {/* <td class="px-5 py-3 bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+              {/* <td className="px-5 py-3 bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
                 ${Number(crypto.volume).toLocaleString()}
               </td> */}
               {/* Crypto Circulating Supply */}
-              <td class="px-5 py-3 bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider pt-7 ">
+              <td className="px-5 py-3 bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider pt-7 ">
                 <div className=" items-center space-x-2">
                   <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-300">
                     <div
@@ -210,7 +216,7 @@ const Watchlist = () => {
               </td>
               {/* Implement visualization for weekly data */}
               {/* 7 Day Week */}
-              <td class="px-5 py-3 bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
+              <td className="px-5 py-3 bodyBgTheme text-left text-xs font-semibold  uppercase tracking-wider">
                 <Sparklines data={crypto.weekly} svgWidth={200} svgHeight={50}>
                   <SparklinesLine color="" />
                 </Sparklines>

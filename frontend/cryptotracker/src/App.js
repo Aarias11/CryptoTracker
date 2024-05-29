@@ -80,6 +80,7 @@ function App() {
     // console.log('Disconnected from Coinbase Wallet');
     // Perform any additional cleanup or state updates as needed
   };
+  
 
   return (
     <div className={`App ${
@@ -91,7 +92,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
-        <Route path='/heatmap' element={<HeatMap />} />
+        <Route path='/heatmap' element={<HeatMap theme={theme} />} />
         <Route path='/watchlist' element={<WatchList />} />
         <Route path='/portfolio' element={<Portfolio />} />
         <Route path='/cryptopage/:symbol' element={<CryptoPage user={user} />} />

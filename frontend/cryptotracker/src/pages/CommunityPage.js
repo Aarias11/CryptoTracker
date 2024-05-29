@@ -19,9 +19,8 @@ import {
   ref as storageRef,
 } from "firebase/storage";
 import Avatar from "@mui/material/Avatar";
-
-
 import { IconPaperclip } from "@tabler/icons-react";
+import LoadingComponent from "../components/LoadingComponent";
 
 function CommunityPage({ user }) {
   const { theme } = useContext(ThemeContext); // Using ThemeContext
@@ -36,7 +35,8 @@ function CommunityPage({ user }) {
   const [gifs, setGifs] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loadingPosts, setLoadingPosts] = useState(true); // Separate loading state for posts
+  const [loadingGifs, setLoadingGifs] = useState(false); // Separate loading state for GIFs
 
   // Trigger function for file input
   const triggerFileSelectPopup = () => fileInputRef.current.click();
@@ -50,6 +50,7 @@ function CommunityPage({ user }) {
         id: doc.id,
       }));
       setPosts(postsData);
+      setLoadingPosts(false); // Set loadingPosts to false once the data is fetched
     };
 
     fetchPosts();
@@ -95,9 +96,8 @@ function CommunityPage({ user }) {
     setUploading(false);
   };
 
-  // Inside your component
+  // Automatically clear GIFs when the search query is empty
   useEffect(() => {
-    // Automatically clear GIFs when the search query is empty
     if (searchQuery.length === 0) {
       setGifs([]);
     }
@@ -105,7 +105,7 @@ function CommunityPage({ user }) {
 
   // Fetching GIFs with optional search functionality
   const fetchGifs = async (query) => {
-    setLoading(true);
+    setLoadingGifs(true); // Set loadingGifs to true when fetching GIFs
     setError("");
     const apiKey = process.env.GIPHY_API_KEY;
     let url = `https://api.giphy.com/v1/gifs/${
@@ -123,7 +123,7 @@ function CommunityPage({ user }) {
       console.error("Error fetching GIFs:", error);
       setError("Failed to fetch GIFs. Please try again.");
     } finally {
-      setLoading(false);
+      setLoadingGifs(false); // Set loadingGifs to false once the GIFs are fetched
     }
   };
 
@@ -132,6 +132,7 @@ function CommunityPage({ user }) {
       fetchGifs(searchQuery);
     }
   }, [searchQuery]);
+
   // Handling GIF selection
   const handleGifSelect = (gif) => {
     setSelectedGif(gif);
@@ -154,8 +155,6 @@ function CommunityPage({ user }) {
       const usersData = querySnapshot.docs
         .map((doc) => ({ ...doc.data(), id: doc.id })) // `id` is now correctly mapped from the document
         .filter((profile) => profile.id !== user.uid); // Compare `id` with `user.uid` to exclude the current user
-
-      // console.log("Followed Profiles:", usersData); // Log the recommended profiles to the console
 
       setFollowedProfiles(usersData);
     };
@@ -191,7 +190,10 @@ function CommunityPage({ user }) {
     fetchPosts();
   }, [followedProfiles]); // Depend on followedProfiles to re-fetch whenever it changes
 
-  // console.log(user);
+  // Render loading state for posts
+  if (loadingPosts) {
+    return <LoadingComponent theme={theme} />;
+  }
 
   return (
     <div
@@ -294,7 +296,7 @@ function CommunityPage({ user }) {
                   )}
               </Link>
               <div className="absolute top-0 right-0">
-                {theme === "dark" ? (
+              {theme === "dark" ? (
                   <>
                     <svg
                       width="380"
@@ -748,7 +750,9 @@ function CommunityPage({ user }) {
           )}
 
           {/* Display search results */}
-          {searchQuery && gifs.length > 0 && (
+          {loadingGifs ? (
+            <LoadingComponent theme={theme} />
+          ) : searchQuery && gifs.length > 0 ? (
             <div
               className={`mt-2 grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 p-2 sm:p-4 md:p-6 w-full rounded-lg shadow z-40 ${
                 theme === "dark"
@@ -770,6 +774,8 @@ function CommunityPage({ user }) {
                 </div>
               ))}
             </div>
+          ) : (
+            searchQuery && <div>No GIFs found</div>
           )}
           {/* Line Divider */}
           <div className="w-full h-[10px] flex justify-center z-20 ">
