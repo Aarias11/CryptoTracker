@@ -36,6 +36,9 @@ const Watchlist = () => {
     fetchFavorites();
   }, [auth]);
 
+
+  
+
   // Fetching Filtered Search Favorites
   useEffect(() => {
     const filtered = favorites.filter(crypto => crypto.name.toLowerCase().includes(searchTerm.toLowerCase()) || crypto.symbol.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -86,7 +89,7 @@ const Watchlist = () => {
           theme === "dark" ? " " : ""
         }`}
       >
-      <table className={`min-w-full divide-y divide-zinc-700 `}>
+      <table className={` divide-y divide-zinc-700 `}>
         <thead className={`${headerBgTheme}`}>
           {/* TABLE BODY */}
           {/* ----------------------- */}

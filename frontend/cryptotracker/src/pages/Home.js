@@ -197,7 +197,7 @@ function Home() {
             Own your crypto journey
           </h2>
 
-          <p className="body-18 leading-relaxed mx-auto text-left mb-8 max-w-4xl px-3">
+          <p className="body-18 leading-relaxed mx-auto text-left mb-8 max-w-4xl px-1">
             Uncover high quality data, learn from the best, and build a winning
             crypto portfolio. CoinCrowd has your back.
           </p>

@@ -15,6 +15,7 @@ function PortfolioModal({ isOpen, onClose }) {
   const [portfolioName, setPortfolioName] = useState(''); // Allow user to set portfolio name
   const { theme } = useContext(ThemeContext);
   const [user] = useAuthState(getAuth());
+  const [errorMessage, setErrorMessage] = useState('');
 
   const filteredCryptos = searchTerm.length > 1 ? CryptoMarketCoins.filter(crypto =>
     crypto.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -29,7 +30,11 @@ function PortfolioModal({ isOpen, onClose }) {
   };
 
   const handleSave = async () => {
-    if (!selectedCrypto || !quantity || !avgPrice || !purchaseDate || !portfolioName) return; // Validate input
+    if (!selectedCrypto || !quantity || !avgPrice || !purchaseDate || !portfolioName) {
+      setErrorMessage('Please fill in all fields.');
+      return;
+    }
+    setErrorMessage('');
     const cryptoEntry = {
       cryptoId: selectedCrypto.id,
       name: selectedCrypto.name,
@@ -58,6 +63,7 @@ function PortfolioModal({ isOpen, onClose }) {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4">
       <div className={`p-6 rounded-lg shadow-lg max-w-md w-full ${theme === "dark" ? "bg-[#031021]" : "bg-white"}`}>
         <h3 className="text-lg font-bold mb-4">Create New Portfolio</h3>
+        {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
         <div className="mb-4">
           <input
             type="text"
@@ -67,6 +73,7 @@ function PortfolioModal({ isOpen, onClose }) {
             className={`search-input w-full p-2 ${theme === "dark" ? "bg-[#031021] text-primary-200" : ""}`}
           />
         </div>
+     
         <div className="mb-4">
           <input
             type="text"
