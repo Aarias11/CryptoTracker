@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 function WatchListEmptyState({ theme }) {
   return (
-    <div className="w-full h-[300px]">
+    <div className="w-full h-[500px] flex justify-center items-center ">
         <div className="flex justify-center">
-        <div className="flex flex-col gap-5 mt-6">
+        <div className="flex flex-col gap-5 ">
         <h2 className="headline-semibold-48 ">Start your crypto watchlist</h2>
         <p className="w-auto md:w-[600px] text-center body-16">
           Add cryptocurrencies to keep an eye on market trends, follow your
