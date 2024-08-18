@@ -68,18 +68,20 @@ const Watchlist = () => {
     <div className={`w-full h-screen mx-auto overflow-x-auto`}>
       <h2 className="headline-semibold-28 ml-6 p-6 mt-4">Your Watchlist</h2>
       
-      <div className="px-14">
-        <input
-          type="text"
-          placeholder="Search Your Favorites"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className={`search-input w-[300px] h-full border border-primary-200 rounded-xl translate-y-[60px] font-semibold text-sm p-3 relative px-[40px] ${
-            theme === "dark" ? "bg-[#031021] text-primary-200" : ""
-          }`}
-        />
-        <div className="absolute top-[36.5%] left-[21%]">
-        <RxMagnifyingGlass size={25}  />
+      <div className="px-14 relative">
+        <div className="relative w-[300px]">
+          <input
+            type="text"
+            placeholder="Search Your Favorites"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className={`search-input w-[300px] h-full border border-primary-200 rounded-xl font-semibold focus:outline-none text-sm p-3 relative px-[40px] ${
+              theme === "dark" ? "bg-[#031021] text-primary-200" : ""
+            }`}
+          />
+          <div className="absolute inset-y-0 left-3 flex items-center">
+            <RxMagnifyingGlass size={20} />
+          </div>
         </div>
 
         {favorites.length === 0 ? (
