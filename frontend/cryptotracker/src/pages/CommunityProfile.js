@@ -187,7 +187,7 @@ function CommunityProfile({ user }) {
         {/* Left Side Container */}
 
         <div
-          className={`w-full h-[200px] md:h-auto md:flex flex flex-col md:w-[30%] p-4 md:p-8 overflow-y-scroll border-r border-zinc-800 ${
+          className={`w-full h-[200px] md:h-auto md:flex flex flex-col md:w-[30%] p-4 md:p-8 overflow-y-scroll border-r  ${
             theme === "dark"
               ? "border-primary-900  bg-gradient-to-l from-[#07172b]"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
@@ -199,7 +199,7 @@ function CommunityProfile({ user }) {
               {crypto.map((crypto) => (
                 <Link to={`/cryptopage/${crypto.item.symbol}`} key={crypto.id}>
                   <div
-                    className={`flex w-[200px] md:w-full min-h-[70px] flex-shrink-0 border rounded-xl shadow-lg shadow-black pl-2 ${
+                    className={`flex w-[200px] md:w-full min-h-[70px] flex-shrink-0 border rounded-xl shadow-md shadow-black pl-2 ${
                       theme === "dark"
                         ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
                         : "bg-primary-50 shadow-primary-100 border-primary-200"

@@ -713,11 +713,13 @@ if (loading) {
           ) : comments.length > 0 ? (
             comments.map((comment) => (
               <div
-                key={comment.id}
-                className={`rounded-lg overflow-hidden mb-4 ${
-                  theme === "dark" ? "bg-primary-900" : "bg-primary-100 "
-                }`}
-              >
+  key={comment.id}
+  className={`rounded-lg overflow-hidden mb-4 ${
+    theme === "dark"
+      ? "bg-primary-900/50 backdrop-blur-lg backdrop-filter border border-white/10 shadow-lg"
+      : "bg-primary-100/40 backdrop-blur-lg backdrop-filter border border-white/20 shadow-md"
+  }`}
+>
                 <div className="p-4">
                   <div className="flex flex-col-reverse gap-4 items-center mb-4">
                     {/* Render user avatar */}

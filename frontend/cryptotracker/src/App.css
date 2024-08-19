@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 
+* {
+  font-family: Metropolis;
+
+}
+
 
 /* Light mode styles (default) */
 
@@ -879,6 +884,11 @@ letter-spacing: 0.05px;
   
 
 /* BUTTONS DARKMODE */
+
+button {
+  font-family: Metropolis;
+
+}
 
 /* Buttons Default */
 .button-primary-extra-small-dark {

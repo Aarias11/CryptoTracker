@@ -5,7 +5,7 @@ import { getAuth } from "firebase/auth";
 import ThemeContext from "../components/ThemeContext/ThemeContext";
 import WatchListEmptyState from "../components/WatchListEmptyState/WatchListEmptyState";
 import LoadingComponent from "../components/LoadingComponent";
-import WatchlistTable from "../components/WatchlistTable/WatchlistTable"; // Import WatchlistTable component
+import WatchlistTable from "../components/WatchlistTable/WatchlistTable"; 
 import { RxMagnifyingGlass } from "react-icons/rx";
 
 const Watchlist = () => {

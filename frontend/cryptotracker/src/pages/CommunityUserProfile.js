@@ -142,7 +142,7 @@ function CommunityUserProfile() {
       <div className="w-full h-full lg:flex lg:flex-row flex flex-col-reverse">
         {/* Left Side */}
         <div
-          className={`w-full  lg:h-auto lg:flex flex flex-col lg:w-[30%] p-8 overflow-y-scroll border-r border-zinc-800 ${
+          className={`w-full  lg:h-auto lg:flex flex flex-col lg:w-[30%] p-8 overflow-y-scroll border-r  ${
             theme == "dark"
               ? "border-primary-900  bg-gradient-to-l from-[#07172b]"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
@@ -154,7 +154,7 @@ function CommunityUserProfile() {
               {crypto.map((crypto) => (
                 <div
                   key={crypto.id}
-                  className={`flex w-[200px] lg:w-full min-h-[70px] flex-shrink-0 border rounded-xl shadow-lg shadow-black pl-2 ${
+                  className={`flex w-[200px] lg:w-full min-h-[70px] flex-shrink-0 border rounded-xl shadow-md shadow-black pl-2 ${
                     theme === "dark"
                       ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
                       : "bg-primary-50 shadow-primary-100 border-primary-200"
@@ -238,14 +238,14 @@ function CommunityUserProfile() {
                           {isFollowing ? (
                             <button
                               onClick={() => unfollowUser(id)}
-                              className="md:button-primary-small-dark md:title-20 button-primary-extra-small-dark label-12"
+                              className="md:button-primary-medium-light md:title-20 button-primary--medium-dark label-12"
                             >
                               Unfollow
                             </button>
                           ) : (
                             <button
                               onClick={() => followUser(id)}
-                              className="md:button-primary-small-dark button-primary-extra-small-dark label-12"
+                              className="md:button-primary-small-dark button-primary---small-dark label-12"
                             >
                               Follow
                             </button>

@@ -206,7 +206,7 @@ function CommunityPage({ user }) {
         <div
           className={`xl:w-[20%] hidden xl:flex flex-col p-7 border-r ${
             theme === "dark"
-              ? "border-zinc-700 bg-gradient-to-l from-[#07172b]"
+              ? "border-zinc-700 bg-gradient-to-l from-[#07172b] "
               : "bg-primary-50 shadow-primary-100 border-primary-200"
           }`}
         >
@@ -226,7 +226,7 @@ function CommunityPage({ user }) {
                 >
                   <div
                     key={crypto.id}
-                    className={`flex flex-col flex-shrink-0  w-auto h-[110px] border rounded-xl shadow-lg shadow-black  ${
+                    className={`flex flex-col flex-shrink-0  w-auto h-[110px] border rounded-xl shadow-md shadow-black  ${
                       theme === "dark"
                         ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
                         : "bg-primary-50 shadow-primary-100 border-primary-200"
@@ -271,7 +271,11 @@ function CommunityPage({ user }) {
 
         {/* Center */}
         {/* Center Container*/}
-        <div className="w-[100%] xl:w-[70%] h-full overflow-y-scroll border-r border-zinc-700 p-3 relative">
+        <div className={`hidden overflow-y-scroll w-[30%] h-full border-r  xl:flex lg:justify-center p-4 ${
+            theme === "dark"
+              ? " bg-gradient-to-r from-[#07172b] border-zinc-700"
+              : "bg-primary-50 shadow-primary-100 border-primary-200"
+          }`}>
           <h2 className="headline-semibold-28 w-full   px-5 pt-6">
             Community{" "}
           </h2>
@@ -881,9 +885,9 @@ function CommunityPage({ user }) {
         </div>
         {/* Right Side */}
         <div
-          className={`hidden overflow-y-scroll w-[30%] h-full border-r border-zinc-700 xl:flex lg:justify-center p-4 ${
+          className={`hidden overflow-y-scroll w-[30%] h-full border-r  xl:flex lg:justify-center p-4 ${
             theme === "dark"
-              ? " bg-gradient-to-r from-[#07172b]"
+              ? " bg-gradient-to-r from-[#07172b] border-zinc-700"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
           }`}
         >
