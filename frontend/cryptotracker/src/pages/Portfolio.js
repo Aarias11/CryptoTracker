@@ -205,7 +205,7 @@ const Portfolio = () => {
   }
 
   return (
-    <div className={`w-full h-auto  p-3 pt-10  md:px-16 ${
+    <div className={`w-full h-auto  px-4 md:px-8 lg:px-14  pt-10 ${
       theme === "dark"
         ? "bg-gradient-to-r from-[#07172b]  to-[#031021] "
         : "bg-gradient-to-r from-[#F5F9FE]  to-primary-100"

@@ -271,7 +271,7 @@ function CommunityPage({ user }) {
 
         {/* Center */}
         {/* Center Container*/}
-        <div className="w-[100%] xl:w-[70%] h-full overflow-y-scroll border-r border-zinc-700 px-4 md:px-14 pt-10 relative">
+        <div className="w-[100%] xl:w-[70%] h-full overflow-y-scroll border-r border-zinc-700 px-4 md:px-8 lg:px-14 pt-10 relative">
           <h2 className="headline-semibold-28 w-full ">
             Community{" "}
           </h2>
