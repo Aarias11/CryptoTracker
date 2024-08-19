@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import CryptoMarketCoins from "../../API/CryptoMarketCoins.json";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import ThemeContext from "../ThemeContext/ThemeContext";
-import { db } from "../../firebase"; // Ensure this is the correct path to your Firebase config
+import { db } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 
@@ -23,14 +23,14 @@ function AddCryptoModal({ isOpen, onClose, portfolioId }) {
 
   const handleSelectCrypto = (crypto) => {
     setSelectedCrypto(crypto);
-    setSearchTerm(crypto.name); // Clear the search term
+    setSearchTerm(crypto.name);
     setQuantity("");
     setAvgPrice("");
   };
 
   const handleSave = async () => {
-    if (!selectedCrypto || !quantity || !avgPrice || !purchaseDate || !portfolioId) {
-      console.error("All fields must be filled, and a portfolio must be selected.");
+    if (!selectedCrypto || !quantity || !avgPrice || !purchaseDate) {
+      alert("Please fill in all required fields.");
       return;
     }
 
@@ -54,26 +54,22 @@ function AddCryptoModal({ isOpen, onClose, portfolioId }) {
         const index = cryptos.findIndex(c => c.cryptoId === selectedCrypto.id);
 
         if (index !== -1) {
-          // Calculate new quantity and new average price
           const existingCrypto = cryptos[index];
           const totalQuantity = existingCrypto.quantity + newQuantity;
           const totalCost = existingCrypto.quantity * existingCrypto.averagePrice + newQuantity * newAvgPrice;
           const updatedAvgPrice = totalCost / totalQuantity;
 
-          // Update existing crypto data
           cryptos[index] = {
             ...existingCrypto,
             quantity: totalQuantity,
             averagePrice: updatedAvgPrice
           };
         } else {
-          // Add new crypto data
           cryptos.push(newCryptoEntry);
         }
 
-        // Update Firestore
         await updateDoc(portfolioRef, { cryptos });
-        onClose(); // Close the modal after operation
+        onClose();
       } else {
         console.error("No portfolio found with the provided ID.");
       }

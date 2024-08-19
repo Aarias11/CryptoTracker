@@ -248,7 +248,7 @@ function CommunityProfile({ user }) {
 
 
         {/* Right Container*/}
-        <div className="w-full  h-screen overflow-x-scroll p-3 md:p-8">
+        <div className="w-full  h-screen overflow-x-scroll px-4 md:px-8 lg:px-14  pt-10 ">
           {/* Currencies Followed */}
           <div className={`w-full  flex flex-col overflow-x-scroll rounded-xl`}>
             <h2 className="headline-semibold-28">Currencies Followed</h2>

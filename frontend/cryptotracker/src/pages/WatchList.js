@@ -65,10 +65,10 @@ const Watchlist = () => {
   }
 
   return (
-    <div className={`w-full h-screen mx-auto overflow-x-auto`}>
-      <h2 className="headline-semibold-28 ml-6 p-6 mt-4">Your Watchlist</h2>
+    <div className={`w-full h-screen px-4 md:px-8 lg:px-14  pt-10 `}>
+      <h2 className="headline-semibold-28  ">Your Watchlist</h2>
       
-      <div className="px-14 relative">
+      <div className=" pt-6 relative">
         <div className="relative w-[300px]">
           <input
             type="text"

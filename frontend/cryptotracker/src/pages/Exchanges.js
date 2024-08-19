@@ -76,7 +76,7 @@ function ExchangesPage() {
   
 
   return (
-    <div className={`w-full min-h-screen px-14 p-3 pt-10 ${theme === "dark" ? "" : ""}`}>
+    <div className={`w-full min-h-screen px-4 md:px-8 lg:px-14  pt-10 ${theme === "dark" ? "" : ""}`}>
       <div className="w-full container ">
         <h1 className="headline-semibold-28 mb-6">Cryptocurrency Exchanges</h1>
         <p className="text-md mb-10">
