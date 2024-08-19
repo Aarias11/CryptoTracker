@@ -151,7 +151,7 @@ function Navbar() {
           )}
         </Link>
         <ul
-          className={`hidden lg:flex sm:gap-4 h-auto md:w-auto md:gap-8 font-semibold  label-14 ${
+          className={`hidden lg:flex sm:gap-4 h-auto md:w-auto md:gap-8 font-semibold  items-center label-14 ${
             theme === "dark" ? " " : " "
           }`}
         >

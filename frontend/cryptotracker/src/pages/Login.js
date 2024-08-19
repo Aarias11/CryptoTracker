@@ -2,18 +2,18 @@ import React, { useState, useContext, useEffect } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import ThemeContext from "../components/ThemeContext/ThemeContext";
+import { FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons from react-icons
 
 function Login({ closeModal }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const { theme } = useContext(ThemeContext); // Using ThemeContext
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const { theme } = useContext(ThemeContext);
 
   const nav = useNavigate();
 
-  // UseEffect for saving email for "remember me""
   useEffect(() => {
-    // Check if user information is saved in local storage
     const savedEmail = localStorage.getItem("emailForSignIn");
     if (savedEmail) {
       setEmail(savedEmail);
@@ -21,7 +21,6 @@ function Login({ closeModal }) {
     }
   }, []);
 
-  // Handle Login Function
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -31,14 +30,12 @@ function Login({ closeModal }) {
       alert("User logged in successfully");
 
       if (rememberMe) {
-        // Save email to local storage
         localStorage.setItem("emailForSignIn", email);
       } else {
-        // Clear email from local storage
         localStorage.removeItem("emailForSignIn");
       }
 
-      closeModal(); // Call closeModal on successful login
+      closeModal();
     } catch (error) {
       console.error("Login failed:", error.message);
     }
@@ -62,33 +59,52 @@ function Login({ closeModal }) {
             <label htmlFor="email" className="text-sm font-medium ">
               Email Address
             </label>
-            <input
-              className={`search-input w-full p-2 ${
-                theme === "dark" ? "bg-[#031021] border border-primary-300 text-primary-200" : ""
-              }`}
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <div className="relative">
+              <input
+                className={`search-input w-full p-2 pl-10 ${
+                  theme === "dark" ? "bg-[#031021] border border-primary-300 text-primary-200" : ""
+                }`}
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required // Make email required
+              />
+              <FaEnvelope className="absolute left-2 top-3 text-gray-500" />
+            </div>
           </div>
           <div>
             <label htmlFor="password" className="text-sm font-medium ">
               Password
             </label>
-            <input
-              className={`search-input w-full p-2 ${
-                theme === "dark" ? "bg-[#031021] border border-primary-300 text-primary-200" : ""
-              }`}
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="relative">
+              <input
+                className={`search-input w-full p-2 pl-10 ${
+                  theme === "dark" ? "bg-[#031021] border border-primary-300 text-primary-200" : ""
+                }`}
+                type={showPassword ? "text" : "password"} // Toggle between text and password
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required // Make password required
+              />
+              <FaEyeSlash
+                className={`absolute right-2 top-3 text-gray-500 cursor-pointer ${
+                  showPassword ? "hidden" : "block"
+                }`}
+                onClick={() => setShowPassword(true)} // Show password
+              />
+              <FaEye
+                className={`absolute right-2 top-3 text-gray-500 cursor-pointer ${
+                  showPassword ? "block" : "hidden"
+                }`}
+                onClick={() => setShowPassword(false)} // Hide password
+              />
+            </div>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
@@ -97,8 +113,8 @@ function Login({ closeModal }) {
                 name="remember-me"
                 type="checkbox"
                 className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                checked={rememberMe} // Bind the checked attribute to the rememberMe state
-                onChange={(e) => setRememberMe(e.target.checked)} // Update rememberMe state based on checkbox value
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
               />
               <label
                 htmlFor="remember-me"
