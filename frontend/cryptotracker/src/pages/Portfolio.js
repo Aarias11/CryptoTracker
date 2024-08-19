@@ -221,7 +221,7 @@ const Portfolio = () => {
                 <div className="flex gap-3">
                   <button
                     onClick={handleAddClick}
-                    className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-primary-800 ${
+                    className={`w-[130px] h-[40px] label-14 rounded-lg transition duration-300 ease-in-out shadow-md shadow-primary-800 ${
                       theme === "dark"
                         ? "button-primary-medium-dark text-primary-50"
                         : "button-primary-medium-light text-primary-50"
