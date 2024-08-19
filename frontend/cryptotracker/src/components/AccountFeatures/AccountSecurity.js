@@ -72,7 +72,7 @@ const AccountSecurity = ({ theme }) => {
 
   return (
     <div>
-      <h2 className="headline-semibold-24">Account Security</h2>
+
       <p className="mt-4">Here you can manage your account security settings.</p>
 
       {/* Update Email Form */}
