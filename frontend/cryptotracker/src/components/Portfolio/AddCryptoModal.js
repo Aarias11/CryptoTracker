@@ -91,12 +91,16 @@ function AddCryptoModal({ isOpen, onClose, portfolioId }) {
           theme === "dark" ? "bg-[#031021]" : "bg-white"
         }`}
       >
-        <h3 className="text-lg font-bold mb-4">Add Crypto to Portfolio</h3>
+        <h3 className="title-medium-20 font-bold mb-4">Add Crypto to Portfolio</h3>
+        <p className="mb-4 label-14">
+          Please fill in all the fields below to add a cryptocurrency to your portfolio. Ensure that the details provided are correct, as they will be used to track your investments.
+        </p>
         <input
           type="text"
           placeholder="Search Cryptocurrency"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          required
           className={`search-input w-full p-2 ${
             theme === "dark" ? "bg-[#031021] text-primary-200" : ""
           }`}
@@ -128,6 +132,7 @@ function AddCryptoModal({ isOpen, onClose, portfolioId }) {
             placeholder="Quantity"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
+            required
             className={`search-input w-full p-2 ${
               theme === "dark" ? "bg-[#031021] text-primary-200" : ""
             }`}
@@ -139,6 +144,7 @@ function AddCryptoModal({ isOpen, onClose, portfolioId }) {
             placeholder="Average Price"
             value={avgPrice}
             onChange={(e) => setAvgPrice(e.target.value)}
+            required
             className={`search-input w-full p-2 ${
               theme === "dark" ? "bg-[#031021] text-primary-200" : ""
             }`}
@@ -150,6 +156,7 @@ function AddCryptoModal({ isOpen, onClose, portfolioId }) {
             placeholder="Purchase Date"
             value={purchaseDate}
             onChange={(e) => setPurchaseDate(e.target.value)}
+            required
             className={`search-input w-full p-2 ${
               theme === "dark" ? "bg-[#031021] text-primary-200" : ""
             }`}

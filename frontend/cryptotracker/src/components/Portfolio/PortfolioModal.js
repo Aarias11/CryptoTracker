@@ -62,7 +62,10 @@ function PortfolioModal({ isOpen, onClose }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4">
       <div className={`p-6 rounded-lg shadow-lg max-w-md w-full ${theme === "dark" ? "bg-[#031021]" : "bg-white"}`}>
-        <h3 className="text-lg font-bold mb-4">Create New Portfolio</h3>
+        <h3 className="title-medium-20 font-bold mb-4">Create New Portfolio</h3>
+        <p className="mb-4 label-medium-14">
+          Please fill in all the fields below to create your new portfolio. Ensure that the information provided is accurate, as it will be used to manage your crypto investments.
+        </p>
         {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
         <div className="mb-4">
           <input
@@ -70,6 +73,7 @@ function PortfolioModal({ isOpen, onClose }) {
             placeholder="Portfolio Name"
             value={portfolioName}
             onChange={(e) => setPortfolioName(e.target.value)}
+            required
             className={`search-input w-full p-2 ${theme === "dark" ? "bg-[#031021] text-primary-200" : ""}`}
           />
         </div>
@@ -80,6 +84,7 @@ function PortfolioModal({ isOpen, onClose }) {
             placeholder="Search Cryptocurrency"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            required
             className={`search-input w-full p-2 ${theme === "dark" ? "bg-[#031021] text-primary-200" : ""}`}
           />
           {filteredCryptos.length > 0 && (
@@ -100,6 +105,7 @@ function PortfolioModal({ isOpen, onClose }) {
             placeholder="Quantity"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
+            required
             className={`search-input w-full p-2 ${theme === "dark" ? "bg-[#031021] text-primary-200" : ""}`}
           />
         </div>
@@ -109,6 +115,7 @@ function PortfolioModal({ isOpen, onClose }) {
             placeholder="Average Price"
             value={avgPrice}
             onChange={(e) => setAvgPrice(e.target.value)}
+            required
             className={`search-input w-full p-2 ${theme === "dark" ? "bg-[#031021] text-primary-200" : ""}`}
           />
         </div>
@@ -118,6 +125,7 @@ function PortfolioModal({ isOpen, onClose }) {
             placeholder="Purchase Date"
             value={purchaseDate}
             onChange={(e) => setPurchaseDate(e.target.value)}
+            required
             className={`search-input w-full p-2 ${theme === "dark" ? "bg-[#031021] text-primary-200" : ""}`}
           />
         </div>
