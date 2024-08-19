@@ -122,7 +122,7 @@ function Home() {
         }`}
       >
         {/* Left Side */}
-        <div className=" mx-auto w-full lg:w-[50%]  py-[80px] px-12  text-left flex flex-col gap-8">
+        <div className=" mx-auto w-full lg:w-[50%]  py-[80px] px-14  text-left flex flex-col gap-8">
           <h2 className="headline-semibold-48  text-left">
             Own your crypto journey
           </h2>

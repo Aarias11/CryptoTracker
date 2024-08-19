@@ -136,25 +136,25 @@ function CommunityUserProfile() {
 
   return (
     <div
-      className={`w-full h-screen ${theme === "dark" ? "body-14" : "body-14"}`}
+      className={`w-full h-screen px-14 ${theme === "dark" ? "body-14" : "body-14"}`}
     >
       {/* Container */}
       <div className="w-full h-full lg:flex lg:flex-row flex flex-col-reverse">
         {/* Left Side */}
         <div
-          className={`w-full  lg:h-auto lg:flex flex flex-col lg:w-[30%] p-8 overflow-y-scroll border-r  ${
+          className={`w-full  lg:h-auto lg:flex flex flex-col lg:w-[30%]  overflow-y-scroll border-r  ${
             theme == "dark"
               ? "border-primary-900  bg-gradient-to-l from-[#07172b]"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
           }`}
         >
           <div className="h-[300px] md:h-auto flex flex-col overflow-y-scroll ">
-            <h2 className="headline-semibold-28 ">Trending</h2>
+            <h2 className="headline-semibold-28 pt-10 ">Trending</h2>
             <div className="w-full flex flex-shrink-0 gap-4 lg:flex lg:flex-col lg:gap-4 lg:overflow-y-scroll pt-7">
               {crypto.map((crypto) => (
                 <div
                   key={crypto.id}
-                  className={`flex w-[200px] lg:w-full min-h-[70px] flex-shrink-0 border rounded-xl shadow-md shadow-black pl-2 ${
+                  className={`flex w-[200px] lg:w-[250px] min-h-[70px] flex-shrink-0 border rounded-xl shadow-md shadow-black pl-2 ${
                     theme === "dark"
                       ? "border-primary-900 rounded-xl bg-gradient-to-r from-[#07172b]"
                       : "bg-primary-50 shadow-primary-100 border-primary-200"

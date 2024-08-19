@@ -20,7 +20,7 @@ function Navbar() {
 
   return (
     <div
-      className={`h-[70px] flex items-center justify-between border-b  px-4 md:px-8 lg:px-12 ${
+      className={`h-[70px] flex items-center justify-between border-b  px-4 md:px-8 lg:px-14 ${
         theme === "dark" ? "border-zinc-800  " : "border-primary-100"
       }`}
     >

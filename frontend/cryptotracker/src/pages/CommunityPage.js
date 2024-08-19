@@ -204,9 +204,9 @@ function CommunityPage({ user }) {
         {/* Left Side */}
         {/* Left Side Container */}
         <div
-          className={`xl:w-[20%] hidden xl:flex flex-col p-7 border-r ${
+          className={`xl:w-[30%] hidden xl:flex flex-col border-r p-10 ${
             theme === "dark"
-              ? "border-zinc-700 bg-gradient-to-l from-[#07172b] "
+              ? "border-zinc-700 bg-gradient-to-l from-[#07172b]"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
           }`}
         >
@@ -232,7 +232,7 @@ function CommunityPage({ user }) {
                         : "bg-primary-50 shadow-primary-100 border-primary-200"
                     }`}
                   >
-                    <div className="w-[205px] h-[100px]">
+                    <div className="w-[230px] h-[100px]">
                       {/* Profile Card Content */}
                       <div className="w-full h-[100%] ">
                         <img
@@ -271,12 +271,8 @@ function CommunityPage({ user }) {
 
         {/* Center */}
         {/* Center Container*/}
-        <div className={`hidden overflow-y-scroll w-[30%] h-full border-r  xl:flex lg:justify-center p-4 ${
-            theme === "dark"
-              ? " bg-gradient-to-r from-[#07172b] border-zinc-700"
-              : "bg-primary-50 shadow-primary-100 border-primary-200"
-          }`}>
-          <h2 className="headline-semibold-28 w-full   px-5 pt-6">
+        <div className="w-[100%] xl:w-[70%] h-full overflow-y-scroll border-r border-zinc-700 px-4 md:px-14 pt-10 relative">
+          <h2 className="headline-semibold-28 w-full ">
             Community{" "}
           </h2>
 
@@ -885,9 +881,9 @@ function CommunityPage({ user }) {
         </div>
         {/* Right Side */}
         <div
-          className={`hidden overflow-y-scroll w-[30%] h-full border-r  xl:flex lg:justify-center p-4 ${
+          className={`hidden overflow-y-scroll w-[30%] h-full border-r border-zinc-700 xl:flex lg:justify-center  ${
             theme === "dark"
-              ? " bg-gradient-to-r from-[#07172b] border-zinc-700"
+              ? " bg-gradient-to-r from-[#07172b]"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
           }`}
         >
@@ -900,7 +896,7 @@ function CommunityPage({ user }) {
             }`}
           >
             {/* Events Near By Container */}
-            <div className="h-auto px-4  pt-4">
+            <div className="h-auto px-4 pt-8 ">
               <h2 className="headline-semibold-28 w-full  px-5">
                 Events Nearby
               </h2>

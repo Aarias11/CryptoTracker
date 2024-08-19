@@ -178,13 +178,17 @@ function CommunityProfile({ user }) {
   
   return (
     <div
-      className={`w-full h-screen ${theme === "dark" ? "body-14 " : "body-14"}`}
+      className={`w-full h-screen px-7 ${theme === "dark" ? "body-14 " : "body-14"}`}
     >
       {/* Container */}
       <div className="w-full h-full md:flex md:flex-row flex flex-col-reverse">
         {/* Left Side */}
-        {/* --------------- */}
+        {/* -------------------------------------------- */}
+
         {/* Left Side Container */}
+
+        {/* -------------------------------------------- */}
+
 
         <div
           className={`w-full h-[200px] md:h-auto md:flex flex flex-col md:w-[30%] p-4 md:p-8 overflow-y-scroll border-r  ${
@@ -236,9 +240,12 @@ function CommunityProfile({ user }) {
             </div>
           </div>
         </div>
+        {/* -------------------------------------------- */}
 
         {/* Right */}
-        {/* --------------- */}
+        
+        {/* -------------------------------------------- */}
+
 
         {/* Right Container*/}
         <div className="w-full  h-screen overflow-x-scroll p-3 md:p-8">
