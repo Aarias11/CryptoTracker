@@ -275,7 +275,7 @@ function Auth() {
           </>
         )}
         {/* Hamburger Menu Icon */}
-        <div className="xl:hidden">
+        <div className="xl:hidden pt-1">
           <RxHamburgerMenu
             className="cursor-pointer"
             size={25}
