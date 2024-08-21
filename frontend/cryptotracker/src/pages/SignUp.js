@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState, useContext, useEffect, useRef } from "react";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import ThemeContext from "../components/ThemeContext/ThemeContext";
 import { FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons
 
-function Login({ closeModal }) {
+function Signup({ closeSignUpModal }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -12,32 +12,47 @@ function Login({ closeModal }) {
   const { theme } = useContext(ThemeContext);
 
   const nav = useNavigate();
+  const modalRef = useRef(null); // Reference to the modal content
 
   useEffect(() => {
-    const savedEmail = localStorage.getItem("emailForSignIn");
+    const savedEmail = localStorage.getItem("emailForSignUp");
     if (savedEmail) {
       setEmail(savedEmail);
       setRememberMe(true);
     }
-  }, []);
 
-  const handleLogin = async (e) => {
+    // Add event listener to detect clicks outside the modal
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        closeSignUpModal(); // Close the modal if clicked outside
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [closeSignUpModal]);
+
+  const handleSignup = async (e) => {
     e.preventDefault();
 
     try {
       const auth = getAuth();
-      await signInWithEmailAndPassword(auth, email, password);
-      alert("User logged in successfully");
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert("User signed up successfully");
 
       if (rememberMe) {
-        localStorage.setItem("emailForSignIn", email);
+        localStorage.setItem("emailForSignUp", email);
       } else {
-        localStorage.removeItem("emailForSignIn");
+        localStorage.removeItem("emailForSignUp");
       }
 
-      closeModal();
+      closeSignUpModal();
     } catch (error) {
-      console.error("Login failed:", error.message);
+      console.error("Signup failed:", error.message);
     }
   };
 
@@ -48,15 +63,16 @@ function Login({ closeModal }) {
       }`}
     >
       <div
+        ref={modalRef} // Attach the ref to the modal content
         className={`p-8 rounded-lg shadow-xl lg:w-1/3 md:w-1/2 w-full relative ${
           theme === "dark" ? "bg-[#031021]" : "bg-white"
         }`}
       >
-        <h2 className="text-3xl font-semibold text-center ">Login</h2>
+        <h2 className="text-3xl font-semibold text-center">Signup</h2>
         {/* Form  */}
-        <form className="mt-8 space-y-6" onSubmit={handleLogin}>
+        <form className="mt-8 space-y-6" onSubmit={handleSignup}>
           <div className="relative">
-            <label htmlFor="email" className="text-sm font-medium ">
+            <label htmlFor="email" className="text-sm font-medium">
               Email Address
             </label>
             <input
@@ -74,7 +90,7 @@ function Login({ closeModal }) {
             <FaEnvelope className="absolute right-3 top-9 text-gray-400" size={20} />
           </div>
           <div className="relative">
-            <label htmlFor="password" className="text-sm font-medium ">
+            <label htmlFor="password" className="text-sm font-medium">
               Password
             </label>
             <input
@@ -99,7 +115,7 @@ function Login({ closeModal }) {
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <inputgit
+              <input
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
@@ -132,7 +148,7 @@ function Login({ closeModal }) {
               type="submit"
               className="w-full py-3 mt-6 font-medium text-white bg-teal-600 rounded-md hover:bg-teal-700 focus:outline-none focus:bg-teal-700"
             >
-              Login
+              Signup
             </button>
           </div>
         </form>
@@ -140,7 +156,7 @@ function Login({ closeModal }) {
           className={`absolute top-0 right-0 p-4 ${
             theme === "dark" ? " " : " text-gray-900"
           }`}
-          onClick={closeModal}
+          onClick={closeSignUpModal}
         >
           Close
         </button>
@@ -149,4 +165,4 @@ function Login({ closeModal }) {
   );
 }
 
-export default Login;
+export default Signup;

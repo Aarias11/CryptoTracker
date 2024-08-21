@@ -15,7 +15,7 @@ const HomeTable = ({
   const bodyBgTheme = theme === 'dark' ? 'label-12' : 'label-12';
 
   return (
-    <table className={`min-w-full divide-y px-[65px] ${tableTheme}`}>
+    <table className={`min-w-full divide-y px-[65px] p-4 ${tableTheme}`}>
       {/* TABLE HEAD */}
       <thead className={`${headerBgTheme}`}>
         <tr>

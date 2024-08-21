@@ -27,6 +27,7 @@ function Home() {
   const rightContainerRef = useRef(null);
   const { x, y } = useFollowPointer(rightContainerRef);
 
+  // Fetch Favorites
   useEffect(() => {
     const fetchFavorites = async () => {
       const user = auth.currentUser;
@@ -48,6 +49,8 @@ function Home() {
     return unsubscribe;
   }, [auth]);
 
+
+  // Toggle Favorites Star for table
   const toggleFavorite = async (crypto) => {
     const user = auth.currentUser;
     if (!user || !crypto.id) return;
@@ -89,6 +92,8 @@ function Home() {
     }
   };
 
+
+  // Crypto API Call for Search
   useEffect(() => {
     axios
       .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=200&page=1&sparkline=true&locale=en')
@@ -97,18 +102,25 @@ function Home() {
       });
   }, []);
 
+  // Filtering Search Input for Table
   const filteredCryptos = cryptos.filter(
     (crypto) =>
       crypto.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       crypto.symbol.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+
+  // Pagination Logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredCryptos.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredCryptos.length / itemsPerPage);
 
+
+  // Pagination Previous Function
   const handlePrevious = () => setCurrentPage(currentPage - 1);
+  
+  // Pagination NextFunction
   const handleNext = () => setCurrentPage(currentPage + 1);
 
 
@@ -122,7 +134,7 @@ function Home() {
         }`}
       >
         {/* Left Side */}
-        <div className=" mx-auto w-full lg:w-[50%]  py-[80px] px-14  text-left flex flex-col gap-8">
+        <div className=" mx-auto w-full lg:w-[50%]  py-[80px] px-3 md:px-9 lg:px-14  text-left flex flex-col gap-8">
           <h2 className="headline-semibold-48  text-left">
             Own your crypto journey
           </h2>
@@ -241,7 +253,7 @@ function Home() {
       {/* ----------------------- */}
 
       <div
-        className={`w-[100%] h-full flex flex-col justify-center overflow-x-scroll  lg:px-[50px] mt-14 ${
+        className={`w-[100%] h-full flex flex-col justify-center overflow-x-scroll  lg:px-[50px] mt-14 p-4 ${
           theme === "dark" ? " " : " "
         }`}
         
@@ -255,14 +267,23 @@ function Home() {
         theme={theme}
       />
 
+      </div>
+
+      <div
+        className={`w-[100%] h-full flex flex-col justify-center overflow-x-scroll  lg:px-[50px] p-4 ${
+          theme === "dark" ? " " : " "
+        }`}
+        
+      >
+
         {/* Pagination */}
         <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         handlePrevious={handlePrevious}
         handleNext={handleNext}
-      />
-      </div>
+        />
+        </div>
     </div>
   );
 }

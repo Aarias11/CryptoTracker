@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, useLocation  } from 'react-router-dom';
 import { Buffer } from 'buffer'; // Import Buffer from the buffer package
 import './App.css';
-import { Routes, Route, useLocation  } from 'react-router-dom';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { analytics, logEvent } from "../src/firebase";
 import Home from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
@@ -15,15 +17,13 @@ import Exchanges from './pages/Exchanges';
 import { useTheme } from './components/ThemeContext/ThemeContext';
 import Footer from './components/Footer/Footer';
 import CommunityPage from './pages/CommunityPage';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import CommunityProfile from './pages/CommunityProfile';
 import Account from './pages/Account';
+import CommunityUserProfile from './pages/CommunityUserProfile';
 import useScrollToTop from './components/ScrollToTop/useScrollToTop';
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 import Web3 from 'web3';
-import CommunityUserProfile from './pages/CommunityUserProfile';
 import '@typehaus/metropolis';
-import { analytics, logEvent } from "../src/firebase";
 
 window.Buffer = Buffer; // Assign Buffer to window to make it globally available
 

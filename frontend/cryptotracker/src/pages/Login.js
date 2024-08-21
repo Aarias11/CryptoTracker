@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import ThemeContext from "../components/ThemeContext/ThemeContext";
-import { FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons from react-icons
+import { FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons
 
 function Login({ closeModal }) {
   const [email, setEmail] = useState("");
@@ -12,6 +12,7 @@ function Login({ closeModal }) {
   const { theme } = useContext(ThemeContext);
 
   const nav = useNavigate();
+  const modalRef = useRef(null); // Reference to the modal content
 
   useEffect(() => {
     const savedEmail = localStorage.getItem("emailForSignIn");
@@ -19,7 +20,21 @@ function Login({ closeModal }) {
       setEmail(savedEmail);
       setRememberMe(true);
     }
-  }, []);
+
+    // Add event listener to detect clicks outside the modal
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        closeModal(); // Close the modal if clicked outside
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [closeModal]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -48,63 +63,59 @@ function Login({ closeModal }) {
       }`}
     >
       <div
+        ref={modalRef} // Attach the ref to the modal content
         className={`p-8 rounded-lg shadow-xl lg:w-1/3 md:w-1/2 w-full relative ${
           theme === "dark" ? "bg-[#031021]" : "bg-white"
         }`}
       >
-        <h2 className="text-3xl font-semibold text-center ">Login</h2>
+        <h2 className="text-3xl font-semibold text-center">Login</h2>
         {/* Form  */}
         <form className="mt-8 space-y-6" onSubmit={handleLogin}>
-          <div>
-            <label htmlFor="email" className="text-sm font-medium ">
+          <div className="relative">
+            <label htmlFor="email" className="text-sm font-medium">
               Email Address
             </label>
-            <div className="relative">
-              <input
-                className={`search-input w-full p-2 pl-10 ${
-                  theme === "dark" ? "bg-[#031021] border border-primary-300 text-primary-200" : ""
-                }`}
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required // Make email required
-              />
-              <FaEnvelope className="absolute left-2 top-3 text-gray-500" />
-            </div>
+            <input
+              className={`search-input w-full p-2 ${
+                theme === "dark" ? "bg-[#031021] border border-primary-300 text-primary-200" : ""
+              }`}
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required // Make email required
+            />
+            <FaEnvelope className="absolute right-3 top-9 text-gray-400" size={20} />
           </div>
-          <div>
-            <label htmlFor="password" className="text-sm font-medium ">
+          <div className="relative">
+            <label htmlFor="password" className="text-sm font-medium">
               Password
             </label>
-            <div className="relative">
-              <input
-                className={`search-input w-full p-2 pl-10 ${
-                  theme === "dark" ? "bg-[#031021] border border-primary-300 text-primary-200" : ""
-                }`}
-                type={showPassword ? "text" : "password"} // Toggle between text and password
-                id="password"
-                name="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required // Make password required
-              />
+            <input
+              className={`search-input w-full p-2 ${
+                theme === "dark" ? "bg-[#031021] border border-primary-300 text-primary-200" : ""
+              }`}
+              type={showPassword ? "text" : "password"} // Toggle between text and password
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required // Make password required
+            />
+            {showPassword ? (
               <FaEyeSlash
-                className={`absolute right-2 top-3 text-gray-500 cursor-pointer ${
-                  showPassword ? "hidden" : "block"
-                }`}
-                onClick={() => setShowPassword(true)} // Show password
-              />
-              <FaEye
-                className={`absolute right-2 top-3 text-gray-500 cursor-pointer ${
-                  showPassword ? "block" : "hidden"
-                }`}
+                className="absolute right-3 top-9 text-gray-400 cursor-pointer"
                 onClick={() => setShowPassword(false)} // Hide password
               />
-            </div>
+            ) : (
+              <FaEye
+                className="absolute right-3 top-9 text-gray-400 cursor-pointer"
+                onClick={() => setShowPassword(true)} // Show password
+              />
+            )}
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
@@ -122,8 +133,7 @@ function Login({ closeModal }) {
                   theme === "dark" ? " text-white" : "bg-white text-gray-900"
                 }`}
               >
-                {" "}
-                Remember me{" "}
+                Remember me
               </label>
             </div>
             <div className="text-sm">
@@ -131,8 +141,7 @@ function Login({ closeModal }) {
                 href="#"
                 className="font-medium text-teal-600 hover:text-teal-500"
               >
-                {" "}
-                Forgot your password?{" "}
+                Forgot your password?
               </a>
             </div>
           </div>

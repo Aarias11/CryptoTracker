@@ -3,11 +3,15 @@ import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 
 const Pagination = ({ currentPage, totalPages, handlePrevious, handleNext }) => {
   return (
-    <div className="flex justify-between items-center mt-4">
+    <div className="flex justify-between items-center py-6">
       <button
         onClick={handlePrevious}
         disabled={currentPage === 1}
-        className="p-2 bg-gray-300 rounded-lg disabled:opacity-50"
+        className={`p-2 rounded-lg ${
+          currentPage === 1 
+            ? 'bg-gray-400 cursor-not-allowed' 
+            : 'bg-gray-600 hover:bg-gray-700'
+        }`}
       >
         <IconArrowLeft />
       </button>
@@ -17,7 +21,11 @@ const Pagination = ({ currentPage, totalPages, handlePrevious, handleNext }) => 
       <button
         onClick={handleNext}
         disabled={currentPage === totalPages}
-        className="p-2 bg-gray-300 rounded-lg disabled:opacity-50"
+        className={`p-2 rounded-lg ${
+          currentPage === totalPages 
+            ? 'bg-gray-400 cursor-not-allowed' 
+            : 'bg-gray-600 hover:bg-gray-700'
+        }`}
       >
         <IconArrowRight />
       </button>

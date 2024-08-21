@@ -8,6 +8,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { GoStarFill } from "react-icons/go";
 import { GiPieChart } from "react-icons/gi";
 import { PiMapTrifoldFill } from "react-icons/pi";
+import { BsMoonStarsFill, BsSunFill } from "react-icons/bs";
 
 import {
   RiCloseLine,
@@ -109,9 +110,13 @@ function Auth() {
     // Correctly use setIsLoginModalOpen to manage the modal state
   };
 
+  // Close Signup Modal
   const closeSignUpModal = () => {
-    setIsSignUpModalOpen(false);
-  };
+  console.log("Close button clicked");  // Add this line
+  setIsSignUpModalOpen(false);
+};
+
+  
 
   return (
     <div
@@ -119,8 +124,9 @@ function Auth() {
         theme === "dark" ? " " : " "
       }`}
     >
+      
       <ul
-        className={`w-full flex justify-end text-sm  lg:w-[370px] label-12 gap-5 items-center ${
+        className={`w-full flex justify-end text-sm   label-12 gap-5 items-center ${
           theme === "dark" ? " " : " "
         }`}
       >
@@ -135,8 +141,14 @@ function Auth() {
                 <PiCurrencyBtcFill className="text-yellow-500" size={23} />
                 <span className="w-[100px]">Halving: 3D</span>
               </li> */}
-
-              <li ref={searchRef}>
+<li onClick={toggleTheme} className="cursor-pointer">
+          {theme === "dark" ? (
+            <BsSunFill className="text-yellow-500" size={24} />
+          ) : (
+            <BsMoonStarsFill className="text-blue-900" size={24} />
+          )}
+        </li>
+              <li className="pt-1" ref={searchRef}>
                 <SearchComponent
                   theme={theme}
                   searchExpanded={searchExpanded}
@@ -168,6 +180,13 @@ function Auth() {
                   <span className="text-primary-400">Portfolio</span>
                 </Link>
               </li>
+              <li onClick={toggleTheme} className="cursor-pointer">
+          {theme === "dark" ? (
+            <BsSunFill className="text-yellow-500" size={24} />
+          ) : (
+            <BsMoonStarsFill className="text-blue-900" size={24} />
+          )}
+        </li>
               <li ref={searchRef}>
                 <SearchComponent
                   theme={theme}

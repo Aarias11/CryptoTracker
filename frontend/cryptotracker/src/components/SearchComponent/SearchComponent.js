@@ -68,7 +68,7 @@ function SearchComponent({ theme, searchExpanded, setSearchExpanded }) {
   return (
     <div className="w-[40px] flex " ref={searchRef}>
       <button
-        className={`w-full md:w-full h-[40px] rounded-xl px-3 focus:outline-none relative hover:cursor-pointer hidden md:flex ${
+        className={`w-full md:w-full h-[40px] rounded-xl px-3 focus:outline-none relative hover:cursor-pointer md:flex ${
           theme === "dark" ? "" : ""
         }`}
         onClick={() => setSearchExpanded(true)}
