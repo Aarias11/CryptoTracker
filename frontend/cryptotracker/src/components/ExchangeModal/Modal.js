@@ -37,7 +37,7 @@ const Modal = ({ exchange, onClose, theme }) => {
         <p className='body-semibold-16'>Rank: {exchange.trust_score_rank}</p>
         <p className='body-semibold-16'>Incentives: {exchange.has_trading_incentive ? 'Yes' : 'No'}</p>
         <p className='body-semibold-16'>Country: {exchange.country}</p>
-        <p className='body-semibold-16'>Description: {exchange.description}</p>
+        <p className='body-16'>Description: {exchange.description}</p>
         </div>
         <button className="absolute top-0 right-0 p-4" onClick={onClose}>Close</button>
       </div>
