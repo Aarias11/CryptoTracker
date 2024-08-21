@@ -11,9 +11,9 @@ function Login({ closeModal }) {
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const { theme } = useContext(ThemeContext);
 
-  const nav = useNavigate();
   const modalRef = useRef(null); // Reference to the modal content
 
+  // Save Email function
   useEffect(() => {
     const savedEmail = localStorage.getItem("emailForSignIn");
     if (savedEmail) {
@@ -21,7 +21,7 @@ function Login({ closeModal }) {
       setRememberMe(true);
     }
 
-    // Add event listener to detect clicks outside the modal
+    //  HandleClickOutside Close Modal Clicking Outside
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         closeModal(); // Close the modal if clicked outside
@@ -36,6 +36,7 @@ function Login({ closeModal }) {
     };
   }, [closeModal]);
 
+  // Handle Login Form
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -71,13 +72,16 @@ function Login({ closeModal }) {
         <h2 className="text-3xl font-semibold text-center">Login</h2>
         {/* Form  */}
         <form className="mt-8 space-y-6" onSubmit={handleLogin}>
+          {/* Email Container */}
           <div className="relative">
             <label htmlFor="email" className="text-sm font-medium">
               Email Address
             </label>
             <input
               className={`search-input w-full p-2 ${
-                theme === "dark" ? "bg-[#031021] border border-primary-300 text-primary-200" : ""
+                theme === "dark"
+                  ? "bg-[#031021] border border-primary-300 text-primary-200"
+                  : ""
               }`}
               type="email"
               id="email"
@@ -87,15 +91,21 @@ function Login({ closeModal }) {
               onChange={(e) => setEmail(e.target.value)}
               required // Make email required
             />
-            <FaEnvelope className="absolute right-3 top-9 text-gray-400" size={20} />
+            <FaEnvelope
+              className="absolute right-3 top-9 text-gray-400"
+              size={20}
+            />
           </div>
+          {/* Password Container */}
           <div className="relative">
             <label htmlFor="password" className="text-sm font-medium">
               Password
             </label>
             <input
               className={`search-input w-full p-2 ${
-                theme === "dark" ? "bg-[#031021] border border-primary-300 text-primary-200" : ""
+                theme === "dark"
+                  ? "bg-[#031021] border border-primary-300 text-primary-200"
+                  : ""
               }`}
               type={showPassword ? "text" : "password"} // Toggle between text and password
               id="password"
@@ -118,6 +128,7 @@ function Login({ closeModal }) {
             )}
           </div>
           <div className="flex items-center justify-between">
+            {/* Remember Me Container */}
             <div className="flex items-center">
               <input
                 id="remember-me"
@@ -136,6 +147,7 @@ function Login({ closeModal }) {
                 Remember me
               </label>
             </div>
+            {/* Forgot Your Password Container */}
             <div className="text-sm">
               <a
                 href="#"
@@ -145,6 +157,7 @@ function Login({ closeModal }) {
               </a>
             </div>
           </div>
+          {/* Login Button COntainer */}
           <div>
             <button
               type="submit"
@@ -154,6 +167,7 @@ function Login({ closeModal }) {
             </button>
           </div>
         </form>
+        {/* Close Login Modal Button */}
         <button
           className={`absolute top-0 right-0 p-4 ${
             theme === "dark" ? " " : " text-gray-900"

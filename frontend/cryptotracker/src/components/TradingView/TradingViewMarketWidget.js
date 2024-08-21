@@ -18,9 +18,9 @@ const TradingViewMarketWidget = () => {
     script.innerHTML = JSON.stringify({
       "feedMode": "all_symbols",
       "isTransparent": theme === "dark" ? true : false,
-      "displayMode": "compact",
+      "displayMode": "adaptive",
       "width": "100%",
-      "height": "400",
+      "height": "100%",
       "colorTheme": theme === "dark" ? "dark" : "light",
       "locale": "en"
     });

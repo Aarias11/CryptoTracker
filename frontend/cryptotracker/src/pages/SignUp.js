@@ -11,9 +11,10 @@ function Signup({ closeSignUpModal }) {
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const { theme } = useContext(ThemeContext);
 
-  const nav = useNavigate();
+
   const modalRef = useRef(null); // Reference to the modal content
 
+  // Save Email function
   useEffect(() => {
     const savedEmail = localStorage.getItem("emailForSignUp");
     if (savedEmail) {
@@ -21,7 +22,7 @@ function Signup({ closeSignUpModal }) {
       setRememberMe(true);
     }
 
-    // Add event listener to detect clicks outside the modal
+      //  HandleClickOutside Close Modal Clicking Outside
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         closeSignUpModal(); // Close the modal if clicked outside
@@ -36,9 +37,9 @@ function Signup({ closeSignUpModal }) {
     };
   }, [closeSignUpModal]);
 
+  // Handle Signup Form
   const handleSignup = async (e) => {
     e.preventDefault();
-
     try {
       const auth = getAuth();
       await createUserWithEmailAndPassword(auth, email, password);
@@ -71,6 +72,7 @@ function Signup({ closeSignUpModal }) {
         <h2 className="text-3xl font-semibold text-center">Signup</h2>
         {/* Form  */}
         <form className="mt-8 space-y-6" onSubmit={handleSignup}>
+          {/* Email Container */}
           <div className="relative">
             <label htmlFor="email" className="text-sm font-medium">
               Email Address
@@ -89,6 +91,7 @@ function Signup({ closeSignUpModal }) {
             />
             <FaEnvelope className="absolute right-3 top-9 text-gray-400" size={20} />
           </div>
+          {/* Password Container */}
           <div className="relative">
             <label htmlFor="password" className="text-sm font-medium">
               Password
@@ -105,6 +108,7 @@ function Signup({ closeSignUpModal }) {
               onChange={(e) => setPassword(e.target.value)}
               required // Make password required
             />
+            {/* Signup Button */}
             <button
               type="button"
               className="absolute right-3 top-9 text-gray-400"
@@ -114,6 +118,7 @@ function Signup({ closeSignUpModal }) {
             </button>
           </div>
           <div className="flex items-center justify-between">
+          {/* Remember Me Container */}
             <div className="flex items-center">
               <input
                 id="remember-me"
@@ -133,6 +138,7 @@ function Signup({ closeSignUpModal }) {
                 Remember me{" "}
               </label>
             </div>
+            {/* Forgot Your Password Container */}
             <div className="text-sm">
               <a
                 href="#"
@@ -143,6 +149,7 @@ function Signup({ closeSignUpModal }) {
               </a>
             </div>
           </div>
+          {/* Signup Button Container */}
           <div>
             <button
               type="submit"
@@ -152,6 +159,7 @@ function Signup({ closeSignUpModal }) {
             </button>
           </div>
         </form>
+        {/* Close Signup Modal */}
         <button
           className={`absolute top-0 right-0 p-4 ${
             theme === "dark" ? " " : " text-gray-900"

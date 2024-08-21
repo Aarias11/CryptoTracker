@@ -225,7 +225,7 @@ function Home() {
           {/* <News theme={theme} /> */}
         </div>
       </div>
-      <h2 className='headline-semibold-28 px-12 py-6'>Cryptocurrencies</h2>
+      <h2 className='headline-semibold-28 px-4 md:px-8 lg:px-12  py-6'>Cryptocurrencies</h2>
       {/* Searchbar */}
       {/* ----------------------- */}
       <div className="p-3 lg:px-[50px] mt-2">
