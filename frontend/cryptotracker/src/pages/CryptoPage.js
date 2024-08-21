@@ -3,13 +3,6 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { MdOutlineStarBorder, MdOutlineStar } from "react-icons/md";
-import {
-  FaGithub,
-  FaRedditAlien,
-  FaThumbsUp,
-  FaThumbsDown,
-} from "react-icons/fa";
-import { IoDocumentTextOutline } from "react-icons/io5";
 import TradingViewChart from "../components/TradingView/TradingViewChart";
 import TradingViewNews from "../components/TradingView/TradingViewNews";
 import TradingViewTechnicalAnalysis from "../components/TradingView/TradingViewTechnicalAnalysis";
@@ -25,16 +18,14 @@ import {
   getDoc,
   query,
   where,
-  doc, 
+  doc,
 } from "firebase/firestore";
-import firebase from "firebase/compat/app";
 import { getAuth } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebase";
 import useScrollToTop from "../components/ScrollToTop/useScrollToTop";
 // import GiphySearch from './GiphySearch';
 import LoadingComponent from "../components/LoadingComponent";
-
 
 function CryptoPage({ user, currentCrypto }) {
   const [crypto, setCrypto] = useState(CryptoApi);
@@ -130,8 +121,6 @@ function CryptoPage({ user, currentCrypto }) {
     fetchCommentsAndUsers();
   }, [symbol]);
 
- 
-
   // Handling submission of comments
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -220,8 +209,6 @@ function CryptoPage({ user, currentCrypto }) {
     // Close GIF picker UI here if applicable
   };
 
- 
-
   function useDebounce(value, delay) {
     const [debouncedValue, setDebouncedValue] = useState(value);
 
@@ -252,57 +239,53 @@ function CryptoPage({ user, currentCrypto }) {
     window.scrollTo(0, 0);
   }, []);
 
+  // FETCHING FAVORITES
 
-
-// FETCHING FAVORITES
-
-// Helper functions for managing favorites
-const addFavorite = (symbol) => {
-  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-  if (!favorites.includes(symbol)) {
-    favorites.push(symbol);
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }
-};
-
-const removeFavorite = (symbol) => {
-  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-  const filteredFavorites = favorites.filter((s) => s !== symbol);
-  localStorage.setItem("favorites", JSON.stringify(filteredFavorites));
-};
-
-const checkFavorite = (symbol) => {
-  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-  return favorites.includes(symbol);
-};
-
-useEffect(() => {
-  setIsFavorite(checkFavorite(symbol));
-}, [symbol]);
-
-const toggleFavorite = () => {
-  setIsFavorite((prev) => {
-    if (prev) {
-      removeFavorite(symbol);
-    } else {
-      addFavorite(symbol);
+  // Adding Crypto Favorites Function
+  const addFavorite = (symbol) => {
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    if (!favorites.includes(symbol)) {
+      favorites.push(symbol);
+      localStorage.setItem("favorites", JSON.stringify(favorites));
     }
-    return !prev;
-  });
-};
+  };
+
+  // Removing Favorited Crypto 
+  const removeFavorite = (symbol) => {
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    const filteredFavorites = favorites.filter((s) => s !== symbol);
+    localStorage.setItem("favorites", JSON.stringify(filteredFavorites));
+  };
+
+  const checkFavorite = (symbol) => {
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    return favorites.includes(symbol);
+  };
+
+  useEffect(() => {
+    setIsFavorite(checkFavorite(symbol));
+  }, [symbol]);
 
 
-if (loading) {
-  return <LoadingComponent theme={theme} />;
-}
+  // Favorite/Remove Crypto Toggle
+  const toggleFavorite = () => {
+    setIsFavorite((prev) => {
+      if (prev) {
+        removeFavorite(symbol);
+      } else {
+        addFavorite(symbol);
+      }
+      return !prev;
+    });
+  };
 
-
-
+  if (loading) {
+    return <LoadingComponent theme={theme} />;
+  }
 
   // If loading or no crypto data, show loading or appropriate message
   if (!crypto) return <div>Loading...</div>;
 
-  
   return (
     <div
       className={`w-full h-auto px-5 md:px-[32px] lg:px-[55px] xl:flex ${
@@ -349,17 +332,13 @@ if (loading) {
             {/* Stats */}
 
             <div className="hidden md:flex md:flex-col">
-              <p className="label-semibold-12">
-                Current Price
-              </p>
+              <p className="label-semibold-12">Current Price</p>
               <p className="label-semibold-18 ">
                 ${crypto.market_data?.current_price?.usd.toLocaleString()}
               </p>
             </div>
             <div className="hidden md:flex md:flex-col">
-              <p className="label-semibold-12">
-                Market Cap
-              </p>
+              <p className="label-semibold-12">Market Cap</p>
               <p className="label-semibold-18 ">
                 ${crypto.market_data?.market_cap?.usd.toLocaleString()}
               </p>
@@ -507,15 +486,15 @@ if (loading) {
 
                 {/* Latest News Section as previously designed */}
                 <div className="mb-4 w-[1000px]">
-                <h2 className="headline-semibold-28 mb-2">Latest News</h2>
-                <div
-                  className={`w-full h-[400px] overflow-y-auto shadow-inner ${
-                    theme === "dark" ? "" : ""
-                  }`}
-                >
-                  <TradingViewNews />
-                  {/* <News /> */}
-                </div>
+                  <h2 className="headline-semibold-28 mb-2">Latest News</h2>
+                  <div
+                    className={`w-full h-[400px] overflow-y-auto shadow-inner ${
+                      theme === "dark" ? "" : ""
+                    }`}
+                  >
+                    <TradingViewNews />
+                    {/* <News /> */}
+                  </div>
                 </div>
 
                 {/* Interactive Price Chart Placeholder */}
@@ -588,7 +567,6 @@ if (loading) {
                     {/* More coins */}
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -713,13 +691,13 @@ if (loading) {
           ) : comments.length > 0 ? (
             comments.map((comment) => (
               <div
-  key={comment.id}
-  className={`rounded-lg overflow-hidden mb-4 ${
-    theme === "dark"
-      ? "bg-primary-900/50 backdrop-blur-lg backdrop-filter border border-white/10 shadow-lg"
-      : "bg-primary-100/40 backdrop-blur-lg backdrop-filter border border-white/20 shadow-md"
-  }`}
->
+                key={comment.id}
+                className={`rounded-lg overflow-hidden mb-4 ${
+                  theme === "dark"
+                    ? "bg-primary-900/50 backdrop-blur-lg backdrop-filter border border-white/10 shadow-lg"
+                    : "bg-primary-100/40 backdrop-blur-lg backdrop-filter border border-white/20 shadow-md"
+                }`}
+              >
                 <div className="p-4">
                   <div className="flex flex-col-reverse gap-4 items-center mb-4">
                     {/* Render user avatar */}
@@ -775,6 +753,3 @@ if (loading) {
 }
 
 export default CryptoPage;
-
-
-

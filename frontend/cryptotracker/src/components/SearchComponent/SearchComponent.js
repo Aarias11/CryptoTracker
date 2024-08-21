@@ -76,7 +76,7 @@ function SearchComponent({ theme, searchExpanded, setSearchExpanded }) {
         <div className="p-2 pt-2 font-semibold text-zinc-500 "></div>
 
         <RxMagnifyingGlass
-          size={20}
+          size={25}
           className="absolute top-2 left-2 text-primary-300 "
         />
       </button>
@@ -84,7 +84,7 @@ function SearchComponent({ theme, searchExpanded, setSearchExpanded }) {
       {/* Search Box Component */}
       {searchExpanded && (
         <div
-          className={`absolute top-1 right-5 mt-2 p-4 md:w-[700px] md:h-auto rounded-lg shadow-lg z-50 ${
+          className={`absolute top-14 right-0 mt-2 p-4 w-full md:w-[700px] md:h-auto rounded-lg shadow-lg z-50 ${
             theme === "dark"
               ? "bg-gradient-to-r from-[#07172b] border border-primary-200  to-[#031021] "
               : ""

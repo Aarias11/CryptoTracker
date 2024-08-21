@@ -23,7 +23,7 @@ const TradingViewNews = () => {
         "feedMode": "market",
         "market": "crypto",
         "isTransparent": theme === "dark" ? true : false,
-        "displayMode": "compact",
+        "displayMode": "adaptive",
         "width": "100%",
         "height": "100%",
         "colorTheme": theme === "dark" ? "dark" : "light",
