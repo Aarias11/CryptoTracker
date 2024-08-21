@@ -17,7 +17,6 @@ import TrendingCoins from "../API/TrendingCoins.json";
 import BeatLoader from "react-spinners/BeatLoader";
 import LoadingComponent from "../components/LoadingComponent";
 
-
 function CommunityUserProfile() {
   let [color, setColor] = useState("#ffffff");
   const [userProfile, setUserProfile] = useState(null);
@@ -131,18 +130,19 @@ function CommunityUserProfile() {
     }
   };
 
-  if (loading)
-    return <LoadingComponent theme={theme} />
+  if (loading) return <LoadingComponent theme={theme} />;
 
   return (
     <div
-      className={`w-full h-screen px-14 ${theme === "dark" ? "body-14" : "body-14"}`}
+      className={`w-full h-screen px-2 lg:px-14 ${
+        theme === "dark" ? "body-14" : "body-14"
+      }`}
     >
       {/* Container */}
       <div className="w-full h-full lg:flex lg:flex-row flex flex-col-reverse">
         {/* Left Side */}
         <div
-          className={`w-full  lg:h-auto lg:flex flex flex-col lg:w-[30%]  overflow-y-scroll border-r  ${
+          className={` hidden w-full  lg:h-auto lg:flex  flex-col lg:w-[30%]  overflow-y-scroll border-r  ${
             theme == "dark"
               ? "border-primary-900  bg-gradient-to-l from-[#07172b]"
               : "bg-primary-50 shadow-primary-100 border-primary-200"
@@ -188,7 +188,7 @@ function CommunityUserProfile() {
         </div>
 
         {/* Right Side - Posts */}
-        <div className="w-full  h-screen overflow-x-scroll md:p-8">
+        <div className="w-[100%]  h-screen overflow-x-scroll md:p-8">
           <div
             className={`w-full h-full overflow-y-scroll ${
               theme === "dark"
@@ -210,7 +210,7 @@ function CommunityUserProfile() {
                     />
                   </div>
 
-                  <div className="w-full h-[100px] flex justify-center  items-center py-4 px-4 sm:px-20">
+                  <div className="w-full h-[100px] flex justify-center items-center py-4 px-4 ">
                     <div className="flex-none w-[150px] sm:w-[200px] h-[150px] sm:h-[200px] relative">
                       <img
                         className="absolute left-1/2 transform -translate-x-1/2 -translate-y-[50px] sm:-translate-y-20 w-[150px] sm:w-[200px] h-[150px] sm:h-[200px] object-cover rounded-full border-4 border-primary-700"
@@ -219,7 +219,7 @@ function CommunityUserProfile() {
                       />
                     </div>
                     {/* User Info */}
-                    <div className="flex-1 w-auto ml-4  translate-x-[-2px] md:translate-x-0 pt-3">
+                    <div className="flex-1 w-auto ml-4 translate-x-[-2px] md:translate-x-0 pt-3">
                       <h2 className="text-xl font-semibold truncate">
                         {userProfile.displayName}
                       </h2>
@@ -259,14 +259,13 @@ function CommunityUserProfile() {
                 <div>No user profile data found</div>
               )}
 
-              <div className="w-full mt-2 border-b  border-zinc-700"></div>
+              <div className="w-full mt-2 border-b border-zinc-700"></div>
               {/* Posts */}
               <div className="px-5 pt-4">
                 {posts.map((post) => (
-                  <div className="w-full flex justify-center">
+                  <div className="w-full flex justify-center" key={post.id}>
                     <div
-                      key={post.id}
-                      className={`w-full md:w-[90%] p-3 flex justify-center px-10 pt-5  mb-4 shadow-md  rounded-xl border ${
+                      className={`w-full md:w-[90%] p-3 flex justify-center px-10 pt-5 mb-4 shadow-md rounded-xl border ${
                         theme === "dark"
                           ? "bg-gradient-to-r from-[#07172b]/90 shadow-black border-primary-900"
                           : "bg-primary-50 shadow-primary-100 border-primary-200"
@@ -283,16 +282,16 @@ function CommunityUserProfile() {
                         />
                       </div>
                       {/* Content Text */}
-                      <div className="w-full ">
-                        <div className="w-full md:w-[95%] flex justify-center ">
-                          <div className="mb-2 w-full  flex justify-between">
+                      <div className="w-full">
+                        <div className="w-full md:w-[95%] flex justify-center">
+                          <div className="mb-2 w-full flex flex-col md:flex-row justify-between">
                             <div>
                               <h2 className="font-bold">{post.displayName}</h2>
                               <span className="text-sm text-gray-500">
                                 @{post.displayName}
                               </span>
                             </div>
-                            <div className="md:flex md:gap-2">
+                            <div className="flex gap-2 justify-between md:justify-end mt-2 md:mt-0">
                               <p className="label-14">
                                 {post.createdAt?.toDate().toDateString() ??
                                   "Unknown date"}

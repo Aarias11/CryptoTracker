@@ -178,7 +178,7 @@ function CommunityProfile({ user }) {
   
   return (
     <div
-      className={`w-full h-screen px-7 ${theme === "dark" ? "body-14 " : "body-14"}`}
+      className={`w-full h-screen px-2 ${theme === "dark" ? "body-14 " : "body-14"}`}
     >
       {/* Container */}
       <div className="w-full h-full md:flex md:flex-row flex flex-col-reverse">
