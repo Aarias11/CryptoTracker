@@ -363,38 +363,6 @@ function Auth() {
             {!isLoggedIn ? (
               <>
                 <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiLoginBoxLine
-                    className={`text-lg mr-2 ${
-                      theme === "dark" ? "text-zinc-200" : "text-zinc-800"
-                    }`}
-                  />
-                  <button
-                    onClick={() => {
-                      setIsLoginModalOpen(true);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="text-sm"
-                  >
-                    Login
-                  </button>
-                </li>
-                <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
-                  <RiUserAddLine
-                    className={`text-lg mr-2 ${
-                      theme === "dark" ? "text-zinc-200" : "text-zinc-800"
-                    }`}
-                  />
-                  <button
-                    onClick={() => {
-                      setIsSignUpModalOpen(true);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="text-sm"
-                  >
-                    Signup
-                  </button>
-                </li>
-                <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
                   <RiDashboardLine
                     className={`text-lg mr-2 ${
                       theme === "dark" ? "text-zinc-200" : "text-zinc-800"
@@ -438,6 +406,38 @@ function Auth() {
                     }`}
                   />
                   Learn
+                </li>
+                <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
+                  <RiLoginBoxLine
+                    className={`text-lg mr-2 ${
+                      theme === "dark" ? "text-zinc-200" : "text-zinc-800"
+                    }`}
+                  />
+                  <button
+                    onClick={() => {
+                      setIsLoginModalOpen(true);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="text-base"
+                  >
+                    Login
+                  </button>
+                </li>
+                <li className="group flex items-center p-2 rounded-md hover:bg-gray-700 hover:text-zinc-100">
+                  <RiUserAddLine
+                    className={`text-lg mr-2 ${
+                      theme === "dark" ? "text-zinc-200" : "text-zinc-800"
+                    }`}
+                  />
+                  <button
+                    onClick={() => {
+                      setIsSignUpModalOpen(true);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="text-base"
+                  >
+                    Signup
+                  </button>
                 </li>
               </>
             ) : (

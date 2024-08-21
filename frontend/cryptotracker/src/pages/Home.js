@@ -225,9 +225,10 @@ function Home() {
           {/* <News theme={theme} /> */}
         </div>
       </div>
+      <h2 className='headline-semibold-28 px-12 py-6'>Cryptocurrencies</h2>
       {/* Searchbar */}
       {/* ----------------------- */}
-      <div className="p-3 lg:px-[50px] ">
+      <div className="p-3 lg:px-[50px] mt-2">
         <div className=" w-full h-[50px] relative"
         ref={cryptoTableRef}
         >
@@ -253,7 +254,7 @@ function Home() {
       {/* ----------------------- */}
 
       <div
-        className={`w-[100%] h-full flex flex-col justify-center overflow-x-scroll  lg:px-[50px] mt-14 p-4 ${
+        className={`w-[100%] h-full flex flex-col justify-center overflow-x-scroll  lg:px-[50px] mt-4 p-4 ${
           theme === "dark" ? " " : " "
         }`}
         
