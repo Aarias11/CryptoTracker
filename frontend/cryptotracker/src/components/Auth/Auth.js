@@ -210,6 +210,7 @@ function Auth() {
             {/* User avatar and dropdown menu toggle */}
             <li className="relative" ref={dropdownRef}>
               <Avatar
+              sx={{ width: 35, height: 35 }}
                 className="w-10 h-10 rounded-full cursor-pointer object-cover"
                 src={user.photoURL}
                 alt="User Avatar"
@@ -321,6 +322,7 @@ function Auth() {
           >
             <div className="flex items-center space-x-3">
               <img
+              sx={{ width: 35, height: 35 }}
                 className="w-10 h-10 rounded-full cursor-pointer"
                 src={user.photoURL}
                 alt="User Avatar"
