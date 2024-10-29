@@ -23,6 +23,8 @@ function Header() {
 
   const auth = getAuth();
 
+  // Below is fetching is for crypto api, but is not being used at the moment
+
   // useEffect(() => {
   //   axios
   //     .get("https://api.coingecko.com/api/v3/global")
@@ -55,7 +57,7 @@ function Header() {
   //     convert: 'USD'
   //   };
   //   const headers = {
-  //     'X-CMC_PRO_API_KEY': '7f897da9-3e52-4fa9-9923-c8d6c7c16060',
+  //     'X-CMC_PRO_API_KEY': process.env.CRYPTO_API_KEY,
   //     'Accept': 'application/json'
   //   };
 
